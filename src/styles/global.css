@@ -1,0 +1,66 @@
+@import "tailwindcss";
+
+@theme {
+  /* メインカラー: 温かみオレンジ */
+  --color-primary-50: #fff8f0;
+  --color-primary-100: #ffedd5;
+  --color-primary-200: #fed7aa;
+  --color-primary-300: #fdba74;
+  --color-primary-400: #fb923c;
+  --color-primary-500: #f97316;
+  --color-primary-600: #ea580c;
+  --color-primary-700: #c2410c;
+
+  /* アクセントカラー: 爽やかグリーン */
+  --color-secondary-50: #f0fdf4;
+  --color-secondary-100: #dcfce7;
+  --color-secondary-200: #bbf7d0;
+  --color-secondary-300: #86efac;
+  --color-secondary-400: #4ade80;
+  --color-secondary-500: #22c55e;
+
+  /* 背景: クリーム系 */
+  --color-cream-50: #fffbf5;
+  --color-cream-100: #fff5e6;
+  --color-cream-200: #ffecd1;
+
+  /* テキスト: ウォームグレー */
+  --color-warm-gray-50: #faf9f7;
+  --color-warm-gray-100: #f5f3f0;
+  --color-warm-gray-200: #e8e4df;
+  --color-warm-gray-300: #d5cfc7;
+  --color-warm-gray-400: #a89f94;
+  --color-warm-gray-500: #78716c;
+  --color-warm-gray-600: #57534e;
+  --color-warm-gray-700: #44403c;
+  --color-warm-gray-800: #292524;
+  --color-warm-gray-900: #1c1917;
+
+  /* フォント */
+  --font-sans: "Noto Sans JP", "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif;
+  --font-display: "Rounded Mplus 1c", "Noto Sans JP", sans-serif;
+
+  /* 角丸 */
+  --radius-soft: 1rem;
+  --radius-card: 1.5rem;
+  --radius-button: 9999px;
+
+  /* シャドウ */
+  --shadow-soft: 0 2px 8px rgba(0, 0, 0, 0.06);
+  --shadow-card: 0 4px 16px rgba(0, 0, 0, 0.08);
+  --shadow-hover: 0 8px 24px rgba(0, 0, 0, 0.12);
+}
+
+@layer utilities {
+  .fade-in-up {
+    opacity: 0;
+    transform: translateY(20px);
+    transition:
+      opacity 0.6s ease-out,
+      transform 0.6s ease-out;
+  }
+  .fade-in-up.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

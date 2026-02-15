@@ -1,0 +1,30 @@
+---
+import Layout from '@layouts/Layout.astro';
+import { useTranslations } from '@utils/i18n';
+
+const t = useTranslations(Astro.currentLocale);
+---
+
+<Layout title={`${t.site.name} - ${t.site.tagline}`} description={t.site.description}>
+  <section class="min-h-screen flex items-center justify-center px-4">
+    <div class="text-center max-w-2xl">
+      <h1 class="text-4xl md:text-5xl font-display font-bold text-warm-gray-900 leading-tight">
+        {t.hero.title.split('\n').map((line) => (
+          <span class="block">{line}</span>
+        ))}
+      </h1>
+      <p class="mt-6 text-lg text-warm-gray-500">
+        {t.hero.subtitle}
+      </p>
+      <a
+        href="https://tikareta.com"
+        class="mt-8 inline-block bg-primary-500 hover:bg-primary-600 text-white font-bold py-3 px-8 rounded-button shadow-soft hover:shadow-hover transition-all duration-300"
+      >
+        {t.hero.cta}
+      </a>
+      <p class="mt-3 text-sm text-warm-gray-400">
+        {t.hero.subCta}
+      </p>
+    </div>
+  </section>
+</Layout>
