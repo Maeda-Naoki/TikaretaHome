@@ -161,10 +161,6 @@ export const ja = {
       title: 'データエクスポート',
       description: 'CSV/JSON/PDF形式でデータをダウンロード',
     },
-    vetReport: {
-      title: '獣医用レポート出力',
-      description: '診察時に役立つレポートを生成',
-    },
     customShare: {
       title: 'カスタマイズ版シェアカード',
       description: 'おしゃれなシェア画像を作成',
@@ -197,7 +193,6 @@ export const ja = {
           routeSuggestion: '回避ルート提案',
           heatmap: 'みんなの休憩ポイント',
           dataExport: 'データエクスポート',
-          vetReport: '獣医用レポート出力',
           customShare: 'カスタマイズ版シェアカード',
         },
       },
@@ -212,7 +207,6 @@ export const ja = {
           routeSuggestion: '回避ルート提案',
           heatmap: 'みんなの休憩ポイント',
           dataExport: 'データエクスポート',
-          vetReport: '獣医用レポート出力',
           customShare: 'カスタマイズ版シェアカード',
         },
       },

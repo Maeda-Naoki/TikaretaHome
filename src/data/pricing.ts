@@ -18,7 +18,6 @@ export const comparisonFeatures: ComparisonFeature[] = [
   { nameKey: 'routeSuggestion', free: false, premium: true },
   { nameKey: 'heatmap', free: false, premium: true },
   { nameKey: 'dataExport', free: false, premium: true },
-  { nameKey: 'vetReport', free: false, premium: true },
   { nameKey: 'customShare', free: false, premium: true },
 ];
 
@@ -67,7 +66,6 @@ export const pricingPlans: PricingPlan[] = [
       'pricing.plans.monthly.features.routeSuggestion',
       'pricing.plans.monthly.features.heatmap',
       'pricing.plans.monthly.features.dataExport',
-      'pricing.plans.monthly.features.vetReport',
       'pricing.plans.monthly.features.customShare',
     ],
     ctaKey: 'pricing.plans.monthly.cta',
@@ -87,7 +85,6 @@ export const pricingPlans: PricingPlan[] = [
       'pricing.plans.yearly.features.routeSuggestion',
       'pricing.plans.yearly.features.heatmap',
       'pricing.plans.yearly.features.dataExport',
-      'pricing.plans.yearly.features.vetReport',
       'pricing.plans.yearly.features.customShare',
     ],
     ctaKey: 'pricing.plans.yearly.cta',

@@ -115,14 +115,6 @@ export const features: Feature[] = [
     tier: 'premium',
   },
   {
-    id: 'vet-report',
-    icon: 'Hospital',
-    iconType: 'lucide',
-    titleKey: 'features.vetReport.title',
-    descriptionKey: 'features.vetReport.description',
-    tier: 'premium',
-  },
-  {
     id: 'custom-share',
     icon: 'Sparkles',
     iconType: 'lucide',
