@@ -102,17 +102,46 @@
 
 ---
 
-## デプロイ手順
+## CD（継続的デプロイ）
 
-### 初回セットアップ
+GitHub Actions からNetlifyへ自動デプロイする。ワークフローは `.github/workflows/cd.yml` で定義。
 
-1. GitHubリポジトリ `Maeda-Naoki/TikaretaHome` にコードをpush
-2. Netlifyで「Import an existing project」→ GitHubリポジトリ連携
-3. ビルド設定確認:
-   - Build command: `pnpm build`
-   - Publish directory: `dist`
-   - Node.js version: 24（`netlify.toml`で指定済み）
-4. 自動デプロイ有効化（mainブランチへのpushで自動ビルド）
+### デプロイフロー
+
+```
+main へ push → CI (lint + build) → CD (build + deploy production)
+PR 作成/更新 → CI (lint + build) → CD (build + deploy preview → PR にコメント)
+```
+
+| トリガー | デプロイ先 | 備考 |
+|---------|-----------|------|
+| `main` への push | 本番環境 | production deploy |
+| PR (to `main`) | プレビュー環境 | PR にプレビューURL がコメントされる |
+
+### 必要なシークレット
+
+GitHub リポジトリの **Settings → Secrets and variables → Actions** に以下を設定:
+
+| シークレット名 | 取得方法 |
+|---------------|---------|
+| `NETLIFY_AUTH_TOKEN` | Netlify: User settings → Applications → Personal access tokens → New access token |
+| `NETLIFY_SITE_ID` | Netlify: Site configuration → General → Site ID（API ID） |
+
+### 初回セットアップ手順
+
+1. **Netlify でサイトを作成**
+   - Netlify にログイン → 「Add new site」→「Deploy manually」でサイトを作成
+   - ※ GitHub連携による自動ビルドは**不要**（GitHub Actions から CLI でデプロイするため）
+2. **Site ID を取得**
+   - Site configuration → General → Site ID をコピー
+3. **Personal Access Token を取得**
+   - User settings → Applications → Personal access tokens → 「New access token」
+4. **GitHub にシークレットを登録**
+   - リポジトリの Settings → Secrets and variables → Actions
+   - `NETLIFY_AUTH_TOKEN` と `NETLIFY_SITE_ID` を登録
+5. **Netlify の自動ビルドを無効化**（GitHub連携している場合）
+   - Site configuration → Build & deploy → Continuous deployment → Build settings
+   - 「Stop builds」で Netlify 側のビルドを停止（GitHub Actions 側でビルド・デプロイするため）
 
 ### カスタムドメイン設定（将来）
 
@@ -123,7 +152,7 @@
 
 ### プレビューデプロイ
 
-Netlifyはプルリクエストごとにプレビューデプロイを自動生成。レビュー時にプレビューURLで確認可能。
+PRを作成・更新すると、GitHub Actions が自動でプレビューデプロイを実行。PRにプレビューURLがコメントされる。
 
 ---
 
