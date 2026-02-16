@@ -102,17 +102,51 @@
 
 ---
 
-## デプロイ手順
+## CD（継続的デプロイ）
 
-### 初回セットアップ
+Netlify GitHub App 連携によるネイティブ CD。トークンやシークレットの設定は不要。
 
-1. GitHubリポジトリ `Maeda-Naoki/TikaretaHome` にコードをpush
-2. Netlifyで「Import an existing project」→ GitHubリポジトリ連携
-3. ビルド設定確認:
-   - Build command: `pnpm build`
-   - Publish directory: `dist`
-   - Node.js version: 24（`netlify.toml`で指定済み）
-4. 自動デプロイ有効化（mainブランチへのpushで自動ビルド）
+### デプロイフロー
+
+```
+main へ push → Netlify が自動検知 → ビルド → 本番デプロイ
+PR 作成/更新 → Netlify が自動検知 → ビルド → プレビューデプロイ（PR にコメント）
+```
+
+| トリガー | デプロイ先 | 備考 |
+|---------|-----------|------|
+| `main` への push | 本番環境 | `netlify.toml` の設定でビルド・デプロイ |
+| PR (to `main`) | プレビュー環境 | PR にプレビューURL が自動コメントされる |
+
+### CI との連携
+
+GitHub Actions の CI（`.github/workflows/ci.yml`）で Lint・型チェック・ビルド検証を実施。Netlify はビルド・デプロイのみを担当。
+
+```
+push / PR → CI (Biome lint + type check + build) ← GitHub Actions
+            CD (build + deploy)                  ← Netlify
+```
+
+### 初回セットアップ手順
+
+1. **Netlify でサイトをインポート**
+   - Netlify にログイン → 「Add new site」→「Import an existing project」
+   - GitHub リポジトリ `Maeda-Naoki/TikaretaHome` を選択
+2. **ビルド設定を確認**
+   - Build command: `pnpm build`（`netlify.toml` で指定済み）
+   - Publish directory: `dist`（`netlify.toml` で指定済み）
+   - Node.js: v24（`netlify.toml` で指定済み）
+3. **デプロイ完了**
+   - main ブランチへの push で自動デプロイが開始される
+   - PR のプレビューデプロイも自動で有効
+
+### Netlify の設定項目
+
+| 項目 | 設定 | 備考 |
+|------|------|------|
+| Production branch | `main` | 本番デプロイ対象ブランチ |
+| Branch deploys | None | main のみデプロイ |
+| Deploy Previews | Automatically | PR ごとにプレビュー生成 |
 
 ### カスタムドメイン設定（将来）
 
@@ -120,10 +154,6 @@
 2. DNSレコード設定（CNAME or A record）
 3. HTTPS自動有効化（Let's Encrypt）
 4. `astro.config.ts` の `site` をカスタムドメインに更新
-
-### プレビューデプロイ
-
-Netlifyはプルリクエストごとにプレビューデプロイを自動生成。レビュー時にプレビューURLで確認可能。
 
 ---
 
