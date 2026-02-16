@@ -7,7 +7,6 @@ import { useTranslations } from '@utils/i18n';
 import { createBreadcrumbListLD } from '@utils/seo';
 
 const t = useTranslations(Astro.currentLocale);
-const locale = Astro.currentLocale ?? 'ja';
 
 const jsonLd = createBreadcrumbListLD([
   { name: t.nav.home, url: 'https://tikareta.com/' },

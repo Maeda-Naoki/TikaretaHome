@@ -17,7 +17,7 @@ const t = useTranslations(Astro.currentLocale);
           style={`animation-delay: ${index * 100}ms`}
         >
           <div class="mb-4 flex justify-center">
-            <Icon name={item.avatar} type={item.avatarType} size={40} />
+            <Icon name={item.avatar} type={item.avatarType as 'lucide' | 'emoji'} size={40} />
           </div>
           <p class="text-warm-gray-700 mb-4 italic">"{item.comment}"</p>
           <p class="text-sm font-bold text-warm-gray-900 text-center">{item.name}</p>

@@ -8,7 +8,6 @@ import { createBreadcrumbListLD, createFAQPageLD } from '@utils/seo';
 import { type FAQCategory, getFAQItemData } from '@utils/translationTypes';
 
 const t = useTranslations(Astro.currentLocale);
-const locale = Astro.currentLocale ?? 'ja';
 
 // Create FAQ JSON-LD
 const allFAQs = Object.values(faqByCategory).flat();
