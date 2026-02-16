@@ -78,29 +78,6 @@ export const en: Translations = {
     subtitle: 'Basic features free. Detailed analysis with premium.',
     cta: 'View Details',
   },
-  testimonials: {
-    title: 'User Testimonials',
-    items: [
-      {
-        name: 'Tanaka (Shiba Inu, 3 years)',
-        comment: 'I never knew my dog was a morning type! Data makes it convincing.',
-        avatar: '🐕',
-        avatarType: 'emoji',
-      },
-      {
-        name: 'Sato (Toy Poodle, 5 years)',
-        comment: 'Recording rest spots is fun. Photos bring back walk memories.',
-        avatar: '🐩',
-        avatarType: 'emoji',
-      },
-      {
-        name: 'Suzuki (Golden Retriever, 2 years)',
-        comment: 'Type diagnosis was spot on! I recommended it to friends.',
-        avatar: '🦮',
-        avatarType: 'emoji',
-      },
-    ],
-  },
   finalCTA: {
     title: 'Start Free Today',
     subtitle: 'All data you enter is accessible with the free plan',

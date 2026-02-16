@@ -74,29 +74,6 @@ export const ja = {
     subtitle: '基本機能は無料。詳細分析はプレミアムで。',
     cta: '詳しく見る',
   },
-  testimonials: {
-    title: 'ユーザーの声',
-    items: [
-      {
-        name: '田中さん（柴犬 3歳）',
-        comment: 'うちの子が朝型だと初めて知りました！データで見ると説得力があります。',
-        avatar: '🐕',
-        avatarType: 'emoji',
-      },
-      {
-        name: '佐藤さん（トイプードル 5歳）',
-        comment: '休憩スポットの記録が楽しい。写真を見返すと散歩の思い出が蘇ります。',
-        avatar: '🐩',
-        avatarType: 'emoji',
-      },
-      {
-        name: '鈴木さん（ゴールデン 2歳）',
-        comment: 'タイプ診断が当たっててビックリ！友達にも勧めました。',
-        avatar: '🦮',
-        avatarType: 'emoji',
-      },
-    ],
-  },
   finalCTA: {
     title: '今すぐ無料で始めよう',
     subtitle: 'データ入力したものは全て閲覧可能、安心の無料プラン',
@@ -391,4 +368,3 @@ export type Translations = typeof ja;
 // .map() コールバックでの型推論のための配列要素型エクスポート
 export type ValuePropositionItem = (typeof ja.valueProposition.items)[number];
 export type HowItWorksStep = (typeof ja.howItWorks.steps)[number];
-export type TestimonialItem = (typeof ja.testimonials.items)[number];
