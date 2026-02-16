@@ -223,6 +223,10 @@ export const en: Translations = {
     perYear: '/ year',
     recommended: 'Recommended',
     savings: 'Save 4 months',
+    comparison: {
+      title: 'Plan Feature Comparison',
+      feature: 'Feature',
+    },
   },
   walkingTypes: {
     shadeHunter: {

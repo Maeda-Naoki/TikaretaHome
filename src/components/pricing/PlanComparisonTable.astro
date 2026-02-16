@@ -1,0 +1,80 @@
+---
+import { comparisonFeatures } from '@data/pricing';
+import { useTranslations } from '@utils/i18n';
+
+const t = useTranslations(Astro.currentLocale);
+
+type FeatureKey = keyof typeof t.features;
+---
+
+<section class="bg-white rounded-card shadow-soft p-6 sm:p-8 fade-in-up">
+  <h2 class="text-2xl font-bold text-warm-gray-900 mb-6 text-center">
+    {t.pricing.comparison.title}
+  </h2>
+
+  <div class="overflow-x-auto -mx-6 px-6 sm:-mx-8 sm:px-8">
+    <table class="w-full min-w-[480px] border-collapse">
+      <thead>
+        <tr class="border-b-2 border-warm-gray-100">
+          <th class="sticky left-0 z-10 bg-white py-3 pr-4 text-left text-sm font-bold text-warm-gray-600 min-w-[160px]">
+            {t.pricing.comparison.feature}
+          </th>
+          <th class="py-3 px-3 text-center text-sm font-bold text-warm-gray-900 min-w-[100px]">
+            {t.pricing.plans.free.name}
+            <div class="text-xs font-normal text-warm-gray-600 mt-0.5">¥0</div>
+          </th>
+          <th class="py-3 px-3 text-center text-sm font-bold text-warm-gray-900 min-w-[100px] bg-primary-50 rounded-t-soft">
+            <div class="flex flex-col items-center gap-0.5">
+              <span class="inline-block px-2 py-0.5 bg-primary-500 text-white text-xs font-bold rounded-soft">
+                {t.pricing.recommended}
+              </span>
+              {t.pricing.plans.monthly.name}
+              <span class="text-xs font-normal text-warm-gray-600">¥300{t.pricing.perMonth}</span>
+            </div>
+          </th>
+          <th class="py-3 px-3 text-center text-sm font-bold text-warm-gray-900 min-w-[100px]">
+            {t.pricing.plans.yearly.name}
+            <div class="text-xs font-normal text-warm-gray-600 mt-0.5">¥2,400{t.pricing.perYear}</div>
+            <div class="text-xs font-bold text-secondary-600">{t.pricing.savings}</div>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        {comparisonFeatures.map((feature, i) => (
+          <tr class={`border-b border-warm-gray-100 ${i % 2 === 0 ? '' : 'bg-cream-50/50'}`}>
+            <td class={`sticky left-0 z-10 py-3 pr-4 text-sm text-warm-gray-800 ${i % 2 === 0 ? 'bg-white' : 'bg-cream-50/50'}`}>
+              {t.features[feature.nameKey as FeatureKey].title}
+            </td>
+            <td class="py-3 px-3 text-center">
+              {feature.free ? (
+                <svg class="w-5 h-5 text-secondary-500 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                </svg>
+              ) : (
+                <span class="text-warm-gray-300">—</span>
+              )}
+            </td>
+            <td class="py-3 px-3 text-center bg-primary-50/50">
+              {feature.premium ? (
+                <svg class="w-5 h-5 text-secondary-500 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                </svg>
+              ) : (
+                <span class="text-warm-gray-300">—</span>
+              )}
+            </td>
+            <td class="py-3 px-3 text-center">
+              {feature.premium ? (
+                <svg class="w-5 h-5 text-secondary-500 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                </svg>
+              ) : (
+                <span class="text-warm-gray-300">—</span>
+              )}
+            </td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+</section>

@@ -1,3 +1,27 @@
+export interface ComparisonFeature {
+  nameKey: string;
+  free: boolean;
+  premium: boolean;
+}
+
+export const comparisonFeatures: ComparisonFeature[] = [
+  { nameKey: 'walkTracking', free: true, premium: true },
+  { nameKey: 'restSpots', free: true, premium: true },
+  { nameKey: 'weatherTracking', free: true, premium: true },
+  { nameKey: 'allDataAccess', free: true, premium: true },
+  { nameKey: 'basicStats', free: true, premium: true },
+  { nameKey: 'basicType', free: true, premium: true },
+  { nameKey: 'community', free: true, premium: true },
+  { nameKey: 'fullStats', free: false, premium: true },
+  { nameKey: 'detailedType', free: false, premium: true },
+  { nameKey: 'breedComparison', free: false, premium: true },
+  { nameKey: 'routeSuggestion', free: false, premium: true },
+  { nameKey: 'heatmap', free: false, premium: true },
+  { nameKey: 'dataExport', free: false, premium: true },
+  { nameKey: 'vetReport', free: false, premium: true },
+  { nameKey: 'customShare', free: false, premium: true },
+];
+
 export interface PricingPlan {
   id: 'free' | 'monthly' | 'yearly';
   nameKey: string;

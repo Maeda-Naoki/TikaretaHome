@@ -1,5 +1,6 @@
 ---
 import Breadcrumbs from '@components/common/Breadcrumbs.astro';
+import PlanComparisonTable from '@components/pricing/PlanComparisonTable.astro';
 import PricingCard from '@components/pricing/PricingCard.astro';
 import { pricingPlans } from '@data/pricing';
 import Layout from '@layouts/Layout.astro';
@@ -42,6 +43,11 @@ const jsonLd = createBreadcrumbListLD([
           savings={plan.id === 'yearly' ? t.pricing.savings : undefined}
         />
       ))}
+    </div>
+
+    <!-- Comparison Table -->
+    <div class="mb-16">
+      <PlanComparisonTable />
     </div>
 
     <!-- FAQ Section -->
