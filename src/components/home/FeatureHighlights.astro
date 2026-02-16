@@ -16,7 +16,7 @@ const displayFeatures = freeFeatures.slice(0, 6);
       {t.featureHighlights.title}
     </h2>
     <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-10">
-      {displayFeatures.map((feature: any, index: number) => {
+      {displayFeatures.map((feature, index) => {
         const featureKey = feature.titleKey.split('.')[1] as keyof typeof t.features;
         return (
           <div

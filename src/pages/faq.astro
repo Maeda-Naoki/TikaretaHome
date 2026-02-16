@@ -5,6 +5,7 @@ import { faqByCategory } from '@data/faq';
 import Layout from '@layouts/Layout.astro';
 import { useTranslations } from '@utils/i18n';
 import { createBreadcrumbListLD, createFAQPageLD } from '@utils/seo';
+import { type FAQCategory, getFAQItemData } from '@utils/translationTypes';
 
 const t = useTranslations(Astro.currentLocale);
 const locale = Astro.currentLocale ?? 'ja';
@@ -13,10 +14,9 @@ const locale = Astro.currentLocale ?? 'ja';
 const allFAQs = Object.values(faqByCategory).flat();
 const faqJsonLd = createFAQPageLD(
   allFAQs.map((item) => {
-    const categoryKey = item.category;
+    const categoryKey = item.category as FAQCategory;
     const itemKey = item.questionKey.split('.').pop() as string;
-    const categoryData = (t.faq as any)[categoryKey];
-    const itemData = categoryData?.[itemKey];
+    const itemData = getFAQItemData(t, categoryKey, itemKey);
     return {
       question: itemData?.question || '',
       answer: itemData?.answer || '',
@@ -50,8 +50,7 @@ const breadcrumbJsonLd = createBreadcrumbListLD([
         <div class="space-y-4">
           {items.map((item) => {
             const itemKey = item.questionKey.split('.').pop() as string;
-            const categoryData = (t.faq as any)[category];
-            const itemData = categoryData?.[itemKey];
+            const itemData = getFAQItemData(t, category as FAQCategory, itemKey);
             return (
               <FAQItem
                 id={item.id}

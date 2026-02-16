@@ -14,15 +14,7 @@
   },
   "files": {
     "ignoreUnknown": false,
-    "includes": [
-      "**",
-      "!node_modules",
-      "!.pnpm-store",
-      "!dist",
-      "!.astro",
-      "!coverage",
-      "!*.min.js"
-    ]
+    "includes": ["**", "!node_modules", "!.pnpm-store", "!dist", "!coverage", "!*.min.js"]
   },
   "formatter": {
     "enabled": true,
@@ -43,6 +35,19 @@
       }
     }
   },
+  "overrides": [
+    {
+      "includes": ["**/*.astro"],
+      "linter": {
+        "rules": {
+          "correctness": {
+            "noUnusedImports": "off",
+            "noUnusedVariables": "off"
+          }
+        }
+      }
+    }
+  ],
   "css": {
     "parser": {
       "cssModules": false,
