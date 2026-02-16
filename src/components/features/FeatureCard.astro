@@ -1,6 +1,8 @@
 ---
+// biome-ignore lint/correctness/noUnusedImports: Icon component is used in template
 import Icon from '@components/common/Icon.astro';
 
+// biome-ignore lint/correctness/noUnusedVariables: Props interface is used by Astro
 interface Props {
   icon: string;
   iconType: 'lucide' | 'emoji';
@@ -8,6 +10,7 @@ interface Props {
   description: string;
 }
 
+// biome-ignore lint/correctness/noUnusedVariables: All props are used in template
 const { icon, iconType, title, description } = Astro.props;
 ---
 

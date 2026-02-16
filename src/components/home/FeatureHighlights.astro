@@ -1,13 +1,16 @@
 ---
+// biome-ignore lint/correctness/noUnusedImports: Icon component is used in template
+import Icon from '@components/common/Icon.astro';
 import { freeFeatures } from '@data/features';
 import { useTranslations } from '@utils/i18n';
-import Icon from '@components/common/Icon.astro';
 
+// biome-ignore lint/correctness/noUnusedVariables: All variables are used in template
 const t = useTranslations(Astro.currentLocale);
 const locale = Astro.currentLocale ?? 'ja';
 const featuresUrl = locale === 'ja' ? '/features' : '/en/features';
 
 // Display first 6 features
+// biome-ignore lint/correctness/noUnusedVariables: Used in template map
 const displayFeatures = freeFeatures.slice(0, 6);
 ---
 

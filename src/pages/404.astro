@@ -1,8 +1,11 @@
 ---
+// biome-ignore lint/correctness/noUnusedImports: Icon is used in template
+import Icon from '@components/common/Icon.astro';
+// biome-ignore lint/correctness/noUnusedImports: Layout is used in template
 import Layout from '@layouts/Layout.astro';
 import { useTranslations } from '@utils/i18n';
-import Icon from '@components/common/Icon.astro';
 
+// biome-ignore lint/correctness/noUnusedVariables: All variables are used in template
 const t = useTranslations(Astro.currentLocale);
 const locale = Astro.currentLocale ?? 'ja';
 const homeUrl = locale === 'ja' ? '/' : '/en/';
