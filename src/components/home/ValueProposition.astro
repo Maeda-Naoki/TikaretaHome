@@ -1,4 +1,5 @@
 ---
+import Icon from '@components/common/Icon.astro';
 import { useTranslations } from '@utils/i18n';
 
 const t = useTranslations(Astro.currentLocale);
@@ -15,7 +16,9 @@ const t = useTranslations(Astro.currentLocale);
           class="text-center p-6 bg-cream-50 rounded-card shadow-soft hover:shadow-card transition-shadow fade-in-up"
           style={`animation-delay: ${index * 100}ms`}
         >
-          <div class="text-5xl mb-4">{item.icon}</div>
+          <div class="mb-4 flex justify-center">
+            <Icon name={item.icon} type={item.iconType as 'lucide' | 'emoji'} size={48} class="text-primary-600" />
+          </div>
           <h3 class="text-xl font-bold text-warm-gray-900 mb-3">{item.title}</h3>
           <p class="text-warm-gray-600">{item.description}</p>
         </div>

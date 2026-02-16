@@ -1,0 +1,71 @@
+---
+import {
+  BarChart3,
+  Cloud,
+  CloudSun,
+  Compass,
+  Dog,
+  Flame,
+  Footprints,
+  Heart,
+  Hospital,
+  Image,
+  Map as MapIcon,
+  MapPin,
+  MessageCircle,
+  Moon,
+  Save,
+  Search,
+  Sparkles,
+  Sunrise,
+  Target,
+  TreePine,
+  TrendingUp,
+  Zap,
+} from '@lucide/astro';
+
+interface Props {
+  name: string;
+  type?: 'lucide' | 'emoji';
+  size?: number;
+  class?: string;
+}
+
+const { name, type = 'lucide', size = 24, class: className = '' } = Astro.props;
+
+// Map icon names to components
+const iconMap: Record<string, typeof TreePine> = {
+  TreePine,
+  Compass,
+  Sunrise,
+  Zap,
+  Footprints,
+  Moon,
+  Cloud,
+  MapPin,
+  Image,
+  CloudSun,
+  BarChart3,
+  TrendingUp,
+  Dog,
+  MessageCircle,
+  Target,
+  Map: MapIcon,
+  Flame,
+  Save,
+  Hospital,
+  Sparkles,
+  Search,
+  Heart,
+};
+
+const IconComponent = iconMap[name];
+---
+
+{
+  type === 'lucide' && IconComponent ? (
+    <IconComponent size={size} class={className} />
+  ) : (
+    <span class={className} style={`font-size: ${size}px`}>{name}</span>
+  )
+}

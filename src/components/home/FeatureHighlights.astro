@@ -1,4 +1,5 @@
 ---
+import Icon from '@components/common/Icon.astro';
 import { freeFeatures } from '@data/features';
 import { useTranslations } from '@utils/i18n';
 
@@ -23,7 +24,9 @@ const displayFeatures = freeFeatures.slice(0, 6);
             class="p-6 bg-white rounded-card shadow-soft hover:shadow-card transition-all fade-in-up"
             style={`animation-delay: ${index * 80}ms`}
           >
-            <div class="text-3xl mb-3">{feature.icon}</div>
+            <div class="mb-3">
+              <Icon name={feature.icon} type={feature.iconType} size={32} class="text-primary-600" />
+            </div>
             <h3 class="text-lg font-bold text-warm-gray-900 mb-2">
               {t.features[featureKey].title}
             </h3>
