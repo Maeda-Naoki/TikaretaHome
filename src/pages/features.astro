@@ -1,5 +1,4 @@
 ---
-// biome-ignore lint/correctness/noUnusedImports: All components and utilities are used in template
 import Breadcrumbs from '@components/common/Breadcrumbs.astro';
 import CTAButton from '@components/common/CTAButton.astro';
 import FeatureCard from '@components/features/FeatureCard.astro';
@@ -9,7 +8,6 @@ import { useTranslations } from '@utils/i18n';
 import { createBreadcrumbListLD } from '@utils/seo';
 
 const t = useTranslations(Astro.currentLocale);
-// biome-ignore lint/correctness/noUnusedVariables: All variables are used in template
 const locale = Astro.currentLocale ?? 'ja';
 
 const jsonLd = createBreadcrumbListLD([

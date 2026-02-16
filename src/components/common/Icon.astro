@@ -1,31 +1,29 @@
 ---
-// biome-ignore lint/correctness/noUnusedImports: Lucide icons are used in template
 import {
-  TreePine,
-  Compass,
-  Sunrise,
-  Zap,
-  Footprints,
-  Moon,
-  Cloud,
-  MapPin,
-  Image,
-  CloudSun,
   BarChart3,
-  TrendingUp,
+  Cloud,
+  CloudSun,
+  Compass,
   Dog,
-  MessageCircle,
-  Target,
-  Map,
   Flame,
-  Save,
-  Hospital,
-  Sparkles,
-  Search,
+  Footprints,
   Heart,
+  Hospital,
+  Image,
+  Map as MapIcon,
+  MapPin,
+  MessageCircle,
+  Moon,
+  Save,
+  Search,
+  Sparkles,
+  Sunrise,
+  Target,
+  TreePine,
+  TrendingUp,
+  Zap,
 } from '@lucide/astro';
 
-// biome-ignore lint/correctness/noUnusedVariables: Props interface is used by Astro
 interface Props {
   name: string;
   type?: 'lucide' | 'emoji';
@@ -33,11 +31,10 @@ interface Props {
   class?: string;
 }
 
-// biome-ignore lint/correctness/noUnusedVariables: All props are used in template
 const { name, type = 'lucide', size = 24, class: className = '' } = Astro.props;
 
 // Map icon names to components
-const iconMap: Record<string, any> = {
+const iconMap: Record<string, typeof TreePine> = {
   TreePine,
   Compass,
   Sunrise,
@@ -53,7 +50,7 @@ const iconMap: Record<string, any> = {
   Dog,
   MessageCircle,
   Target,
-  Map,
+  Map: MapIcon,
   Flame,
   Save,
   Hospital,
