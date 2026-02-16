@@ -1,6 +1,29 @@
 ---
 // biome-ignore lint/correctness/noUnusedImports: Lucide icons are used in template
-import { Icon as LucideIcon } from '@lucide/astro';
+import {
+  TreePine,
+  Compass,
+  Sunrise,
+  Zap,
+  Footprints,
+  Moon,
+  Cloud,
+  MapPin,
+  Image,
+  CloudSun,
+  BarChart3,
+  TrendingUp,
+  Dog,
+  MessageCircle,
+  Target,
+  Map,
+  Flame,
+  Save,
+  Hospital,
+  Sparkles,
+  Search,
+  Heart,
+} from '@lucide/astro';
 
 // biome-ignore lint/correctness/noUnusedVariables: Props interface is used by Astro
 interface Props {
@@ -12,10 +35,40 @@ interface Props {
 
 // biome-ignore lint/correctness/noUnusedVariables: All props are used in template
 const { name, type = 'lucide', size = 24, class: className = '' } = Astro.props;
+
+// Map icon names to components
+const iconMap: Record<string, any> = {
+  TreePine,
+  Compass,
+  Sunrise,
+  Zap,
+  Footprints,
+  Moon,
+  Cloud,
+  MapPin,
+  Image,
+  CloudSun,
+  BarChart3,
+  TrendingUp,
+  Dog,
+  MessageCircle,
+  Target,
+  Map,
+  Flame,
+  Save,
+  Hospital,
+  Sparkles,
+  Search,
+  Heart,
+};
+
+const IconComponent = iconMap[name];
 ---
 
-{type === 'lucide' ? (
-  <LucideIcon name={name} size={size} class={className} />
-) : (
-  <span class={className} style={`font-size: ${size}px`}>{name}</span>
-)}
+{
+  type === 'lucide' && IconComponent ? (
+    <IconComponent size={size} class={className} />
+  ) : (
+    <span class={className} style={`font-size: ${size}px`}>{name}</span>
+  )
+}
