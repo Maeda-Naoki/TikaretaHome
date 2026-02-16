@@ -1,0 +1,32 @@
+---
+import Layout from '@layouts/Layout.astro';
+import { useTranslations } from '@utils/i18n';
+
+const t = useTranslations(Astro.currentLocale);
+const locale = Astro.currentLocale ?? 'ja';
+const homeUrl = locale === 'ja' ? '/' : '/en/';
+---
+
+<Layout
+  title={t.pages.notFound.title}
+  description={t.pages.notFound.description}
+  noindex={true}
+>
+  <div class="min-h-[60vh] flex items-center justify-center px-4">
+    <div class="text-center max-w-2xl mx-auto">
+      <div class="text-8xl mb-8">🐕</div>
+      <h1 class="text-4xl md:text-5xl font-display font-bold text-warm-gray-900 mb-4">
+        {t.pages.notFound.heading}
+      </h1>
+      <p class="text-lg text-warm-gray-600 mb-8">
+        {t.pages.notFound.message}
+      </p>
+      <a
+        href={homeUrl}
+        class="inline-block bg-primary-500 hover:bg-primary-600 text-white font-bold py-3 px-8 rounded-button shadow-soft hover:shadow-hover transition-all duration-300"
+      >
+        {t.pages.notFound.backToHome}
+      </a>
+    </div>
+  </div>
+</Layout>

@@ -1,0 +1,40 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="1200" height="630" fill="#FFFBF5"/>
+
+  <!-- Decorative circles -->
+  <circle cx="100" cy="100" r="150" fill="#F97316" opacity="0.1"/>
+  <circle cx="1100" cy="530" r="120" fill="#10B981" opacity="0.1"/>
+
+  <!-- Logo/Brand (top left) -->
+  <text x="60" y="80" font-family="'Rounded Mplus 1c', sans-serif" font-size="32" font-weight="700" fill="#78716C">
+    🐾 Osanpo Type
+  </text>
+
+  <!-- Main catchphrase -->
+  <text x="60" y="220" font-family="'Rounded Mplus 1c', sans-serif" font-size="64" font-weight="700" fill="#292524">
+    Do you know
+  </text>
+  <text x="60" y="300" font-family="'Rounded Mplus 1c', sans-serif" font-size="64" font-weight="700" fill="#292524">
+    your dog's
+  </text>
+  <text x="60" y="380" font-family="'Rounded Mplus 1c', sans-serif" font-size="64" font-weight="700" fill="#F97316">
+    walking style?
+  </text>
+
+  <!-- Subtitle -->
+  <text x="60" y="460" font-family="'Noto Sans JP', sans-serif" font-size="22" fill="#78716C">
+    Track and analyze your dog's walking patterns
+  </text>
+  <text x="60" y="495" font-family="'Noto Sans JP', sans-serif" font-size="22" fill="#78716C">
+    to discover their unique personality
+  </text>
+
+  <!-- Dog illustration (right side) -->
+  <text x="950" y="400" font-size="180">🐕‍🦺</text>
+
+  <!-- Decorative paw prints -->
+  <text x="850" y="150" font-size="40" opacity="0.3">🐾</text>
+  <text x="920" y="200" font-size="32" opacity="0.2">🐾</text>
+  <text x="800" y="520" font-size="36" opacity="0.25">🐾</text>
+</svg>

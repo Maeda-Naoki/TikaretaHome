@@ -1,0 +1,87 @@
+---
+import Breadcrumbs from '@components/common/Breadcrumbs.astro';
+import PricingCard from '@components/pricing/PricingCard.astro';
+import { pricingPlans } from '@data/pricing';
+import Layout from '@layouts/Layout.astro';
+import { useTranslations } from '@utils/i18n';
+import { createBreadcrumbListLD } from '@utils/seo';
+
+const t = useTranslations(Astro.currentLocale);
+
+const jsonLd = createBreadcrumbListLD([
+  { name: t.nav.home, url: 'https://tikareta.com/en/' },
+  { name: t.nav.pricing, url: 'https://tikareta.com/en/pricing' },
+]);
+---
+
+<Layout
+  title={t.pages.pricing.title}
+  description={t.pages.pricing.description}
+  jsonLd={jsonLd}
+>
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <Breadcrumbs items={[{ name: t.nav.pricing, url: '/en/pricing' }]} />
+
+    <h1 class="text-4xl font-display font-bold text-warm-gray-900 mb-4 text-center fade-in-up">
+      {t.nav.pricing}
+    </h1>
+    <p class="text-lg text-warm-gray-600 mb-12 text-center fade-in-up">
+      {t.pages.pricing.description}
+    </p>
+
+    <div class="grid md:grid-cols-3 gap-6 mb-16">
+      {pricingPlans.map((plan) => (
+        <PricingCard
+          name={t.pricing.plans[plan.id].name}
+          price={plan.price}
+          period={plan.period === 'month' ? t.pricing.perMonth : plan.period === 'year' ? t.pricing.perYear : null}
+          features={Object.values(t.pricing.plans[plan.id].features)}
+          cta={t.pricing.plans[plan.id].cta}
+          recommended={plan.recommended}
+          savings={plan.id === 'yearly' ? t.pricing.savings : undefined}
+        />
+      ))}
+    </div>
+
+    <section class="bg-white rounded-card shadow-soft p-8 fade-in-up">
+      <h2 class="text-2xl font-bold text-warm-gray-900 mb-6">
+        Frequently Asked Questions
+      </h2>
+      <div class="space-y-4">
+        <details class="group">
+          <summary class="cursor-pointer font-bold text-warm-gray-900 list-none flex items-center justify-between py-3">
+            <span>{t.faq.pricing.freeFeatures.question}</span>
+            <svg class="w-5 h-5 text-warm-gray-600 transform transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+            </svg>
+          </summary>
+          <div class="pb-3 text-warm-gray-600">
+            <p>{t.faq.pricing.freeFeatures.answer}</p>
+          </div>
+        </details>
+        <details class="group">
+          <summary class="cursor-pointer font-bold text-warm-gray-900 list-none flex items-center justify-between py-3">
+            <span>{t.faq.pricing.cancelAnytime.question}</span>
+            <svg class="w-5 h-5 text-warm-gray-600 transform transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+            </svg>
+          </summary>
+          <div class="pb-3 text-warm-gray-600">
+            <p>{t.faq.pricing.cancelAnytime.answer}</p>
+          </div>
+        </details>
+        <details class="group">
+          <summary class="cursor-pointer font-bold text-warm-gray-900 list-none flex items-center justify-between py-3">
+            <span>{t.faq.pricing.paymentMethods.question}</span>
+            <svg class="w-5 h-5 text-warm-gray-600 transform transition-transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+            </svg>
+          </summary>
+          <div class="pb-3 text-warm-gray-600">
+            <p>{t.faq.pricing.paymentMethods.answer}</p>
+          </div>
+        </details>
+      </div>
+    </section>
+  </div>
+</Layout>

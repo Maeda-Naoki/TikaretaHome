@@ -1,0 +1,106 @@
+---
+import { mainNav } from '@data/navigation';
+import { useTranslations } from '@utils/i18n';
+import LanguageSwitcher from './LanguageSwitcher.astro';
+
+const t = useTranslations(Astro.currentLocale);
+const locale = Astro.currentLocale ?? 'ja';
+const homeUrl = locale === 'ja' ? '/' : '/en/';
+
+// Generate navigation URLs with locale prefix
+const navItems = mainNav.map((item) => ({
+  ...item,
+  href: locale === 'ja' ? item.href : `/en${item.href}`,
+}));
+---
+
+<header class="sticky top-0 z-40 bg-cream-50/95 backdrop-blur-sm border-b border-warm-gray-100">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex items-center justify-between h-16">
+      <!-- Logo -->
+      <a href={homeUrl} class="flex items-center gap-2 font-display font-bold text-xl text-warm-gray-900 hover:text-primary-600 transition-colors">
+        <span class="text-2xl">🐾</span>
+        {t.site.name}
+      </a>
+
+      <!-- Desktop Navigation -->
+      <nav class="hidden md:flex items-center gap-6">
+        {
+          navItems.map((item) => (
+            <a
+              href={item.href}
+              class="text-warm-gray-700 hover:text-primary-600 font-medium transition-colors"
+            >
+              {t.nav[item.labelKey.split('.')[1] as keyof typeof t.nav]}
+            </a>
+          ))
+        }
+        <LanguageSwitcher />
+        <a
+          href="https://tikareta.com"
+          class="inline-block bg-primary-500 hover:bg-primary-600 text-white font-bold py-2 px-6 rounded-button shadow-soft hover:shadow-hover transition-all duration-300"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          {t.nav.startFree}
+        </a>
+      </nav>
+
+      <!-- Mobile Menu Button -->
+      <button
+        id="mobile-menu-button"
+        class="md:hidden p-2 text-warm-gray-700 hover:text-primary-600 transition-colors"
+        aria-label={t.common.menu}
+        aria-expanded="false"
+      >
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M4 6h16M4 12h16M4 18h16"></path>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- Mobile Menu -->
+  <div id="mobile-menu" class="hidden md:hidden border-t border-warm-gray-100">
+    <nav class="px-4 py-4 space-y-3">
+      {
+        navItems.map((item) => (
+          <a
+            href={item.href}
+            class="block py-2 text-warm-gray-700 hover:text-primary-600 font-medium transition-colors"
+          >
+            {t.nav[item.labelKey.split('.')[1] as keyof typeof t.nav]}
+          </a>
+        ))
+      }
+      <div class="py-2">
+        <LanguageSwitcher />
+      </div>
+      <a
+        href="https://tikareta.com"
+        class="block text-center bg-primary-500 hover:bg-primary-600 text-white font-bold py-3 px-6 rounded-button shadow-soft hover:shadow-hover transition-all duration-300"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        {t.nav.startFree}
+      </a>
+    </nav>
+  </div>
+</header>
+
+<script>
+  const mobileMenuButton = document.getElementById('mobile-menu-button');
+  const mobileMenu = document.getElementById('mobile-menu');
+
+  if (mobileMenuButton && mobileMenu) {
+    mobileMenuButton.addEventListener('click', () => {
+      const isExpanded = mobileMenuButton.getAttribute('aria-expanded') === 'true';
+      mobileMenuButton.setAttribute('aria-expanded', String(!isExpanded));
+      mobileMenu.classList.toggle('hidden');
+    });
+  }
+</script>

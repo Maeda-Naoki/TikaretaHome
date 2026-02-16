@@ -1,0 +1,42 @@
+---
+import { footerNav } from '@data/navigation';
+import { useTranslations } from '@utils/i18n';
+
+const t = useTranslations(Astro.currentLocale);
+const locale = Astro.currentLocale ?? 'ja';
+
+// Generate footer URLs with locale prefix
+const footerLinks = footerNav.map((item) => ({
+  ...item,
+  href: locale === 'ja' ? item.href : `/en${item.href}`,
+}));
+---
+
+<footer class="bg-warm-gray-100 border-t border-warm-gray-200 mt-auto">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div class="flex flex-col items-center gap-4">
+      <!-- Logo -->
+      <div class="flex items-center gap-2 font-display font-bold text-lg text-warm-gray-900">
+        <span class="text-xl">🐾</span>
+        {t.site.name}
+      </div>
+
+      <!-- Footer Navigation -->
+      <nav class="flex flex-wrap items-center justify-center gap-6 text-sm">
+        {
+          footerLinks.map((item) => (
+            <a
+              href={item.href}
+              class="text-warm-gray-600 hover:text-primary-600 transition-colors"
+            >
+              {t.footer[item.labelKey.split('.')[1] as keyof typeof t.footer]}
+            </a>
+          ))
+        }
+      </nav>
+
+      <!-- Copyright -->
+      <p class="text-sm text-warm-gray-500">{t.footer.copyright}</p>
+    </div>
+  </div>
+</footer>
