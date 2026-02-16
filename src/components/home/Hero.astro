@@ -1,0 +1,27 @@
+---
+import CTAButton from '@components/common/CTAButton.astro';
+import { useTranslations } from '@utils/i18n';
+
+const t = useTranslations(Astro.currentLocale);
+---
+
+<section class="min-h-[80vh] flex items-center justify-center px-4 py-16 md:py-24">
+  <div class="text-center max-w-4xl mx-auto">
+    <h1 class="text-4xl md:text-5xl lg:text-6xl font-display font-bold text-warm-gray-900 leading-tight mb-6">
+      {t.hero.title.split('\n').map((line) => (
+        <span class="block">{line}</span>
+      ))}
+    </h1>
+    <p class="mt-6 text-lg md:text-xl text-warm-gray-600 max-w-2xl mx-auto">
+      {t.hero.subtitle}
+    </p>
+    <div class="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
+      <CTAButton text={t.hero.cta} size="lg" />
+      <p class="text-sm text-warm-gray-500">{t.hero.subCta}</p>
+    </div>
+    <!-- Hero illustration placeholder -->
+    <div class="mt-12 text-8xl">
+      🐕‍🦺
+    </div>
+  </div>
+</section>

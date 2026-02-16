@@ -1,0 +1,43 @@
+---
+import { walkingTypes } from '@data/walkingTypes';
+import { useTranslations } from '@utils/i18n';
+
+const t = useTranslations(Astro.currentLocale);
+---
+
+<section class="py-16 md:py-24 px-4 bg-white">
+  <div class="max-w-6xl mx-auto">
+    <div class="text-center mb-12 fade-in-up">
+      <h2 class="text-3xl md:text-4xl font-display font-bold text-warm-gray-900 mb-4">
+        {t.typeDiagnosis.title}
+      </h2>
+      <p class="text-lg text-warm-gray-600">{t.typeDiagnosis.subtitle}</p>
+    </div>
+    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
+      {walkingTypes.map((type, index) => (
+        <div
+          class="p-6 bg-cream-50 rounded-card hover:shadow-card transition-all hover:scale-105 fade-in-up"
+          style={`animation-delay: ${index * 50}ms`}
+        >
+          <div class="text-4xl mb-3 text-center">{type.icon}</div>
+          <h3 class={`text-lg font-bold text-center mb-2 text-${type.color}`}>
+            {t.walkingTypes[type.id as keyof typeof t.walkingTypes].name}
+          </h3>
+          <p class="text-sm text-warm-gray-600 text-center">
+            {t.walkingTypes[type.id as keyof typeof t.walkingTypes].description}
+          </p>
+        </div>
+      ))}
+    </div>
+    <div class="text-center fade-in-up">
+      <a
+        href="https://tikareta.com"
+        class="inline-block bg-secondary-500 hover:bg-secondary-600 text-white font-bold py-3 px-8 rounded-button shadow-soft hover:shadow-hover transition-all duration-300"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        {t.typeDiagnosis.cta}
+      </a>
+    </div>
+  </div>
+</section>

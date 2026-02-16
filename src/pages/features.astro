@@ -1,0 +1,80 @@
+---
+import Breadcrumbs from '@components/common/Breadcrumbs.astro';
+import CTAButton from '@components/common/CTAButton.astro';
+import FeatureCard from '@components/features/FeatureCard.astro';
+import { freeFeatures, premiumFeatures } from '@data/features';
+import Layout from '@layouts/Layout.astro';
+import { useTranslations } from '@utils/i18n';
+import { createBreadcrumbListLD } from '@utils/seo';
+
+const t = useTranslations(Astro.currentLocale);
+const locale = Astro.currentLocale ?? 'ja';
+
+const jsonLd = createBreadcrumbListLD([
+  { name: t.nav.home, url: 'https://tikareta.com/' },
+  { name: t.nav.features, url: 'https://tikareta.com/features' },
+]);
+---
+
+<Layout
+  title={t.pages.features.title}
+  description={t.pages.features.description}
+  jsonLd={jsonLd}
+>
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <Breadcrumbs items={[{ name: t.nav.features, url: '/features' }]} />
+
+    <h1 class="text-4xl font-display font-bold text-warm-gray-900 mb-4 fade-in-up">
+      {t.nav.features}
+    </h1>
+    <p class="text-lg text-warm-gray-600 mb-12 fade-in-up">
+      {t.pages.features.description}
+    </p>
+
+    <!-- 無料機能 -->
+    <section class="mb-16">
+      <h2 class="text-3xl font-display font-bold text-warm-gray-900 mb-8 fade-in-up">
+        無料で使える機能
+      </h2>
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        {freeFeatures.map((feature) => {
+          const featureKey = feature.titleKey.split('.')[1] as keyof typeof t.features;
+          return (
+            <FeatureCard
+              icon={feature.icon}
+              title={t.features[featureKey].title}
+              description={t.features[featureKey].description}
+            />
+          );
+        })}
+      </div>
+    </section>
+
+    <!-- プレミアム機能 -->
+    <section class="mb-16">
+      <h2 class="text-3xl font-display font-bold text-warm-gray-900 mb-8 fade-in-up">
+        プレミアム機能
+      </h2>
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        {premiumFeatures.map((feature) => {
+          const featureKey = feature.titleKey.split('.')[1] as keyof typeof t.features;
+          return (
+            <FeatureCard
+              icon={feature.icon}
+              title={t.features[featureKey].title}
+              description={t.features[featureKey].description}
+            />
+          );
+        })}
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <div class="text-center py-12 bg-cream-50 rounded-card fade-in-up">
+      <h2 class="text-2xl font-bold text-warm-gray-900 mb-4">
+        今すぐ無料で始めよう
+      </h2>
+      <CTAButton text={t.nav.startFree} size="lg" />
+    </div>
+  </div>
+</Layout>

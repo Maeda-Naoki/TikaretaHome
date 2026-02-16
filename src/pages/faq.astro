@@ -1,0 +1,63 @@
+---
+import Breadcrumbs from '@components/common/Breadcrumbs.astro';
+import FAQItem from '@components/faq/FAQItem.astro';
+import { faqByCategory } from '@data/faq';
+import Layout from '@layouts/Layout.astro';
+import { useTranslations } from '@utils/i18n';
+import { createBreadcrumbListLD, createFAQPageLD } from '@utils/seo';
+
+const t = useTranslations(Astro.currentLocale);
+const locale = Astro.currentLocale ?? 'ja';
+
+// Create FAQ JSON-LD
+const allFAQs = Object.values(faqByCategory).flat();
+const faqJsonLd = createFAQPageLD(
+  allFAQs.map((item) => {
+    const categoryKey = item.category;
+    const itemKey = item.questionKey.split('.').pop() as string;
+    return {
+      question: t.faq[categoryKey][itemKey].question,
+      answer: t.faq[categoryKey][itemKey].answer,
+    };
+  })
+);
+
+const breadcrumbJsonLd = createBreadcrumbListLD([
+  { name: t.nav.home, url: 'https://tikareta.com/' },
+  { name: t.nav.faq, url: 'https://tikareta.com/faq' },
+]);
+---
+
+<Layout
+  title={t.pages.faq.title}
+  description={t.pages.faq.description}
+  jsonLd={[faqJsonLd, breadcrumbJsonLd]}
+>
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <Breadcrumbs items={[{ name: t.nav.faq, url: '/faq' }]} />
+
+    <h1 class="text-4xl font-display font-bold text-warm-gray-900 mb-12 text-center fade-in-up">
+      {t.faq.title}
+    </h1>
+
+    {Object.entries(faqByCategory).map(([category, items]) => (
+      <section class="mb-12">
+        <h2 class="text-2xl font-bold text-warm-gray-900 mb-6 fade-in-up">
+          {t.faq.categories[category as keyof typeof t.faq.categories]}
+        </h2>
+        <div class="space-y-4">
+          {items.map((item) => {
+            const itemKey = item.questionKey.split('.').pop() as string;
+            return (
+              <FAQItem
+                id={item.id}
+                question={t.faq[category as keyof typeof t.faq][itemKey].question}
+                answer={t.faq[category as keyof typeof t.faq][itemKey].answer}
+              />
+            );
+          })}
+        </div>
+      </section>
+    ))}
+  </div>
+</Layout>

@@ -1,0 +1,25 @@
+---
+import { useTranslations } from '@utils/i18n';
+
+const t = useTranslations(Astro.currentLocale);
+---
+
+<section class="py-16 md:py-24 px-4 bg-white">
+  <div class="max-w-6xl mx-auto">
+    <h2 class="text-3xl md:text-4xl font-display font-bold text-warm-gray-900 text-center mb-12 fade-in-up">
+      {t.valueProposition.title}
+    </h2>
+    <div class="grid md:grid-cols-3 gap-8">
+      {t.valueProposition.items.map((item, index) => (
+        <div
+          class="text-center p-6 bg-cream-50 rounded-card shadow-soft hover:shadow-card transition-shadow fade-in-up"
+          style={`animation-delay: ${index * 100}ms`}
+        >
+          <div class="text-5xl mb-4">{item.icon}</div>
+          <h3 class="text-xl font-bold text-warm-gray-900 mb-3">{item.title}</h3>
+          <p class="text-warm-gray-600">{item.description}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

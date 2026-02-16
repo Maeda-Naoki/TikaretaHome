@@ -1,0 +1,32 @@
+---
+import { appUrl } from '@data/navigation';
+
+interface Props {
+  text: string;
+  variant?: 'primary' | 'secondary';
+  size?: 'sm' | 'md' | 'lg';
+}
+
+const { text, variant = 'primary', size = 'md' } = Astro.props;
+
+const variantClasses = {
+  primary: 'bg-primary-500 hover:bg-primary-600 text-white shadow-soft hover:shadow-hover',
+  secondary:
+    'bg-white hover:bg-warm-gray-50 text-primary-600 border-2 border-primary-500 hover:border-primary-600',
+};
+
+const sizeClasses = {
+  sm: 'py-2 px-6 text-sm',
+  md: 'py-3 px-8 text-base',
+  lg: 'py-4 px-10 text-lg',
+};
+---
+
+<a
+  href={appUrl}
+  class={`inline-block font-bold rounded-button transition-all duration-300 ${variantClasses[variant]} ${sizeClasses[size]}`}
+  target="_blank"
+  rel="noopener noreferrer"
+>
+  {text}
+</a>
