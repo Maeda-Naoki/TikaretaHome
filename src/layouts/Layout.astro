@@ -10,7 +10,7 @@ interface Props {
   description: string;
   ogImage?: string;
   noindex?: boolean;
-  jsonLd?: any;
+  jsonLd?: unknown;
 }
 
 const { title, description, ogImage, noindex = false, jsonLd } = Astro.props;

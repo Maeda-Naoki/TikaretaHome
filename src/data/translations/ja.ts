@@ -383,3 +383,8 @@ export const ja = {
 };
 
 export type Translations = typeof ja;
+
+// .map() コールバックでの型推論のための配列要素型エクスポート
+export type ValuePropositionItem = (typeof ja.valueProposition.items)[number];
+export type HowItWorksStep = (typeof ja.howItWorks.steps)[number];
+export type TestimonialItem = (typeof ja.testimonials.items)[number];

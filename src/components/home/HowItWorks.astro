@@ -10,7 +10,7 @@ const t = useTranslations(Astro.currentLocale);
       {t.howItWorks.title}
     </h2>
     <div class="grid md:grid-cols-3 gap-8">
-      {t.howItWorks.steps.map((step: any, index: number) => (
+      {t.howItWorks.steps.map((step, index) => (
         <div
           class="relative p-6 fade-in-up"
           style={`animation-delay: ${index * 150}ms`}

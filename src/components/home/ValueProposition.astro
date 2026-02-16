@@ -10,7 +10,7 @@ const t = useTranslations(Astro.currentLocale);
       {t.valueProposition.title}
     </h2>
     <div class="grid md:grid-cols-3 gap-8">
-      {t.valueProposition.items.map((item: any, index: number) => (
+      {t.valueProposition.items.map((item, index) => (
         <div
           class="text-center p-6 bg-cream-50 rounded-card shadow-soft hover:shadow-card transition-shadow fade-in-up"
           style={`animation-delay: ${index * 100}ms`}
