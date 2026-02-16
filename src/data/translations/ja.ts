@@ -380,6 +380,6 @@ export const ja = {
     close: '閉じる',
     language: '言語',
   },
-} as const satisfies Translations;
+};
 
 export type Translations = typeof ja;

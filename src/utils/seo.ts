@@ -120,5 +120,5 @@ export function createBreadcrumbListLD(
 }
 
 export function getOGImageUrl(locale: string): string {
-  return `/og/default-${locale}.png`;
+  return `/og/default-${locale}.svg`;
 }

@@ -8,7 +8,7 @@ export interface WalkingType {
 
 export const walkingTypes: WalkingType[] = [
   {
-    id: 'shade-hunter',
+    id: 'shadeHunter',
     nameKey: 'walkingTypes.shadeHunter.name',
     descriptionKey: 'walkingTypes.shadeHunter.description',
     icon: '🌳',
@@ -22,42 +22,42 @@ export const walkingTypes: WalkingType[] = [
     color: 'primary-500',
   },
   {
-    id: 'morning-enjoyer',
+    id: 'morningEnjoyer',
     nameKey: 'walkingTypes.morningEnjoyer.name',
     descriptionKey: 'walkingTypes.morningEnjoyer.description',
     icon: '🌅',
     color: 'primary-400',
   },
   {
-    id: 'short-burst',
+    id: 'shortBurst',
     nameKey: 'walkingTypes.shortBurst.name',
     descriptionKey: 'walkingTypes.shortBurst.description',
     icon: '⚡',
     color: 'secondary-400',
   },
   {
-    id: 'social-butterfly',
+    id: 'socialButterfly',
     nameKey: 'walkingTypes.socialButterfly.name',
     descriptionKey: 'walkingTypes.socialButterfly.description',
     icon: '🦋',
     color: 'primary-300',
   },
   {
-    id: 'steady-walker',
+    id: 'steadyWalker',
     nameKey: 'walkingTypes.steadyWalker.name',
     descriptionKey: 'walkingTypes.steadyWalker.description',
     icon: '🚶',
     color: 'secondary-300',
   },
   {
-    id: 'night-owl',
+    id: 'nightOwl',
     nameKey: 'walkingTypes.nightOwl.name',
     descriptionKey: 'walkingTypes.nightOwl.description',
     icon: '🌙',
     color: 'warm-gray-600',
   },
   {
-    id: 'weather-flexible',
+    id: 'weatherFlexible',
     nameKey: 'walkingTypes.weatherFlexible.name',
     descriptionKey: 'walkingTypes.weatherFlexible.description',
     icon: '☁️',

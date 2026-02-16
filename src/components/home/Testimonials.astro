@@ -10,7 +10,7 @@ const t = useTranslations(Astro.currentLocale);
       {t.testimonials.title}
     </h2>
     <div class="grid md:grid-cols-3 gap-8">
-      {t.testimonials.items.map((item, index) => (
+      {t.testimonials.items.map((item: any, index: number) => (
         <div
           class="p-6 bg-white rounded-card shadow-soft hover:shadow-card transition-all fade-in-up"
           style={`animation-delay: ${index * 100}ms`}

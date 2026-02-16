@@ -1,0 +1,37 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="1200" height="630" fill="#FFFBF5"/>
+
+  <!-- Decorative circles -->
+  <circle cx="100" cy="100" r="150" fill="#F97316" opacity="0.1"/>
+  <circle cx="1100" cy="530" r="120" fill="#10B981" opacity="0.1"/>
+
+  <!-- Logo/Brand (top left) -->
+  <text x="60" y="80" font-family="'Rounded Mplus 1c', sans-serif" font-size="32" font-weight="700" fill="#78716C">
+    🐾 おさんぽタイプ
+  </text>
+
+  <!-- Main catchphrase -->
+  <text x="60" y="240" font-family="'Rounded Mplus 1c', sans-serif" font-size="72" font-weight="700" fill="#292524" line-height="1.2">
+    うちの子の
+  </text>
+  <text x="60" y="330" font-family="'Rounded Mplus 1c', sans-serif" font-size="72" font-weight="700" fill="#292524">
+    おさんぽスタイル、
+  </text>
+  <text x="60" y="420" font-family="'Rounded Mplus 1c', sans-serif" font-size="72" font-weight="700" fill="#F97316">
+    知ってる？
+  </text>
+
+  <!-- Subtitle -->
+  <text x="60" y="490" font-family="'Noto Sans JP', sans-serif" font-size="24" fill="#78716C">
+    犬の散歩パターンを記録・分析して、愛犬の個性を発見
+  </text>
+
+  <!-- Dog illustration (right side) -->
+  <text x="950" y="400" font-size="180">🐕‍🦺</text>
+
+  <!-- Decorative paw prints -->
+  <text x="850" y="150" font-size="40" opacity="0.3">🐾</text>
+  <text x="920" y="200" font-size="32" opacity="0.2">🐾</text>
+  <text x="800" y="520" font-size="36" opacity="0.25">🐾</text>
+</svg>

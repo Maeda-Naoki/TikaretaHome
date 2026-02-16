@@ -14,7 +14,7 @@ const t = useTranslations(Astro.currentLocale);
       <p class="text-lg text-warm-gray-600">{t.typeDiagnosis.subtitle}</p>
     </div>
     <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
-      {walkingTypes.map((type, index) => (
+      {walkingTypes.map((type: any, index: number) => (
         <div
           class="p-6 bg-cream-50 rounded-card hover:shadow-card transition-all hover:scale-105 fade-in-up"
           style={`animation-delay: ${index * 50}ms`}

@@ -13,9 +13,11 @@ const faqJsonLd = createFAQPageLD(
   allFAQs.map((item) => {
     const categoryKey = item.category;
     const itemKey = item.questionKey.split('.').pop() as string;
+    const categoryData = (t.faq as any)[categoryKey];
+    const itemData = categoryData?.[itemKey];
     return {
-      question: t.faq[categoryKey][itemKey].question,
-      answer: t.faq[categoryKey][itemKey].answer,
+      question: itemData?.question || '',
+      answer: itemData?.answer || '',
     };
   })
 );
@@ -46,11 +48,13 @@ const breadcrumbJsonLd = createBreadcrumbListLD([
         <div class="space-y-4">
           {items.map((item) => {
             const itemKey = item.questionKey.split('.').pop() as string;
+            const categoryData = (t.faq as any)[category];
+            const itemData = categoryData?.[itemKey];
             return (
               <FAQItem
                 id={item.id}
-                question={t.faq[category as keyof typeof t.faq][itemKey].question}
-                answer={t.faq[category as keyof typeof t.faq][itemKey].answer}
+                question={itemData?.question || ''}
+                answer={itemData?.answer || ''}
               />
             );
           })}
