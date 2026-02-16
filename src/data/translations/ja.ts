@@ -221,6 +221,10 @@ export const ja = {
     perYear: '/ 年',
     recommended: 'おすすめ',
     savings: '4ヶ月分お得',
+    comparison: {
+      title: 'プラン機能比較',
+      feature: '機能',
+    },
   },
   // おさんぽタイプ
   walkingTypes: {
