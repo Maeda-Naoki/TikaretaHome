@@ -8,11 +8,8 @@
     "dev": "astro dev",
     "build": "astro check && astro build",
     "preview": "astro preview",
-    "lint": "biome lint ./src",
-    "lint:fix": "biome lint --write ./src",
     "check": "biome check ./src",
     "check:fix": "biome check --write ./src",
-    "format": "biome format --write ./src",
     "type-check": "astro check"
   },
   "packageManager": "pnpm@10.29.3",
