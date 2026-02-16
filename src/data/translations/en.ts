@@ -164,10 +164,6 @@ export const en: Translations = {
       title: 'Data Export',
       description: 'Download data in CSV/JSON/PDF formats',
     },
-    vetReport: {
-      title: 'Vet Report Output',
-      description: 'Generate reports useful for vet visits',
-    },
     customShare: {
       title: 'Custom Share Cards',
       description: 'Create stylish share images',
@@ -199,7 +195,6 @@ export const en: Translations = {
           routeSuggestion: 'Route Suggestions',
           heatmap: 'Popular Rest Spots',
           dataExport: 'Data Export',
-          vetReport: 'Vet Report Output',
           customShare: 'Custom Share Cards',
         },
       },
@@ -214,7 +209,6 @@ export const en: Translations = {
           routeSuggestion: 'Route Suggestions',
           heatmap: 'Popular Rest Spots',
           dataExport: 'Data Export',
-          vetReport: 'Vet Report Output',
           customShare: 'Custom Share Cards',
         },
       },

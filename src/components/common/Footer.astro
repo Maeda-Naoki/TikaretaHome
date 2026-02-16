@@ -1,15 +1,8 @@
 ---
-import { footerNav } from '@data/navigation';
 import { useTranslations } from '@utils/i18n';
 
 const t = useTranslations(Astro.currentLocale);
 const locale = Astro.currentLocale ?? 'ja';
-
-// Generate footer URLs with locale prefix
-const footerLinks = footerNav.map((item) => ({
-  ...item,
-  href: locale === 'ja' ? item.href : `/en${item.href}`,
-}));
 ---
 
 <footer class="bg-warm-gray-100 border-t border-warm-gray-200 mt-auto">
@@ -23,16 +16,18 @@ const footerLinks = footerNav.map((item) => ({
 
       <!-- Footer Navigation -->
       <nav class="flex flex-wrap items-center justify-center gap-6 text-sm">
-        {
-          footerLinks.map((item) => (
-            <a
-              href={item.href}
-              class="text-warm-gray-600 hover:text-primary-600 transition-colors"
-            >
-              {t.footer[item.labelKey.split('.')[1] as keyof typeof t.footer]}
-            </a>
-          ))
-        }
+        <a
+          href={locale === 'ja' ? '/privacy' : '/en/privacy'}
+          class="text-warm-gray-600 hover:text-primary-600 transition-colors"
+        >
+          {t.footer.privacy}
+        </a>
+        <a
+          href={locale === 'ja' ? '/terms' : '/en/terms'}
+          class="text-warm-gray-600 hover:text-primary-600 transition-colors"
+        >
+          {t.footer.terms}
+        </a>
       </nav>
 
       <!-- Copyright -->
