@@ -4,8 +4,7 @@ export const en: Translations = {
   site: {
     name: 'Osanpo Type',
     tagline: "Do you know your dog's walking style?",
-    description:
-      'A web app that records and analyzes dog walking patterns to diagnose their "walking type"',
+    description: 'Track your daily walks and discover your dog\'s unique "Walking Type"',
   },
   nav: {
     features: 'Features',
@@ -17,27 +16,27 @@ export const en: Translations = {
   hero: {
     title: "Do you know\nyour dog's\nwalking style?",
     subtitle:
-      'Record and analyze your dog\'s walking patterns to discover their unique "Walking Type"',
+      "Just keep walking together. Your dog's unique walking personality will reveal itself naturally.",
     cta: 'Start Free',
     subCta: 'Sign up in 30 seconds',
   },
   valueProposition: {
-    title: 'What Osanpo Type Can Do',
+    title: 'Make every walk with your dog more meaningful',
     items: [
       {
-        title: 'Pattern Discovery',
-        description: 'Visualize walking trends you might not notice by intuition alone',
+        title: "Understand your dog's habits",
+        description: "See the patterns and quirks you've always sensed but couldn't quite describe",
         icon: 'Search',
         iconType: 'lucide',
       },
       {
-        title: 'Type Diagnosis',
-        description: "Fun gamified analysis of your dog's personality",
+        title: 'Discover their personality',
+        description: "Discover your dog's unique personality in a fun, easy way",
         icon: 'Target',
         iconType: 'lucide',
       },
       {
-        title: 'Community Connection',
+        title: 'Connect with others',
         description: 'Feel reassured knowing "you\'re not alone"',
         icon: 'Heart',
         iconType: 'lucide',
@@ -45,22 +44,22 @@ export const en: Translations = {
     ],
   },
   howItWorks: {
-    title: 'Simple 3-Step Process',
+    title: 'Just three simple things to do',
     steps: [
       {
         number: '1',
-        title: 'Record Walks',
-        description: 'Track walks via GPS or manual input',
+        title: 'Log your walks',
+        description: 'Just note your daily walks in the app',
       },
       {
         number: '2',
-        title: 'Register Rest Spots',
-        description: 'Save locations, reasons, and photos as memories',
+        title: 'Save favourite spots',
+        description: 'Save places, photos, and reasons as memories',
       },
       {
         number: '3',
         title: 'Discover Your Type!',
-        description: 'Automatic diagnosis as data accumulates',
+        description: 'Keep walking together and your dog\'s "Walking Type" will be revealed!',
       },
     ],
   },
@@ -75,12 +74,12 @@ export const en: Translations = {
   },
   pricingSummary: {
     title: 'Pricing Plans',
-    subtitle: 'Basic features free. Detailed analysis with premium.',
+    subtitle: 'Walk tracking is free to start. Go premium for deeper insights.',
     cta: 'View Details',
   },
   finalCTA: {
     title: 'Start Free Today',
-    subtitle: 'All data you enter is accessible with the free plan',
+    subtitle: 'Your walk records are always there to look back on. Try it free.',
     cta: 'Start Free',
   },
   footer: {
@@ -90,60 +89,60 @@ export const en: Translations = {
   },
   features: {
     walkTracking: {
-      title: 'Walk Recording',
-      description: 'Track walks via GPS or manual input',
+      title: 'Walk Logging',
+      description: 'Easily log your daily walks as you go',
     },
     restSpots: {
-      title: 'Rest Spot Registration',
-      description: 'Save locations, photos, and reason tags as memories',
+      title: 'Favourite Spot Saving',
+      description: 'Save places, photos, and reason tags as memories',
     },
     weatherTracking: {
-      title: 'Auto Weather Recording',
-      description: 'Automatically log weather during walks',
+      title: 'Auto Weather Logging',
+      description: 'Weather during walks is saved automatically',
     },
     allDataAccess: {
-      title: 'All-Time Data Access',
-      description: 'View all records even on free plan',
+      title: 'View Past Walks Anytime',
+      description: 'All your walk records are always available, even on the free plan',
     },
     basicStats: {
-      title: 'Basic Stats (Last 3 Days)',
-      description: 'Display statistics for the last 3 days',
+      title: 'Walk Recap (Last 3 Days)',
+      description: 'Look back at the last 3 days of walks',
     },
     basicType: {
       title: 'Basic Type Diagnosis',
-      description: 'Diagnose from 8 walking types',
+      description: "Discover your dog's personality from 8 walking types",
     },
     community: {
       title: 'Community',
-      description: 'Interact via timeline and reactions',
+      description: 'Connect with fellow dog owners via timeline and reactions',
     },
     fullStats: {
-      title: 'Full Statistics',
-      description: 'Detailed stats for all time periods',
+      title: 'Full Walk History',
+      description: "Look back on every walk you've taken together",
     },
     detailedType: {
       title: 'Detailed Type Analysis',
-      description: 'In-depth personality analysis and advice',
+      description: "Deeper insight into your dog's personality, with walking tips",
     },
     breedComparison: {
-      title: 'Breed Comparison',
-      description: 'Compare with average data for the same breed',
+      title: 'Compare with Same Breed',
+      description: 'See how your dog compares to others of the same breed',
     },
     routeSuggestion: {
-      title: 'Route Suggestions',
-      description: 'Suggest routes that avoid problematic spots',
+      title: 'Avoid Stressful Spots',
+      description: 'Get route suggestions that skip the places your dog dislikes',
     },
     heatmap: {
-      title: 'Popular Rest Spots',
-      description: 'Heatmap showing popular spots',
+      title: 'Where Others Like to Stop',
+      description: 'See popular spots where other owners and their dogs love to pause',
     },
     dataExport: {
-      title: 'Data Export',
-      description: 'Download data in CSV/JSON/PDF formats',
+      title: 'Save Your Walk Records',
+      description: 'Export and keep your walk records as files',
     },
     customShare: {
       title: 'Custom Share Cards',
-      description: 'Create stylish share images',
+      description: "Share your dog's personality with a stylish image",
     },
   },
   pricing: {
@@ -152,11 +151,11 @@ export const en: Translations = {
         name: 'Free Plan',
         cta: 'Start Free',
         features: {
-          walkTracking: 'Walk Recording (GPS + Manual)',
-          restSpots: 'Rest Spot Registration',
-          weatherTracking: 'Auto Weather Recording',
-          allDataAccess: 'All-Time Data Access',
-          basicStats: 'Basic Stats (Last 3 Days)',
+          walkTracking: 'Walk Logging',
+          restSpots: 'Favourite Spot Saving',
+          weatherTracking: 'Auto Weather Logging',
+          allDataAccess: 'View Past Walks Anytime',
+          basicStats: 'Walk Recap (Last 3 Days)',
           basicType: 'Basic Type Diagnosis',
           community: 'Community',
         },
@@ -165,13 +164,13 @@ export const en: Translations = {
         name: 'Monthly Plan',
         cta: 'Start Premium',
         features: {
-          allFree: 'All Free Plan Features',
-          fullStats: 'Full Statistics',
+          allFree: 'Everything in Free',
+          fullStats: 'Full Walk History',
           detailedType: 'Detailed Type Analysis',
-          breedComparison: 'Breed Comparison',
-          routeSuggestion: 'Route Suggestions',
-          heatmap: 'Popular Rest Spots',
-          dataExport: 'Data Export',
+          breedComparison: 'Compare with Same Breed',
+          routeSuggestion: 'Avoid Stressful Spots',
+          heatmap: 'Where Others Like to Stop',
+          dataExport: 'Save Your Walk Records',
           customShare: 'Custom Share Cards',
         },
       },
@@ -179,13 +178,13 @@ export const en: Translations = {
         name: 'Yearly Plan',
         cta: 'Start Yearly Plan',
         features: {
-          allFree: 'All Free Plan Features',
-          fullStats: 'Full Statistics',
+          allFree: 'Everything in Free',
+          fullStats: 'Full Walk History',
           detailedType: 'Detailed Type Analysis',
-          breedComparison: 'Breed Comparison',
-          routeSuggestion: 'Route Suggestions',
-          heatmap: 'Popular Rest Spots',
-          dataExport: 'Data Export',
+          breedComparison: 'Compare with Same Breed',
+          routeSuggestion: 'Avoid Stressful Spots',
+          heatmap: 'Where Others Like to Stop',
+          dataExport: 'Save Your Walk Records',
           customShare: 'Custom Share Cards',
         },
       },
@@ -245,7 +244,7 @@ export const en: Translations = {
       whatIsOsanpoType: {
         question: 'What is Osanpo Type?',
         answer:
-          'A web app that records and analyzes dog walking patterns to diagnose their "walking type". Record walks via GPS or manual input, register rest spots, and visualize your dog\'s walking trends.',
+          'As you log your daily walks, your dog\'s habits and personality start to emerge. From those everyday moments, Osanpo Type diagnoses your dog\'s unique "Walking Type". You can also save favourite spots and connect with fellow dog owners.',
       },
       howToStart: {
         question: 'How do I get started?',
@@ -257,16 +256,16 @@ export const en: Translations = {
         answer: 'Free plan allows 1 dog, premium plan allows up to 5 dogs.',
       },
       batteryUsage: {
-        question: 'Does GPS tracking consume battery?',
+        question: 'Will it drain my phone battery?',
         answer:
-          'Yes, GPS tracking consumes some battery. If you want to save battery, manual input mode is also available.',
+          'Using GPS does consume some battery. If that concerns you, you can also enter the walk distance and duration manually after you get home.',
       },
     },
     diagnosis: {
       whenDiagnosis: {
-        question: 'When do I get diagnosis results?',
+        question: 'When will my dog get a type?',
         answer:
-          'After recording 7 or more walks and registering 5 or more rest spots, the "Walking Type" will be automatically diagnosed. Accuracy improves as data increases.',
+          'Once you\'ve logged 7 or more walks and saved 5 or more favourite spots, your dog\'s "Walking Type" will be revealed automatically. The more you walk together, the more accurate it gets.',
       },
       typeChange: {
         question: 'Can the type change?',
@@ -276,19 +275,19 @@ export const en: Translations = {
       usingAI: {
         question: 'Does it use AI?',
         answer:
-          'No, we currently use a rule-based diagnosis system. It judges based on walk time, distance, rest frequency, weather, and other conditions.',
+          "No. The diagnosis is based on things like walk time, distance, how often your dog stops to rest, and the weather. It's a simple, transparent system — so the results feel easy to relate to.",
       },
     },
     pricing: {
       freeFeatures: {
         question: 'What can I do for free?',
         answer:
-          'Walk recording, rest spot registration, all-time data access, basic stats (last 3 days), basic type diagnosis, and community are all free.',
+          'Logging walks, saving favourite spots, viewing your past walks, a 3-day look-back, basic type diagnosis, and joining the community — all free.',
       },
       dataAfterDowngrade: {
-        question: 'Will I lose access to data without premium?',
+        question: 'Will I lose my walk records without premium?',
         answer:
-          'No, all recorded data is accessible even on the free plan. Only premium features (detailed stats, data export, etc.) will be restricted.',
+          'No, all your walk records are always accessible on the free plan. Only premium-specific features like detailed analysis and file export will be unavailable.',
       },
       cancelAnytime: {
         question: 'Can I cancel anytime?',
@@ -317,22 +316,22 @@ export const en: Translations = {
     home: {
       title: "Osanpo Type - Do you know your dog's walking style?",
       description:
-        'Record and analyze your dog\'s walking patterns to diagnose their "Walking Type". Free walk recording, rest spot registration, and basic type diagnosis.',
+        'Track your daily walks and discover your dog\'s unique "Walking Type". Free walk logging, favourite spot saving, and basic type diagnosis.',
     },
     features: {
       title: 'Features | Osanpo Type',
       description:
-        'Explore all features: GPS walk tracking, rest spot registration, type diagnosis, community, and more.',
+        'Walk logging, favourite spot saving, type diagnosis, community, and more — everything Osanpo Type has to offer.',
     },
     pricing: {
       title: 'Pricing | Osanpo Type',
       description:
-        'From free plan to 300 yen/month premium. All basic features free, detailed analysis and data export with premium.',
+        'Free plan to ¥300/month premium. Walk logging is free; go premium for deeper insights into your dog.',
     },
     faq: {
       title: 'FAQ | Osanpo Type',
       description:
-        'Answers to frequently asked questions about usage, type diagnosis, pricing, and privacy.',
+        'Answers to common questions about getting started, type diagnosis, pricing, and privacy.',
     },
     privacy: {
       title: 'Privacy Policy | Osanpo Type',

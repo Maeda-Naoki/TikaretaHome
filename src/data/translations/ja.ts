@@ -2,7 +2,7 @@ export const ja = {
   site: {
     name: 'おさんぽタイプ',
     tagline: 'うちの子のおさんぽスタイル、知ってる？',
-    description: '犬の散歩パターンを記録・分析し、愛犬の「おさんぽタイプ」を診断するWebアプリ',
+    description: '毎日のおさんぽを記録して、愛犬だけの「おさんぽタイプ」を発見しよう',
   },
   nav: {
     features: '機能紹介',
@@ -13,27 +13,27 @@ export const ja = {
   },
   hero: {
     title: 'うちの子の\nおさんぽスタイル、\n知ってる？',
-    subtitle: '犬の散歩パターンを記録・分析して、愛犬の「おさんぽタイプ」を発見しよう',
+    subtitle: 'おさんぽを続けるだけ。愛犬のおさんぽの個性が、じわじわ見えてきます',
     cta: '無料で始める',
     subCta: 'アカウント登録は30秒',
   },
   valueProposition: {
-    title: 'おさんぽタイプができること',
+    title: '愛犬との散歩が、もっと楽しくなる',
     items: [
       {
-        title: 'パターン発見',
-        description: '飼い主の感覚では気づけない散歩の傾向を可視化します',
+        title: 'うちの子の傾向がわかる',
+        description: 'なんとなく感じていた愛犬の散歩グセや好みが、はっきり見えてきます',
         icon: 'Search',
         iconType: 'lucide',
       },
       {
-        title: 'タイプ診断',
-        description: 'ゲーミフィケーションで楽しく愛犬の個性を分析',
+        title: '個性が診断される',
+        description: '楽しみながら、愛犬だけのおさんぽの個性を発見できます',
         icon: 'Target',
         iconType: 'lucide',
       },
       {
-        title: '共感・つながり',
+        title: '仲間とつながれる',
         description: 'コミュニティで「うちだけじゃない」安心感を',
         icon: 'Heart',
         iconType: 'lucide',
@@ -41,22 +41,22 @@ export const ja = {
     ],
   },
   howItWorks: {
-    title: '使い方はカンタン3ステップ',
+    title: 'やることは、たったの3つ',
     steps: [
       {
         number: '1',
-        title: '散歩を記録する',
-        description: 'GPS追跡または手動入力で散歩コースを記録',
+        title: 'おさんぽを記録する',
+        description: 'いつものおさんぽをアプリに残すだけ',
       },
       {
         number: '2',
-        title: '休憩スポットを登録',
-        description: '場所・理由・写真を残して思い出を保存',
+        title: 'お気に入りスポットを登録',
+        description: '立ち寄った場所・理由・写真を残して思い出を保存',
       },
       {
         number: '3',
         title: 'タイプが判明！',
-        description: 'データが蓄積されると自動で「おさんぽタイプ」を診断',
+        description: '記録を続けるうちに、愛犬の「おさんぽタイプ」が自動でわかります',
       },
     ],
   },
@@ -71,12 +71,12 @@ export const ja = {
   },
   pricingSummary: {
     title: '料金プラン',
-    subtitle: '基本機能は無料。詳細分析はプレミアムで。',
+    subtitle: 'おさんぽ記録は無料でスタート。もっと深く知りたい方にはプレミアムを。',
     cta: '詳しく見る',
   },
   finalCTA: {
     title: '今すぐ無料で始めよう',
-    subtitle: 'データ入力したものは全て閲覧可能、安心の無料プラン',
+    subtitle: '記録したおさんぽは、いつでも見返せます。まずは無料でどうぞ。',
     cta: '無料で始める',
   },
   footer: {
@@ -87,60 +87,60 @@ export const ja = {
   // 機能一覧
   features: {
     walkTracking: {
-      title: '散歩記録',
-      description: 'GPS追跡または手動入力で散歩コースを記録',
+      title: 'おさんぽ記録',
+      description: 'いつものおさんぽコースをかんたんに残せます',
     },
     restSpots: {
-      title: '休憩スポット登録',
-      description: '位置・写真・理由タグで思い出を保存',
+      title: 'お気に入りスポット登録',
+      description: '立ち寄った場所・写真・理由を残して思い出を保存',
     },
     weatherTracking: {
       title: '天気・気温の自動記録',
-      description: '散歩時の天候を自動で記録',
+      description: 'おさんぽ中の天候を自動で残します',
     },
     allDataAccess: {
-      title: '全期間データ閲覧',
-      description: '無料プランでも全ての記録を閲覧可能',
+      title: '過去の記録をいつでも閲覧',
+      description: '無料プランでも、これまでの全記録をいつでも見返せます',
     },
     basicStats: {
-      title: '基本統計（直近3日間）',
-      description: '直近3日間の散歩統計を表示',
+      title: 'おさんぽのふりかえり（直近3日間）',
+      description: '直近3日間のおさんぽのようすをふりかえれます',
     },
     basicType: {
       title: '基本タイプ診断',
-      description: '8つのおさんぽタイプから診断',
+      description: '8つのおさんぽタイプから愛犬の個性を診断',
     },
     community: {
       title: 'コミュニティ',
-      description: 'タイムライン・リアクションで交流',
+      description: '同じ飼い主同士でタイムラインやリアクションで交流',
     },
     fullStats: {
-      title: '統計（全期間）',
-      description: '全期間の詳細な散歩統計',
+      title: 'おさんぽのふりかえり（全期間）',
+      description: 'これまでの全おさんぽをじっくり振り返れます',
     },
     detailedType: {
       title: '詳細タイプ分析',
-      description: 'より詳しい性格分析とアドバイス',
+      description: '愛犬の個性をより深く分析し、おさんぽへのアドバイスも',
     },
     breedComparison: {
-      title: '同犬種比較',
-      description: '同じ犬種の平均データと比較',
+      title: '同犬種の子と比べてみる',
+      description: '同じ犬種の子たちと比べてうちの子の個性を再発見',
     },
     routeSuggestion: {
-      title: '回避ルート提案',
-      description: '苦手なポイントを避けたルート提案',
+      title: '苦手スポット回避ルート',
+      description: '苦手な場所を避けて歩けるルートを提案',
     },
     heatmap: {
-      title: 'みんなの休憩ポイント',
-      description: 'ヒートマップで人気スポットを表示',
+      title: 'みんなのお気に入りスポット',
+      description: '他の飼い主さんがよく立ち寄る人気スポットが地図でわかります',
     },
     dataExport: {
-      title: 'データエクスポート',
-      description: 'CSV/JSON/PDF形式でデータをダウンロード',
+      title: 'おさんぽ記録の保存',
+      description: 'これまでの記録をファイルに保存・管理できます',
     },
     customShare: {
       title: 'カスタマイズ版シェアカード',
-      description: 'おしゃれなシェア画像を作成',
+      description: 'うちの子の個性をおしゃれな画像でシェア',
     },
   },
   // 料金プラン
@@ -150,11 +150,11 @@ export const ja = {
         name: '無料プラン',
         cta: '無料で始める',
         features: {
-          walkTracking: '散歩記録（GPS追跡 + 手動入力）',
-          restSpots: '休憩スポット登録',
+          walkTracking: 'おさんぽ記録',
+          restSpots: 'お気に入りスポット登録',
           weatherTracking: '天気・気温の自動記録',
-          allDataAccess: '全期間データ閲覧',
-          basicStats: '基本統計（直近3日間）',
+          allDataAccess: '過去の記録をいつでも閲覧',
+          basicStats: 'おさんぽのふりかえり（直近3日間）',
           basicType: '基本タイプ診断',
           community: 'コミュニティ',
         },
@@ -163,13 +163,13 @@ export const ja = {
         name: '月額プラン',
         cta: 'プレミアムを始める',
         features: {
-          allFree: '無料プランの全機能',
-          fullStats: '統計（全期間）',
+          allFree: '無料プランの全て',
+          fullStats: 'おさんぽのふりかえり（全期間）',
           detailedType: '詳細タイプ分析',
-          breedComparison: '同犬種比較',
-          routeSuggestion: '回避ルート提案',
-          heatmap: 'みんなの休憩ポイント',
-          dataExport: 'データエクスポート',
+          breedComparison: '同犬種の子と比べてみる',
+          routeSuggestion: '苦手スポット回避ルート',
+          heatmap: 'みんなのお気に入りスポット',
+          dataExport: 'おさんぽ記録の保存',
           customShare: 'カスタマイズ版シェアカード',
         },
       },
@@ -177,13 +177,13 @@ export const ja = {
         name: '年額プラン',
         cta: 'お得な年額プランを始める',
         features: {
-          allFree: '無料プランの全機能',
-          fullStats: '統計（全期間）',
+          allFree: '無料プランの全て',
+          fullStats: 'おさんぽのふりかえり（全期間）',
           detailedType: '詳細タイプ分析',
-          breedComparison: '同犬種比較',
-          routeSuggestion: '回避ルート提案',
-          heatmap: 'みんなの休憩ポイント',
-          dataExport: 'データエクスポート',
+          breedComparison: '同犬種の子と比べてみる',
+          routeSuggestion: '苦手スポット回避ルート',
+          heatmap: 'みんなのお気に入りスポット',
+          dataExport: 'おさんぽ記録の保存',
           customShare: 'カスタマイズ版シェアカード',
         },
       },
@@ -245,7 +245,7 @@ export const ja = {
       whatIsOsanpoType: {
         question: 'おさんぽタイプとは？',
         answer:
-          '犬の散歩パターンを記録・分析し、愛犬の「おさんぽタイプ」を診断するWebアプリです。GPS追跡や手動入力で散歩を記録し、休憩スポットを登録することで、愛犬の散歩の傾向を可視化します。',
+          '愛犬との毎日のおさんぽを記録していくと、愛犬のおさんぽの傾向や個性が見えてきます。その積み重ねから「おさんぽタイプ」を診断するアプリです。お気に入りスポットの保存や、他の飼い主さんとの交流も楽しめます。',
       },
       howToStart: {
         question: 'どうやって始めるの？',
@@ -257,9 +257,9 @@ export const ja = {
         answer: '無料プランでは1匹、プレミアムプランでは最大5匹まで登録できます。',
       },
       batteryUsage: {
-        question: 'GPS追跡はバッテリーを消費する？',
+        question: 'スマホのバッテリーは減りやすい？',
         answer:
-          'はい、GPS追跡は多少バッテリーを消費します。バッテリー消費を抑えたい場合は、手動入力モードもご利用いただけます。',
+          'GPSを使うと多少バッテリーを消費します。気になる場合は、おさんぽ後に時間・距離などを手入力するモードもご利用いただけます。',
       },
     },
     diagnosis: {
@@ -276,19 +276,19 @@ export const ja = {
       usingAI: {
         question: 'AIを使っている？',
         answer:
-          'いいえ、現在はルールベースの診断システムを採用しています。散歩時間、距離、休憩頻度、天候などの条件から判定します。',
+          'いいえ。おさんぽの時間・距離・休憩の多さ・天気などをもとに診断しています。シンプルな仕組みなので、診断結果も「なるほど！」と納得しやすいですよ。',
       },
     },
     pricing: {
       freeFeatures: {
         question: '無料で何ができますか？',
         answer:
-          '散歩記録、休憩スポット登録、全期間データ閲覧、基本統計（直近3日間）、基本タイプ診断、コミュニティが無料で利用できます。',
+          'おさんぽの記録、お気に入りスポットの保存、過去の記録の閲覧、直近3日間のふりかえり、基本のタイプ診断、コミュニティへの参加が、すべて無料で使えます。',
       },
       dataAfterDowngrade: {
-        question: '有料にしないとデータが見られなくなる？',
+        question: '有料にしないと記録が見られなくなる？',
         answer:
-          'いいえ、無料プランでも全ての記録データは閲覧できます。プレミアム機能（詳細統計、データエクスポート等）が制限されるだけです。',
+          'いいえ、無料プランでも全てのおさんぽ記録はいつでも見返せます。詳細な分析や記録の保存など、プレミアム専用の機能が使えなくなるだけです。',
       },
       cancelAnytime: {
         question: '解約はいつでもできますか？',
@@ -317,22 +317,22 @@ export const ja = {
     home: {
       title: 'おさんぽタイプ - うちの子のおさんぽスタイル、知ってる？',
       description:
-        '犬の散歩パターンを記録・分析し、愛犬の「おさんぽタイプ」を診断。無料で散歩記録、休憩スポット登録、基本タイプ診断が使えます。',
+        '毎日のおさんぽを記録して、愛犬だけの「おさんぽタイプ」を発見しよう。お散歩記録、お気に入りスポット保存、タイプ診断が無料で使えます。',
     },
     features: {
       title: '機能紹介 | おさんぽタイプ',
       description:
-        'GPS散歩記録、休憩スポット登録、タイプ診断、コミュニティなど、おさんぽタイプの全機能をご紹介します。',
+        'おさんぽ記録、お気に入りスポット登録、タイプ診断、仲間との交流など、おさんぽタイプでできることをご紹介します。',
     },
     pricing: {
       title: '料金プラン | おさんぽタイプ',
       description:
-        '無料プランから月額300円のプレミアムまで。基本機能は全て無料、詳細分析やデータエクスポートはプレミアムで。',
+        '無料プランから月額300円のプレミアムまで。おさんぽ記録は全て無料、もっと深く知りたい方にはプレミアムを。',
     },
     faq: {
       title: 'よくある質問 | おさんぽタイプ',
       description:
-        'おさんぽタイプの使い方、タイプ診断、料金、プライバシーなど、よくある質問にお答えします。',
+        'おさんぽタイプの始め方、タイプ診断、料金、プライバシーなど、よくある質問にお答えします。',
     },
     privacy: {
       title: 'プライバシーポリシー | おさんぽタイプ',
