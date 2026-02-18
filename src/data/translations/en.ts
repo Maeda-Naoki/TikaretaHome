@@ -4,7 +4,7 @@ export const en: Translations = {
   site: {
     name: 'Osanpo Type',
     tagline: "Do you know your dog's walking style?",
-    description: "Track your daily walks and discover your dog's unique \"Walking Type\"",
+    description: 'Track your daily walks and discover your dog\'s unique "Walking Type"',
   },
   nav: {
     features: 'Features',
@@ -59,7 +59,7 @@ export const en: Translations = {
       {
         number: '3',
         title: 'Discover Your Type!',
-        description: "Keep walking together and your dog's \"Walking Type\" will be revealed!",
+        description: 'Keep walking together and your dog\'s "Walking Type" will be revealed!',
       },
     ],
   },
@@ -126,14 +126,14 @@ export const en: Translations = {
     },
     breedComparison: {
       title: 'Compare with Same Breed',
-      description: "See how your dog compares to others of the same breed",
+      description: 'See how your dog compares to others of the same breed',
     },
     routeSuggestion: {
       title: 'Avoid Stressful Spots',
       description: 'Get route suggestions that skip the places your dog dislikes',
     },
     heatmap: {
-      title: "Where Others Like to Stop",
+      title: 'Where Others Like to Stop',
       description: 'See popular spots where other owners and their dogs love to pause',
     },
     dataExport: {
@@ -265,7 +265,7 @@ export const en: Translations = {
       whenDiagnosis: {
         question: 'When will my dog get a type?',
         answer:
-          "Once you've logged 7 or more walks and saved 5 or more favourite spots, your dog's \"Walking Type\" will be revealed automatically. The more you walk together, the more accurate it gets.",
+          'Once you\'ve logged 7 or more walks and saved 5 or more favourite spots, your dog\'s "Walking Type" will be revealed automatically. The more you walk together, the more accurate it gets.',
       },
       typeChange: {
         question: 'Can the type change?',
@@ -316,7 +316,7 @@ export const en: Translations = {
     home: {
       title: "Osanpo Type - Do you know your dog's walking style?",
       description:
-        "Track your daily walks and discover your dog's unique \"Walking Type\". Free walk logging, favourite spot saving, and basic type diagnosis.",
+        'Track your daily walks and discover your dog\'s unique "Walking Type". Free walk logging, favourite spot saving, and basic type diagnosis.',
     },
     features: {
       title: 'Features | Osanpo Type',
