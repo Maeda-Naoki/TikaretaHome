@@ -25,10 +25,5 @@
     "@biomejs/biome": "2.4.2",
     "lefthook": "2.1.0",
     "typescript": "5.9.3"
-  },
-  "pnpm": {
-    "minimumReleaseAgeExclude": [
-      "@biomejs/biome"
-    ]
   }
 }
