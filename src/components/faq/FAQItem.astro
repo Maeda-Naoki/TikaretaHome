@@ -11,11 +11,13 @@ const { question, answer } = Astro.props;
 <details class="group bg-white rounded-card shadow-soft hover:shadow-card transition-all fade-in-up">
   <summary class="cursor-pointer p-6 font-bold text-warm-gray-900 list-none flex items-center justify-between">
     <span>{question}</span>
+    <!-- WCAG 1.1.1: 装飾シェブロンSVGを支援技術から隠す（開閉状態はdetails/summaryが伝える） -->
     <svg
       class="w-5 h-5 text-warm-gray-600 transform transition-transform group-open:rotate-180"
       fill="none"
       stroke="currentColor"
       viewBox="0 0 24 24"
+      aria-hidden="true"
     >
       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
     </svg>

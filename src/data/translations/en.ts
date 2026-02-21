@@ -386,5 +386,6 @@ export const en: Translations = {
     menu: 'Menu',
     close: 'Close',
     language: 'Language',
+    newTab: '(opens in new tab)',
   },
 };

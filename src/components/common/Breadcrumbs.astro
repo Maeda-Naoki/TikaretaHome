@@ -25,11 +25,13 @@ const allItems = [{ name: t.nav.home, url: homeUrl }, ...items];
       allItems.map((item, index) => (
         <li class="flex items-center gap-2">
           {index > 0 && (
+            /* WCAG 1.1.1: 装飾セパレータSVGを支援技術から隠す */
             <svg
               class="w-4 h-4 text-warm-gray-400"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
+              aria-hidden="true"
             >
               <path
                 stroke-linecap="round"
@@ -46,7 +48,7 @@ const allItems = [{ name: t.nav.home, url: homeUrl }, ...items];
           ) : (
             <a
               href={item.url}
-              class="hover:text-primary-600 transition-colors"
+              class="hover:text-primary-700 transition-colors"
             >
               {item.name}
             </a>

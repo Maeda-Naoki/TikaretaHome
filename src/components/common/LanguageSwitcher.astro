@@ -13,19 +13,23 @@ if (locale === 'ja') {
 }
 
 const displayText = locale === 'ja' ? 'EN' : 'JA';
+// WCAG 3.1.2: 表示テキストの言語属性
+const displayLang = locale === 'ja' ? 'en' : 'ja';
 ---
 
 <a
   href={alternateUrl}
-  class="inline-flex items-center gap-1 px-3 py-1.5 text-sm font-medium text-warm-gray-700 hover:text-primary-600 border border-warm-gray-200 hover:border-primary-500 rounded-soft transition-colors"
+  class="inline-flex items-center gap-1 px-3 py-1.5 text-sm font-medium text-warm-gray-700 hover:text-primary-700 border border-warm-gray-200 hover:border-primary-700 rounded-soft transition-colors"
   aria-label={locale === 'ja' ? 'Switch to English' : '日本語に切り替える'}
 >
+  <!-- WCAG 1.1.1: 装飾SVGを支援技術から隠す -->
   <svg
     class="w-4 h-4"
     fill="none"
     stroke="currentColor"
     viewBox="0 0 24 24"
     xmlns="http://www.w3.org/2000/svg"
+    aria-hidden="true"
   >
     <path
       stroke-linecap="round"
@@ -34,5 +38,6 @@ const displayText = locale === 'ja' ? 'EN' : 'JA';
       d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129"
     ></path>
   </svg>
-  {displayText}
+  <!-- WCAG 3.1.2: 外国語テキストに lang 属性を付与 -->
+  <span lang={displayLang}>{displayText}</span>
 </a>
