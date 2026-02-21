@@ -34,8 +34,8 @@ export default defineConfig({
         if (url.includes('/features') || url.includes('/pricing')) {
           return { ...item, changefreq: 'weekly', priority: 0.8 } as unknown as typeof item;
         }
-        // FAQページ（中優先度）
-        if (url.includes('/faq')) {
+        // FAQ・ロードマップページ（中優先度）
+        if (url.includes('/faq') || url.includes('/roadmap')) {
           return { ...item, changefreq: 'monthly', priority: 0.7 } as unknown as typeof item;
         }
         // プライバシーポリシー・利用規約（低優先度）

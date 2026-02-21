@@ -17,6 +17,10 @@ export const mainNav: NavItem[] = [
     labelKey: 'nav.faq',
     href: '/faq',
   },
+  {
+    labelKey: 'nav.roadmap',
+    href: '/roadmap',
+  },
 ];
 
 export const footerNav: NavItem[] = [
