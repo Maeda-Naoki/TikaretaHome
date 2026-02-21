@@ -2,7 +2,7 @@ import type { Translations } from './ja';
 
 export const en: Translations = {
   site: {
-    name: 'Osanpo Type',
+    name: 'Tikareta',
     tagline: "Do you know your dog's walking style?",
     description: 'Track your daily walks and discover your dog\'s unique "Walking Type"',
   },
@@ -85,7 +85,7 @@ export const en: Translations = {
   footer: {
     privacy: 'Privacy Policy',
     terms: 'Terms of Service',
-    copyright: '© 2026 Osanpo Type',
+    copyright: '© 2026 Tikareta',
   },
   features: {
     walkTracking: {
@@ -242,9 +242,9 @@ export const en: Translations = {
     },
     basic: {
       whatIsOsanpoType: {
-        question: 'What is Osanpo Type?',
+        question: 'What is Tikareta?',
         answer:
-          'As you log your daily walks, your dog\'s habits and personality start to emerge. From those everyday moments, Osanpo Type diagnoses your dog\'s unique "Walking Type". You can also save favourite spots and connect with fellow dog owners.',
+          'As you log your daily walks, your dog\'s habits and personality start to emerge. From those everyday moments, Tikareta diagnoses your dog\'s unique "Walking Type". You can also save favourite spots and connect with fellow dog owners.',
       },
       howToStart: {
         question: 'How do I get started?',
@@ -314,35 +314,35 @@ export const en: Translations = {
   },
   pages: {
     home: {
-      title: "Osanpo Type - Do you know your dog's walking style?",
+      title: "Tikareta - Do you know your dog's walking style?",
       description:
         'Track your daily walks and discover your dog\'s unique "Walking Type". Free walk logging, favourite spot saving, and basic type diagnosis.',
     },
     features: {
-      title: 'Features | Osanpo Type',
+      title: 'Features | Tikareta',
       description:
-        'Walk logging, favourite spot saving, type diagnosis, community, and more — everything Osanpo Type has to offer.',
+        'Walk logging, favourite spot saving, type diagnosis, community, and more — everything Tikareta has to offer.',
     },
     pricing: {
-      title: 'Pricing | Osanpo Type',
+      title: 'Pricing | Tikareta',
       description:
         'Free plan to ¥300/month premium. Walk logging is free; go premium for deeper insights into your dog.',
     },
     faq: {
-      title: 'FAQ | Osanpo Type',
+      title: 'FAQ | Tikareta',
       description:
         'Answers to common questions about getting started, type diagnosis, pricing, and privacy.',
     },
     privacy: {
-      title: 'Privacy Policy | Osanpo Type',
-      description: 'How we handle your personal data at Osanpo Type.',
+      title: 'Privacy Policy | Tikareta',
+      description: 'How we handle your personal data at Tikareta.',
     },
     terms: {
-      title: 'Terms of Service | Osanpo Type',
-      description: 'Terms of Service for Osanpo Type.',
+      title: 'Terms of Service | Tikareta',
+      description: 'Terms of Service for Tikareta.',
     },
     notFound: {
-      title: 'Page Not Found | Osanpo Type',
+      title: 'Page Not Found | Tikareta',
       description: 'The page you are looking for could not be found.',
       heading: 'Page Not Found',
       message: 'The page you are looking for does not exist or may have been moved.',
