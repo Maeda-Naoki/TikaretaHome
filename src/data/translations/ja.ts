@@ -8,6 +8,7 @@ export const ja = {
     features: '機能紹介',
     pricing: '料金プラン',
     faq: 'よくある質問',
+    roadmap: 'ロードマップ',
     startFree: '無料で始める',
     home: 'ホーム',
   },
@@ -312,6 +313,30 @@ export const ja = {
       },
     },
   },
+  // ロードマップ
+  roadmap: {
+    title: 'ロードマップ',
+    subtitle: 'Tikaretaの開発ロードマップ',
+    comingSoon: 'Coming Soon',
+    plannedTitle: '今後の予定',
+    released: 'リリース済み',
+    plannedItems: ['マルチ犬プロフィール管理の強化'],
+    versions: [
+      {
+        version: 'v1.0.0',
+        date: '2026年3月（予定）',
+        title: '初回リリース',
+        items: [
+          'おさんぽ記録（GPS / 手動入力）',
+          'お気に入りスポット登録・写真保存',
+          '天気・気温の自動記録',
+          '8つのおさんぽタイプ診断',
+          'コミュニティ（タイムライン・リアクション）',
+          '無料 / 月額 / 年額プラン対応',
+        ],
+      },
+    ],
+  },
   // ページメタデータ
   pages: {
     home: {
@@ -341,6 +366,10 @@ export const ja = {
     terms: {
       title: '利用規約 | Tikareta',
       description: 'Tikaretaサービスの利用規約です。',
+    },
+    roadmap: {
+      title: 'ロードマップ | Tikareta',
+      description: 'Tikaretaの開発ロードマップ。今後の予定やリリース済み機能をご確認いただけます。',
     },
     notFound: {
       title: 'ページが見つかりません | Tikareta',

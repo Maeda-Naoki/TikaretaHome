@@ -10,6 +10,7 @@ export const en: Translations = {
     features: 'Features',
     pricing: 'Pricing',
     faq: 'FAQ',
+    roadmap: 'Roadmap',
     startFree: 'Start Free',
     home: 'Home',
   },
@@ -312,6 +313,29 @@ export const en: Translations = {
       },
     },
   },
+  roadmap: {
+    title: 'Roadmap',
+    subtitle: "Tikareta's development roadmap",
+    comingSoon: 'Coming Soon',
+    plannedTitle: 'Planned Features',
+    released: 'Released',
+    plannedItems: ['Enhanced multi-dog profile management'],
+    versions: [
+      {
+        version: 'v1.0.0',
+        date: 'March 2026 (Planned)',
+        title: 'Initial Release',
+        items: [
+          'Walk logging (GPS / manual input)',
+          'Favourite spot saving with photos',
+          'Auto weather & temperature logging',
+          '8 Walking Type diagnosis',
+          'Community (timeline & reactions)',
+          'Free / Monthly / Yearly plans',
+        ],
+      },
+    ],
+  },
   pages: {
     home: {
       title: "Tikareta - Do you know your dog's walking style?",
@@ -340,6 +364,10 @@ export const en: Translations = {
     terms: {
       title: 'Terms of Service | Tikareta',
       description: 'Terms of Service for Tikareta.',
+    },
+    roadmap: {
+      title: 'Roadmap | Tikareta',
+      description: "Tikareta's development roadmap. See planned features and released updates.",
     },
     notFound: {
       title: 'Page Not Found | Tikareta',

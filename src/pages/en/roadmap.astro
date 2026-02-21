@@ -1,0 +1,84 @@
+---
+import Breadcrumbs from '@components/common/Breadcrumbs.astro';
+import Layout from '@layouts/Layout.astro';
+import { Check, Circle } from '@lucide/astro';
+import { useTranslations } from '@utils/i18n';
+import { createBreadcrumbListLD } from '@utils/seo';
+
+const t = useTranslations(Astro.currentLocale);
+
+const breadcrumbJsonLd = createBreadcrumbListLD([
+  { name: t.nav.home, url: 'https://tikareta.com/en/' },
+  { name: t.nav.roadmap, url: 'https://tikareta.com/en/roadmap' },
+]);
+---
+
+<Layout
+  title={t.pages.roadmap.title}
+  description={t.pages.roadmap.description}
+  jsonLd={breadcrumbJsonLd}
+>
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <Breadcrumbs items={[{ name: t.nav.roadmap, url: '/en/roadmap' }]} />
+
+    <div class="text-center mb-16">
+      <h1 class="text-4xl font-display font-bold text-warm-gray-900 fade-in-up">
+        {t.roadmap.title}
+      </h1>
+      <p class="mt-4 text-lg text-warm-gray-600 fade-in-up">
+        {t.roadmap.subtitle}
+      </p>
+    </div>
+
+    <div class="max-w-3xl mx-auto">
+      <!-- Coming Soon -->
+      <div class="relative pl-8 pb-12 border-l-2 border-dashed border-warm-gray-300 fade-in-up">
+        <div class="absolute left-0 top-0 w-4 h-4 -translate-x-[9px] rounded-full bg-warm-gray-200 border-2 border-warm-gray-400"></div>
+        <div class="mb-2">
+          <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-warm-gray-200 text-warm-gray-600">
+            {t.roadmap.comingSoon}
+          </span>
+        </div>
+        <h2 class="text-xl font-bold text-warm-gray-900 mt-4 mb-3">
+          {t.roadmap.plannedTitle}
+        </h2>
+        <ul class="space-y-2 text-warm-gray-600">
+          {t.roadmap.plannedItems.map((item) => (
+            <li class="flex items-start gap-2">
+              <span class="mt-1 w-4 h-4 shrink-0 text-warm-gray-400">
+                <Circle size={16} />
+              </span>
+              <span>{item}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <!-- Released Versions -->
+      {t.roadmap.versions.map((version) => (
+        <div class="relative pl-8 pb-12 border-l-2 border-warm-gray-300 last:pb-0 fade-in-up">
+          <div class="absolute left-0 top-0 w-4 h-4 -translate-x-[9px] rounded-full bg-primary-500"></div>
+          <div class="mb-2">
+            <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-primary-500 text-white">
+              {version.version}
+            </span>
+            <span class="ml-3 text-sm text-warm-gray-500">{version.date}</span>
+          </div>
+          <h2 class="text-xl font-bold text-warm-gray-900 mt-4 mb-3">
+            {version.title}
+          </h2>
+          <ul class="space-y-2 text-warm-gray-600">
+            {version.items.map((item) => (
+              <li class="flex items-start gap-2">
+                <span class="mt-1 w-4 h-4 shrink-0 text-secondary-500">
+                  <Check size={16} />
+                </span>
+                <span>{item}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))}
+    </div>
+  </div>
+</Layout>
