@@ -389,6 +389,7 @@ export const ja = {
     menu: 'メニュー',
     close: '閉じる',
     language: '言語',
+    newTab: '（新しいタブで開く）',
   },
 };
 

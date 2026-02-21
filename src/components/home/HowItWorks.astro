@@ -16,14 +16,16 @@ const t = useTranslations(Astro.currentLocale);
           style={`animation-delay: ${index * 150}ms`}
         >
           <div class="flex flex-col items-center text-center">
-            <div class="w-16 h-16 rounded-full bg-primary-500 text-white flex items-center justify-center text-2xl font-bold mb-4">
+            <!-- WCAG 1.4.3: primary-700(#c2410c)+white = 4.79:1 ✓ -->
+            <div class="w-16 h-16 rounded-full bg-primary-700 text-white flex items-center justify-center text-2xl font-bold mb-4">
               {step.number}
             </div>
             <h3 class="text-xl font-bold text-warm-gray-900 mb-3">{step.title}</h3>
             <p class="text-warm-gray-600">{step.description}</p>
           </div>
           {index < 2 && (
-            <div class="hidden md:block absolute top-12 -right-4 text-primary-300 text-3xl">
+            /* WCAG 1.1.1: 装飾的な矢印を支援技術から隠す */
+            <div class="hidden md:block absolute top-12 -right-4 text-primary-300 text-3xl" aria-hidden="true">
               →
             </div>
           )}

@@ -17,10 +17,12 @@ const t = useTranslations(Astro.currentLocale);
     </p>
     <div class="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
       <CTAButton text={t.hero.cta} size="lg" />
-      <p class="text-sm text-warm-gray-500">{t.hero.subCta}</p>
+      <!-- WCAG 1.4.3: warm-gray-600(#57534e) on cream-50(#fffbf5) = 6.65:1 ✓ -->
+      <p class="text-sm text-warm-gray-600">{t.hero.subCta}</p>
     </div>
     <!-- Hero illustration placeholder -->
-    <div class="mt-12 text-8xl">
+    <!-- WCAG 1.1.1: 装飾絵文字を支援技術から隠す -->
+    <div class="mt-12 text-8xl" aria-hidden="true">
       🐕‍🦺
     </div>
   </div>

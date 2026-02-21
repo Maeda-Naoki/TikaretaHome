@@ -1,5 +1,6 @@
 ---
 import { appUrl } from '@data/navigation';
+import { useTranslations } from '@utils/i18n';
 
 interface Props {
   text: string;
@@ -8,11 +9,14 @@ interface Props {
 }
 
 const { text, variant = 'primary', size = 'md' } = Astro.props;
+const t = useTranslations(Astro.currentLocale);
 
 const variantClasses = {
-  primary: 'bg-primary-500 hover:bg-primary-600 text-white shadow-soft hover:shadow-hover',
+  // WCAG 1.4.3: primary-700(#c2410c)+white = 4.79:1 ✓
+  primary: 'bg-primary-700 hover:bg-primary-800 text-white shadow-soft hover:shadow-hover',
+  // WCAG 1.4.3: primary-700(#c2410c) on white = 4.79:1 ✓; border 1.4.11 non-text 3:1 ✓
   secondary:
-    'bg-white hover:bg-warm-gray-50 text-primary-600 border-2 border-primary-500 hover:border-primary-600',
+    'bg-white hover:bg-warm-gray-50 text-primary-700 border-2 border-primary-700 hover:border-primary-800',
 };
 
 const sizeClasses = {
@@ -29,4 +33,5 @@ const sizeClasses = {
   rel="noopener noreferrer"
 >
   {text}
+  <span class="sr-only">{t.common.newTab}</span>
 </a>

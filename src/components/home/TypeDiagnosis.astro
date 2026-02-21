@@ -33,13 +33,15 @@ const t = useTranslations(Astro.currentLocale);
       ))}
     </div>
     <div class="text-center fade-in-up">
+      <!-- WCAG 1.4.3: secondary-700(#15803d)+white = 5.1:1 ✓; WCAG 3.2.5: sr-only で新しいタブを通知 -->
       <a
         href="https://tikareta.com"
-        class="inline-block bg-secondary-500 hover:bg-secondary-600 text-white font-bold py-3 px-8 rounded-button shadow-soft hover:shadow-hover transition-all duration-300"
+        class="inline-block bg-secondary-700 hover:bg-secondary-700/90 text-white font-bold py-3 px-8 rounded-button shadow-soft hover:shadow-hover transition-all duration-300"
         target="_blank"
         rel="noopener noreferrer"
       >
         {t.typeDiagnosis.cta}
+        <span class="sr-only">{t.common.newTab}</span>
       </a>
     </div>
   </div>
