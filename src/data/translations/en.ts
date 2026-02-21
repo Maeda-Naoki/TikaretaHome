@@ -319,12 +319,7 @@ export const en: Translations = {
     comingSoon: 'Coming Soon',
     plannedTitle: 'Planned Features',
     released: 'Released',
-    plannedItems: [
-      'Enhanced multi-dog profile management',
-      'Dog park & park finder (Premium)',
-      'Walking buddy matching (Premium)',
-      'Apple Watch / Wear OS support',
-    ],
+    plannedItems: ['Enhanced multi-dog profile management'],
     versions: [
       {
         version: 'v1.0.0',

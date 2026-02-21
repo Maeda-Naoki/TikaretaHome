@@ -320,12 +320,7 @@ export const ja = {
     comingSoon: 'Coming Soon',
     plannedTitle: '今後の予定',
     released: 'リリース済み',
-    plannedItems: [
-      'マルチ犬プロフィール管理の強化',
-      'ドッグラン・公園検索機能（プレミアム）',
-      '散歩仲間マッチング機能（プレミアム）',
-      'Apple Watch / Wear OS 対応',
-    ],
+    plannedItems: ['マルチ犬プロフィール管理の強化'],
     versions: [
       {
         version: 'v1.0.0',
