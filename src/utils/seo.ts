@@ -49,7 +49,7 @@ export function createSoftwareApplicationLD(locale: string): SoftwareApplication
   return {
     '@context': 'https://schema.org',
     '@type': 'SoftwareApplication',
-    name: locale === 'ja' ? 'おさんぽタイプ' : 'Osanpo Type',
+    name: 'Tikareta',
     applicationCategory: 'LifestyleApplication',
     operatingSystem: 'Web',
     offers: [
@@ -83,7 +83,7 @@ export function createOrganizationLD(locale: string): OrganizationLD {
   return {
     '@context': 'https://schema.org',
     '@type': 'Organization',
-    name: locale === 'ja' ? 'おさんぽタイプ' : 'Osanpo Type',
+    name: 'Tikareta',
     url: 'https://tikareta.com',
     logo: 'https://tikareta.com/images/logo.svg',
   };

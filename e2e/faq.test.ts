@@ -1,7 +1,7 @@
 import { expect, test } from '@playwright/test';
 
 const jaQuestions = [
-  'おさんぽタイプとは？',
+  'Tikaretaとは？',
   'どうやって始めるの？',
   '犬は何匹まで登録できる？',
   'スマホのバッテリーは減りやすい？',
@@ -17,7 +17,7 @@ const jaQuestions = [
 ];
 
 const enQuestions = [
-  'What is Osanpo Type?',
+  'What is Tikareta?',
   'How do I get started?',
   'How many dogs can I register?',
   'Will it drain my phone battery?',

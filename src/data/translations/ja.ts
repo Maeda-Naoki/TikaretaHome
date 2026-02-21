@@ -1,6 +1,6 @@
 export const ja = {
   site: {
-    name: 'おさんぽタイプ',
+    name: 'Tikareta',
     tagline: 'うちの子のおさんぽスタイル、知ってる？',
     description: '毎日のおさんぽを記録して、愛犬だけの「おさんぽタイプ」を発見しよう',
   },
@@ -82,7 +82,7 @@ export const ja = {
   footer: {
     privacy: 'プライバシーポリシー',
     terms: '利用規約',
-    copyright: '© 2026 おさんぽタイプ',
+    copyright: '© 2026 Tikareta',
   },
   // 機能一覧
   features: {
@@ -243,7 +243,7 @@ export const ja = {
     },
     basic: {
       whatIsOsanpoType: {
-        question: 'おさんぽタイプとは？',
+        question: 'Tikaretaとは？',
         answer:
           '愛犬との毎日のおさんぽを記録していくと、愛犬のおさんぽの傾向や個性が見えてきます。その積み重ねから「おさんぽタイプ」を診断するアプリです。お気に入りスポットの保存や、他の飼い主さんとの交流も楽しめます。',
       },
@@ -315,35 +315,35 @@ export const ja = {
   // ページメタデータ
   pages: {
     home: {
-      title: 'おさんぽタイプ - うちの子のおさんぽスタイル、知ってる？',
+      title: 'Tikareta - うちの子のおさんぽスタイル、知ってる？',
       description:
         '毎日のおさんぽを記録して、愛犬だけの「おさんぽタイプ」を発見しよう。お散歩記録、お気に入りスポット保存、タイプ診断が無料で使えます。',
     },
     features: {
-      title: '機能紹介 | おさんぽタイプ',
+      title: '機能紹介 | Tikareta',
       description:
-        'おさんぽ記録、お気に入りスポット登録、タイプ診断、仲間との交流など、おさんぽタイプでできることをご紹介します。',
+        'おさんぽ記録、お気に入りスポット登録、タイプ診断、仲間との交流など、Tikaretaでできることをご紹介します。',
     },
     pricing: {
-      title: '料金プラン | おさんぽタイプ',
+      title: '料金プラン | Tikareta',
       description:
         '無料プランから月額300円のプレミアムまで。おさんぽ記録は全て無料、もっと深く知りたい方にはプレミアムを。',
     },
     faq: {
-      title: 'よくある質問 | おさんぽタイプ',
+      title: 'よくある質問 | Tikareta',
       description:
-        'おさんぽタイプの始め方、タイプ診断、料金、プライバシーなど、よくある質問にお答えします。',
+        'Tikaretaの始め方、タイプ診断、料金、プライバシーなど、よくある質問にお答えします。',
     },
     privacy: {
-      title: 'プライバシーポリシー | おさんぽタイプ',
-      description: 'おさんぽタイプにおける個人情報の取り扱いについてご説明します。',
+      title: 'プライバシーポリシー | Tikareta',
+      description: 'Tikaretaにおける個人情報の取り扱いについてご説明します。',
     },
     terms: {
-      title: '利用規約 | おさんぽタイプ',
-      description: 'おさんぽタイプサービスの利用規約です。',
+      title: '利用規約 | Tikareta',
+      description: 'Tikaretaサービスの利用規約です。',
     },
     notFound: {
-      title: 'ページが見つかりません | おさんぽタイプ',
+      title: 'ページが見つかりません | Tikareta',
       description: 'お探しのページは見つかりませんでした。',
       heading: 'ページが見つかりません',
       message: 'お探しのページは存在しないか、移動した可能性があります。',
