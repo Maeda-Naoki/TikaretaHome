@@ -25,5 +25,9 @@ pnpm-debug.log*
 *.swp
 *.swo
 
+# Playwright
+test-results/
+playwright-report/
+
 # Netlify
 .netlify/
