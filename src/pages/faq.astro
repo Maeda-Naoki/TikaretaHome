@@ -38,16 +38,20 @@ const breadcrumbJsonLd = createBreadcrumbListLD([
   <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
     <Breadcrumbs items={[{ name: t.nav.faq, url: '/faq' }]} />
 
-    <h1 class="text-4xl font-display font-bold text-warm-gray-900 mb-12 text-center fade-in-up">
-      {t.faq.title}
-    </h1>
+    <div class="mb-12">
+      <h1 class="text-4xl font-display font-bold text-warm-gray-900 mb-3 slide-in-left">
+        {t.faq.title}
+      </h1>
+      <div class="w-14 h-1 bg-primary-400 rounded-full slide-in-left"></div>
+    </div>
 
     {Object.entries(faqByCategory).map(([category, items]) => (
       <section class="mb-12">
-        <h2 class="text-2xl font-bold text-warm-gray-900 mb-6 fade-in-up">
+        <h2 class="text-xl font-bold text-warm-gray-900 mb-2 fade-in-up">
           {t.faq.categories[category as keyof typeof t.faq.categories]}
         </h2>
-        <div class="space-y-4">
+        <div class="w-8 h-0.5 bg-secondary-400 rounded-full mb-5 fade-in-up"></div>
+        <div class="space-y-3">
           {items.map((item) => {
             const parts = item.questionKey.split('.');
             const itemKey = parts[parts.length - 2];

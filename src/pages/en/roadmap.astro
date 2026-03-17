@@ -21,21 +21,22 @@ const breadcrumbJsonLd = createBreadcrumbListLD([
   <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
     <Breadcrumbs items={[{ name: t.nav.roadmap, url: '/en/roadmap' }]} />
 
-    <div class="text-center mb-16">
-      <h1 class="text-4xl font-display font-bold text-warm-gray-900 fade-in-up">
+    <div class="mb-14">
+      <h1 class="text-4xl font-display font-bold text-warm-gray-900 mb-3 slide-in-left">
         {t.roadmap.title}
       </h1>
-      <p class="mt-4 text-lg text-warm-gray-600 fade-in-up">
+      <div class="w-14 h-1 bg-primary-400 rounded-full mb-4 slide-in-left"></div>
+      <p class="text-lg text-warm-gray-600 max-w-2xl slide-in-left">
         {t.roadmap.subtitle}
       </p>
     </div>
 
     <div class="max-w-3xl mx-auto">
       <!-- Coming Soon -->
-      <div class="relative pl-8 pb-12 border-l-2 border-dashed border-warm-gray-300 fade-in-up">
+      <div class="relative pl-8 pb-12 border-l-2 border-dashed border-warm-gray-300 scale-in">
         <div class="absolute left-0 top-0 w-4 h-4 -translate-x-[9px] rounded-full bg-warm-gray-200 border-2 border-warm-gray-400"></div>
         <div class="mb-2">
-          <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-warm-gray-200 text-warm-gray-600">
+          <span class="inline-flex items-center px-3 py-1 rounded-soft text-sm font-medium bg-warm-gray-200 text-warm-gray-600">
             {t.roadmap.comingSoon}
           </span>
         </div>
@@ -55,11 +56,14 @@ const breadcrumbJsonLd = createBreadcrumbListLD([
       </div>
 
       <!-- Released Versions -->
-      {t.roadmap.versions.map((version) => (
-        <div class="relative pl-8 pb-12 border-l-2 border-warm-gray-300 last:pb-0 fade-in-up">
+      {t.roadmap.versions.map((version, index) => (
+        <div
+          class="relative pl-8 pb-12 border-l-2 border-warm-gray-300 last:pb-0 scale-in"
+          style={`transition-delay: ${(index + 1) * 100}ms`}
+        >
           <div class="absolute left-0 top-0 w-4 h-4 -translate-x-[9px] rounded-full bg-primary-500"></div>
           <div class="mb-2">
-            <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-primary-500 text-white">
+            <span class="inline-flex items-center px-3 py-1 rounded-soft text-sm font-medium bg-primary-500 text-white">
               {version.version}
             </span>
             <span class="ml-3 text-sm text-warm-gray-500">{version.date}</span>

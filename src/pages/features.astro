@@ -23,19 +23,23 @@ const jsonLd = createBreadcrumbListLD([
   <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
     <Breadcrumbs items={[{ name: t.nav.features, url: '/features' }]} />
 
-    <h1 class="text-4xl font-display font-bold text-warm-gray-900 mb-4 fade-in-up">
-      {t.nav.features}
-    </h1>
-    <p class="text-lg text-warm-gray-600 mb-12 fade-in-up">
-      {t.pages.features.description}
-    </p>
+    <div class="mb-12">
+      <h1 class="text-4xl font-display font-bold text-warm-gray-900 mb-3 slide-in-left">
+        {t.nav.features}
+      </h1>
+      <div class="w-14 h-1 bg-primary-400 rounded-full mb-4 slide-in-left"></div>
+      <p class="text-lg text-warm-gray-600 max-w-2xl slide-in-left">
+        {t.pages.features.description}
+      </p>
+    </div>
 
     <!-- 無料機能 -->
     <section class="mb-16">
-      <h2 class="text-3xl font-display font-bold text-warm-gray-900 mb-8 fade-in-up">
+      <h2 class="text-2xl font-display font-bold text-warm-gray-900 mb-2 fade-in-up">
         無料で使える機能
       </h2>
-      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div class="w-10 h-1 bg-secondary-400 rounded-full mb-8 fade-in-up"></div>
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
         {freeFeatures.map((feature) => {
           const featureKey = feature.titleKey.split('.')[1] as keyof typeof t.features;
           return (
@@ -52,10 +56,11 @@ const jsonLd = createBreadcrumbListLD([
 
     <!-- プレミアム機能 -->
     <section class="mb-16">
-      <h2 class="text-3xl font-display font-bold text-warm-gray-900 mb-8 fade-in-up">
+      <h2 class="text-2xl font-display font-bold text-warm-gray-900 mb-2 fade-in-up">
         プレミアム機能
       </h2>
-      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div class="w-10 h-1 bg-primary-400 rounded-full mb-8 fade-in-up"></div>
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
         {premiumFeatures.map((feature) => {
           const featureKey = feature.titleKey.split('.')[1] as keyof typeof t.features;
           return (
@@ -71,11 +76,14 @@ const jsonLd = createBreadcrumbListLD([
     </section>
 
     <!-- CTA -->
-    <div class="text-center py-12 bg-cream-50 rounded-card fade-in-up">
-      <h2 class="text-2xl font-bold text-warm-gray-900 mb-4">
-        今すぐ無料で始めよう
-      </h2>
-      <CTAButton text={t.nav.startFree} size="lg" />
+    <div class="relative py-12 px-8 bg-cream-50 rounded-card border border-warm-gray-100 overflow-hidden fade-in-up">
+      <div class="absolute top-[-20px] right-[-30px] w-[120px] h-[120px] bg-primary-100/40 blob-shape" aria-hidden="true"></div>
+      <div class="relative z-10 text-center">
+        <h2 class="text-2xl font-bold text-warm-gray-900 mb-4">
+          今すぐ無料で始めよう
+        </h2>
+        <CTAButton text={t.nav.startFree} size="lg" />
+      </div>
     </div>
   </div>
 </Layout>
