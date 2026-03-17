@@ -6,37 +6,37 @@ import { useTranslations } from '@utils/i18n';
 const t = useTranslations(Astro.currentLocale);
 ---
 
-<section class="py-16 md:py-24 px-4 bg-white">
+<section class="py-24 md:py-32 px-6 bg-white">
   <div class="max-w-6xl mx-auto">
-    <div class="text-center mb-12 fade-in-up">
-      <h2 class="text-3xl md:text-4xl font-display font-bold text-warm-gray-900 mb-4">
+    <div class="text-center mb-16 fade-in-up">
+      <h2 class="text-3xl md:text-4xl font-display font-bold text-warm-gray-900 tracking-tight mb-4">
         {t.typeDiagnosis.title}
       </h2>
-      <p class="text-lg text-warm-gray-600">{t.typeDiagnosis.subtitle}</p>
+      <p class="text-xl text-warm-gray-600 leading-relaxed">{t.typeDiagnosis.subtitle}</p>
     </div>
-    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
+    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8 mb-12">
       {walkingTypes.map((type, index) => (
         <div
-          class="p-6 bg-cream-50 rounded-card hover:shadow-card transition-all hover:scale-105 fade-in-up"
+          class="p-8 bg-cream-100 rounded-card border border-warm-gray-100 hover:bg-white hover:shadow-card transition-all duration-300 fade-in-up"
           style={`animation-delay: ${index * 50}ms`}
         >
-          <div class="mb-3 flex justify-center">
+          <div class="mb-4 flex justify-center">
             <Icon name={type.icon} type={type.iconType} size={40} class={`text-${type.color}`} />
           </div>
-          <h3 class={`text-lg font-bold text-center mb-2 text-${type.color}`}>
+          <h3 class={`text-base font-semibold text-center mb-2 text-${type.color}`}>
             {t.walkingTypes[type.id as keyof typeof t.walkingTypes].name}
           </h3>
-          <p class="text-sm text-warm-gray-600 text-center">
+          <p class="text-sm text-warm-gray-600 text-center leading-relaxed">
             {t.walkingTypes[type.id as keyof typeof t.walkingTypes].description}
           </p>
         </div>
       ))}
     </div>
     <div class="text-center fade-in-up">
-      <!-- WCAG 1.4.3: secondary-700(#15803d)+white = 5.1:1 ✓; WCAG 3.2.5: sr-only で新しいタブを通知 -->
+      <!-- WCAG 1.4.3: primary-700(#c2410c)+white = 4.79:1 ✓; WCAG 3.2.5: sr-only で新しいタブを通知 -->
       <a
         href="https://tikareta.com"
-        class="inline-block bg-secondary-700 hover:bg-secondary-700/90 text-white font-bold py-3 px-8 rounded-button shadow-soft hover:shadow-hover transition-all duration-300"
+        class="inline-block bg-primary-700 hover:bg-primary-800 text-white font-medium py-4 px-12 rounded-button transition-all duration-200"
         target="_blank"
         rel="noopener noreferrer"
       >

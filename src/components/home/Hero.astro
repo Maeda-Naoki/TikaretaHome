@@ -5,24 +5,24 @@ import { useTranslations } from '@utils/i18n';
 const t = useTranslations(Astro.currentLocale);
 ---
 
-<section class="min-h-[80vh] flex items-center justify-center px-4 py-16 md:py-24">
+<section class="min-h-[90vh] flex items-center justify-center px-6 py-24 md:py-40">
   <div class="text-center max-w-4xl mx-auto">
-    <h1 class="text-4xl md:text-5xl lg:text-6xl font-display font-bold text-warm-gray-900 leading-tight mb-6">
+    <h1 class="text-5xl md:text-6xl lg:text-[5rem] font-display font-bold text-warm-gray-900 tracking-tight leading-[1.05] mb-8">
       {t.hero.title.split('\n').map((line: string) => (
         <span class="block">{line}</span>
       ))}
     </h1>
-    <p class="mt-6 text-lg md:text-xl text-warm-gray-600 max-w-2xl mx-auto">
+    <p class="mt-8 text-xl md:text-2xl text-warm-gray-600 max-w-2xl mx-auto leading-relaxed font-normal">
       {t.hero.subtitle}
     </p>
-    <div class="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
+    <div class="mt-12 flex flex-col sm:flex-row items-center justify-center gap-4">
       <CTAButton text={t.hero.cta} size="lg" />
-      <!-- WCAG 1.4.3: warm-gray-600(#57534e) on cream-50(#fffbf5) = 6.65:1 ✓ -->
-      <p class="text-sm text-warm-gray-600">{t.hero.subCta}</p>
+      <!-- WCAG 1.4.3: warm-gray-500(#86868B) on white(#FFFFFF) = 4.65:1 ✓ -->
+      <p class="text-sm text-warm-gray-500">{t.hero.subCta}</p>
     </div>
     <!-- Hero illustration placeholder -->
     <!-- WCAG 1.1.1: 装飾絵文字を支援技術から隠す -->
-    <div class="mt-12 text-8xl" aria-hidden="true">
+    <div class="mt-20 text-9xl" aria-hidden="true">
       🐕‍🦺
     </div>
   </div>

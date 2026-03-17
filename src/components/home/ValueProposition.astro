@@ -5,22 +5,22 @@ import { useTranslations } from '@utils/i18n';
 const t = useTranslations(Astro.currentLocale);
 ---
 
-<section class="py-16 md:py-24 px-4 bg-white">
+<section class="py-24 md:py-32 px-6 bg-cream-100">
   <div class="max-w-6xl mx-auto">
-    <h2 class="text-3xl md:text-4xl font-display font-bold text-warm-gray-900 text-center mb-12 fade-in-up">
+    <h2 class="text-3xl md:text-4xl font-display font-bold text-warm-gray-900 tracking-tight text-center mb-16 fade-in-up">
       {t.valueProposition.title}
     </h2>
-    <div class="grid md:grid-cols-3 gap-8">
+    <div class="grid md:grid-cols-3 gap-8 md:gap-10">
       {t.valueProposition.items.map((item, index) => (
         <div
-          class="text-center p-6 bg-cream-50 rounded-card shadow-soft hover:shadow-card transition-shadow fade-in-up"
+          class="text-center p-8 md:p-10 bg-white rounded-card border border-warm-gray-100 hover:shadow-card transition-shadow fade-in-up"
           style={`animation-delay: ${index * 100}ms`}
         >
-          <div class="mb-4 flex justify-center">
-            <Icon name={item.icon} type={item.iconType as 'lucide' | 'emoji'} size={48} class="text-primary-600" />
+          <div class="mb-5 flex justify-center">
+            <Icon name={item.icon} type={item.iconType as 'lucide' | 'emoji'} size={44} class="text-primary-600" />
           </div>
-          <h3 class="text-xl font-bold text-warm-gray-900 mb-3">{item.title}</h3>
-          <p class="text-warm-gray-600">{item.description}</p>
+          <h3 class="text-xl font-semibold text-warm-gray-900 mb-3">{item.title}</h3>
+          <p class="text-warm-gray-600 leading-relaxed">{item.description}</p>
         </div>
       ))}
     </div>
