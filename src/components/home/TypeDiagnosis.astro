@@ -8,39 +8,67 @@ const t = useTranslations(Astro.currentLocale);
 
 <section class="py-16 md:py-24 px-4 bg-white">
   <div class="max-w-6xl mx-auto">
-    <div class="text-center mb-12 fade-in-up">
-      <h2 class="text-3xl md:text-4xl font-display font-bold text-warm-gray-900 mb-4">
-        {t.typeDiagnosis.title}
-      </h2>
-      <p class="text-lg text-warm-gray-600">{t.typeDiagnosis.subtitle}</p>
+    <div class="md:flex md:items-end md:justify-between mb-12 gap-4">
+      <div class="slide-in-left">
+        <h2 class="text-3xl md:text-4xl font-display font-bold text-warm-gray-900 mb-3">
+          {t.typeDiagnosis.title}
+        </h2>
+        <div class="w-12 h-1 bg-secondary-400 rounded-full mb-4 md:mb-0"></div>
+      </div>
+      <p class="text-lg text-warm-gray-600 md:max-w-sm slide-in-right">{t.typeDiagnosis.subtitle}</p>
     </div>
-    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
-      {walkingTypes.map((type, index) => (
-        <div
-          class="p-6 bg-cream-50 rounded-card hover:shadow-card transition-all hover:scale-105 fade-in-up"
-          style={`animation-delay: ${index * 50}ms`}
-        >
-          <div class="mb-3 flex justify-center">
-            <Icon name={type.icon} type={type.iconType} size={40} class={`text-${type.color}`} />
+
+    <!-- 非対称マソンリー風グリッド: 最初の2つを目立たせる -->
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-5 mb-10">
+      {walkingTypes.map((type, index) => {
+        const isFeature = index < 2;
+        return (
+          <div
+            class:list={[
+              "p-5 bg-cream-50 rounded-card border border-warm-gray-100 hover:shadow-card transition-all group scale-in",
+              isFeature && "md:row-span-1 md:col-span-2"
+            ]}
+            style={`transition-delay: ${index * 60}ms`}
+          >
+            <div class:list={[
+              "mb-3 flex items-center gap-3",
+              isFeature ? "justify-start" : "justify-center flex-col"
+            ]}>
+              <div class:list={[
+                "rounded-soft flex items-center justify-center flex-shrink-0",
+                isFeature ? "w-12 h-12 bg-white shadow-soft" : "w-10 h-10"
+              ]}>
+                <Icon name={type.icon} type={type.iconType} size={isFeature ? 28 : 24} class={`text-${type.color}`} />
+              </div>
+              <h3 class:list={[
+                "font-bold",
+                isFeature ? "text-lg" : "text-base text-center",
+                `text-${type.color}`
+              ]}>
+                {t.walkingTypes[type.id as keyof typeof t.walkingTypes].name}
+              </h3>
+            </div>
+            <p class:list={[
+              "text-sm text-warm-gray-600",
+              isFeature ? "" : "text-center"
+            ]}>
+              {t.walkingTypes[type.id as keyof typeof t.walkingTypes].description}
+            </p>
           </div>
-          <h3 class={`text-lg font-bold text-center mb-2 text-${type.color}`}>
-            {t.walkingTypes[type.id as keyof typeof t.walkingTypes].name}
-          </h3>
-          <p class="text-sm text-warm-gray-600 text-center">
-            {t.walkingTypes[type.id as keyof typeof t.walkingTypes].description}
-          </p>
-        </div>
-      ))}
+        );
+      })}
     </div>
-    <div class="text-center fade-in-up">
+
+    <div class="fade-in-up">
       <!-- WCAG 1.4.3: secondary-700(#15803d)+white = 5.1:1 ✓; WCAG 3.2.5: sr-only で新しいタブを通知 -->
       <a
         href="https://tikareta.com"
-        class="inline-block bg-secondary-700 hover:bg-secondary-700/90 text-white font-bold py-3 px-8 rounded-button shadow-soft hover:shadow-hover transition-all duration-300"
+        class="inline-flex items-center gap-2 bg-secondary-700 hover:bg-secondary-700/90 text-white font-bold py-3 px-8 rounded-button shadow-soft hover:shadow-hover transition-all duration-300"
         target="_blank"
         rel="noopener noreferrer"
       >
         {t.typeDiagnosis.cta}
+        <span aria-hidden="true">→</span>
         <span class="sr-only">{t.common.newTab}</span>
       </a>
     </div>

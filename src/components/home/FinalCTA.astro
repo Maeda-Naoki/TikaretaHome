@@ -5,16 +5,23 @@ import { useTranslations } from '@utils/i18n';
 const t = useTranslations(Astro.currentLocale);
 ---
 
-<section class="py-16 md:py-24 px-4 bg-gradient-to-b from-white to-primary-50">
-  <div class="max-w-4xl mx-auto text-center">
-    <h2 class="text-3xl md:text-4xl font-display font-bold text-warm-gray-900 mb-4 fade-in-up">
-      {t.finalCTA.title}
-    </h2>
-    <p class="text-lg text-warm-gray-600 mb-8 fade-in-up">
-      {t.finalCTA.subtitle}
-    </p>
-    <div class="fade-in-up">
-      <CTAButton text={t.finalCTA.cta} size="lg" />
+<section class="py-20 md:py-28 px-4 relative overflow-hidden">
+  <!-- 装飾背景 -->
+  <div class="absolute inset-0 bg-gradient-to-br from-primary-50/80 via-cream-50 to-secondary-50/40" aria-hidden="true"></div>
+  <div class="absolute top-[-40px] right-[-60px] w-[200px] h-[200px] bg-primary-100/50 blob-shape" aria-hidden="true"></div>
+  <div class="absolute bottom-[-30px] left-[-40px] w-[160px] h-[160px] bg-secondary-100/30 blob-shape" aria-hidden="true" style="border-radius: 40% 60% 55% 45% / 55% 40% 60% 45%;"></div>
+
+  <div class="max-w-3xl mx-auto relative z-10">
+    <div class="bg-white/80 backdrop-blur-sm rounded-card p-8 md:p-12 shadow-card border border-warm-gray-100 text-center">
+      <h2 class="text-3xl md:text-4xl font-display font-bold text-warm-gray-900 mb-4 fade-in-up">
+        {t.finalCTA.title}
+      </h2>
+      <p class="text-lg text-warm-gray-600 mb-8 max-w-xl mx-auto fade-in-up" style="transition-delay: 80ms">
+        {t.finalCTA.subtitle}
+      </p>
+      <div class="fade-in-up" style="transition-delay: 160ms">
+        <CTAButton text={t.finalCTA.cta} size="lg" />
+      </div>
     </div>
   </div>
 </section>

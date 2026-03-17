@@ -18,9 +18,11 @@ const navItems = mainNav.map((item) => ({
   <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="flex items-center justify-between h-16">
       <!-- Logo -->
-      <a href={homeUrl} class="flex items-center gap-2 font-display font-bold text-xl text-warm-gray-900 hover:text-primary-700 transition-colors">
-        <!-- WCAG 1.1.1: 装飾絵文字を支援技術から隠す -->
-        <span class="text-2xl" aria-hidden="true">🐾</span>
+      <a href={homeUrl} class="flex items-center gap-2.5 font-display font-bold text-xl text-warm-gray-900 hover:text-primary-700 transition-colors">
+        <!-- WCAG 1.1.1: 装飾ロゴを支援技術から隠す -->
+        <span class="w-8 h-8 bg-primary-700 rounded-soft flex items-center justify-center" aria-hidden="true">
+          <span class="text-white text-sm font-bold">T</span>
+        </span>
         {t.site.name}
       </a>
 

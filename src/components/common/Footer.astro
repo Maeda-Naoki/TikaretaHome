@@ -6,17 +6,23 @@ const locale = Astro.currentLocale ?? 'ja';
 ---
 
 <footer class="bg-warm-gray-100 border-t border-warm-gray-200 mt-auto">
-  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-    <div class="flex flex-col items-center gap-4">
-      <!-- Logo -->
-      <div class="flex items-center gap-2 font-display font-bold text-lg text-warm-gray-900">
-        <!-- WCAG 1.1.1: 装飾絵文字を支援技術から隠す -->
-        <span class="text-xl" aria-hidden="true">🐾</span>
-        {t.site.name}
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+    <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+      <!-- Logo + Copyright -->
+      <div>
+        <div class="flex items-center gap-2.5 font-display font-bold text-lg text-warm-gray-900 mb-2">
+          <!-- WCAG 1.1.1: 装飾ロゴを支援技術から隠す -->
+          <span class="w-7 h-7 bg-primary-700 rounded-soft flex items-center justify-center" aria-hidden="true">
+            <span class="text-white text-xs font-bold">T</span>
+          </span>
+          {t.site.name}
+        </div>
+        <!-- WCAG 1.4.3: warm-gray-600(#57534e) on warm-gray-100(#f5f3f0) = 6.65:1 ✓ -->
+        <p class="text-sm text-warm-gray-500">{t.footer.copyright}</p>
       </div>
 
       <!-- Footer Navigation -->
-      <nav class="flex flex-wrap items-center justify-center gap-6 text-sm">
+      <nav class="flex flex-wrap items-center gap-6 text-sm">
         <a
           href={locale === 'ja' ? '/privacy' : '/en/privacy'}
           class="text-warm-gray-600 hover:text-primary-700 transition-colors"
@@ -30,10 +36,6 @@ const locale = Astro.currentLocale ?? 'ja';
           {t.footer.terms}
         </a>
       </nav>
-
-      <!-- Copyright -->
-      <!-- WCAG 1.4.3: warm-gray-600(#57534e) on warm-gray-100(#f5f3f0) = 6.65:1 ✓ -->
-      <p class="text-sm text-warm-gray-600">{t.footer.copyright}</p>
     </div>
   </div>
 </footer>

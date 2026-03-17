@@ -43,15 +43,17 @@
   --font-sans: "Noto Sans JP", "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif;
   --font-display: "Rounded Mplus 1c", "Noto Sans JP", sans-serif;
 
-  /* 角丸 */
-  --radius-soft: 1rem;
-  --radius-card: 1.5rem;
-  --radius-button: 9999px;
+  /* 角丸 - 意図的にバリエーションを持たせる */
+  --radius-soft: 0.75rem;
+  --radius-card: 1.25rem;
+  --radius-button: 0.75rem;
+  --radius-pill: 9999px;
 
-  /* シャドウ */
-  --shadow-soft: 0 2px 8px rgba(0, 0, 0, 0.06);
-  --shadow-card: 0 4px 16px rgba(0, 0, 0, 0.08);
-  --shadow-hover: 0 8px 24px rgba(0, 0, 0, 0.12);
+  /* シャドウ - よりオーガニックな影 */
+  --shadow-soft: 0 1px 4px rgba(0, 0, 0, 0.04), 0 4px 12px rgba(0, 0, 0, 0.03);
+  --shadow-card: 0 2px 8px rgba(0, 0, 0, 0.05), 0 8px 24px rgba(0, 0, 0, 0.06);
+  --shadow-hover: 0 4px 12px rgba(0, 0, 0, 0.08), 0 12px 32px rgba(0, 0, 0, 0.1);
+  --shadow-lifted: 0 12px 40px rgba(0, 0, 0, 0.12), 0 2px 8px rgba(0, 0, 0, 0.04);
 }
 
 /* WCAG 2.4.11: sticky header (h-16 = 4rem) がフォーカス要素を隠さないようにする */
@@ -80,6 +82,7 @@ html {
 }
 
 @layer utilities {
+  /* アニメーション: セクションごとに異なるモーション */
   .fade-in-up {
     opacity: 0;
     transform: translateY(20px);
@@ -92,12 +95,88 @@ html {
     transform: translateY(0);
   }
 
+  .slide-in-left {
+    opacity: 0;
+    transform: translateX(-30px);
+    transition:
+      opacity 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+      transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+  .slide-in-left.is-visible {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  .slide-in-right {
+    opacity: 0;
+    transform: translateX(30px);
+    transition:
+      opacity 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+      transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+  .slide-in-right.is-visible {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  .scale-in {
+    opacity: 0;
+    transform: scale(0.95);
+    transition:
+      opacity 0.5s ease-out,
+      transform 0.5s ease-out;
+  }
+  .scale-in.is-visible {
+    opacity: 1;
+    transform: scale(1);
+  }
+
   /* WCAG: prefers-reduced-motion を尊重 */
   @media (prefers-reduced-motion: reduce) {
-    .fade-in-up {
+    .fade-in-up,
+    .slide-in-left,
+    .slide-in-right,
+    .scale-in {
       opacity: 1;
       transform: none;
       transition: none;
     }
   }
+}
+
+/* 装飾パターン: ドット背景 */
+.dot-pattern {
+  background-image: radial-gradient(circle, var(--color-primary-200) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+/* 装飾パターン: 斜めストライプ */
+.stripe-accent {
+  background-image: repeating-linear-gradient(
+    -45deg,
+    transparent,
+    transparent 8px,
+    var(--color-primary-50) 8px,
+    var(--color-primary-50) 16px
+  );
+}
+
+/* 有機的なブロブ形状 */
+.blob-shape {
+  border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+}
+
+/* 波形のセクション区切り */
+.wave-divider {
+  position: relative;
+}
+.wave-divider::after {
+  content: "";
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  width: 100%;
+  height: 48px;
+  background: var(--color-cream-50);
+  clip-path: ellipse(55% 100% at 50% 100%);
 }
