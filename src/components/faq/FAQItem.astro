@@ -8,12 +8,12 @@ interface Props {
 const { question, answer } = Astro.props;
 ---
 
-<details class="group bg-white rounded-card shadow-soft hover:shadow-card transition-all fade-in-up">
-  <summary class="cursor-pointer p-6 font-bold text-warm-gray-900 list-none flex items-center justify-between">
+<details class="group bg-white rounded-card border border-warm-gray-100 hover:shadow-card transition-all scale-in">
+  <summary class="cursor-pointer p-6 font-bold text-warm-gray-900 list-none flex items-center justify-between gap-4">
     <span>{question}</span>
     <!-- WCAG 1.1.1: 装飾シェブロンSVGを支援技術から隠す（開閉状態はdetails/summaryが伝える） -->
     <svg
-      class="w-5 h-5 text-warm-gray-600 transform transition-transform group-open:rotate-180"
+      class="w-5 h-5 text-warm-gray-400 transform transition-transform group-open:rotate-180 flex-shrink-0"
       fill="none"
       stroke="currentColor"
       viewBox="0 0 24 24"
@@ -22,7 +22,7 @@ const { question, answer } = Astro.props;
       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
     </svg>
   </summary>
-  <div class="px-6 pb-6 text-warm-gray-600">
+  <div class="px-6 pb-6 text-warm-gray-600 border-t border-warm-gray-100 pt-4 mx-6">
     <p>{answer}</p>
   </div>
 </details>

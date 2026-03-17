@@ -49,9 +49,11 @@ const lang = locale === 'en' ? 'en' : 'ja';
       // WCAG 2.3.3: prefers-reduced-motion を尊重したスクロールアニメーション
       const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+      const animatedSelectors = '.fade-in-up, .slide-in-left, .slide-in-right, .scale-in';
+
       if (prefersReducedMotion) {
         // アニメーションなしで即座に表示（CSSの @media 対応の JS 側補完）
-        document.querySelectorAll('.fade-in-up').forEach((el) => {
+        document.querySelectorAll(animatedSelectors).forEach((el) => {
           el.classList.add('is-visible');
         });
       } else {
@@ -67,7 +69,7 @@ const lang = locale === 'en' ? 'en' : 'ja';
           { threshold: 0.1 }
         );
 
-        document.querySelectorAll('.fade-in-up').forEach((el) => observer.observe(el));
+        document.querySelectorAll(animatedSelectors).forEach((el) => observer.observe(el));
       }
     </script>
   </body>

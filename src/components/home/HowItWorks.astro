@@ -4,33 +4,39 @@ import { useTranslations } from '@utils/i18n';
 const t = useTranslations(Astro.currentLocale);
 ---
 
-<section class="py-16 md:py-24 px-4">
-  <div class="max-w-6xl mx-auto">
-    <h2 class="text-3xl md:text-4xl font-display font-bold text-warm-gray-900 text-center mb-12 fade-in-up">
+<section class="py-16 md:py-24 px-4 relative">
+  <!-- 装飾: 控えめなドットパターン -->
+  <div class="absolute inset-0 dot-pattern opacity-30 pointer-events-none" aria-hidden="true"></div>
+
+  <div class="max-w-5xl mx-auto relative z-10">
+    <h2 class="text-3xl md:text-4xl font-display font-bold text-warm-gray-900 text-center mb-16 fade-in-up">
       {t.howItWorks.title}
     </h2>
-    <div class="grid md:grid-cols-3 gap-8">
-      {t.howItWorks.steps.map((step, index) => (
-        <div
-          class="relative p-6 fade-in-up"
-          style={`animation-delay: ${index * 150}ms`}
-        >
-          <div class="flex flex-col items-center text-center">
-            <!-- WCAG 1.4.3: primary-700(#c2410c)+white = 4.79:1 ✓ -->
-            <div class="w-16 h-16 rounded-full bg-primary-700 text-white flex items-center justify-center text-2xl font-bold mb-4">
-              {step.number}
+
+    <!-- タイムライン: 垂直接続線で結ぶ -->
+    <div class="relative">
+      <!-- 接続線 (desktop) -->
+      <div class="hidden md:block absolute top-8 left-0 right-0 h-0.5 bg-gradient-to-r from-primary-200 via-primary-300 to-primary-200" aria-hidden="true"></div>
+
+      <div class="grid md:grid-cols-3 gap-12 md:gap-8">
+        {t.howItWorks.steps.map((step, index) => (
+          <div
+            class={`relative scale-in ${index === 1 ? 'md:pt-8' : ''}`}
+            style={`transition-delay: ${index * 180}ms`}
+          >
+            <div class="flex flex-col items-center text-center">
+              <!-- WCAG 1.4.3: primary-700(#c2410c)+white = 4.79:1 ✓ -->
+              <div class="relative z-10 w-16 h-16 rounded-full bg-primary-700 text-white flex items-center justify-center text-2xl font-bold mb-6 shadow-card">
+                {step.number}
+              </div>
+              <div class={`bg-white rounded-card p-6 shadow-soft border border-warm-gray-100 w-full ${index === 1 ? 'md:-mt-2' : ''}`}>
+                <h3 class="text-xl font-bold text-warm-gray-900 mb-3">{step.title}</h3>
+                <p class="text-warm-gray-600 leading-relaxed">{step.description}</p>
+              </div>
             </div>
-            <h3 class="text-xl font-bold text-warm-gray-900 mb-3">{step.title}</h3>
-            <p class="text-warm-gray-600">{step.description}</p>
           </div>
-          {index < 2 && (
-            /* WCAG 1.1.1: 装飾的な矢印を支援技術から隠す */
-            <div class="hidden md:block absolute top-12 -right-4 text-primary-300 text-3xl" aria-hidden="true">
-              →
-            </div>
-          )}
-        </div>
-      ))}
+        ))}
+      </div>
     </div>
   </div>
 </section>

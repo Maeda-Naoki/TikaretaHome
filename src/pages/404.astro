@@ -13,23 +13,31 @@ const homeUrl = locale === 'ja' ? '/' : '/en/';
   description={t.pages.notFound.description}
   noindex={true}
 >
-  <div class="min-h-[60vh] flex items-center justify-center px-4">
-    <div class="text-center max-w-2xl mx-auto">
-      <div class="mb-8 flex justify-center">
-        <Icon name="Dog" type="lucide" size={96} class="text-primary-600" />
+  <div class="min-h-[60vh] flex items-center justify-center px-4 relative overflow-hidden">
+    <!-- 装飾背景 -->
+    <div class="absolute top-[10%] right-[5%] w-[200px] h-[200px] bg-primary-100/30 blob-shape" aria-hidden="true"></div>
+    <div class="absolute bottom-[10%] left-[8%] w-[150px] h-[150px] bg-secondary-100/20 blob-shape" aria-hidden="true" style="border-radius: 40% 60% 55% 45% / 55% 40% 60% 45%;"></div>
+
+    <div class="relative z-10 max-w-md mx-auto">
+      <div class="bg-white rounded-card border border-warm-gray-100 shadow-card p-10 text-center">
+        <div class="mb-6 flex justify-center">
+          <div class="w-20 h-20 bg-primary-50 rounded-full flex items-center justify-center">
+            <Icon name="Dog" type="lucide" size={48} class="text-primary-600" />
+          </div>
+        </div>
+        <h1 class="text-3xl md:text-4xl font-display font-bold text-warm-gray-900 mb-3">
+          {t.pages.notFound.heading}
+        </h1>
+        <p class="text-warm-gray-600 mb-8">
+          {t.pages.notFound.message}
+        </p>
+        <a
+          href={homeUrl}
+          class="inline-flex items-center gap-2 bg-primary-700 hover:bg-primary-800 text-white font-bold py-3 px-8 rounded-button shadow-soft hover:shadow-hover transition-all duration-300"
+        >
+          {t.pages.notFound.backToHome}
+        </a>
       </div>
-      <h1 class="text-4xl md:text-5xl font-display font-bold text-warm-gray-900 mb-4">
-        {t.pages.notFound.heading}
-      </h1>
-      <p class="text-lg text-warm-gray-600 mb-8">
-        {t.pages.notFound.message}
-      </p>
-      <a
-        href={homeUrl}
-        class="inline-block bg-primary-500 hover:bg-primary-600 text-white font-bold py-3 px-8 rounded-button shadow-soft hover:shadow-hover transition-all duration-300"
-      >
-        {t.pages.notFound.backToHome}
-      </a>
     </div>
   </div>
 </Layout>

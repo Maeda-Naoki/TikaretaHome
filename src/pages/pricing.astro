@@ -20,18 +20,21 @@ const jsonLd = createBreadcrumbListLD([
   description={t.pages.pricing.description}
   jsonLd={jsonLd}
 >
-  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
     <Breadcrumbs items={[{ name: t.nav.pricing, url: '/pricing' }]} />
 
-    <h1 class="text-4xl font-display font-bold text-warm-gray-900 mb-4 text-center fade-in-up">
-      {t.nav.pricing}
-    </h1>
-    <p class="text-lg text-warm-gray-600 mb-12 text-center fade-in-up">
-      {t.pages.pricing.description}
-    </p>
+    <div class="mb-12">
+      <h1 class="text-4xl font-display font-bold text-warm-gray-900 mb-3 slide-in-left">
+        {t.nav.pricing}
+      </h1>
+      <div class="w-14 h-1 bg-primary-400 rounded-full mb-4 slide-in-left"></div>
+      <p class="text-lg text-warm-gray-600 max-w-2xl slide-in-left">
+        {t.pages.pricing.description}
+      </p>
+    </div>
 
     <!-- Pricing Cards -->
-    <div class="grid md:grid-cols-3 gap-6 mb-16">
+    <div class="grid md:grid-cols-3 gap-5 mb-16 items-start">
       {pricingPlans.map((plan) => (
         <PricingCard
           name={t.pricing.plans[plan.id].name}
@@ -51,56 +54,60 @@ const jsonLd = createBreadcrumbListLD([
     </div>
 
     <!-- FAQ Section -->
-    <section class="bg-white rounded-card shadow-soft p-8 fade-in-up">
-      <h2 class="text-2xl font-bold text-warm-gray-900 mb-6">
+    <section class="bg-cream-50 rounded-card border border-warm-gray-100 p-8 fade-in-up">
+      <h2 class="text-2xl font-bold text-warm-gray-900 mb-2">
         よくある質問
       </h2>
-      <div class="space-y-4">
-        <details class="group">
-          <summary class="cursor-pointer font-bold text-warm-gray-900 list-none flex items-center justify-between py-3">
+      <div class="w-10 h-1 bg-primary-400 rounded-full mb-6"></div>
+      <div class="space-y-3">
+        <details class="group bg-white rounded-card border border-warm-gray-100 transition-all hover:shadow-soft">
+          <summary class="cursor-pointer p-5 font-bold text-warm-gray-900 list-none flex items-center justify-between gap-4">
             <span>{t.faq.pricing.freeFeatures.question}</span>
             <svg
-              class="w-5 h-5 text-warm-gray-600 transform transition-transform group-open:rotate-180"
+              class="w-5 h-5 text-warm-gray-400 transform transition-transform group-open:rotate-180 flex-shrink-0"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
+              aria-hidden="true"
             >
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
             </svg>
           </summary>
-          <div class="pb-3 text-warm-gray-600">
+          <div class="px-5 pb-5 text-warm-gray-600 border-t border-warm-gray-100 pt-4 mx-5">
             <p>{t.faq.pricing.freeFeatures.answer}</p>
           </div>
         </details>
-        <details class="group">
-          <summary class="cursor-pointer font-bold text-warm-gray-900 list-none flex items-center justify-between py-3">
+        <details class="group bg-white rounded-card border border-warm-gray-100 transition-all hover:shadow-soft">
+          <summary class="cursor-pointer p-5 font-bold text-warm-gray-900 list-none flex items-center justify-between gap-4">
             <span>{t.faq.pricing.cancelAnytime.question}</span>
             <svg
-              class="w-5 h-5 text-warm-gray-600 transform transition-transform group-open:rotate-180"
+              class="w-5 h-5 text-warm-gray-400 transform transition-transform group-open:rotate-180 flex-shrink-0"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
+              aria-hidden="true"
             >
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
             </svg>
           </summary>
-          <div class="pb-3 text-warm-gray-600">
+          <div class="px-5 pb-5 text-warm-gray-600 border-t border-warm-gray-100 pt-4 mx-5">
             <p>{t.faq.pricing.cancelAnytime.answer}</p>
           </div>
         </details>
-        <details class="group">
-          <summary class="cursor-pointer font-bold text-warm-gray-900 list-none flex items-center justify-between py-3">
+        <details class="group bg-white rounded-card border border-warm-gray-100 transition-all hover:shadow-soft">
+          <summary class="cursor-pointer p-5 font-bold text-warm-gray-900 list-none flex items-center justify-between gap-4">
             <span>{t.faq.pricing.paymentMethods.question}</span>
             <svg
-              class="w-5 h-5 text-warm-gray-600 transform transition-transform group-open:rotate-180"
+              class="w-5 h-5 text-warm-gray-400 transform transition-transform group-open:rotate-180 flex-shrink-0"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
+              aria-hidden="true"
             >
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
             </svg>
           </summary>
-          <div class="pb-3 text-warm-gray-600">
+          <div class="px-5 pb-5 text-warm-gray-600 border-t border-warm-gray-100 pt-4 mx-5">
             <p>{t.faq.pricing.paymentMethods.answer}</p>
           </div>
         </details>

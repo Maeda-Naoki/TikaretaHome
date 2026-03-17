@@ -20,81 +20,112 @@ const jsonLd = createBreadcrumbListLD([
   <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
     <Breadcrumbs items={[{ name: t.footer.terms, url: '/en/terms' }]} />
 
-    <h1 class="text-4xl font-display font-bold text-warm-gray-900 mb-8 fade-in-up">
-      {t.footer.terms}
-    </h1>
+    <div class="mb-10">
+      <h1 class="text-4xl font-display font-bold text-warm-gray-900 mb-3 slide-in-left">
+        {t.footer.terms}
+      </h1>
+      <div class="w-14 h-1 bg-primary-400 rounded-full slide-in-left"></div>
+    </div>
 
-    <div class="prose prose-warm-gray max-w-none">
-      <div class="bg-white rounded-card shadow-soft p-8 mb-6 fade-in-up">
-        <h2 class="text-2xl font-bold text-warm-gray-900 mb-4">Article 1 (Application)</h2>
-        <p class="text-warm-gray-700">
+    <div class="bg-white rounded-card border border-warm-gray-100 divide-y divide-warm-gray-100 fade-in-up">
+      <div class="p-8">
+        <h2 class="text-lg font-bold text-warm-gray-900 mb-3 flex items-center gap-3">
+          <span class="w-7 h-7 bg-primary-100 rounded-soft flex items-center justify-center text-sm font-bold text-primary-700 flex-shrink-0">1</span>
+          Article 1 (Application)
+        </h2>
+        <p class="text-warm-gray-700 pl-10">
           These Terms of Service define the conditions for using Osanpo Type ("the Service"). Users agree to use the Service in accordance with these terms.
         </p>
       </div>
 
-      <div class="bg-white rounded-card shadow-soft p-8 mb-6 fade-in-up">
-        <h2 class="text-2xl font-bold text-warm-gray-900 mb-4">Article 2 (User Registration)</h2>
-        <p class="text-warm-gray-700 mb-4">
-          Prospective users shall apply for registration by the prescribed method after agreeing to these terms.
-        </p>
-        <p class="text-warm-gray-700">
-          The Service will review the registration application and notify the user upon approval. Registration is complete upon this notification.
-        </p>
+      <div class="p-8">
+        <h2 class="text-lg font-bold text-warm-gray-900 mb-3 flex items-center gap-3">
+          <span class="w-7 h-7 bg-primary-100 rounded-soft flex items-center justify-center text-sm font-bold text-primary-700 flex-shrink-0">2</span>
+          Article 2 (User Registration)
+        </h2>
+        <div class="pl-10 space-y-3">
+          <p class="text-warm-gray-700">
+            Prospective users shall apply for registration by the prescribed method after agreeing to these terms.
+          </p>
+          <p class="text-warm-gray-700">
+            The Service will review the registration application and notify the user upon approval. Registration is complete upon this notification.
+          </p>
+        </div>
       </div>
 
-      <div class="bg-white rounded-card shadow-soft p-8 mb-6 fade-in-up">
-        <h2 class="text-2xl font-bold text-warm-gray-900 mb-4">Article 3 (Prohibited Acts)</h2>
-        <p class="text-warm-gray-700 mb-4">When using the Service, users must not engage in the following acts:</p>
-        <ul class="list-disc list-inside text-warm-gray-700 space-y-2">
-          <li>Acts that violate laws or public order and morals</li>
-          <li>Acts related to criminal activities</li>
-          <li>Acts that infringe on the rights of other users or third parties</li>
-          <li>Acts that disrupt server or network functions</li>
-          <li>Acts that interfere with Service operations</li>
-          <li>Unauthorized access or attempts thereof</li>
-          <li>Collection of personal information about other users</li>
-          <li>Registration of false information</li>
-        </ul>
+      <div class="p-8">
+        <h2 class="text-lg font-bold text-warm-gray-900 mb-3 flex items-center gap-3">
+          <span class="w-7 h-7 bg-primary-100 rounded-soft flex items-center justify-center text-sm font-bold text-primary-700 flex-shrink-0">3</span>
+          Article 3 (Prohibited Acts)
+        </h2>
+        <div class="pl-10">
+          <p class="text-warm-gray-700 mb-3">When using the Service, users must not engage in the following acts:</p>
+          <ul class="list-disc list-inside text-warm-gray-700 space-y-1.5">
+            <li>Acts that violate laws or public order and morals</li>
+            <li>Acts related to criminal activities</li>
+            <li>Acts that infringe on the rights of other users or third parties</li>
+            <li>Acts that disrupt server or network functions</li>
+            <li>Acts that interfere with Service operations</li>
+            <li>Unauthorized access or attempts thereof</li>
+            <li>Collection of personal information about other users</li>
+            <li>Registration of false information</li>
+          </ul>
+        </div>
       </div>
 
-      <div class="bg-white rounded-card shadow-soft p-8 mb-6 fade-in-up">
-        <h2 class="text-2xl font-bold text-warm-gray-900 mb-4">Article 4 (Service Suspension)</h2>
-        <p class="text-warm-gray-700">
+      <div class="p-8">
+        <h2 class="text-lg font-bold text-warm-gray-900 mb-3 flex items-center gap-3">
+          <span class="w-7 h-7 bg-primary-100 rounded-soft flex items-center justify-center text-sm font-bold text-primary-700 flex-shrink-0">4</span>
+          Article 4 (Service Suspension)
+        </h2>
+        <p class="text-warm-gray-700 pl-10">
           The Service may suspend or interrupt all or part of the Service without prior notice if it deems any of the following circumstances exist.
         </p>
       </div>
 
-      <div class="bg-white rounded-card shadow-soft p-8 mb-6 fade-in-up">
-        <h2 class="text-2xl font-bold text-warm-gray-900 mb-4">Article 5 (Usage Restrictions and Deregistration)</h2>
-        <p class="text-warm-gray-700">
+      <div class="p-8">
+        <h2 class="text-lg font-bold text-warm-gray-900 mb-3 flex items-center gap-3">
+          <span class="w-7 h-7 bg-primary-100 rounded-soft flex items-center justify-center text-sm font-bold text-primary-700 flex-shrink-0">5</span>
+          Article 5 (Usage Restrictions and Deregistration)
+        </h2>
+        <p class="text-warm-gray-700 pl-10">
           If a user engages in prohibited acts, the Service may restrict all or part of the Service usage or deregister the user without prior notice.
         </p>
       </div>
 
-      <div class="bg-white rounded-card shadow-soft p-8 mb-6 fade-in-up">
-        <h2 class="text-2xl font-bold text-warm-gray-900 mb-4">Article 6 (Disclaimer)</h2>
-        <p class="text-warm-gray-700 mb-4">
+      <div class="p-8">
+        <h2 class="text-lg font-bold text-warm-gray-900 mb-3 flex items-center gap-3">
+          <span class="w-7 h-7 bg-primary-100 rounded-soft flex items-center justify-center text-sm font-bold text-primary-700 flex-shrink-0">6</span>
+          Article 6 (Disclaimer)
+        </h2>
+        <p class="text-warm-gray-700 pl-10">
           The Service bears no responsibility for transactions, communications, or disputes between users and other users or third parties.
         </p>
       </div>
 
-      <div class="bg-white rounded-card shadow-soft p-8 mb-6 fade-in-up">
-        <h2 class="text-2xl font-bold text-warm-gray-900 mb-4">Article 7 (Service Changes)</h2>
-        <p class="text-warm-gray-700">
+      <div class="p-8">
+        <h2 class="text-lg font-bold text-warm-gray-900 mb-3 flex items-center gap-3">
+          <span class="w-7 h-7 bg-primary-100 rounded-soft flex items-center justify-center text-sm font-bold text-primary-700 flex-shrink-0">7</span>
+          Article 7 (Service Changes)
+        </h2>
+        <p class="text-warm-gray-700 pl-10">
           The Service may change Service content or discontinue the Service without notice and bears no responsibility for resulting damages.
         </p>
       </div>
 
-      <div class="bg-white rounded-card shadow-soft p-8 mb-6 fade-in-up">
-        <h2 class="text-2xl font-bold text-warm-gray-900 mb-4">Article 8 (Terms Changes)</h2>
-        <p class="text-warm-gray-700">
+      <div class="p-8">
+        <h2 class="text-lg font-bold text-warm-gray-900 mb-3 flex items-center gap-3">
+          <span class="w-7 h-7 bg-primary-100 rounded-soft flex items-center justify-center text-sm font-bold text-primary-700 flex-shrink-0">8</span>
+          Article 8 (Terms Changes)
+        </h2>
+        <p class="text-warm-gray-700 pl-10">
           The Service may change these terms at any time without notice when deemed necessary.
         </p>
       </div>
-
-      <p class="text-sm text-warm-gray-500 mt-8 fade-in-up">
-        Last updated: February 15, 2026
-      </p>
     </div>
+
+    <p class="text-sm text-warm-gray-500 mt-6 fade-in-up">
+      Last updated: February 15, 2026
+    </p>
   </div>
 </Layout>

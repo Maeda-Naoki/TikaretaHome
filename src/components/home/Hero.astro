@@ -5,25 +5,51 @@ import { useTranslations } from '@utils/i18n';
 const t = useTranslations(Astro.currentLocale);
 ---
 
-<section class="min-h-[80vh] flex items-center justify-center px-4 py-16 md:py-24">
-  <div class="text-center max-w-4xl mx-auto">
-    <h1 class="text-4xl md:text-5xl lg:text-6xl font-display font-bold text-warm-gray-900 leading-tight mb-6">
-      {t.hero.title.split('\n').map((line: string) => (
-        <span class="block">{line}</span>
-      ))}
-    </h1>
-    <p class="mt-6 text-lg md:text-xl text-warm-gray-600 max-w-2xl mx-auto">
-      {t.hero.subtitle}
-    </p>
-    <div class="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
-      <CTAButton text={t.hero.cta} size="lg" />
-      <!-- WCAG 1.4.3: warm-gray-600(#57534e) on cream-50(#fffbf5) = 6.65:1 ✓ -->
-      <p class="text-sm text-warm-gray-600">{t.hero.subCta}</p>
-    </div>
-    <!-- Hero illustration placeholder -->
-    <!-- WCAG 1.1.1: 装飾絵文字を支援技術から隠す -->
-    <div class="mt-12 text-8xl" aria-hidden="true">
-      🐕‍🦺
+<section class="min-h-[80vh] flex items-center px-4 py-16 md:py-24 relative overflow-hidden">
+  <!-- 装飾: 有機的なブロブ背景 -->
+  <div class="absolute top-12 right-[-8%] w-[340px] h-[340px] md:w-[480px] md:h-[480px] bg-primary-100/60 blob-shape" aria-hidden="true"></div>
+  <div class="absolute bottom-[-5%] left-[-4%] w-[200px] h-[200px] md:w-[280px] md:h-[280px] bg-secondary-100/40 blob-shape" aria-hidden="true" style="border-radius: 40% 60% 70% 30% / 40% 50% 50% 60%;"></div>
+
+  <div class="max-w-6xl mx-auto w-full relative z-10">
+    <div class="grid md:grid-cols-[1.1fr_0.9fr] gap-8 md:gap-12 items-center">
+      <!-- テキスト側: 意図的な左寄せ -->
+      <div class="md:text-left text-center">
+        <h1 class="text-4xl md:text-5xl lg:text-[3.5rem] font-display font-bold text-warm-gray-900 leading-[1.15] mb-6 tracking-tight slide-in-left">
+          {t.hero.title.split('\n').map((line: string, i: number) => (
+            <span class:list={["block", i === 1 && "text-primary-700"]}>{line}</span>
+          ))}
+        </h1>
+        <p class="mt-6 text-lg md:text-xl text-warm-gray-600 max-w-lg slide-in-left" style="transition-delay: 100ms">
+          {t.hero.subtitle}
+        </p>
+        <div class="mt-10 flex flex-col sm:flex-row items-center md:items-start gap-4 slide-in-left" style="transition-delay: 200ms">
+          <CTAButton text={t.hero.cta} size="lg" />
+          <!-- WCAG 1.4.3: warm-gray-600(#57534e) on cream-50(#fffbf5) = 6.65:1 ✓ -->
+          <p class="text-sm text-warm-gray-600">{t.hero.subCta}</p>
+        </div>
+      </div>
+
+      <!-- ビジュアル側: CSS イラストレーション -->
+      <div class="relative flex items-center justify-center slide-in-right" style="transition-delay: 150ms" aria-hidden="true">
+        <div class="relative w-64 h-64 md:w-80 md:h-80">
+          <!-- メインサークル -->
+          <div class="absolute inset-0 rounded-full bg-gradient-to-br from-primary-100 to-primary-200/80"></div>
+          <!-- 犬の足跡パス装飾 -->
+          <div class="absolute top-[15%] left-[20%] text-4xl md:text-5xl opacity-60 rotate-[-15deg]">🐾</div>
+          <div class="absolute top-[35%] left-[45%] text-3xl md:text-4xl opacity-50 rotate-[10deg]">🐾</div>
+          <div class="absolute top-[58%] left-[25%] text-3xl md:text-4xl opacity-40 rotate-[-5deg]">🐾</div>
+          <!-- 装飾リング -->
+          <div class="absolute inset-[-12px] rounded-full border-2 border-dashed border-primary-200/60"></div>
+          <div class="absolute inset-[-28px] rounded-full border border-primary-100/40"></div>
+          <!-- 浮遊するタグ -->
+          <div class="absolute top-[-8px] right-[10%] bg-white shadow-card rounded-soft px-3 py-1.5 text-sm font-bold text-secondary-700">
+            🌳 おさんぽ
+          </div>
+          <div class="absolute bottom-[10%] left-[-5%] bg-white shadow-card rounded-soft px-3 py-1.5 text-sm font-bold text-primary-700">
+            📊 タイプ診断
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
