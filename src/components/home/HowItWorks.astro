@@ -21,7 +21,7 @@ const t = useTranslations(Astro.currentLocale);
       <div class="grid md:grid-cols-3 gap-12 md:gap-8">
         {t.howItWorks.steps.map((step, index) => (
           <div
-            class={`relative scale-in ${index === 1 ? 'md:pt-8' : ''}`}
+            class="relative scale-in"
             style={`transition-delay: ${index * 180}ms`}
           >
             <div class="flex flex-col items-center text-center">
@@ -29,7 +29,7 @@ const t = useTranslations(Astro.currentLocale);
               <div class="relative z-10 w-16 h-16 rounded-full bg-primary-700 text-white flex items-center justify-center text-2xl font-bold mb-6 shadow-card">
                 {step.number}
               </div>
-              <div class={`bg-white rounded-card p-6 shadow-soft border border-warm-gray-100 w-full ${index === 1 ? 'md:-mt-2' : ''}`}>
+              <div class="bg-white rounded-card p-6 shadow-soft border border-warm-gray-100 w-full">
                 <h3 class="text-xl font-bold text-warm-gray-900 mb-3">{step.title}</h3>
                 <p class="text-warm-gray-600 leading-relaxed">{step.description}</p>
               </div>
