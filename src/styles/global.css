@@ -84,13 +84,21 @@ html {
 /* ヒーローセクション専用: CSS keyframeアニメーション（JS不要・LCP最適化） */
 /* opacityを変えないことでLCP要素を初回ペイントから表示し、レンダー遅延を排除する */
 @keyframes hero-slide-from-left {
-  from { transform: translateX(-30px); }
-  to { transform: translateX(0); }
+  from {
+    transform: translateX(-30px);
+  }
+  to {
+    transform: translateX(0);
+  }
 }
 
 @keyframes hero-slide-from-right {
-  from { transform: translateX(30px); }
-  to { transform: translateX(0); }
+  from {
+    transform: translateX(30px);
+  }
+  to {
+    transform: translateX(0);
+  }
 }
 
 .hero-slide-in-left {
