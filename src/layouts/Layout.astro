@@ -33,16 +33,17 @@ const lang = locale === 'en' ? 'en' : 'ja';
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <!-- レンダーブロッキングを避けるため非同期でフォントを読み込む -->
+    <!-- display=optional: LCPブロックを防ぐ。フォント未ロード時はシステムフォントにフォールバック -->
+    <!-- wght@400;700のみ: 500を削除してフォントファイル数を削減 -->
     <link
       rel="preload"
-      href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Rounded+Mplus+1c:wght@400;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&family=Rounded+Mplus+1c:wght@400;700&display=optional"
       as="style"
       onload="this.onload=null;this.rel='stylesheet'"
     />
     <noscript>
       <link
-        href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Rounded+Mplus+1c:wght@400;700&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&family=Rounded+Mplus+1c:wght@400;700&display=optional"
         rel="stylesheet"
       />
     </noscript>
