@@ -39,9 +39,9 @@
   --color-warm-gray-800: #292524;
   --color-warm-gray-900: #1c1917;
 
-  /* フォント */
-  --font-sans: "Noto Sans JP", "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif;
-  --font-display: "Rounded Mplus 1c", "Noto Sans JP", sans-serif;
+  /* フォント: システムフォント優先（Google Fonts不使用でLCP最適化） */
+  --font-sans: "Hiragino Kaku Gothic ProN", "Hiragino Sans", "Noto Sans JP", Meiryo, sans-serif;
+  --font-display: "Hiragino Kaku Gothic ProN", "Hiragino Sans", "Noto Sans JP", Meiryo, sans-serif;
 
   /* 角丸 - 意図的にバリエーションを持たせる */
   --radius-soft: 0.75rem;
@@ -79,6 +79,41 @@ html {
   clip: rect(0, 0, 0, 0);
   white-space: nowrap;
   border-width: 0;
+}
+
+/* ヒーローセクション専用: CSS keyframeアニメーション（JS不要・LCP最適化） */
+/* opacityを変えないことでLCP要素を初回ペイントから表示し、レンダー遅延を排除する */
+@keyframes hero-slide-from-left {
+  from {
+    transform: translateX(-30px);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes hero-slide-from-right {
+  from {
+    transform: translateX(30px);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+.hero-slide-in-left {
+  animation: hero-slide-from-left 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+}
+
+.hero-slide-in-right {
+  animation: hero-slide-from-right 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-slide-in-left,
+  .hero-slide-in-right {
+    animation: none;
+  }
 }
 
 @layer utilities {

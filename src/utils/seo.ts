@@ -79,7 +79,7 @@ export function createSoftwareApplicationLD(locale: string): SoftwareApplication
   };
 }
 
-export function createOrganizationLD(locale: string): OrganizationLD {
+export function createOrganizationLD(_locale: string): OrganizationLD {
   return {
     '@context': 'https://schema.org',
     '@type': 'Organization',
