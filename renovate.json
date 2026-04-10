@@ -1,0 +1,26 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": ["config:recommended", ":dependencyDashboard", ":semanticCommits"],
+  "schedule": ["every saturday"],
+  "timezone": "Asia/Tokyo",
+  "minimumReleaseAge": "7 days",
+  "packageRules": [
+    {
+      "matchPackageNames": ["tailwindcss", "@tailwindcss/vite"],
+      "groupName": "tailwindcss",
+      "description": "TailwindCSS関連パッケージをまとめて更新"
+    },
+    {
+      "matchPackagePatterns": ["^@astrojs/"],
+      "matchPackageNames": ["astro"],
+      "groupName": "astro",
+      "description": "Astro関連パッケージをまとめて更新"
+    },
+    {
+      "matchPackageNames": ["typescript"],
+      "matchUpdateTypes": ["major"],
+      "enabled": false,
+      "description": "TypeScript majorアップデートはastroの互換性確認後に手動で行う"
+    }
+  ]
+}
