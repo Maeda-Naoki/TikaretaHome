@@ -13,7 +13,7 @@
     "type-check": "astro check",
     "test:e2e": "playwright test"
   },
-  "packageManager": "pnpm@10.30.0",
+  "packageManager": "pnpm@10.33.0",
   "dependencies": {
     "@lucide/astro": "1.7.0",
     "@tailwindcss/vite": "4.2.2",
