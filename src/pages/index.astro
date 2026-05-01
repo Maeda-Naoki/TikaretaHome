@@ -1,9 +1,12 @@
 ---
+import FAQ from '@components/home/FAQ.astro';
 import FeatureHighlights from '@components/home/FeatureHighlights.astro';
 import FinalCTA from '@components/home/FinalCTA.astro';
 import Hero from '@components/home/Hero.astro';
 import HowItWorks from '@components/home/HowItWorks.astro';
 import PricingSummary from '@components/home/PricingSummary.astro';
+import Showcase from '@components/home/Showcase.astro';
+import TrustStrip from '@components/home/TrustStrip.astro';
 import TypeDiagnosis from '@components/home/TypeDiagnosis.astro';
 import ValueProposition from '@components/home/ValueProposition.astro';
 import Layout from '@layouts/Layout.astro';
@@ -22,10 +25,13 @@ const jsonLd = [createSoftwareApplicationLD(locale), createOrganizationLD(locale
   jsonLd={jsonLd}
 >
   <Hero />
+  <TrustStrip />
   <ValueProposition />
   <HowItWorks />
   <TypeDiagnosis />
+  <Showcase />
   <FeatureHighlights />
   <PricingSummary />
+  <FAQ />
   <FinalCTA />
 </Layout>

@@ -1,0 +1,32 @@
+---
+import Ic from '@components/common/Ic.astro';
+import { faqs } from '@data/faq';
+---
+<section id="faq" class="section-pad" style="background:var(--bg);">
+  <div class="container-page">
+    <div class="section-head reveal">
+      <span class="eyebrow">FAQ</span>
+      <h2>よくある質問</h2>
+      <p>ご不明な点はお気軽にお問い合わせください。</p>
+    </div>
+
+    <div class="faq-list">
+      {faqs.map((item, i) => (
+        <details class="faq-item reveal" style={`transition-delay:${i * 40}ms;`}>
+          <summary>
+            <span>
+              <span class="faq-cat-tag">{item.category}</span>
+              {item.question}
+            </span>
+            <Ic name="plus" size={18} />
+          </summary>
+          <div class="answer">{item.answer}</div>
+        </details>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .faq-list { display: flex; flex-direction: column; gap: .65rem; max-width: 760px; margin: 0 auto; }
+</style>

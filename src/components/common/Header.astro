@@ -1,116 +1,119 @@
 ---
-import { mainNav } from '@data/navigation';
-import { useTranslations } from '@utils/i18n';
-import LanguageSwitcher from './LanguageSwitcher.astro';
+import Ic from './Ic.astro';
+import LogoMark from './LogoMark.astro';
 
-const t = useTranslations(Astro.currentLocale);
 const locale = Astro.currentLocale ?? 'ja';
 const homeUrl = locale === 'ja' ? '/' : '/en/';
 
-// Generate navigation URLs with locale prefix
-const navItems = mainNav.map((item) => ({
-  ...item,
-  href: locale === 'ja' ? item.href : `/en${item.href}`,
-}));
+const navLinks = [
+  { href: '#how', label: '使い方' },
+  { href: '#types', label: 'タイプ診断' },
+  { href: '#features', label: '機能' },
+  { href: '#pricing', label: '料金' },
+  { href: '#faq', label: 'FAQ' },
+];
+
+const jaUrl = Astro.url.pathname.replace(/^\/en\//, '/') || '/';
+const enUrl = `/en${Astro.url.pathname.replace(/^\/en/, '')}`;
+const isEn = locale === 'en';
 ---
 
-<header class="sticky top-0 z-40 bg-cream-50/95 backdrop-blur-sm border-b border-warm-gray-100">
-  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="flex items-center justify-between h-16">
-      <!-- Logo -->
-      <a href={homeUrl} class="flex items-center gap-2.5 font-display font-bold text-xl text-warm-gray-900 hover:text-primary-700 transition-colors">
-        <!-- WCAG 1.1.1: 装飾ロゴを支援技術から隠す -->
-        <span class="w-8 h-8 bg-primary-700 rounded-soft flex items-center justify-center" aria-hidden="true">
-          <span class="text-white text-sm font-bold">T</span>
-        </span>
-        {t.site.name}
+<header class="nav-sticky">
+  <div class="container-page nav-inner">
+    <a href={homeUrl} class="logo-link">
+      <LogoMark />
+      <span>Tikareta</span>
+    </a>
+
+    <nav class="nav-links" aria-label="主要ナビゲーション">
+      {navLinks.map((l) => <a href={l.href}>{l.label}</a>)}
+    </nav>
+
+    <div class="nav-right">
+      <div class="lang-switch" role="tablist" aria-label="言語切替">
+        <button class={!isEn ? 'active' : ''} type="button" onclick={`location.href='${jaUrl}'`}>JA</button>
+        <button class={isEn ? 'active' : ''} type="button" onclick={`location.href='${enUrl}'`}>EN</button>
+      </div>
+      <a class="btn btn-ghost nav-login" href="#">ログイン</a>
+      <a class="btn btn-primary" href="#cta">
+        <Ic name="arrow-right" size={16} />無料で始める
       </a>
-
-      <!-- Desktop Navigation -->
-      <nav class="hidden md:flex items-center gap-6">
-        {
-          navItems.map((item) => (
-            <a
-              href={item.href}
-              class="text-warm-gray-700 hover:text-primary-700 font-medium transition-colors"
-            >
-              {t.nav[item.labelKey.split('.')[1] as keyof typeof t.nav]}
-            </a>
-          ))
-        }
-        <LanguageSwitcher />
-        <!-- WCAG 1.4.3: primary-700(#c2410c)+white = 4.79:1 ✓ -->
-        <a
-          href="https://tikareta.com"
-          class="inline-block bg-primary-700 hover:bg-primary-800 text-white font-bold py-2 px-6 rounded-button shadow-soft hover:shadow-hover transition-all duration-300"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          {t.nav.startFree}
-          <span class="sr-only">{t.common.newTab}</span>
-        </a>
-      </nav>
-
-      <!-- Mobile Menu Button -->
-      <!-- WCAG 4.1.2: aria-controls でメニューと紐付け -->
-      <button
-        id="mobile-menu-button"
-        class="md:hidden p-2 text-warm-gray-700 hover:text-primary-700 transition-colors"
-        aria-label={t.common.menu}
-        aria-expanded="false"
-        aria-controls="mobile-menu"
-      >
-        <!-- WCAG 1.1.1: 装飾SVGを支援技術から隠す -->
-        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            d="M4 6h16M4 12h16M4 18h16"></path>
-        </svg>
-      </button>
     </div>
+
+    <button id="mobile-menu-btn" class="mobile-toggle" aria-label="メニュー" aria-expanded="false">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+        <line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/>
+      </svg>
+    </button>
   </div>
 
-  <!-- Mobile Menu -->
-  <div id="mobile-menu" class="hidden md:hidden border-t border-warm-gray-100">
-    <nav class="px-4 py-4 space-y-3">
-      {
-        navItems.map((item) => (
-          <a
-            href={item.href}
-            class="block py-2 text-warm-gray-700 hover:text-primary-700 font-medium transition-colors"
-          >
-            {t.nav[item.labelKey.split('.')[1] as keyof typeof t.nav]}
-          </a>
-        ))
-      }
-      <div class="py-2">
-        <LanguageSwitcher />
-      </div>
-      <!-- WCAG 1.4.3: primary-700(#c2410c)+white = 4.79:1 ✓ -->
-      <a
-        href="https://tikareta.com"
-        class="block text-center bg-primary-700 hover:bg-primary-800 text-white font-bold py-3 px-6 rounded-button shadow-soft hover:shadow-hover transition-all duration-300"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        {t.nav.startFree}
-        <span class="sr-only">{t.common.newTab}</span>
-      </a>
+  <div id="mobile-menu" class="mobile-menu" hidden>
+    <nav>
+      {navLinks.map((l) => <a href={l.href}>{l.label}</a>)}
     </nav>
+    <div class="mobile-footer">
+      <a class="btn btn-primary" href="#cta" style="justify-content:center; width:100%;">無料で始める</a>
+    </div>
   </div>
 </header>
 
-<script>
-  const mobileMenuButton = document.getElementById('mobile-menu-button');
-  const mobileMenu = document.getElementById('mobile-menu');
+<style>
+  .nav-inner {
+    display: flex; align-items: center; justify-content: space-between;
+    height: 4.25rem;
+  }
+  .logo-link {
+    display: flex; align-items: center; gap: .55rem;
+    font-weight: 800; font-size: 1.1rem; letter-spacing: -.01em;
+  }
+  .nav-links { display: none; gap: 2rem; align-items: center; }
+  .nav-links a {
+    font-size: .9rem; color: var(--ink-soft); font-weight: 500; transition: color .15s;
+  }
+  .nav-links a:hover { color: var(--ink); }
+  .nav-right { display: flex; gap: .75rem; align-items: center; }
+  .nav-login { display: none; }
+  .mobile-toggle {
+    display: flex; align-items: center; justify-content: center;
+    color: var(--ink-soft); padding: .4rem;
+  }
+  @media (min-width: 880px) {
+    .nav-links { display: flex; }
+    .nav-login { display: inline-flex; }
+    .mobile-toggle { display: none; }
+  }
 
-  if (mobileMenuButton && mobileMenu) {
-    mobileMenuButton.addEventListener('click', () => {
-      const isExpanded = mobileMenuButton.getAttribute('aria-expanded') === 'true';
-      mobileMenuButton.setAttribute('aria-expanded', String(!isExpanded));
-      mobileMenu.classList.toggle('hidden');
+  .mobile-menu {
+    border-top: 1px solid var(--line);
+    padding: 1rem var(--gutter) 1.25rem;
+    background: color-mix(in oklab, var(--bg) 95%, transparent);
+    backdrop-filter: blur(14px);
+  }
+  .mobile-menu nav { display: flex; flex-direction: column; gap: .15rem; margin-bottom: 1rem; }
+  .mobile-menu nav a {
+    padding: .75rem .5rem; font-weight: 500;
+    color: var(--ink-soft); font-size: .95rem;
+    border-bottom: 1px solid var(--line-soft);
+    display: block;
+  }
+  .mobile-menu nav a:hover { color: var(--ink); }
+  .mobile-footer { padding-top: .75rem; }
+</style>
+
+<script>
+  const btn = document.getElementById('mobile-menu-btn');
+  const menu = document.getElementById('mobile-menu');
+  if (btn && menu) {
+    btn.addEventListener('click', () => {
+      const open = menu.hidden === false;
+      menu.hidden = open;
+      btn.setAttribute('aria-expanded', String(!open));
+    });
+    menu.addEventListener('click', (e) => {
+      if ((e.target as HTMLElement).tagName === 'A') {
+        menu.hidden = true;
+        btn.setAttribute('aria-expanded', 'false');
+      }
     });
   }
 </script>

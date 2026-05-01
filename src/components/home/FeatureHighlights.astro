@@ -1,73 +1,32 @@
 ---
-import Icon from '@components/common/Icon.astro';
-import { freeFeatures } from '@data/features';
-import { useTranslations } from '@utils/i18n';
-
-const t = useTranslations(Astro.currentLocale);
-const locale = Astro.currentLocale ?? 'ja';
-const featuresUrl = locale === 'ja' ? '/features' : '/en/features';
-
-// Display first 6 features
-const displayFeatures = freeFeatures.slice(0, 6);
+import Ic from '@components/common/Ic.astro';
+import { designFeatures, tierLabel } from '@data/features';
 ---
-
-<section class="py-16 md:py-24 px-4 relative overflow-hidden">
-  <!-- 装飾: 斜めストライプ背景 -->
-  <div class="absolute top-0 right-0 w-1/3 h-full stripe-accent opacity-40 pointer-events-none" aria-hidden="true"></div>
-
-  <div class="max-w-6xl mx-auto relative z-10">
-    <div class="text-center mb-12">
-      <h2 class="text-3xl md:text-4xl font-display font-bold text-warm-gray-900 mb-3 fade-in-up">
-        {t.featureHighlights.title}
-      </h2>
-      <div class="w-12 h-1 bg-primary-400 rounded-full mx-auto fade-in-up"></div>
+<section id="features" class="section-pad" style="background:var(--bg);">
+  <div class="container-page">
+    <div class="section-head reveal">
+      <span class="eyebrow">Features</span>
+      <h2>必要なものが、すべて揃っている。</h2>
+      <p>無料から始めて、深く知りたいときだけアップグレード。</p>
     </div>
 
-    <!-- ベント（曲がった）グリッド: 最初の機能を横幅いっぱいに -->
-    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 mb-10">
-      {displayFeatures.map((feature, index) => {
-        const featureKey = feature.titleKey.split('.')[1] as keyof typeof t.features;
-        const isFirst = index === 0;
-        return (
-          <div
-            class:list={[
-              "p-6 bg-white rounded-card border border-warm-gray-100 hover:shadow-card transition-all",
-              isFirst ? "sm:col-span-2 lg:col-span-2 flex items-start gap-6 slide-in-left" : "scale-in",
-            ]}
-            style={`transition-delay: ${index * 80}ms`}
-          >
-            <div class:list={[
-              "flex-shrink-0 rounded-soft flex items-center justify-center",
-              isFirst ? "w-14 h-14 bg-primary-50" : "w-11 h-11 bg-primary-50 mb-3"
-            ]}>
-              <Icon name={feature.icon} type={feature.iconType} size={isFirst ? 32 : 24} class="text-primary-600" />
-            </div>
-            <div>
-              <h3 class:list={[
-                "font-bold text-warm-gray-900 mb-2",
-                isFirst ? "text-xl" : "text-lg"
-              ]}>
-                {t.features[featureKey].title}
-              </h3>
-              <p class:list={[
-                "text-warm-gray-600",
-                isFirst ? "text-base leading-relaxed" : "text-sm"
-              ]}>
-                {t.features[featureKey].description}
-              </p>
-            </div>
-          </div>
-        );
-      })}
-    </div>
-    <div class="fade-in-up">
-      <a
-        href={featuresUrl}
-        class="inline-flex items-center gap-1.5 text-primary-700 hover:text-primary-800 font-bold transition-colors group"
-      >
-        {t.featureHighlights.cta}
-        <span class="inline-block transition-transform group-hover:translate-x-1" aria-hidden="true">→</span>
-      </a>
+    <div class="feat-grid">
+      {designFeatures.map((f, i) => (
+        <article class={`feat ${f.tier} reveal`} style={`transition-delay:${i * 60}ms;`}>
+          <span class="tag">{tierLabel[f.tier]}</span>
+          <div class="ico"><Ic name={f.icon} size={20} /></div>
+          <h4 style="font-size:1.05rem; margin-bottom:.35rem;">{f.title}</h4>
+          <p style="font-size:.9rem; color:var(--ink-soft); line-height:1.55;">{f.body}</p>
+        </article>
+      ))}
     </div>
   </div>
 </section>
+
+<style>
+  .feat-grid {
+    display: grid; grid-template-columns: 1fr; gap: 1rem;
+  }
+  @media (min-width: 640px)  { .feat-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (min-width: 1000px) { .feat-grid { grid-template-columns: repeat(3, 1fr); } }
+</style>

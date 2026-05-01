@@ -1,3 +1,95 @@
+import type { IconName } from './icons';
+
+export type FeatureTier = 'free' | 'standard' | 'pro';
+
+export interface DesignFeature {
+  tier: FeatureTier;
+  icon: IconName;
+  title: string;
+  body: string;
+}
+
+export const designFeatures: DesignFeature[] = [
+  {
+    tier: 'free',
+    icon: 'footprints',
+    title: 'おさんぽ記録',
+    body: 'いつものおさんぽコースをかんたんに残せます。',
+  },
+  {
+    tier: 'free',
+    icon: 'map-pin',
+    title: 'スポット登録',
+    body: '立ち寄った場所・写真・理由を残して思い出を保存。',
+  },
+  {
+    tier: 'free',
+    icon: 'cloud-sun',
+    title: '天気・気温の自動記録',
+    body: 'おさんぽ中の天候を自動で残します。',
+  },
+  {
+    tier: 'free',
+    icon: 'history',
+    title: '全期間データ閲覧',
+    body: '無料でも過去の全記録をいつでも見返せます。',
+  },
+  {
+    tier: 'free',
+    icon: 'target',
+    title: '基本タイプ診断',
+    body: '8つのおさんぽタイプから愛犬の個性を診断。',
+  },
+  {
+    tier: 'free',
+    icon: 'users',
+    title: 'コミュニティ',
+    body: '同じ飼い主同士でタイムラインやリアクションで交流。',
+  },
+  {
+    tier: 'standard',
+    icon: 'bar-chart-3',
+    title: '全期間ふりかえり',
+    body: 'これまでの全おさんぽをじっくり振り返れる詳細統計。',
+  },
+  {
+    tier: 'standard',
+    icon: 'sparkles',
+    title: '詳細タイプ分析',
+    body: '愛犬の個性をより深く分析し、おさんぽへのアドバイスも。',
+  },
+  {
+    tier: 'standard',
+    icon: 'share-2',
+    title: 'シェア用カード生成',
+    body: 'カスタマイズ可能なSNS投稿用画像を無制限に。',
+  },
+  {
+    tier: 'pro',
+    icon: 'route',
+    title: '苦手スポット回避ルート',
+    body: '苦手な場所を避けて歩けるルートを自動提案。',
+  },
+  {
+    tier: 'pro',
+    icon: 'flame',
+    title: 'みんなの休憩ポイント',
+    body: '全ユーザーから人気スポットをヒートマップで可視化。',
+  },
+  {
+    tier: 'pro',
+    icon: 'trending-up',
+    title: 'トレンド分析',
+    body: '先月比・季節別の変化を可視化。傾向の変化も発見。',
+  },
+];
+
+export const tierLabel: Record<FeatureTier, string> = {
+  free: 'FREE',
+  standard: 'STANDARD',
+  pro: 'PRO',
+};
+
 export interface Feature {
   id: string;
   icon: string;

@@ -1,4 +1,5 @@
 ---
+import { ICONS, type IconName } from '@data/icons';
 import {
   BarChart3,
   Cloud,
@@ -26,15 +27,14 @@ import {
 
 interface Props {
   name: string;
-  type?: 'lucide' | 'emoji';
+  type?: 'lucide' | 'emoji' | 'svg';
   size?: number;
   class?: string;
 }
 
 const { name, type = 'lucide', size = 24, class: className = '' } = Astro.props;
 
-// Map icon names to components
-const iconMap: Record<string, typeof TreePine> = {
+const lucideMap: Record<string, typeof TreePine> = {
   TreePine,
   Compass,
   Sunrise,
@@ -59,13 +59,21 @@ const iconMap: Record<string, typeof TreePine> = {
   Heart,
 };
 
-const IconComponent = iconMap[name];
+const svgInner = ICONS[name as IconName];
+const LucideIcon = lucideMap[name];
+const sizeStyle = `width:${size}px;height:${size}px;`;
 ---
 
-{
-  type === 'lucide' && IconComponent ? (
-    <IconComponent size={size} class={className} />
-  ) : (
-    <span class={className} style={`font-size: ${size}px`}>{name}</span>
-  )
-}
+{type === 'svg' && svgInner ? (
+  <svg
+    class={`ic ${className}`}
+    viewBox="0 0 24 24"
+    aria-hidden="true"
+    style={sizeStyle}
+    set:html={svgInner}
+  />
+) : type === 'lucide' && LucideIcon ? (
+  <LucideIcon size={size} class={className} />
+) : (
+  <span class={className} style={`font-size: ${size}px`}>{name}</span>
+)}

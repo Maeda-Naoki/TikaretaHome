@@ -1,0 +1,45 @@
+---
+import PhoneMock from '@components/common/PhoneMock.astro';
+
+const screens = [
+  { variant: 'home' as const, label: 'ホーム画面' },
+  { variant: 'record' as const, label: '記録中' },
+  { variant: 'result' as const, label: 'タイプ診断' },
+  { variant: 'history' as const, label: 'ふりかえり' },
+  { variant: 'community' as const, label: 'コミュニティ' },
+];
+---
+<section class="section-pad" style="background:var(--surface-2); overflow:hidden;" id="showcase">
+  <div class="section-head reveal" style="max-width:720px; margin:0 auto 0; padding:0 var(--gutter);">
+    <span class="eyebrow">App Screens</span>
+    <h2>ひとつのアプリで、すべてが揃う。</h2>
+    <p>記録・診断・ふりかえり・仲間との交流まで、おさんぽのすべてがTikaretaに。</p>
+  </div>
+
+  <div class="showcase-track">
+    <div class="showcase-spacer"></div>
+    {screens.map((s) => (
+      <div class="showcase-slot">
+        <div class="slot-label">
+          <span class="dot"></span>
+          {s.label}
+        </div>
+        <PhoneMock variant={s.variant} size="md" />
+      </div>
+    ))}
+    <div class="showcase-spacer"></div>
+  </div>
+</section>
+
+<style>
+  .slot-label {
+    display: flex; align-items: center; gap: .5rem;
+    font-family: var(--font-mono); font-size: .72rem;
+    color: var(--ink-mute); letter-spacing: .12em; text-transform: uppercase;
+  }
+  .slot-label .dot {
+    width: 6px; height: 6px; border-radius: 50%; background: var(--accent);
+  }
+
+  .showcase-track { padding-bottom: 3rem; }
+</style>

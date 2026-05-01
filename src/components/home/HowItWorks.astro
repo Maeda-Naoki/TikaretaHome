@@ -1,42 +1,29 @@
 ---
-import { useTranslations } from '@utils/i18n';
-
-const t = useTranslations(Astro.currentLocale);
+import Ic from '@components/common/Ic.astro';
+import { steps } from '@data/content';
 ---
+<section id="how" class="section-pad" style="background: linear-gradient(180deg, transparent, var(--surface-2));">
+  <div class="container-page">
+    <div class="section-head reveal">
+      <span class="eyebrow">How it works</span>
+      <h2>はじめかたは、<br />とってもかんたん。</h2>
+      <p>3ステップで、愛犬の「おさんぽタイプ」が見えてきます。</p>
+    </div>
 
-<section class="py-16 md:py-24 px-4 relative">
-  <!-- 装飾: 控えめなドットパターン -->
-  <div class="absolute inset-0 dot-pattern opacity-30 pointer-events-none" aria-hidden="true"></div>
-
-  <div class="max-w-5xl mx-auto relative z-10">
-    <h2 class="text-3xl md:text-4xl font-display font-bold text-warm-gray-900 text-center mb-16 fade-in-up">
-      {t.howItWorks.title}
-    </h2>
-
-    <!-- タイムライン: 垂直接続線で結ぶ -->
-    <div class="relative">
-      <!-- 接続線 (desktop) -->
-      <div class="hidden md:block absolute top-8 left-0 right-0 h-0.5 bg-gradient-to-r from-primary-200 via-primary-300 to-primary-200" aria-hidden="true"></div>
-
-      <div class="grid md:grid-cols-3 gap-12 md:gap-8">
-        {t.howItWorks.steps.map((step, index) => (
-          <div
-            class="relative scale-in"
-            style={`transition-delay: ${index * 180}ms`}
-          >
-            <div class="flex flex-col items-center text-center">
-              <!-- WCAG 1.4.3: primary-700(#c2410c)+white = 4.79:1 ✓ -->
-              <div class="relative z-10 w-16 h-16 rounded-full bg-primary-700 text-white flex items-center justify-center text-2xl font-bold mb-6 shadow-card">
-                {step.number}
-              </div>
-              <div class="bg-white rounded-card p-6 shadow-soft border border-warm-gray-100 w-full">
-                <h3 class="text-xl font-bold text-warm-gray-900 mb-3">{step.title}</h3>
-                <p class="text-warm-gray-600 leading-relaxed">{step.description}</p>
-              </div>
-            </div>
-          </div>
-        ))}
-      </div>
+    <div class="how-grid">
+      {steps.map((s, i) => (
+        <article class="card-base reveal" style={`transition-delay:${i * 100}ms;`}>
+          <span class="step-num">{s.num}</span>
+          <h3 style="font-size:1.2rem; margin-bottom:.65rem;">{s.title}</h3>
+          <p style="color:var(--ink-soft); font-size:.92rem; line-height:1.7;">{s.body}</p>
+          <div class="step-art"><Ic name={s.icon} size={42} /></div>
+        </article>
+      ))}
     </div>
   </div>
 </section>
+
+<style>
+  .how-grid { display: grid; grid-template-columns: 1fr; gap: 1.5rem; }
+  @media (min-width: 820px) { .how-grid { grid-template-columns: repeat(3, 1fr); } }
+</style>
