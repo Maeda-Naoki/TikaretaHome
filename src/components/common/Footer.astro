@@ -1,41 +1,64 @@
 ---
-import { useTranslations } from '@utils/i18n';
+import LogoMark from './LogoMark.astro';
 
-const t = useTranslations(Astro.currentLocale);
 const locale = Astro.currentLocale ?? 'ja';
+const p = (path: string) => (locale === 'ja' ? path : `/en${path}`);
 ---
 
-<footer class="bg-warm-gray-100 border-t border-warm-gray-200 mt-auto">
-  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
-    <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
-      <!-- Logo + Copyright -->
+<footer class="foot">
+  <div class="container-page">
+    <div class="foot-grid">
       <div>
-        <div class="flex items-center gap-2.5 font-display font-bold text-lg text-warm-gray-900 mb-2">
-          <!-- WCAG 1.1.1: 装飾ロゴを支援技術から隠す -->
-          <span class="w-7 h-7 bg-primary-700 rounded-soft flex items-center justify-center" aria-hidden="true">
-            <span class="text-white text-xs font-bold">T</span>
-          </span>
-          {t.site.name}
+        <div class="row" style="gap:.55rem; font-weight:800; font-size:1.05rem; margin-bottom:.85rem;">
+          <LogoMark />
+          <span>Tikareta</span>
         </div>
-        <!-- WCAG 1.4.3: warm-gray-600(#57534e) on warm-gray-100(#f5f3f0) = 6.65:1 ✓ -->
-        <p class="text-sm text-warm-gray-600">{t.footer.copyright}</p>
+        <p style="font-size:.88rem; color:var(--ink-soft); line-height:1.6; max-width:260px;">
+          うちの子のおさんぽスタイル、知ってる？毎日の記録から愛犬の個性が見えてきます。
+        </p>
       </div>
 
-      <!-- Footer Navigation -->
-      <nav class="flex flex-wrap items-center gap-6 text-sm">
-        <a
-          href={locale === 'ja' ? '/privacy' : '/en/privacy'}
-          class="text-warm-gray-600 hover:text-primary-700 transition-colors"
-        >
-          {t.footer.privacy}
-        </a>
-        <a
-          href={locale === 'ja' ? '/terms' : '/en/terms'}
-          class="text-warm-gray-600 hover:text-primary-700 transition-colors"
-        >
-          {t.footer.terms}
-        </a>
-      </nav>
+      <div>
+        <h5>サービス</h5>
+        <ul>
+          <li><a href={p('/features')}>機能紹介</a></li>
+          <li><a href={p('/pricing')}>料金プラン</a></li>
+          <li><a href={p('/faq')}>よくある質問</a></li>
+          <li><a href={p('/roadmap')}>ロードマップ</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h5>アプリ</h5>
+        <ul>
+          <li><a href="https://tikareta.com" target="_blank" rel="noopener">Webアプリを開く</a></li>
+          <li><a href="#">iOSアプリ（準備中）</a></li>
+          <li><a href="#">Androidアプリ（準備中）</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h5>法的情報</h5>
+        <ul>
+          <li><a href={p('/privacy')}>プライバシーポリシー</a></li>
+          <li><a href={p('/terms')}>利用規約</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="foot-bottom">
+      <span>© 2026 Tikareta. All rights reserved.</span>
+      <span>Made with 🐾 for dog owners</span>
     </div>
   </div>
 </footer>
+
+<style>
+  .foot-grid {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 1fr 1fr;
+    gap: 3rem;
+  }
+  @media (max-width: 760px) { .foot-grid { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 480px) { .foot-grid { grid-template-columns: 1fr; } }
+</style>

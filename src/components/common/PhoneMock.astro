@@ -1,0 +1,298 @@
+---
+import Ic from './Ic.astro';
+import LogoMark from './LogoMark.astro';
+
+interface Props {
+  variant?: 'home' | 'record' | 'result' | 'history' | 'profile' | 'community';
+  size?: 'lg' | 'md';
+  tilt?: number;
+}
+
+const { variant = 'home', size = 'lg', tilt = 0 } = Astro.props;
+const frameClass = size === 'lg' ? 'phone' : 'mini-phone';
+const screenClass = size === 'lg' ? 'phone-screen' : 'mini-screen';
+const styleAttr = tilt ? `transform: rotate(${tilt}deg);` : undefined;
+---
+<div class={frameClass} style={styleAttr}>
+  <div class="phone-notch" aria-hidden="true"></div>
+  <div class={screenClass}>
+
+    {variant === 'home' && (
+      <div class="ph-home">
+        <div class="ph-status"><span>9:41</span><span class="ph-status-r"><Ic name="signal" size={11} /><Ic name="wifi" size={11} /><Ic name="battery-full" size={14} /></span></div>
+        <div class="ph-topbar">
+          <div class="row" style="gap:.5rem;"><LogoMark /><strong style="font-size:.92rem;">Tikareta</strong></div>
+          <span class="ph-iconbtn"><Ic name="bell" size={14} /></span>
+        </div>
+        <div class="ph-greet">
+          <p class="muted">こんにちは、もも ちゃん</p>
+          <h4>今日もおさんぽ、<br/>いってみよっか。</h4>
+        </div>
+        <div class="ph-streak">
+          <div>
+            <p class="muted">連続記録</p>
+            <p class="num">12<span>日</span></p>
+          </div>
+          <div class="ph-streak-dots">
+            {[1,1,1,1,1,1,0].map((on) => <span class={on ? 'on' : ''}></span>)}
+          </div>
+        </div>
+        <div class="ph-secth"><span>今日の気分</span><a>すべて</a></div>
+        <div class="ph-mood">
+          {[
+            { e:'🙂', l:'ふつう' },
+            { e:'😄', l:'ごきげん', active:true },
+            { e:'🐾', l:'そわそわ' },
+            { e:'😴', l:'ねむい' },
+          ].map((m) => (
+            <button class={m.active ? 'active' : ''} type="button">
+              <span class="e">{m.e}</span><span class="l">{m.l}</span>
+            </button>
+          ))}
+        </div>
+        <button class="ph-fab" type="button">
+          <span class="ring"></span>
+          <Ic name="footprints" size={26} />
+          <span class="lbl">おさんぽ開始</span>
+        </button>
+        <nav class="ph-tabs">
+          <span class="active"><Ic name="footprints" size={16} /><em>ホーム</em></span>
+          <span><Ic name="map" size={16} /><em>記録</em></span>
+          <span><Ic name="bar-chart-3" size={16} /><em>分析</em></span>
+          <span><Ic name="user-round" size={16} /><em>プロフ</em></span>
+        </nav>
+      </div>
+    )}
+
+    {variant === 'record' && (
+      <div class="ph-record">
+        <div class="ph-status dark"><span>9:41</span><span class="ph-status-r"><Ic name="signal" size={11} /><Ic name="wifi" size={11} /><Ic name="battery-full" size={14} /></span></div>
+        <div class="ph-rec-map">
+          <svg viewBox="0 0 240 320" preserveAspectRatio="none" aria-hidden="true">
+            <defs>
+              <pattern id="grid-pat" width="20" height="20" patternUnits="userSpaceOnUse">
+                <path d="M20 0 L0 0 0 20" fill="none" stroke="rgba(255,255,255,.07)" stroke-width="1"/>
+              </pattern>
+            </defs>
+            <rect width="240" height="320" fill="url(#grid-pat)"/>
+            <path d="M30 280 C 60 220 90 240 110 200 S 160 150 150 110 S 200 60 220 40" fill="none" stroke="#FB923C" stroke-width="3" stroke-linecap="round" stroke-dasharray="2 6"/>
+            <circle cx="30" cy="280" r="6" fill="#22C55E"/>
+            <circle cx="220" cy="40" r="6" fill="#FB923C"/>
+          </svg>
+          <div class="ph-rec-overlay">
+            <p class="ph-rec-time">00:18:42</p>
+            <div class="ph-rec-row">
+              <div><em>距離</em><strong>1.42<span>km</span></strong></div>
+              <div><em>ペース</em><strong>13'12"</strong></div>
+              <div><em>歩数</em><strong>2,180</strong></div>
+            </div>
+            <button class="ph-rec-stop" type="button"><Ic name="square" size={14} />おさんぽを終える</button>
+          </div>
+        </div>
+      </div>
+    )}
+
+    {variant === 'result' && (
+      <div class="ph-result">
+        <div class="ph-status"><span>9:41</span><span class="ph-status-r"><Ic name="signal" size={11} /><Ic name="wifi" size={11} /><Ic name="battery-full" size={14} /></span></div>
+        <div class="ph-topbar"><strong style="font-size:.92rem;">タイプ診断</strong><span class="ph-iconbtn"><Ic name="share-2" size={14} /></span></div>
+        <div class="ph-result-hero">
+          <div class="emoji">🌳</div>
+          <p class="muted">あなたの愛犬は</p>
+          <h3>日陰ハンター型</h3>
+          <p class="sub">暑さを避けて木陰を求める慎重派。お気に入りの「涼しい休憩スポット」を見つける天才。</p>
+        </div>
+        <div class="ph-bars">
+          {[
+            { l:'慎重さ', v:86 },
+            { l:'好奇心', v:72 },
+            { l:'社交性', v:58 },
+            { l:'運動量', v:64 },
+          ].map((s) => (
+            <div class="ph-bar">
+              <span class="l">{s.l}</span>
+              <span class="track"><span class="fill" style={`width:${s.v}%`}></span></span>
+              <span class="v">{s.v}</span>
+            </div>
+          ))}
+        </div>
+        <button class="ph-cta" type="button">レポートを見る</button>
+      </div>
+    )}
+
+    {variant === 'history' && (
+      <div class="ph-history">
+        <div class="ph-status"><span>9:41</span><span class="ph-status-r"><Ic name="signal" size={11} /><Ic name="wifi" size={11} /><Ic name="battery-full" size={14} /></span></div>
+        <div class="ph-topbar"><strong style="font-size:.92rem;">11月のふりかえり</strong><span class="ph-iconbtn"><Ic name="history" size={14} /></span></div>
+        <div class="ph-summary">
+          <div><em>合計</em><strong>32.4<span>km</span></strong></div>
+          <div><em>回数</em><strong>26<span>回</span></strong></div>
+          <div><em>時間</em><strong>14:22</strong></div>
+        </div>
+        <div class="ph-cal">
+          {[0,0,2,3,1,0,2,3,4,2,0,1,3,4,2,1,0,2,3,4,2,1,0,3,4,2,1,3,4,2].map((lvl) => (
+            <span class={`hc lvl-${lvl}`}></span>
+          ))}
+        </div>
+        <p class="ph-note">先週より <strong>+12%</strong> 多く歩けました 🎉</p>
+      </div>
+    )}
+
+    {variant === 'community' && (
+      <div class="ph-comm">
+        <div class="ph-status"><span>9:41</span><span class="ph-status-r"><Ic name="signal" size={11} /><Ic name="wifi" size={11} /><Ic name="battery-full" size={14} /></span></div>
+        <div class="ph-topbar"><strong style="font-size:.92rem;">ちかくのおともだち</strong><span class="ph-iconbtn"><Ic name="users" size={14} /></span></div>
+        <ul class="ph-comm-list">
+          {[
+            { n:'まる', b:'トイプー', t:'🌅 朝型', d:'350m', e:'🐩' },
+            { n:'そら', b:'コーギー', t:'⚡ パワフル', d:'480m', e:'🐕' },
+            { n:'コタロー', b:'柴犬', t:'🧭 探検家', d:'720m', e:'🦮' },
+            { n:'ミルク', b:'ポメ', t:'🛤 定番派', d:'880m', e:'🐶' },
+          ].map((u) => (
+            <li>
+              <span class="av">{u.e}</span>
+              <span class="mid"><strong>{u.n}</strong><em>{u.b} ・ {u.t}</em></span>
+              <span class="d">{u.d}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    )}
+
+  </div>
+</div>
+
+<style>
+  .ph-status {
+    display:flex; justify-content:space-between; align-items:center;
+    padding: .55rem .9rem .25rem;
+    font-size: .68rem; font-family: var(--font-mono);
+    color: var(--w700);
+  }
+  .ph-status .ph-status-r { display:flex; gap:.2rem; align-items:center; }
+  .ph-status.dark { color: #fff; position: absolute; top:0; left:0; right:0; z-index:3; }
+
+  .ph-topbar { display:flex; justify-content:space-between; align-items:center; padding:.55rem .9rem .35rem; }
+  .ph-iconbtn {
+    width: 26px; height: 26px; border-radius: 9px;
+    background: var(--surface-2); display: grid; place-items: center;
+    color: var(--ink-soft);
+  }
+
+  .ph-greet { padding:.5rem .95rem .25rem; }
+  .ph-greet .muted { font-size:.7rem; color: var(--ink-mute); }
+  .ph-greet h4 { font-size:1.05rem; font-weight: 800; line-height:1.3; margin-top:.1rem; }
+
+  .ph-streak {
+    margin: .65rem .95rem 0;
+    background: linear-gradient(135deg, var(--accent-soft), color-mix(in oklab, var(--accent) 14%, var(--surface)));
+    border: 1px solid color-mix(in oklab, var(--accent) 18%, transparent);
+    border-radius: 14px; padding: .65rem .85rem;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .ph-streak .muted { font-size:.6rem; color: var(--accent-deep); font-weight:600; letter-spacing:.05em; text-transform:uppercase; }
+  .ph-streak .num { font-size:1.4rem; font-weight:800; color: var(--accent-deep); line-height:1; margin-top:.1rem; }
+  .ph-streak .num span { font-size:.7rem; margin-left:.15rem; font-weight:600; }
+  .ph-streak-dots { display:flex; gap:3px; }
+  .ph-streak-dots span { width: 14px; height: 14px; border-radius: 50%; background: rgba(0,0,0,.06); }
+  .ph-streak-dots span.on { background: var(--accent); box-shadow: 0 0 0 2px color-mix(in oklab, var(--accent) 18%, transparent); }
+
+  .ph-secth { padding:.85rem .95rem .35rem; display:flex; justify-content:space-between; align-items:center; font-size:.7rem; }
+  .ph-secth a { color: var(--accent-deep); font-weight:600; }
+
+  .ph-mood { padding:0 .95rem; display:grid; grid-template-columns:repeat(4,1fr); gap:.3rem; }
+  .ph-mood button {
+    background: var(--surface-2); border-radius: 10px;
+    padding: .45rem .15rem;
+    display:flex; flex-direction:column; align-items:center; gap:.1rem;
+    border: 1px solid transparent;
+  }
+  .ph-mood button.active { background: var(--surface); border-color: var(--accent); box-shadow: 0 0 0 2px color-mix(in oklab, var(--accent) 14%, transparent); }
+  .ph-mood .e { font-size: 1.05rem; }
+  .ph-mood .l { font-size: .55rem; color: var(--ink-soft); font-weight:600; }
+
+  .ph-fab {
+    margin: 1rem auto 0; position:relative;
+    width: 96px; height: 96px; border-radius: 50%;
+    background: var(--accent); color: #fff;
+    display:flex; flex-direction:column; align-items:center; justify-content:center; gap:.1rem;
+    box-shadow: 0 12px 28px -8px color-mix(in oklab, var(--accent) 60%, transparent);
+  }
+  .ph-fab .ring {
+    position: absolute; inset: -6px; border-radius: 50%;
+    border: 2px dashed color-mix(in oklab, var(--accent) 35%, transparent);
+    animation: spin 18s linear infinite;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .ph-fab .lbl { font-size: .55rem; letter-spacing:.05em; font-weight:700; }
+
+  .ph-tabs {
+    margin-top: auto;
+    display:grid; grid-template-columns:repeat(4,1fr);
+    border-top: 1px solid var(--line); padding: .4rem 0 .55rem;
+    background: var(--surface);
+  }
+  .ph-tabs span { display:flex; flex-direction:column; align-items:center; gap:.1rem; color: var(--ink-mute); font-size:.55rem; }
+  .ph-tabs span.active { color: var(--accent-deep); }
+  .ph-tabs em { font-style: normal; font-weight: 600; }
+
+  /* Record */
+  .ph-record { position:relative; height:100%; background:#1c1917; }
+  .ph-rec-map { position:absolute; inset:0; }
+  .ph-rec-map svg { width:100%; height:100%; }
+  .ph-rec-overlay {
+    position:absolute; left:0; right:0; bottom:0;
+    background: linear-gradient(to top, rgba(0,0,0,.85), rgba(0,0,0,0));
+    color: #fff; padding: 1.2rem 1rem 1rem;
+  }
+  .ph-rec-time { font-size: 1.8rem; font-weight: 800; font-family: var(--font-mono); letter-spacing:-.02em; }
+  .ph-rec-row { display:flex; gap:.6rem; margin: .6rem 0 .85rem; }
+  .ph-rec-row > div { flex:1; }
+  .ph-rec-row em { font-style: normal; font-size:.55rem; color:rgba(255,255,255,.55); letter-spacing:.05em; text-transform:uppercase; }
+  .ph-rec-row strong { display:block; font-size: .95rem; font-weight:700; }
+  .ph-rec-row span { font-size:.65rem; opacity:.65; margin-left:.15rem; font-weight:500; }
+  .ph-rec-stop {
+    width:100%; padding:.65rem; border-radius: var(--r-pill);
+    background: var(--accent); color:#fff;
+    font-weight:700; font-size:.78rem;
+    display:flex; align-items:center; justify-content:center; gap:.4rem;
+  }
+
+  /* Result */
+  .ph-result-hero { padding: .65rem .95rem .25rem; text-align:center; }
+  .ph-result-hero .emoji { width: 64px; height: 64px; border-radius: 18px; background: var(--accent-soft); display: grid; place-items: center; font-size: 2rem; margin: .35rem auto .5rem; }
+  .ph-result-hero .muted { font-size:.62rem; color: var(--ink-mute); letter-spacing:.05em; }
+  .ph-result-hero h3 { font-size: 1.05rem; font-weight: 800; }
+  .ph-result-hero .sub { font-size:.65rem; color: var(--ink-soft); line-height:1.5; margin-top:.3rem; padding:0 .25rem; }
+
+  .ph-bars { padding: .7rem .95rem .25rem; display:flex; flex-direction:column; gap:.5rem; }
+  .ph-bar { display:flex; align-items:center; gap:.5rem; font-size:.62rem; }
+  .ph-bar .l { width:42px; color:var(--ink-soft); font-weight:600; }
+  .ph-bar .track { flex:1; height:6px; background: var(--surface-2); border-radius: var(--r-pill); overflow:hidden; }
+  .ph-bar .fill { display:block; height:100%; background: linear-gradient(90deg, var(--accent), color-mix(in oklab, var(--accent) 60%, var(--accent-2))); border-radius: inherit; }
+  .ph-bar .v { width:18px; text-align:right; font-family: var(--font-mono); color: var(--ink); font-weight:700; }
+  .ph-cta { margin: .65rem .95rem 1rem; padding: .65rem; border-radius: var(--r-pill); background: var(--ink); color: var(--bg); font-weight: 700; font-size:.78rem; }
+
+  /* History */
+  .ph-summary { display:flex; padding:.45rem .95rem; gap:.6rem; }
+  .ph-summary > div { flex:1; background: var(--surface-2); border-radius:10px; padding:.55rem .55rem .5rem; }
+  .ph-summary em { font-style:normal; font-size:.55rem; color:var(--ink-mute); letter-spacing:.05em; text-transform:uppercase; }
+  .ph-summary strong { display:block; font-size:.95rem; font-weight:800; margin-top:.1rem; }
+  .ph-summary span { font-size:.6rem; opacity:.7; margin-left:.15rem; font-weight:500; }
+  .ph-cal { margin: .85rem .95rem 0; display:grid; grid-template-columns: repeat(6, 1fr); gap: 4px; }
+  .hc { aspect-ratio:1; border-radius: 4px; background: var(--surface-2); }
+  .hc.lvl-1 { background: color-mix(in oklab, var(--accent) 22%, var(--surface)); }
+  .hc.lvl-2 { background: color-mix(in oklab, var(--accent) 45%, var(--surface)); }
+  .hc.lvl-3 { background: color-mix(in oklab, var(--accent) 70%, var(--surface)); }
+  .hc.lvl-4 { background: var(--accent); }
+  .ph-note { padding: .85rem .95rem; font-size:.7rem; color: var(--ink-soft); text-align:center; }
+
+  /* Community */
+  .ph-comm-list { list-style:none; padding:.4rem .55rem; margin:0; display:flex; flex-direction:column; gap:.3rem; }
+  .ph-comm-list li { display:flex; align-items:center; gap:.5rem; padding:.55rem; border-radius: 12px; background: var(--surface-2); }
+  .ph-comm-list .av { width: 30px; height: 30px; border-radius:10px; background: var(--surface); display:grid; place-items:center; font-size:1rem; }
+  .ph-comm-list .mid { display:flex; flex-direction:column; flex:1; min-width:0; }
+  .ph-comm-list .mid strong { font-size:.75rem; font-weight:700; }
+  .ph-comm-list .mid em { font-style:normal; font-size:.58rem; color:var(--ink-mute); }
+  .ph-comm-list .d { font-size:.6rem; color:var(--accent-deep); font-weight:700; font-family: var(--font-mono); }
+</style>

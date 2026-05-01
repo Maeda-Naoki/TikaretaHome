@@ -1,3 +1,82 @@
+export interface PlanFeatureRow {
+  text: string;
+  on: boolean;
+  emphasized?: boolean;
+}
+
+export type PlanCtaStyle = 'btn-primary' | 'btn-ghost' | 'btn-soft';
+
+export interface Plan {
+  key: 'free' | 'standard' | 'pro';
+  name: string;
+  tagline: string;
+  monthly: number;
+  yearly: number;
+  features: PlanFeatureRow[];
+  ctaLabel: string;
+  ctaStyle: PlanCtaStyle;
+  featured: boolean;
+}
+
+export const plans: Plan[] = [
+  {
+    key: 'free',
+    name: '無料プラン',
+    tagline: 'まずは試したい方に',
+    monthly: 0,
+    yearly: 0,
+    features: [
+      { text: 'おさんぽ記録（GPS / 手動）', on: true },
+      { text: 'スポット登録（写真3枚まで）', on: true },
+      { text: '天気・気温の自動記録', on: true },
+      { text: '全期間データ閲覧', on: true },
+      { text: '基本統計（直近3日間）', on: true },
+      { text: '基本タイプ診断 / コミュニティ', on: true },
+      { text: '詳細タイプ分析', on: false },
+      { text: '回避ルート / トレンド分析', on: false },
+    ],
+    ctaLabel: '無料で始める',
+    ctaStyle: 'btn-ghost',
+    featured: false,
+  },
+  {
+    key: 'standard',
+    name: 'Standard',
+    tagline: 'もっと深く知りたい方に',
+    monthly: 300,
+    yearly: 2400,
+    features: [
+      { text: '無料プランの全て', on: true, emphasized: true },
+      { text: '全期間統計・ふりかえり', on: true },
+      { text: '詳細タイプ分析（複数の切り口）', on: true },
+      { text: 'シェアカード生成（無制限）', on: true },
+      { text: 'CSV/JSONエクスポート', on: true },
+      { text: '回避ルート / 比較 / トレンド', on: false },
+    ],
+    ctaLabel: 'Standardを始める',
+    ctaStyle: 'btn-primary',
+    featured: true,
+  },
+  {
+    key: 'pro',
+    name: 'Pro',
+    tagline: 'プロのおさんぽ研究家へ',
+    monthly: 500,
+    yearly: 4800,
+    features: [
+      { text: 'Standardの全機能', on: true, emphasized: true },
+      { text: 'パターン分析レポート', on: true },
+      { text: '同犬種との比較', on: true },
+      { text: 'トレンド分析（先月比・季節別）', on: true },
+      { text: '回避ルート提案', on: true },
+      { text: 'みんなの休憩ポイント（ヒートマップ）', on: true },
+    ],
+    ctaLabel: 'Proを始める',
+    ctaStyle: 'btn-soft',
+    featured: false,
+  },
+];
+
 export interface ComparisonFeature {
   nameKey: string;
   free: boolean;

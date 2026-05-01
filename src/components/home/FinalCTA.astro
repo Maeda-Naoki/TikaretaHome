@@ -1,27 +1,24 @@
 ---
-import CTAButton from '@components/common/CTAButton.astro';
-import { useTranslations } from '@utils/i18n';
-
-const t = useTranslations(Astro.currentLocale);
+import Ic from '@components/common/Ic.astro';
 ---
-
-<section class="py-20 md:py-28 px-4 relative overflow-hidden">
-  <!-- 装飾背景 -->
-  <div class="absolute inset-0 bg-gradient-to-br from-primary-50/80 via-cream-50 to-secondary-50/40" aria-hidden="true"></div>
-  <div class="absolute top-[-40px] right-[-60px] w-[200px] h-[200px] bg-primary-100/50 blob-shape" aria-hidden="true"></div>
-  <div class="absolute bottom-[-30px] left-[-40px] w-[160px] h-[160px] bg-secondary-100/30 blob-shape" aria-hidden="true" style="border-radius: 40% 60% 55% 45% / 55% 40% 60% 45%;"></div>
-
-  <div class="max-w-3xl mx-auto relative z-10">
-    <div class="bg-white/80 backdrop-blur-sm rounded-card p-8 md:p-12 shadow-card border border-warm-gray-100 text-center">
-      <h2 class="text-3xl md:text-4xl font-display font-bold text-warm-gray-900 mb-4 fade-in-up">
-        {t.finalCTA.title}
-      </h2>
-      <p class="text-lg text-warm-gray-600 mb-8 max-w-xl mx-auto fade-in-up" style="transition-delay: 80ms">
-        {t.finalCTA.subtitle}
-      </p>
-      <div class="fade-in-up" style="transition-delay: 160ms">
-        <CTAButton text={t.finalCTA.cta} size="lg" />
+<section id="cta" class="final-cta-bg section-pad">
+  <div class="container-narrow">
+    <div class="final-cta-card">
+      <div class="deco-ring"></div>
+      <div class="deco-ring r2"></div>
+      <h2>今日から、記録を始めよう。</h2>
+      <p>クレジットカード不要。30秒で登録完了。まず無料で試してみてください。</p>
+      <div style="display:flex; gap:.75rem; justify-content:center; flex-wrap:wrap;">
+        <a class="btn btn-primary" href="https://tikareta.com" target="_blank" rel="noopener">
+          <Ic name="footprints" size={18} />無料で始める
+        </a>
+        <a class="btn" href="#pricing" style="background:rgba(255,255,255,.12); color:white; border:1px solid rgba(255,255,255,.2);">
+          料金を確認する
+        </a>
       </div>
+      <p style="font-size:.82rem; color:rgba(255,255,255,.5); margin-top:1.5rem;">
+        iOS / Android 対応 ・ PWA ・ いつでも解約可
+      </p>
     </div>
   </div>
 </section>

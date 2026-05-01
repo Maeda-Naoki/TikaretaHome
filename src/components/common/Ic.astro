@@ -1,0 +1,23 @@
+---
+import { ICONS, type IconName } from '@data/icons';
+
+interface Props {
+  name: IconName;
+  class?: string;
+  size?: number | string;
+}
+
+const { name, class: className = '', size } = Astro.props;
+const inner = ICONS[name] ?? '';
+const style =
+  size != null
+    ? `width:${typeof size === 'number' ? `${size}px` : size};height:${typeof size === 'number' ? `${size}px` : size};`
+    : undefined;
+---
+<svg
+  class={`ic ${className}`}
+  viewBox="0 0 24 24"
+  aria-hidden="true"
+  style={style}
+  set:html={inner}
+/>

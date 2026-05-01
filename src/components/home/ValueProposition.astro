@@ -1,55 +1,31 @@
 ---
-import Icon from '@components/common/Icon.astro';
-import { useTranslations } from '@utils/i18n';
-
-const t = useTranslations(Astro.currentLocale);
+import Ic from '@components/common/Ic.astro';
+import { valueItems } from '@data/content';
 ---
+<section id="value" class="section-pad">
+  <div class="container-page">
+    <div class="section-head reveal">
+      <span class="eyebrow">Why Tikareta</span>
+      <h2>毎日のおさんぽが、<br />愛犬を理解するいちばんのデータになる。</h2>
+      <p>センサーも特別な機材もいりません。スマホひとつ、片手間で記録するだけ。</p>
+    </div>
 
-<section class="py-16 md:py-24 px-4 bg-white wave-divider">
-  <div class="max-w-6xl mx-auto">
-    <h2 class="text-3xl md:text-4xl font-display font-bold text-warm-gray-900 md:text-left text-center mb-4 fade-in-up">
-      {t.valueProposition.title}
-    </h2>
-    <div class="w-16 h-1 bg-primary-400 rounded-full mb-12 md:mx-0 mx-auto fade-in-up"></div>
-
-    <!-- 非対称グリッド: 1つ目を大きく、2-3を小さくスタック -->
-    <div class="grid md:grid-cols-[1.2fr_1fr] gap-6 md:gap-8">
-      {t.valueProposition.items.map((item, index) => {
-        if (index === 0) {
-          return (
-            <div
-              class="p-8 bg-cream-50 rounded-card border border-warm-gray-100 hover:shadow-card transition-all slide-in-left"
-              style="transition-delay: 0ms"
-            >
-              <div class="mb-5 w-14 h-14 bg-primary-100 rounded-soft flex items-center justify-center">
-                <Icon name={item.icon} type={item.iconType as 'lucide' | 'emoji'} size={32} class="text-primary-700" />
-              </div>
-              <h3 class="text-2xl font-bold text-warm-gray-900 mb-3">{item.title}</h3>
-              <p class="text-warm-gray-600 text-lg leading-relaxed">{item.description}</p>
-            </div>
-          );
-        }
-        return null;
-      })}
-      <div class="flex flex-col gap-6">
-        {t.valueProposition.items.map((item, index) => {
-          if (index === 0) return null;
-          return (
-            <div
-              class="p-6 bg-cream-50 rounded-card border border-warm-gray-100 hover:shadow-card transition-all flex items-start gap-5 slide-in-right"
-              style={`transition-delay: ${index * 120}ms`}
-            >
-              <div class="w-12 h-12 bg-primary-100 rounded-soft flex items-center justify-center flex-shrink-0">
-                <Icon name={item.icon} type={item.iconType as 'lucide' | 'emoji'} size={28} class="text-primary-700" />
-              </div>
-              <div>
-                <h3 class="text-lg font-bold text-warm-gray-900 mb-2">{item.title}</h3>
-                <p class="text-warm-gray-600">{item.description}</p>
-              </div>
-            </div>
-          );
-        })}
-      </div>
+    <div class="value-grid">
+      {valueItems.map((c, i) => (
+        <article class="card-base reveal" style={`transition-delay:${i * 80}ms;`}>
+          <span class="num-bg">{c.num}</span>
+          <span class="icon-wrap"><Ic name={c.icon} size={22} /></span>
+          <h3 style="font-size:1.25rem; margin-bottom:.65rem;">{c.title}</h3>
+          <p style="color:var(--ink-soft); font-size:.92rem; line-height:1.7;">{c.body}</p>
+        </article>
+      ))}
     </div>
   </div>
 </section>
+
+<style>
+  .value-grid {
+    display: grid; grid-template-columns: 1fr; gap: 1.5rem;
+  }
+  @media (min-width: 720px) { .value-grid { grid-template-columns: repeat(3, 1fr); } }
+</style>
