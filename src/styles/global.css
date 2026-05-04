@@ -201,7 +201,7 @@ p {
 .section-head h2 {
   font-size: clamp(2rem, 4vw, 3rem);
   margin: 1rem 0 1rem;
-  text-wrap: balance;
+  text-wrap: pretty;
 }
 .section-head p {
   color: var(--ink-soft);
@@ -383,11 +383,11 @@ p {
   overflow: hidden;
 }
 .hero-headline {
-  font-size: clamp(2.6rem, 6.2vw, 4.6rem);
-  line-height: 1.05;
+  font-size: clamp(2.6rem, 4.5vw, 3.8rem);
+  line-height: 1.1;
   letter-spacing: -0.025em;
   font-weight: 800;
-  text-wrap: balance;
+  text-wrap: pretty;
 }
 .hero-headline .accent {
   background: linear-gradient(
