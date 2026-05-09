@@ -110,6 +110,17 @@
   --accent-deep: var(--p700);
   --accent-2: var(--s500);
 
+  /* Plan tier accents — distinct hues, all ≥4.5:1 fg-on-bg contrast (WCAG AA) */
+  --tier-free-bg: #e0f2fe; /* sky-100 */
+  --tier-free-fg: #0369a1; /* sky-700 on sky-100 ≈ 5.8:1 */
+  --tier-free-mid: #0ea5e9; /* sky-500 — accent stripe */
+  --tier-standard-bg: var(--p100);
+  --tier-standard-fg: var(--p700); /* p700 on p100 ≈ 4.8:1 */
+  --tier-standard-mid: var(--p500);
+  --tier-pro-bg: var(--s100);
+  --tier-pro-fg: var(--s700); /* s700 on s100 ≈ 5.6:1 */
+  --tier-pro-mid: var(--s500);
+
   --r-pill: 9999px;
 
   --shadow-1: 0 1px 2px rgba(28, 25, 23, 0.04), 0 4px 12px rgba(28, 25, 23, 0.04);
@@ -724,16 +735,24 @@ p {
   width: 42px;
   height: 42px;
   border-radius: 12px;
-  background: var(--accent-soft);
-  color: var(--accent-deep);
+  background: var(--surface-2);
+  color: var(--ink-soft);
   display: grid;
   place-items: center;
   font-size: 1.15rem;
   margin-bottom: 1rem;
 }
+.feat.free .ico {
+  background: var(--tier-free-bg);
+  color: var(--tier-free-fg);
+}
+.feat.standard .ico {
+  background: var(--tier-standard-bg);
+  color: var(--tier-standard-fg);
+}
 .feat.pro .ico {
-  background: color-mix(in oklab, var(--s500) 18%, var(--surface));
-  color: var(--s700);
+  background: var(--tier-pro-bg);
+  color: var(--tier-pro-fg);
 }
 .feat .tag {
   position: absolute;
@@ -748,13 +767,17 @@ p {
   color: var(--ink-mute);
   text-transform: uppercase;
 }
+.feat.free .tag {
+  background: var(--tier-free-bg);
+  color: var(--tier-free-fg);
+}
 .feat.standard .tag {
-  background: var(--accent-soft);
-  color: var(--accent-deep);
+  background: var(--tier-standard-bg);
+  color: var(--tier-standard-fg);
 }
 .feat.pro .tag {
-  background: color-mix(in oklab, var(--s500) 18%, var(--surface));
-  color: var(--s700);
+  background: var(--tier-pro-bg);
+  color: var(--tier-pro-fg);
 }
 
 /* =========================================================
@@ -807,11 +830,28 @@ p {
   gap: 1.25rem;
   position: relative;
   transition: all 0.25s ease;
+  /* Tier accent stripe across the top of the card */
+  border-top: 4px solid var(--tier-mid, var(--line));
+}
+.plan-free {
+  --tier-mid: var(--tier-free-mid);
+  --tier-fg: var(--tier-free-fg);
+  --tier-bg: var(--tier-free-bg);
+}
+.plan-standard {
+  --tier-mid: var(--tier-standard-mid);
+  --tier-fg: var(--tier-standard-fg);
+  --tier-bg: var(--tier-standard-bg);
+}
+.plan-pro {
+  --tier-mid: var(--tier-pro-mid);
+  --tier-fg: var(--tier-pro-fg);
+  --tier-bg: var(--tier-pro-bg);
 }
 .plan.featured {
-  border-color: var(--accent);
+  border-color: var(--tier-mid, var(--accent));
   box-shadow:
-    0 0 0 4px color-mix(in oklab, var(--accent) 12%, transparent),
+    0 0 0 4px color-mix(in oklab, var(--tier-mid, var(--accent)) 12%, transparent),
     var(--shadow-2);
   transform: translateY(-8px);
 }
@@ -825,14 +865,14 @@ p {
   top: -14px;
   left: 50%;
   transform: translateX(-50%);
-  background: var(--accent);
+  background: var(--tier-fg, var(--accent));
   color: white;
   font-size: 0.72rem;
   font-weight: 600;
   padding: 0.35rem 0.9rem;
   border-radius: var(--r-pill);
   letter-spacing: 0.05em;
-  box-shadow: 0 4px 12px -2px color-mix(in oklab, var(--accent) 40%, transparent);
+  box-shadow: 0 4px 12px -2px color-mix(in oklab, var(--tier-mid, var(--accent)) 40%, transparent);
   white-space: nowrap;
 }
 .plan-name {
@@ -889,7 +929,7 @@ p {
   line-height: 1.5;
 }
 .plan ul li .ic {
-  color: var(--accent);
+  color: var(--tier-fg, var(--accent));
   flex-shrink: 0;
   margin-top: 3px;
 }
