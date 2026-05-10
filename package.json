@@ -1,31 +1,36 @@
 {
   "name": "tikareta-home",
-  "type": "module",
   "version": "0.0.1",
   "private": true,
+  "type": "module",
   "scripts": {
     "prepare": "lefthook install",
     "dev": "astro dev",
     "build": "astro check && astro build",
     "preview": "astro preview",
-    "check": "biome check ./src",
-    "check:fix": "biome check --write ./src",
+    "lint": "oxlint",
+    "lint:fix": "oxlint --fix",
+    "format": "oxfmt",
+    "format:check": "oxfmt --check",
+    "check": "oxlint && oxfmt --check",
+    "check:fix": "oxlint --fix && oxfmt",
     "type-check": "astro check",
     "test:e2e": "playwright test"
   },
-  "packageManager": "pnpm@10.33.0",
   "dependencies": {
-    "@lucide/astro": "1.7.0",
-    "@tailwindcss/vite": "4.2.2",
-    "astro": "6.1.5",
-    "tailwindcss": "4.2.2"
+    "@lucide/astro": "1.14.0",
+    "@tailwindcss/vite": "4.2.4",
+    "astro": "6.3.1",
+    "tailwindcss": "4.2.4"
   },
   "devDependencies": {
-    "@astrojs/check": "0.9.8",
+    "@astrojs/check": "0.9.9",
     "@astrojs/sitemap": "3.7.2",
-    "@biomejs/biome": "2.4.11",
     "@playwright/test": "1.59.1",
-    "lefthook": "2.1.5",
-    "typescript": "5.9.3"
-  }
+    "lefthook": "2.1.6",
+    "oxfmt": "0.48.0",
+    "oxlint": "1.63.0",
+    "typescript": "6.0.3"
+  },
+  "packageManager": "pnpm@10.33.0"
 }

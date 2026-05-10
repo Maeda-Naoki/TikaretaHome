@@ -1,5 +1,8 @@
 pre-commit:
   commands:
-    biome-check:
-      glob: "*.{js,ts,astro,css,json}"
-      run: pnpm biome check --no-errors-on-unmatched {staged_files}
+    oxlint:
+      glob: "*.{js,jsx,ts,tsx,mjs,cjs}"
+      run: pnpm oxlint --no-error-on-unmatched-pattern {staged_files}
+    oxfmt:
+      glob: "*.{js,jsx,ts,tsx,mjs,cjs,json,jsonc,css,html,md,astro}"
+      run: pnpm oxfmt --check --no-error-on-unmatched-pattern {staged_files}

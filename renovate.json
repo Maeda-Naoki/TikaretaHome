@@ -17,6 +17,11 @@
       "description": "Astro関連パッケージをまとめて更新"
     },
     {
+      "matchPackageNames": ["oxlint", "oxfmt"],
+      "groupName": "oxc",
+      "description": "oxlint/oxfmt関連パッケージをまとめて更新"
+    },
+    {
       "matchPackageNames": ["typescript"],
       "matchUpdateTypes": ["major"],
       "enabled": false,

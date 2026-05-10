@@ -1,4 +1,4 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
 @theme {
   /* Primary (orange-warm) */
@@ -40,9 +40,9 @@
   --color-warm-gray-900: #1c1917;
 
   /* Fonts */
-  --font-sans: "Zen Kaku Gothic New", "Noto Sans JP", system-ui, sans-serif;
-  --font-display: "Zen Kaku Gothic New", "Noto Sans JP", system-ui, sans-serif;
-  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+  --font-sans: 'Zen Kaku Gothic New', 'Noto Sans JP', system-ui, sans-serif;
+  --font-display: 'Zen Kaku Gothic New', 'Noto Sans JP', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
 
   /* Border radius */
   --radius-soft: 0.875rem;
@@ -241,7 +241,7 @@ p {
   gap: 0.5rem;
 }
 .eyebrow::before {
-  content: "";
+  content: '';
   width: 1.5rem;
   height: 1px;
   background: var(--accent);
@@ -348,7 +348,7 @@ p {
   flex-shrink: 0;
 }
 .logo-mark::after {
-  content: "";
+  content: '';
   position: absolute;
   width: 6px;
   height: 6px;
@@ -562,7 +562,7 @@ p {
    Grain noise overlay
    ========================================================= */
 .grain::before {
-  content: "";
+  content: '';
   position: absolute;
   inset: 0;
   pointer-events: none;
