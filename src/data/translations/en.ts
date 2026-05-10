@@ -291,11 +291,17 @@ export const en: Translations = {
       howToStart: {
         question: 'How do I get started?',
         answer:
-          'Click "Start Free" on the homepage to register an account (email or Google account), then register your dog\'s profile. Takes just 30 seconds.',
+          'Click "Start Free" on the homepage to register an account (Google account), then register your dog\'s profile. Takes just 30 seconds.',
       },
-      howManyDogs: {
-        question: 'How many dogs can I register?',
-        answer: 'Free plan allows 1 dog, premium plan allows up to 5 dogs.',
+      supportedDevices: {
+        question: 'Which devices are supported?',
+        answer:
+          'Tikareta is available on iOS and Android smartphones. Since walks are tracked via GPS, smartphone use is recommended.',
+      },
+      deviceChange: {
+        question: 'Will my data carry over if I change phones?',
+        answer:
+          'Yes. Your data is stored in the cloud, so as long as you log in with the same account on your new phone, your dog profile and walk history will carry over seamlessly.',
       },
       batteryUsage: {
         question: 'Will it drain my phone battery?',
@@ -314,22 +320,17 @@ export const en: Translations = {
         answer:
           'Yes, the type will update as walking patterns change. You can enjoy changes by season or as your dog grows.',
       },
-      usingAI: {
-        question: 'Does it use AI?',
-        answer:
-          "No. The diagnosis is based on things like walk time, distance, how often your dog stops to rest, and the weather. It's a simple, transparent system — so the results feel easy to relate to.",
-      },
     },
     pricing: {
       freeFeatures: {
         question: 'What can I do for free?',
         answer:
-          'Logging walks, saving favourite spots, viewing your past walks, a 3-day look-back, basic type diagnosis, and joining the community — all free.',
+          'Logging walks, saving favourite spots, viewing your past walks, a 3-day look-back, and basic type diagnosis — all free.',
       },
       dataAfterDowngrade: {
         question: 'Will I lose my walk records without premium?',
         answer:
-          'No, all your walk records are always accessible on the free plan. Only premium-specific features like detailed analysis and file export will be unavailable.',
+          'No, all your walk records are always accessible on the free plan. Only premium-specific features like detailed analysis will be unavailable.',
       },
       cancelAnytime: {
         question: 'Can I cancel anytime?',
@@ -346,6 +347,11 @@ export const en: Translations = {
         question: 'Can others see my location data?',
         answer:
           'Walk location data is basically private. Even when shared in the community, detailed location is not displayed.',
+      },
+      accountDeletion: {
+        question: 'How do I delete my account?',
+        answer:
+          'You can delete your account anytime from the in-app settings. Deletion removes your account, dog profile, and walk records, and cannot be undone.',
       },
       dataHandling: {
         question: 'How is personal data handled?',
