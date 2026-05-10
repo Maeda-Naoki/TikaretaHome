@@ -1,0 +1,79 @@
+---
+import { useTranslations } from '@utils/i18n';
+
+const t = useTranslations(Astro.currentLocale);
+---
+
+<div class="billing-toggle reveal" role="group" aria-label={t.pricingSummary.billingLabel}>
+  <button class="toggle-btn active" type="button" data-billing-toggle="monthly" aria-pressed="true">
+    {t.pricingSummary.billingMonthly}
+  </button>
+  <button class="toggle-btn" type="button" data-billing-toggle="yearly" aria-pressed="false">
+    {t.pricingSummary.billingYearly}
+    <span class="save-tag">{t.pricingSummary.savingsTag}</span>
+  </button>
+</div>
+
+<style>
+  .billing-toggle {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-bottom: 2rem;
+  }
+  .toggle-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1.1rem;
+    border-radius: 9999px;
+    border: 1px solid var(--line);
+    background: transparent;
+    font-size: 0.88rem;
+    font-weight: 500;
+    color: var(--ink-soft);
+    cursor: pointer;
+    transition: background 0.15s, color 0.15s, border-color 0.15s;
+  }
+  .toggle-btn.active {
+    background: var(--ink);
+    color: var(--bg);
+    border-color: var(--ink);
+  }
+  .save-tag {
+    padding: 0.15rem 0.5rem;
+    border-radius: 9999px;
+    background: var(--s100);
+    color: var(--s700);
+    font-size: 0.73rem;
+    font-weight: 600;
+  }
+  .toggle-btn.active .save-tag {
+    background: var(--s500);
+    color: #fff;
+  }
+</style>
+
+<script>
+  // Updates `data-billing` on every element that has the attribute, so any number
+  // of pricing wrappers on the same page stay in sync with this toggle.
+  const toggleBtns = document.querySelectorAll<HTMLButtonElement>('[data-billing-toggle]');
+  const targets = document.querySelectorAll<HTMLElement>('[data-billing]');
+
+  function switchBilling(period: 'monthly' | 'yearly') {
+    for (const btn of toggleBtns) {
+      const isActive = btn.dataset.billingToggle === period;
+      btn.classList.toggle('active', isActive);
+      btn.setAttribute('aria-pressed', String(isActive));
+    }
+    for (const target of targets) {
+      target.dataset.billing = period;
+    }
+  }
+
+  for (const btn of toggleBtns) {
+    btn.addEventListener('click', () => {
+      switchBilling((btn.dataset.billingToggle ?? 'monthly') as 'monthly' | 'yearly');
+    });
+  }
+</script>

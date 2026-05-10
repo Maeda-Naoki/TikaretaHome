@@ -1,8 +1,9 @@
 ---
 import Breadcrumbs from '@components/common/Breadcrumbs.astro';
+import BillingToggle from '@components/pricing/BillingToggle.astro';
 import PlanComparisonTable from '@components/pricing/PlanComparisonTable.astro';
 import PricingCard from '@components/pricing/PricingCard.astro';
-import { pricingPlans } from '@data/pricing';
+import { plans } from '@data/pricing';
 import Layout from '@layouts/Layout.astro';
 import { useTranslations } from '@utils/i18n';
 import { createBreadcrumbListLD } from '@utils/seo';
@@ -33,18 +34,22 @@ const jsonLd = createBreadcrumbListLD([
       </p>
     </div>
 
-    <div class="grid md:grid-cols-3 gap-5 mb-16 items-start">
-      {pricingPlans.map((plan) => (
-        <PricingCard
-          name={t.pricing.plans[plan.id].name}
-          price={plan.price}
-          period={plan.period === 'month' ? t.pricing.perMonth : plan.period === 'year' ? t.pricing.perYear : null}
-          features={Object.values(t.pricing.plans[plan.id].features)}
-          cta={t.pricing.plans[plan.id].cta}
-          recommended={plan.recommended}
-          savings={plan.id === 'yearly' ? t.pricing.savings : undefined}
-        />
-      ))}
+    <BillingToggle />
+
+    <div class="pricing-cards-wrapper" data-billing="monthly">
+      <div class="grid md:grid-cols-3 gap-5 mb-16 items-start">
+        {plans.map((plan) => (
+          <PricingCard
+            planKey={plan.key}
+            name={t.pricing.plans[plan.key].name}
+            monthly={plan.monthly}
+            yearly={plan.yearly}
+            features={Object.values(t.pricing.plans[plan.key].features)}
+            cta={t.pricing.plans[plan.key].cta}
+            recommended={plan.featured}
+          />
+        ))}
+      </div>
     </div>
 
     <!-- Comparison Table -->
