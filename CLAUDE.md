@@ -1,6 +1,6 @@
 # TikaretaHome - おさんぽタイプ ランディングページ
 
-> 最終更新: 2026-02-15
+> 最終更新: 2026-05-10
 ---
 
 ## ドキュメント一覧
@@ -9,7 +9,7 @@
 |-------------|------|---------|
 | **プロジェクト概要** | 本ドキュメント。概要と確定事項 | `CLAUDE.md` |
 | **技術スタック** | Astro, Tailwind CSS, i18n設計、MotekitaHomeとの差異 | [docs/TechnologyStack.md](./docs/TechnologyStack.md) |
-| **開発環境設定** | pnpm, Node.js, Biome, lefthook, scripts | [docs/Development.md](./docs/Development.md) |
+| **開発環境設定** | pnpm, Node.js, oxlint, oxfmt, lefthook, scripts | [docs/Development.md](./docs/Development.md) |
 | **デザインシステム** | カラー、フォント、スペーシング、コンポーネント | [docs/DesignSystem.md](./docs/DesignSystem.md) |
 | **ページ設計** | 各ページの構成、メタタグ、ワイヤーフレーム | [docs/Pages.md](./docs/Pages.md) |
 | **SEO設計** | メタタグ戦略、構造化データ、OGP | [docs/SEO.md](./docs/SEO.md) |
@@ -47,7 +47,8 @@
 | CSS | Tailwind CSS 4.x（@tailwindcss/vite） |
 | i18n | Astro ビルトイン i18n |
 | サイトマップ | @astrojs/sitemap |
-| Linter / Formatter | Biome |
+| Linter | oxlint |
+| Formatter | oxfmt |
 | Git hooks | lefthook |
 | デプロイ先 | Netlify |
 | Node.js | v24 |
@@ -123,5 +124,6 @@
 - [x] キャッシュ戦略: **静的アセットは長期キャッシュ**（Cache-Control: public, max-age=31536000, immutable）
 - [x] Node.jsバージョン: **24**（Netlifyでサポートされている最新安定版）
 - [x] パッケージマネージャー: **pnpm**（軽量で高速なパッケージ管理）
-- [x] Linter/Formatter: **Biome**（コード品質と一貫性のため）
+- [x] Linter: **oxlint**（Rust製・高速、ESLint v8互換）
+- [x] Formatter: **oxfmt**（Rust製・高速、Prettier互換）
 - [x] Git hooks: **lefthook**（コミット前のコードチェックとフォーマット）  

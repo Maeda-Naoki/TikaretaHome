@@ -1,6 +1,6 @@
 # 開発環境設定
 
-> 最終更新: 2026-02-15
+> 最終更新: 2026-05-10
 ---
 
 ## パッケージマネージャー
@@ -34,7 +34,7 @@ cd TikaretaHome
 pnpm add tailwindcss @tailwindcss/vite
 
 # 開発依存
-pnpm add -D @astrojs/sitemap @biomejs/biome lefthook
+pnpm add -D @astrojs/sitemap oxlint oxfmt lefthook
 ```
 
 ---
@@ -47,7 +47,11 @@ tikaretaメインプロジェクトと統一したサプライチェーンセキ
 save-exact=true
 ignore-dep-scripts=true
 minimum-release-age=10080
-trust-policy=no-downgrade
+minimum-release-age-exclude[]='oxlint'
+minimum-release-age-exclude[]='oxfmt'
+minimum-release-age-exclude[]='@astrojs/*'
+minimum-release-age-exclude[]='astro'
+trust-policy=accept
 block-exotic-subdeps=true
 verify-store-integrity=true
 strict-store-pkg-content-check=true
@@ -84,80 +88,80 @@ strict-store-pkg-content-check=true
 
 ---
 
-## Biome設定
+## Linter / Formatter（oxlint + oxfmt）
 
-tikaretaメインプロジェクトの `biome.json` をベースに、Astroプロジェクト向けに調整。
+oxc-projectが提供する高速なRust製ツール。Biomeから移行済み。
+
+| 項目 | 内容 |
+|------|------|
+| Linter | **oxlint**（ESLint v8互換のconfig） |
+| Formatter | **oxfmt**（Prettier互換のconfig） |
+| 設定ファイル | `.oxlintrc.json`, `.oxfmtrc.json` |
+
+### .oxlintrc.json
 
 ```json
 {
-  "$schema": "https://biomejs.dev/schemas/2.3.11/schema.json",
-  "vcs": {
-    "enabled": true,
-    "clientKind": "git",
-    "useIgnoreFile": true
+  "$schema": "./node_modules/oxlint/configuration_schema.json",
+  "plugins": ["typescript", "unicorn", "oxc", "import"],
+  "env": {
+    "browser": true,
+    "node": true,
+    "es2026": true,
+    "astro": true
   },
-  "assist": {
-    "actions": {
-      "source": {
-        "organizeImports": "on"
+  "ignorePatterns": [
+    "node_modules",
+    ".pnpm-store",
+    "dist",
+    ".astro",
+    "coverage",
+    "*.min.js"
+  ],
+  "rules": {
+    "no-unused-vars": "warn",
+    "@typescript-eslint/no-unused-vars": "warn",
+    "@typescript-eslint/no-explicit-any": "warn"
+  },
+  "overrides": [
+    {
+      "files": ["*.astro"],
+      "rules": {
+        "no-unused-vars": "off",
+        "@typescript-eslint/no-unused-vars": "off"
       }
     }
-  },
-  "files": {
-    "ignoreUnknown": false,
-    "includes": [
-      "**",
-      "!node_modules",
-      "!.pnpm-store",
-      "!dist",
-      "!.astro",
-      "!coverage",
-      "!*.min.js"
-    ]
-  },
-  "formatter": {
-    "enabled": true,
-    "indentStyle": "space",
-    "indentWidth": 2,
-    "lineWidth": 100
-  },
-  "linter": {
-    "enabled": true,
-    "rules": {
-      "recommended": true,
-      "correctness": {
-        "noUnusedImports": "warn",
-        "noUnusedVariables": "warn"
-      },
-      "suspicious": {
-        "noExplicitAny": "warn"
-      }
-    }
-  },
-  "css": {
-    "parser": {
-      "cssModules": false,
-      "tailwindDirectives": true
-    }
-  },
-  "javascript": {
-    "formatter": {
-      "quoteStyle": "single",
-      "jsxQuoteStyle": "double",
-      "semicolons": "always",
-      "trailingCommas": "es5"
-    }
-  }
+  ]
 }
 ```
 
-### tikaretaメインとの差異
+### .oxfmtrc.json
 
-| 項目 | tikareta | TikaretaHome |
-|------|---------|-------------|
-| files.includes除外 | `.next`, `.open-next`, `.wrangler`, `.serena` | `.astro` |
-| style.noNonNullAssertion | off | 未設定（recommended準拠） |
-| complexity.noImportantStyles | off | 未設定（recommended準拠） |
+```json
+{
+  "$schema": "./node_modules/oxfmt/configuration_schema.json",
+  "useTabs": false,
+  "tabWidth": 2,
+  "printWidth": 100,
+  "singleQuote": true,
+  "jsxSingleQuote": false,
+  "quoteProps": "as-needed",
+  "trailingComma": "es5",
+  "semi": true,
+  "arrowParens": "always",
+  "bracketSameLine": false,
+  "bracketSpacing": true,
+  "sortImports": true,
+  "ignorePatterns": [
+    "node_modules",
+    ".pnpm-store",
+    "dist",
+    ".astro",
+    "coverage",
+    "*.min.js"
+  ]
+}
+```
 
 ---
 
@@ -167,12 +171,18 @@ tikaretaメインプロジェクトの `biome.json` をベースに、Astroプ�
 # lefthook.yml
 pre-commit:
   commands:
-    biome-check:
-      glob: "*.{js,ts,astro,css,json}"
-      run: pnpm biome check --no-errors-on-unmatched {staged_files}
+    oxlint:
+      glob: "*.{js,jsx,ts,tsx,mjs,cjs}"
+      run: pnpm oxlint --no-error-on-unmatched-pattern {staged_files}
+    oxfmt:
+      glob: "*.{js,jsx,ts,tsx,mjs,cjs,json,jsonc,css,html,md,astro}"
+      run: pnpm oxfmt --check --no-error-on-unmatched-pattern {staged_files}
 ```
+
 ---
+
 ## package.json scripts
+
 ```json
 {
   "scripts": {
@@ -180,12 +190,14 @@ pre-commit:
     "dev": "astro dev",
     "build": "astro check && astro build",
     "preview": "astro preview",
-    "lint": "biome lint ./src",
-    "lint:fix": "biome lint --write ./src",
-    "check": "biome check ./src",
-    "check:fix": "biome check --write ./src",
-    "format": "biome format --write ./src",
-    "type-check": "astro check"
+    "lint": "oxlint",
+    "lint:fix": "oxlint --fix",
+    "format": "oxfmt",
+    "format:check": "oxfmt --check",
+    "check": "oxlint && oxfmt --check",
+    "check:fix": "oxlint --fix && oxfmt",
+    "type-check": "astro check",
+    "test:e2e": "playwright test"
   }
 }
 ```
