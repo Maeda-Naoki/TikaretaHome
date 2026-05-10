@@ -849,6 +849,8 @@ p {
   --tier-bg: var(--tier-pro-bg);
 }
 .plan.featured {
+  /* `border-top` width (4px) is inherited from `.plan`; here we recolor all
+     four sides to the tier color so the stripe reads as a full accent border. */
   border-color: var(--tier-mid, var(--accent));
   box-shadow:
     0 0 0 4px color-mix(in oklab, var(--tier-mid, var(--accent)) 12%, transparent),
@@ -941,6 +943,23 @@ p {
 }
 .plan .btn {
   justify-content: center;
+}
+/* Within a plan card, route the global CTA variants through tier tokens so the
+   button hue matches the card's tier accent (e.g. Pro card → green button). */
+.plan .btn-primary {
+  background: var(--tier-mid, var(--accent));
+  box-shadow: 0 4px 14px -2px color-mix(in oklab, var(--tier-mid, var(--accent)) 50%, transparent);
+}
+.plan .btn-primary:hover {
+  background: var(--tier-fg, var(--accent-deep));
+  box-shadow: 0 8px 22px -4px color-mix(in oklab, var(--tier-mid, var(--accent)) 60%, transparent);
+}
+.plan .btn-soft {
+  background: var(--tier-bg, var(--accent-soft));
+  color: var(--tier-fg, var(--accent-deep));
+}
+.plan .btn-soft:hover {
+  background: color-mix(in oklab, var(--tier-mid, var(--accent)) 18%, var(--surface));
 }
 
 /* =========================================================
