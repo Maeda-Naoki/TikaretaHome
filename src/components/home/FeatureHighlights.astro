@@ -1,22 +1,46 @@
 ---
 import Ic from '@components/common/Ic.astro';
-import { designFeatures, tierLabel } from '@data/features';
+import type { IconName } from '@data/icons';
+import { useTranslations } from '@utils/i18n';
+
+const locale = Astro.currentLocale ?? 'ja';
+const t = useTranslations(locale);
+
+type FeatureTier = 'free' | 'standard' | 'pro';
+type FeatureKey = keyof typeof t.features;
+
+const tierLabel: Record<FeatureTier, string> = { free: 'FREE', standard: 'STANDARD', pro: 'PRO' };
+
+const ITEMS: Array<{ key: FeatureKey; tier: FeatureTier; icon: IconName }> = [
+  { key: 'walkTracking', tier: 'free', icon: 'footprints' },
+  { key: 'restSpots', tier: 'free', icon: 'map-pin' },
+  { key: 'weatherTracking', tier: 'free', icon: 'cloud-sun' },
+  { key: 'allDataAccess', tier: 'free', icon: 'history' },
+  { key: 'basicType', tier: 'free', icon: 'target' },
+  { key: 'community', tier: 'free', icon: 'users' },
+  { key: 'fullStats', tier: 'standard', icon: 'bar-chart-3' },
+  { key: 'detailedType', tier: 'standard', icon: 'sparkles' },
+  { key: 'customShare', tier: 'standard', icon: 'share-2' },
+  { key: 'routeSuggestion', tier: 'pro', icon: 'route' },
+  { key: 'heatmap', tier: 'pro', icon: 'flame' },
+  { key: 'trendAnalysis', tier: 'pro', icon: 'trending-up' },
+];
 ---
 <section id="features" class="section-pad" style="background:var(--bg);">
   <div class="container-page">
     <div class="section-head reveal">
       <span class="eyebrow">Features</span>
-      <h2>必要なものが、すべて揃っている。</h2>
-      <p>無料から始めて、深く知りたいときだけアップグレード。</p>
+      <h2>{t.featureHighlights.title}</h2>
+      <p>{t.featureHighlights.subtitle}</p>
     </div>
 
     <div class="feat-grid">
-      {designFeatures.map((f, i) => (
+      {ITEMS.map((f, i) => (
         <article class={`feat ${f.tier} reveal`} style={`transition-delay:${i * 60}ms;`}>
           <span class="tag">{tierLabel[f.tier]}</span>
           <div class="ico"><Ic name={f.icon} size={20} /></div>
-          <h4 style="font-size:1.05rem; margin-bottom:.35rem;">{f.title}</h4>
-          <p style="font-size:.9rem; color:var(--ink-soft); line-height:1.55;">{f.body}</p>
+          <h4 style="font-size:1.05rem; margin-bottom:.35rem;">{t.features[f.key].title}</h4>
+          <p style="font-size:.9rem; color:var(--ink-soft); line-height:1.55;">{t.features[f.key].description}</p>
         </article>
       ))}
     </div>

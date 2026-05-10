@@ -11,15 +11,28 @@ export const ja = {
     roadmap: 'ロードマップ',
     startFree: '無料で始める',
     home: 'ホーム',
+    mainLabel: 'メインナビゲーション',
+    howItWorks: '使い方',
+    typeDiagnosis: 'タイプ診断',
+    login: 'ログイン',
   },
   hero: {
     title: 'うちの子の\nおさんぽスタイル、\n知ってる？',
     subtitle: 'おさんぽを続けるだけ。愛犬のおさんぽの個性が、じわじわ見えてきます',
     cta: '無料で始める',
     subCta: 'アカウント登録は30秒',
+    secondaryCta: '使い方を見る',
+    badge: '2026年春リリース予定 / Phase 1 開発中',
+    meta: ['クレカ登録不要', 'iOS / Android 対応', '家族と共有OK'],
+    floatCards: {
+      streak: { label: '連続記録', value: '12日連続' },
+      myDog: { label: 'うちの子は' },
+      todayWalk: { label: '今日のおさんぽ', duration: '18分' },
+    },
   },
   valueProposition: {
     title: '愛犬との散歩が、もっと楽しくなる',
+    subtitle: '日々の記録の積み重ねが、愛犬の個性を教えてくれます。',
     items: [
       {
         title: 'うちの子の傾向がわかる',
@@ -43,19 +56,20 @@ export const ja = {
   },
   howItWorks: {
     title: 'やることは、たったの3つ',
+    subtitle: 'アプリに記録するだけで、愛犬のおさんぽ個性が見えてきます。',
     steps: [
       {
-        number: '1',
+        number: '01',
         title: 'おさんぽを記録する',
         description: 'いつものおさんぽをアプリに残すだけ',
       },
       {
-        number: '2',
+        number: '02',
         title: 'お気に入りスポットを登録',
         description: '立ち寄った場所・理由・写真を残して思い出を保存',
       },
       {
-        number: '3',
+        number: '03',
         title: 'タイプが判明！',
         description: '記録を続けるうちに、愛犬の「おさんぽタイプ」が自動でわかります',
       },
@@ -68,22 +82,40 @@ export const ja = {
   },
   featureHighlights: {
     title: '主な機能',
+    subtitle: '無料から始めて、深く知りたいときだけアップグレード。',
     cta: '全機能を見る',
   },
   pricingSummary: {
     title: '料金プラン',
     subtitle: 'おさんぽ記録は無料でスタート。もっと深く知りたい方にはプレミアムを。',
     cta: '詳しく見る',
+    billingMonthly: '月払い',
+    billingYearly: '年払い',
+    savingsTag: '4ヶ月お得',
   },
   finalCTA: {
     title: '今すぐ無料で始めよう',
     subtitle: '記録したおさんぽは、いつでも見返せます。まずは無料でどうぞ。',
     cta: '無料で始める',
+    seePricing: '料金を確認する',
+    meta: 'iOS / Android 対応 ・ PWA ・ いつでも解約可',
+  },
+  showcase: {
+    title: 'ひとつのアプリで、すべてが揃う。',
+    subtitle: '記録・診断・ふりかえり・仲間との交流まで、おさんぽのすべてがTikaretaに。',
+    screens: ['ホーム画面', '記録中', 'タイプ診断', 'ふりかえり', 'コミュニティ'],
   },
   footer: {
     privacy: 'プライバシーポリシー',
     terms: '利用規約',
     copyright: '© 2026 Tikareta',
+    tagline: 'うちの子のおさんぽスタイル、知ってる？毎日の記録から愛犬の個性が見えてきます。',
+    serviceTitle: 'サービス',
+    appTitle: 'アプリ',
+    legalTitle: '法的情報',
+    openWebApp: 'Webアプリを開く',
+    iosApp: 'iOSアプリ（準備中）',
+    androidApp: 'Androidアプリ（準備中）',
   },
   // 機能一覧
   features: {
@@ -143,12 +175,17 @@ export const ja = {
       title: 'カスタマイズ版シェアカード',
       description: 'うちの子の個性をおしゃれな画像でシェア',
     },
+    trendAnalysis: {
+      title: 'トレンド分析',
+      description: '先月比・季節別の変化を可視化。傾向の変化も発見。',
+    },
   },
   // 料金プラン
   pricing: {
     plans: {
       free: {
         name: 'Freeプラン',
+        tagline: 'まずは試したい方に',
         cta: '無料で始める',
         features: {
           walkTracking: 'おさんぽ記録',
@@ -162,6 +199,7 @@ export const ja = {
       },
       monthly: {
         name: '月額プラン',
+        tagline: 'もっと深く知りたい方に',
         cta: 'プレミアムを始める',
         features: {
           allFree: 'Freeプランの全て',
@@ -176,6 +214,7 @@ export const ja = {
       },
       yearly: {
         name: '年額プラン',
+        tagline: 'お得な年額でじっくり',
         cta: 'お得な年額プランを始める',
         features: {
           allFree: 'Freeプランの全て',
@@ -189,6 +228,7 @@ export const ja = {
         },
       },
     },
+    freeLabel: 'Free',
     perMonth: '/ 月',
     perYear: '/ 年',
     recommended: 'おすすめ',
