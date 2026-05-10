@@ -111,14 +111,14 @@
   --accent-2: var(--s500);
 
   /* Plan tier accents — distinct hues, all ≥4.5:1 fg-on-bg contrast (WCAG AA) */
-  --tier-free-bg: #e0f2fe; /* sky-100 */
-  --tier-free-fg: #0369a1; /* sky-700 on sky-100 ≈ 5.8:1 */
-  --tier-free-mid: #0ea5e9; /* sky-500 — accent stripe */
+  --tier-free-bg: #e0f2fe;
+  --tier-free-fg: #0369a1; /* on --tier-free-bg ≈ 5.8:1 */
+  --tier-free-mid: #0ea5e9;
   --tier-standard-bg: var(--p100);
-  --tier-standard-fg: var(--p700); /* p700 on p100 ≈ 4.8:1 */
+  --tier-standard-fg: var(--p700); /* on --tier-standard-bg ≈ 4.8:1 */
   --tier-standard-mid: var(--p500);
   --tier-pro-bg: var(--s100);
-  --tier-pro-fg: var(--s700); /* s700 on s100 ≈ 5.6:1 */
+  --tier-pro-fg: var(--s700); /* on --tier-pro-bg ≈ 5.6:1 */
   --tier-pro-mid: var(--s500);
 
   --r-pill: 9999px;
@@ -735,24 +735,12 @@ p {
   width: 42px;
   height: 42px;
   border-radius: 12px;
-  background: var(--surface-2);
-  color: var(--ink-soft);
+  background: var(--tier-bg, var(--surface-2));
+  color: var(--tier-fg, var(--ink-soft));
   display: grid;
   place-items: center;
   font-size: 1.15rem;
   margin-bottom: 1rem;
-}
-.feat.free .ico {
-  background: var(--tier-free-bg);
-  color: var(--tier-free-fg);
-}
-.feat.standard .ico {
-  background: var(--tier-standard-bg);
-  color: var(--tier-standard-fg);
-}
-.feat.pro .ico {
-  background: var(--tier-pro-bg);
-  color: var(--tier-pro-fg);
 }
 .feat .tag {
   position: absolute;
@@ -763,21 +751,9 @@ p {
   letter-spacing: 0.1em;
   padding: 3px 8px;
   border-radius: var(--r-pill);
-  background: var(--surface-2);
-  color: var(--ink-mute);
+  background: var(--tier-bg, var(--surface-2));
+  color: var(--tier-fg, var(--ink-mute));
   text-transform: uppercase;
-}
-.feat.free .tag {
-  background: var(--tier-free-bg);
-  color: var(--tier-free-fg);
-}
-.feat.standard .tag {
-  background: var(--tier-standard-bg);
-  color: var(--tier-standard-fg);
-}
-.feat.pro .tag {
-  background: var(--tier-pro-bg);
-  color: var(--tier-pro-fg);
 }
 
 /* =========================================================
@@ -833,16 +809,21 @@ p {
   /* Tier accent stripe across the top of the card */
   border-top: 4px solid var(--tier-mid, var(--line));
 }
+/* Tier → semantic-token bridges. One mapping serves both .feat tiles and
+   .plan cards; everything downstream reads --tier-{bg,fg,mid}. */
+.feat.free,
 .plan-free {
   --tier-mid: var(--tier-free-mid);
   --tier-fg: var(--tier-free-fg);
   --tier-bg: var(--tier-free-bg);
 }
+.feat.standard,
 .plan-standard {
   --tier-mid: var(--tier-standard-mid);
   --tier-fg: var(--tier-standard-fg);
   --tier-bg: var(--tier-standard-bg);
 }
+.feat.pro,
 .plan-pro {
   --tier-mid: var(--tier-pro-mid);
   --tier-fg: var(--tier-pro-fg);
