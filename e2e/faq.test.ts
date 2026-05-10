@@ -3,32 +3,34 @@ import { expect, test } from '@playwright/test';
 const jaQuestions = [
   'Tikaretaとは？',
   'どうやって始めるの？',
-  '犬は何匹まで登録できる？',
+  '対応しているスマホは？',
+  '機種変更してもデータは残る？',
   'スマホのバッテリーは減りやすい？',
   'タイプ診断はいつ結果が出る？',
   'タイプは変わる？',
-  'AIを使っている？',
   '無料で何ができますか？',
   '有料にしないと記録が見られなくなる？',
   '解約はいつでもできますか？',
   '支払い方法は？',
   '位置情報は他の人に見られる？',
+  '退会（アカウント削除）したいときは？',
   '個人情報の取り扱いは？',
 ];
 
 const enQuestions = [
   'What is Tikareta?',
   'How do I get started?',
-  'How many dogs can I register?',
+  'Which devices are supported?',
+  'Will my data carry over if I change phones?',
   'Will it drain my phone battery?',
   'When will my dog get a type?',
   'Can the type change?',
-  'Does it use AI?',
   'What can I do for free?',
   'Will I lose my walk records without premium?',
   'Can I cancel anytime?',
   'What payment methods are available?',
   'Can others see my location data?',
+  'How do I delete my account?',
   'How is personal data handled?',
 ];
 
@@ -73,7 +75,7 @@ test.describe('FAQ page (Japanese)', () => {
   test('all FAQ items have non-empty question and answer', async ({ page }) => {
     const details = page.locator('details');
     const count = await details.count();
-    expect(count).toBe(13);
+    expect(count).toBe(14);
 
     for (let i = 0; i < count; i++) {
       const item = details.nth(i);
@@ -115,7 +117,7 @@ test.describe('FAQ page (English)', () => {
   test('all FAQ items have non-empty question and answer', async ({ page }) => {
     const details = page.locator('details');
     const count = await details.count();
-    expect(count).toBe(13);
+    expect(count).toBe(14);
 
     for (let i = 0; i < count; i++) {
       const item = details.nth(i);
