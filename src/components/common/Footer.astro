@@ -1,7 +1,9 @@
 ---
+import { useTranslations } from '@utils/i18n';
 import LogoMark from './LogoMark.astro';
 
 const locale = Astro.currentLocale ?? 'ja';
+const t = useTranslations(locale);
 const p = (path: string) => (locale === 'ja' ? path : `/en${path}`);
 ---
 
@@ -14,34 +16,34 @@ const p = (path: string) => (locale === 'ja' ? path : `/en${path}`);
           <span>Tikareta</span>
         </div>
         <p style="font-size:.88rem; color:var(--ink-soft); line-height:1.6; max-width:260px;">
-          うちの子のおさんぽスタイル、知ってる？毎日の記録から愛犬の個性が見えてきます。
+          {t.footer.tagline}
         </p>
       </div>
 
       <div>
-        <h5>サービス</h5>
+        <h5>{t.footer.serviceTitle}</h5>
         <ul>
-          <li><a href={p('/features')}>機能紹介</a></li>
-          <li><a href={p('/pricing')}>料金プラン</a></li>
-          <li><a href={p('/faq')}>よくある質問</a></li>
-          <li><a href={p('/roadmap')}>ロードマップ</a></li>
+          <li><a href={p('/features')}>{t.nav.features}</a></li>
+          <li><a href={p('/pricing')}>{t.nav.pricing}</a></li>
+          <li><a href={p('/faq')}>{t.nav.faq}</a></li>
+          <li><a href={p('/roadmap')}>{t.nav.roadmap}</a></li>
         </ul>
       </div>
 
       <div>
-        <h5>アプリ</h5>
+        <h5>{t.footer.appTitle}</h5>
         <ul>
-          <li><a href="https://tikareta.com" target="_blank" rel="noopener">Webアプリを開く</a></li>
-          <li><a href="#">iOSアプリ（準備中）</a></li>
-          <li><a href="#">Androidアプリ（準備中）</a></li>
+          <li><a href="https://tikareta.com" target="_blank" rel="noopener">{t.footer.openWebApp}</a></li>
+          <li><a href="#">{t.footer.iosApp}</a></li>
+          <li><a href="#">{t.footer.androidApp}</a></li>
         </ul>
       </div>
 
       <div>
-        <h5>法的情報</h5>
+        <h5>{t.footer.legalTitle}</h5>
         <ul>
-          <li><a href={p('/privacy')}>プライバシーポリシー</a></li>
-          <li><a href={p('/terms')}>利用規約</a></li>
+          <li><a href={p('/privacy')}>{t.footer.privacy}</a></li>
+          <li><a href={p('/terms')}>{t.footer.terms}</a></li>
         </ul>
       </div>
     </div>

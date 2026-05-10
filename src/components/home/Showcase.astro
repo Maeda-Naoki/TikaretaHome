@@ -1,19 +1,21 @@
 ---
 import PhoneMock from '@components/common/PhoneMock.astro';
+import { useTranslations } from '@utils/i18n';
 
-const screens = [
-  { variant: 'home' as const, label: 'ホーム画面' },
-  { variant: 'record' as const, label: '記録中' },
-  { variant: 'result' as const, label: 'タイプ診断' },
-  { variant: 'history' as const, label: 'ふりかえり' },
-  { variant: 'community' as const, label: 'コミュニティ' },
-];
+const locale = Astro.currentLocale ?? 'ja';
+const t = useTranslations(locale);
+
+const variants = ['home', 'record', 'result', 'history', 'community'] as const;
+const screens = variants.map((variant, i) => ({
+  variant,
+  label: t.showcase.screens[i],
+}));
 ---
 <section class="section-pad" style="background:var(--surface-2); overflow:hidden;" id="showcase">
   <div class="section-head reveal" style="max-width:720px; margin:0 auto 0; padding:0 var(--gutter);">
     <span class="eyebrow">App Screens</span>
-    <h2>ひとつのアプリで、すべてが揃う。</h2>
-    <p>記録・診断・ふりかえり・仲間との交流まで、おさんぽのすべてがTikaretaに。</p>
+    <h2>{t.showcase.title}</h2>
+    <p>{t.showcase.subtitle}</p>
   </div>
 
   <div class="showcase-track">

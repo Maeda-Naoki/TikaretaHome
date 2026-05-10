@@ -1,21 +1,31 @@
 ---
 import Ic from '@components/common/Ic.astro';
-import { steps } from '@data/content';
+import type { IconName } from '@data/icons';
+import { useTranslations } from '@utils/i18n';
+
+const locale = Astro.currentLocale ?? 'ja';
+const t = useTranslations(locale);
+
+const icons: IconName[] = ['footprints', 'map-pin', 'sparkles'];
+const steps = t.howItWorks.steps.map((s, i) => ({
+  ...s,
+  icon: icons[i],
+}));
 ---
 <section id="how" class="section-pad" style="background: linear-gradient(180deg, transparent, var(--surface-2));">
   <div class="container-page">
     <div class="section-head reveal">
       <span class="eyebrow">How it works</span>
-      <h2>はじめかたは、<br />とってもかんたん。</h2>
-      <p>3ステップで、愛犬の「おさんぽタイプ」が見えてきます。</p>
+      <h2>{t.howItWorks.title}</h2>
+      <p>{t.howItWorks.subtitle}</p>
     </div>
 
     <div class="how-grid">
       {steps.map((s, i) => (
         <article class="card-base reveal" style={`transition-delay:${i * 100}ms;`}>
-          <span class="step-num">{s.num}</span>
+          <span class="step-num">{s.number}</span>
           <h3 style="font-size:1.2rem; margin-bottom:.65rem;">{s.title}</h3>
-          <p style="color:var(--ink-soft); font-size:.92rem; line-height:1.7;">{s.body}</p>
+          <p style="color:var(--ink-soft); font-size:.92rem; line-height:1.7;">{s.description}</p>
           <div class="step-art"><Ic name={s.icon} size={42} /></div>
         </article>
       ))}

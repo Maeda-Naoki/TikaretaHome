@@ -827,13 +827,15 @@ p {
   --tier-bg: var(--tier-free-bg);
 }
 .feat.standard,
-.plan-standard {
+.plan-standard,
+.plan-monthly {
   --tier-mid: var(--tier-standard-mid);
   --tier-fg: var(--tier-standard-fg);
   --tier-bg: var(--tier-standard-bg);
 }
 .feat.pro,
-.plan-pro {
+.plan-pro,
+.plan-yearly {
   --tier-mid: var(--tier-pro-mid);
   --tier-fg: var(--tier-pro-fg);
   --tier-bg: var(--tier-pro-bg);
