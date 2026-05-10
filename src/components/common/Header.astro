@@ -1,16 +1,18 @@
 ---
+import { useTranslations } from '@utils/i18n';
 import Ic from './Ic.astro';
 import LogoMark from './LogoMark.astro';
 
 const locale = Astro.currentLocale ?? 'ja';
+const t = useTranslations(locale);
 const homeUrl = locale === 'ja' ? '/' : '/en/';
 
 const navLinks = [
-  { href: '#how', label: '使い方' },
-  { href: '#types', label: 'タイプ診断' },
-  { href: '#features', label: '機能' },
-  { href: '#pricing', label: '料金' },
-  { href: '#faq', label: 'FAQ' },
+  { href: '#how', label: t.nav.howItWorks },
+  { href: '#types', label: t.nav.typeDiagnosis },
+  { href: '#features', label: t.nav.features },
+  { href: '#pricing', label: t.nav.pricing },
+  { href: '#faq', label: t.nav.faq },
 ];
 
 const jaUrl = Astro.url.pathname.replace(/^\/en\//, '/') || '/';
@@ -25,22 +27,22 @@ const isEn = locale === 'en';
       <span>Tikareta</span>
     </a>
 
-    <nav class="nav-links" aria-label="主要ナビゲーション">
+    <nav class="nav-links" aria-label={t.nav.home}>
       {navLinks.map((l) => <a href={l.href}>{l.label}</a>)}
     </nav>
 
     <div class="nav-right">
-      <div class="lang-switch" role="tablist" aria-label="言語切替">
+      <div class="lang-switch" role="tablist" aria-label={t.common.language}>
         <button class={!isEn ? 'active' : ''} type="button" onclick={`location.href='${jaUrl}'`}>JA</button>
         <button class={isEn ? 'active' : ''} type="button" onclick={`location.href='${enUrl}'`}>EN</button>
       </div>
-      <a class="btn btn-ghost nav-login" href="#">ログイン</a>
+      <a class="btn btn-ghost nav-login" href="#">{t.nav.login}</a>
       <a class="btn btn-primary" href="#cta">
-        <Ic name="arrow-right" size={16} />無料で始める
+        <Ic name="arrow-right" size={16} />{t.nav.startFree}
       </a>
     </div>
 
-    <button id="mobile-menu-btn" class="mobile-toggle" aria-label="メニュー" aria-expanded="false">
+    <button id="mobile-menu-btn" class="mobile-toggle" aria-label={t.common.menu} aria-expanded="false">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
         <line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/>
       </svg>
@@ -52,7 +54,7 @@ const isEn = locale === 'en';
       {navLinks.map((l) => <a href={l.href}>{l.label}</a>)}
     </nav>
     <div class="mobile-footer">
-      <a class="btn btn-primary" href="#cta" style="justify-content:center; width:100%;">無料で始める</a>
+      <a class="btn btn-primary" href="#cta" style="justify-content:center; width:100%;">{t.nav.startFree}</a>
     </div>
   </div>
 </header>

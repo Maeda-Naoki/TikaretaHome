@@ -1,13 +1,55 @@
 ---
 import Ic from '@components/common/Ic.astro';
-import { faqs } from '@data/faq';
+import { useTranslations } from '@utils/i18n';
+
+const locale = Astro.currentLocale ?? 'ja';
+const t = useTranslations(locale);
+
+type FaqCategory = 'basic' | 'diagnosis' | 'pricing' | 'privacy';
+
+interface FaqItem {
+  category: FaqCategory;
+  categoryLabel: string;
+  question: string;
+  answer: string;
+}
+
+const faqs: FaqItem[] = [
+  { category: 'basic', categoryLabel: t.faq.categories.basic, ...t.faq.basic.whatIsOsanpoType },
+  { category: 'basic', categoryLabel: t.faq.categories.basic, ...t.faq.basic.howToStart },
+  { category: 'basic', categoryLabel: t.faq.categories.basic, ...t.faq.basic.howManyDogs },
+  { category: 'basic', categoryLabel: t.faq.categories.basic, ...t.faq.basic.batteryUsage },
+  {
+    category: 'diagnosis',
+    categoryLabel: t.faq.categories.diagnosis,
+    ...t.faq.diagnosis.whenDiagnosis,
+  },
+  {
+    category: 'diagnosis',
+    categoryLabel: t.faq.categories.diagnosis,
+    ...t.faq.diagnosis.typeChange,
+  },
+  { category: 'diagnosis', categoryLabel: t.faq.categories.diagnosis, ...t.faq.diagnosis.usingAI },
+  { category: 'pricing', categoryLabel: t.faq.categories.pricing, ...t.faq.pricing.freeFeatures },
+  {
+    category: 'pricing',
+    categoryLabel: t.faq.categories.pricing,
+    ...t.faq.pricing.dataAfterDowngrade,
+  },
+  { category: 'pricing', categoryLabel: t.faq.categories.pricing, ...t.faq.pricing.cancelAnytime },
+  {
+    category: 'privacy',
+    categoryLabel: t.faq.categories.privacy,
+    ...t.faq.privacy.locationPrivacy,
+  },
+  { category: 'privacy', categoryLabel: t.faq.categories.privacy, ...t.faq.privacy.dataHandling },
+];
 ---
 <section id="faq" class="section-pad" style="background:var(--bg);">
   <div class="container-page">
     <div class="section-head reveal">
       <span class="eyebrow">FAQ</span>
-      <h2>よくある質問</h2>
-      <p>ご不明な点はお気軽にお問い合わせください。</p>
+      <h2>{t.faq.title}</h2>
     </div>
 
     <div class="faq-list">
@@ -15,7 +57,7 @@ import { faqs } from '@data/faq';
         <details class="faq-item reveal" style={`transition-delay:${i * 40}ms;`}>
           <summary>
             <span>
-              <span class="faq-cat-tag">{item.category}</span>
+              <span class="faq-cat-tag">{item.categoryLabel}</span>
               {item.question}
             </span>
             <Ic name="plus" size={18} />

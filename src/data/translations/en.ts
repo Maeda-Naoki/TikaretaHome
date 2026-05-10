@@ -13,6 +13,9 @@ export const en: Translations = {
     roadmap: 'Roadmap',
     startFree: 'Start Free',
     home: 'Home',
+    howItWorks: 'How It Works',
+    typeDiagnosis: 'Walking Types',
+    login: 'Log In',
   },
   hero: {
     title: "Do you know\nyour dog's\nwalking style?",
@@ -20,6 +23,9 @@ export const en: Translations = {
       "Just keep walking together. Your dog's unique walking personality will reveal itself naturally.",
     cta: 'Start Free',
     subCta: 'Sign up in 30 seconds',
+    secondaryCta: 'See How It Works',
+    badge: 'Spring 2026 Release / Phase 1 in Development',
+    meta: ['No credit card required', 'iOS & Android', 'Family sharing'],
   },
   valueProposition: {
     title: 'Make every walk with your dog more meaningful',
@@ -71,22 +77,40 @@ export const en: Translations = {
   },
   featureHighlights: {
     title: 'Key Features',
+    subtitle: 'Start free, upgrade when you want deeper insights.',
     cta: 'See All Features',
   },
   pricingSummary: {
     title: 'Pricing Plans',
     subtitle: 'Walk tracking is free to start. Go premium for deeper insights.',
     cta: 'View Details',
+    billingMonthly: 'Monthly',
+    billingYearly: 'Yearly',
+    savingsTag: 'Save 4 months',
   },
   finalCTA: {
     title: 'Start Free Today',
     subtitle: 'Your walk records are always there to look back on. Try it free.',
     cta: 'Start Free',
+    seePricing: 'View Pricing',
+    meta: 'iOS / Android · PWA · Cancel anytime',
+  },
+  showcase: {
+    title: 'Everything in one app.',
+    subtitle: 'Walk logging, type diagnosis, memories, and community — all in Tikareta.',
+    screens: ['Home', 'Recording', 'Type Diagnosis', 'History', 'Community'],
   },
   footer: {
     privacy: 'Privacy Policy',
     terms: 'Terms of Service',
     copyright: '© 2026 Tikareta',
+    tagline: "Do you know your dog's walking style? Daily walks reveal their unique personality.",
+    serviceTitle: 'Services',
+    appTitle: 'App',
+    legalTitle: 'Legal',
+    openWebApp: 'Open Web App',
+    iosApp: 'iOS (Coming Soon)',
+    androidApp: 'Android (Coming Soon)',
   },
   features: {
     walkTracking: {
@@ -145,11 +169,17 @@ export const en: Translations = {
       title: 'Custom Share Cards',
       description: "Share your dog's personality with a stylish image",
     },
+    trendAnalysis: {
+      title: 'Trend Analysis',
+      description:
+        'Visualise month-on-month and seasonal changes. Spot how habits shift over time.',
+    },
   },
   pricing: {
     plans: {
       free: {
         name: 'Free Plan',
+        tagline: 'Great for getting started',
         cta: 'Start Free',
         features: {
           walkTracking: 'Walk Logging',
@@ -163,6 +193,7 @@ export const en: Translations = {
       },
       monthly: {
         name: 'Monthly Plan',
+        tagline: 'For those who want deeper insights',
         cta: 'Start Premium',
         features: {
           allFree: 'Everything in Free',
@@ -177,6 +208,7 @@ export const en: Translations = {
       },
       yearly: {
         name: 'Yearly Plan',
+        tagline: 'Best value for the dedicated walker',
         cta: 'Start Yearly Plan',
         features: {
           allFree: 'Everything in Free',

@@ -1,29 +1,50 @@
 ---
 import Ic from '@components/common/Ic.astro';
-import { dogTypes } from '@data/content';
+import { useTranslations } from '@utils/i18n';
+
+const locale = Astro.currentLocale ?? 'ja';
+const t = useTranslations(locale);
+
+const emojis = ['🌳', '🧭', '🌅', '⚡', '🐾', '🛤️', '🌙', '☔'];
+const typeKeys = [
+  'shadeHunter',
+  'explorer',
+  'morningEnjoyer',
+  'shortBurst',
+  'socialButterfly',
+  'steadyWalker',
+  'nightOwl',
+  'weatherFlexible',
+] as const;
+
+const dogTypes = typeKeys.map((key, i) => ({
+  emoji: emojis[i],
+  name: t.walkingTypes[key].name,
+  body: t.walkingTypes[key].description,
+}));
 ---
 <section id="types" class="section-pad" style="background:var(--bg);">
   <div class="container-page">
     <div class="section-head reveal">
       <span class="eyebrow">Walking Types</span>
-      <h2>あなたの愛犬は、どのタイプ？</h2>
-      <p>8つのおさんぽタイプから、愛犬の個性をルールベースで自動判定。「なるほど！」が見つかります。</p>
+      <h2>{t.typeDiagnosis.title}</h2>
+      <p>{t.typeDiagnosis.subtitle}</p>
     </div>
 
     <div class="types-grid">
-      {dogTypes.map((t, i) => (
+      {dogTypes.map((d, i) => (
         <article class="type-card reveal" style={`transition-delay:${i * 60}ms;`}>
           <span class="arrow"><Ic name="arrow-up-right" size={14} /></span>
-          <div class="type-emoji">{t.emoji}</div>
-          <h4 style="font-size:1rem; margin-bottom:.35rem;">{t.name}</h4>
-          <p style="font-size:.82rem; color:var(--ink-soft); line-height:1.55;">{t.body}</p>
+          <div class="type-emoji">{d.emoji}</div>
+          <h4 style="font-size:1rem; margin-bottom:.35rem;">{d.name}</h4>
+          <p style="font-size:.82rem; color:var(--ink-soft); line-height:1.55;">{d.body}</p>
         </article>
       ))}
     </div>
 
     <div style="text-align:center; margin-top:3rem;">
       <a class="btn btn-soft" href="https://tikareta.com" target="_blank" rel="noopener">
-        <Ic name="sparkles" size={16} />診断してみる
+        <Ic name="sparkles" size={16} />{t.typeDiagnosis.cta}
       </a>
     </div>
   </div>

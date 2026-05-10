@@ -1,23 +1,27 @@
 ---
 import Ic from '@components/common/Ic.astro';
+import { useTranslations } from '@utils/i18n';
+
+const locale = Astro.currentLocale ?? 'ja';
+const t = useTranslations(locale);
 ---
 <section id="cta" class="final-cta-bg section-pad">
   <div class="container-narrow">
     <div class="final-cta-card">
       <div class="deco-ring"></div>
       <div class="deco-ring r2"></div>
-      <h2>今日から、記録を始めよう。</h2>
-      <p>クレジットカード不要。30秒で登録完了。まず無料で試してみてください。</p>
+      <h2>{t.finalCTA.title}</h2>
+      <p>{t.finalCTA.subtitle}</p>
       <div style="display:flex; gap:.75rem; justify-content:center; flex-wrap:wrap;">
         <a class="btn btn-primary" href="https://tikareta.com" target="_blank" rel="noopener">
-          <Ic name="footprints" size={18} />無料で始める
+          <Ic name="footprints" size={18} />{t.finalCTA.cta}
         </a>
         <a class="btn" href="#pricing" style="background:rgba(255,255,255,.12); color:white; border:1px solid rgba(255,255,255,.2);">
-          料金を確認する
+          {t.finalCTA.seePricing}
         </a>
       </div>
       <p style="font-size:.82rem; color:rgba(255,255,255,.5); margin-top:1.5rem;">
-        iOS / Android 対応 ・ PWA ・ いつでも解約可
+        {t.finalCTA.meta}
       </p>
     </div>
   </div>

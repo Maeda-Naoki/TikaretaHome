@@ -1,29 +1,107 @@
 ---
 import Ic from '@components/common/Ic.astro';
-import { plans } from '@data/pricing';
+import { useTranslations } from '@utils/i18n';
+
+const locale = Astro.currentLocale ?? 'ja';
+const t = useTranslations(locale);
+
+type PlanId = 'free' | 'monthly' | 'yearly';
+type CtaStyle = 'btn-primary' | 'btn-ghost' | 'btn-soft';
+
+interface PlanFeatureRow {
+  text: string;
+  on: boolean;
+  emphasized?: boolean;
+}
+
+interface Plan {
+  id: PlanId;
+  name: string;
+  tagline: string;
+  monthly: number;
+  yearly: number;
+  features: PlanFeatureRow[];
+  ctaLabel: string;
+  ctaStyle: CtaStyle;
+  featured: boolean;
+}
+
+const plans: Plan[] = [
+  {
+    id: 'free',
+    name: t.pricing.plans.free.name,
+    tagline: t.pricing.plans.free.tagline,
+    monthly: 0,
+    yearly: 0,
+    features: [
+      { text: t.pricing.plans.free.features.walkTracking, on: true },
+      { text: t.pricing.plans.free.features.restSpots, on: true },
+      { text: t.pricing.plans.free.features.weatherTracking, on: true },
+      { text: t.pricing.plans.free.features.allDataAccess, on: true },
+      { text: t.pricing.plans.free.features.basicStats, on: true },
+      { text: t.pricing.plans.free.features.basicType, on: true },
+      { text: t.pricing.plans.free.features.community, on: true },
+      { text: t.pricing.plans.monthly.features.fullStats, on: false },
+      { text: t.pricing.plans.monthly.features.detailedType, on: false },
+    ],
+    ctaLabel: t.pricing.plans.free.cta,
+    ctaStyle: 'btn-ghost',
+    featured: false,
+  },
+  {
+    id: 'monthly',
+    name: t.pricing.plans.monthly.name,
+    tagline: t.pricing.plans.monthly.tagline,
+    monthly: 300,
+    yearly: 2400,
+    features: [
+      { text: t.pricing.plans.monthly.features.allFree, on: true, emphasized: true },
+      { text: t.pricing.plans.monthly.features.fullStats, on: true },
+      { text: t.pricing.plans.monthly.features.detailedType, on: true },
+      { text: t.pricing.plans.monthly.features.breedComparison, on: true },
+      { text: t.pricing.plans.monthly.features.routeSuggestion, on: true },
+      { text: t.pricing.plans.monthly.features.heatmap, on: true },
+      { text: t.pricing.plans.monthly.features.dataExport, on: true },
+      { text: t.pricing.plans.monthly.features.customShare, on: true },
+    ],
+    ctaLabel: t.pricing.plans.monthly.cta,
+    ctaStyle: 'btn-primary',
+    featured: true,
+  },
+  {
+    id: 'yearly',
+    name: t.pricing.plans.yearly.name,
+    tagline: t.pricing.plans.yearly.tagline,
+    monthly: 200,
+    yearly: 2400,
+    features: [
+      { text: t.pricing.plans.yearly.features.allFree, on: true, emphasized: true },
+      { text: t.pricing.plans.yearly.features.fullStats, on: true },
+      { text: t.pricing.plans.yearly.features.detailedType, on: true },
+      { text: t.pricing.plans.yearly.features.breedComparison, on: true },
+      { text: t.pricing.plans.yearly.features.routeSuggestion, on: true },
+      { text: t.pricing.plans.yearly.features.heatmap, on: true },
+      { text: t.pricing.plans.yearly.features.dataExport, on: true },
+      { text: t.pricing.plans.yearly.features.customShare, on: true },
+    ],
+    ctaLabel: t.pricing.plans.yearly.cta,
+    ctaStyle: 'btn-soft',
+    featured: false,
+  },
+];
 ---
 <section id="pricing" class="section-pad" style="background:var(--surface-2);">
   <div class="container-page">
     <div class="section-head reveal">
       <span class="eyebrow">Pricing</span>
-      <h2>シンプルな料金体系。</h2>
-      <p>まずは無料で。深く知りたくなったらいつでもアップグレードできます。</p>
-    </div>
-
-    <div style="text-align:center;">
-      <div class="billing-toggle" id="billing-toggle">
-        <button class="active" data-period="monthly" type="button">月払い</button>
-        <button type="button" data-period="yearly" style="position:relative;">
-          年払い
-          <span class="save-tag">4ヶ月お得</span>
-        </button>
-      </div>
+      <h2>{t.pricingSummary.title}</h2>
+      <p>{t.pricingSummary.subtitle}</p>
     </div>
 
     <div class="plans-grid">
       {plans.map((plan) => (
-        <div class={`plan plan-${plan.key} reveal ${plan.featured ? 'featured' : ''}`}>
-          {plan.featured && <span class="badge">おすすめ</span>}
+        <div class={`plan plan-${plan.id} reveal ${plan.featured ? 'featured' : ''}`}>
+          {plan.featured && <span class="badge">{t.pricing.recommended}</span>}
           <div>
             <p class="plan-name">{plan.name}</p>
             <p class="plan-tagline">{plan.tagline}</p>
@@ -32,20 +110,18 @@ import { plans } from '@data/pricing';
             {plan.monthly === 0 ? (
               <>
                 <span class="amount">0</span>
-                <span class="currency">円</span>
+                <span class="currency">{locale === 'en' ? 'Free' : '円'}</span>
               </>
             ) : (
               <>
                 <span class="currency">¥</span>
-                <span class="amount" data-monthly={plan.monthly} data-yearly={Math.round(plan.yearly / 12)}>
-                  {plan.monthly}
-                </span>
-                <span class="period">/月</span>
+                <span class="amount">{plan.monthly}</span>
+                <span class="period">{t.pricing.perMonth}</span>
               </>
             )}
           </div>
-          {plan.yearly > 0 && (
-            <p class="plan-yearly-note" data-yearly-note={`年払い: ¥${plan.yearly}/年`}></p>
+          {plan.id === 'yearly' && (
+            <p class="plan-yearly-note">¥{plan.yearly}{t.pricing.perYear} — {t.pricingSummary.savingsTag}</p>
           )}
           <ul>
             {plan.features.map((f) => (
@@ -71,36 +147,3 @@ import { plans } from '@data/pricing';
   }
   @media (min-width: 640px) { .plans-grid { grid-template-columns: repeat(3, 1fr); } }
 </style>
-
-<script>
-  function initBillingToggle() {
-    const toggle = document.getElementById('billing-toggle');
-    if (!toggle) return;
-
-    const btns = toggle.querySelectorAll<HTMLButtonElement>('button');
-    const amounts = document.querySelectorAll<HTMLElement>('.amount[data-monthly]');
-    const notes = document.querySelectorAll<HTMLElement>('[data-yearly-note]');
-    let isYearly = false;
-
-    function update() {
-      amounts.forEach((el) => {
-        el.textContent = isYearly
-          ? el.dataset.yearly ?? el.dataset.monthly ?? ''
-          : el.dataset.monthly ?? '';
-      });
-      notes.forEach((el) => {
-        el.textContent = isYearly ? (el.dataset.yearlyNote ?? '') : '';
-      });
-    }
-
-    btns.forEach((btn) => {
-      btn.addEventListener('click', () => {
-        isYearly = btn.dataset.period === 'yearly';
-        btns.forEach((b) => b.classList.toggle('active', b.dataset.period === (isYearly ? 'yearly' : 'monthly')));
-        update();
-      });
-    });
-  }
-
-  initBillingToggle();
-</script>

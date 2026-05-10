@@ -1,22 +1,33 @@
 ---
 import Ic from '@components/common/Ic.astro';
-import { valueItems } from '@data/content';
+import type { IconName } from '@data/icons';
+import { useTranslations } from '@utils/i18n';
+
+const locale = Astro.currentLocale ?? 'ja';
+const t = useTranslations(locale);
+
+const icons: IconName[] = ['search', 'target', 'heart'];
+const nums = ['01', '02', '03'];
+const items = t.valueProposition.items.map((item, i) => ({
+  ...item,
+  icon: icons[i],
+  num: nums[i],
+}));
 ---
 <section id="value" class="section-pad">
   <div class="container-page">
     <div class="section-head reveal">
       <span class="eyebrow">Why Tikareta</span>
-      <h2>毎日のおさんぽが、<br />愛犬を理解する<br />いちばんのデータになる。</h2>
-      <p>センサーも特別な機材もいりません。スマホひとつ、片手間で記録するだけ。</p>
+      <h2>{t.valueProposition.title}</h2>
     </div>
 
     <div class="value-grid">
-      {valueItems.map((c, i) => (
+      {items.map((c, i) => (
         <article class="card-base reveal" style={`transition-delay:${i * 80}ms;`}>
           <span class="num-bg">{c.num}</span>
           <span class="icon-wrap"><Ic name={c.icon} size={22} /></span>
           <h3 style="font-size:1.25rem; margin-bottom:.65rem;">{c.title}</h3>
-          <p style="color:var(--ink-soft); font-size:.92rem; line-height:1.7;">{c.body}</p>
+          <p style="color:var(--ink-soft); font-size:.92rem; line-height:1.7;">{c.description}</p>
         </article>
       ))}
     </div>
