@@ -22,7 +22,7 @@ import { plans } from '@data/pricing';
 
     <div class="plans-grid">
       {plans.map((plan) => (
-        <div class={`plan reveal ${plan.featured ? 'featured' : ''}`}>
+        <div class={`plan plan-${plan.key} reveal ${plan.featured ? 'featured' : ''}`}>
           {plan.featured && <span class="badge">おすすめ</span>}
           <div>
             <p class="plan-name">{plan.name}</p>

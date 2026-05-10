@@ -110,6 +110,17 @@
   --accent-deep: var(--p700);
   --accent-2: var(--s500);
 
+  /* Plan tier accents — distinct hues, all ≥4.5:1 fg-on-bg contrast (WCAG AA) */
+  --tier-free-bg: #e0f2fe;
+  --tier-free-fg: #0369a1; /* on --tier-free-bg ≈ 5.8:1 */
+  --tier-free-mid: #0ea5e9;
+  --tier-standard-bg: var(--p100);
+  --tier-standard-fg: var(--p700); /* on --tier-standard-bg ≈ 4.8:1 */
+  --tier-standard-mid: var(--p500);
+  --tier-pro-bg: var(--s100);
+  --tier-pro-fg: var(--s700); /* on --tier-pro-bg ≈ 5.6:1 */
+  --tier-pro-mid: var(--s500);
+
   --r-pill: 9999px;
 
   --shadow-1: 0 1px 2px rgba(28, 25, 23, 0.04), 0 4px 12px rgba(28, 25, 23, 0.04);
@@ -724,16 +735,12 @@ p {
   width: 42px;
   height: 42px;
   border-radius: 12px;
-  background: var(--accent-soft);
-  color: var(--accent-deep);
+  background: var(--tier-bg, var(--surface-2));
+  color: var(--tier-fg, var(--ink-soft));
   display: grid;
   place-items: center;
   font-size: 1.15rem;
   margin-bottom: 1rem;
-}
-.feat.pro .ico {
-  background: color-mix(in oklab, var(--s500) 18%, var(--surface));
-  color: var(--s700);
 }
 .feat .tag {
   position: absolute;
@@ -744,17 +751,9 @@ p {
   letter-spacing: 0.1em;
   padding: 3px 8px;
   border-radius: var(--r-pill);
-  background: var(--surface-2);
-  color: var(--ink-mute);
+  background: var(--tier-bg, var(--surface-2));
+  color: var(--tier-fg, var(--ink-mute));
   text-transform: uppercase;
-}
-.feat.standard .tag {
-  background: var(--accent-soft);
-  color: var(--accent-deep);
-}
-.feat.pro .tag {
-  background: color-mix(in oklab, var(--s500) 18%, var(--surface));
-  color: var(--s700);
 }
 
 /* =========================================================
@@ -807,11 +806,35 @@ p {
   gap: 1.25rem;
   position: relative;
   transition: all 0.25s ease;
+  /* Tier accent stripe across the top of the card */
+  border-top: 4px solid var(--tier-mid, var(--line));
+}
+/* Tier → semantic-token bridges. One mapping serves both .feat tiles and
+   .plan cards; everything downstream reads --tier-{bg,fg,mid}. */
+.feat.free,
+.plan-free {
+  --tier-mid: var(--tier-free-mid);
+  --tier-fg: var(--tier-free-fg);
+  --tier-bg: var(--tier-free-bg);
+}
+.feat.standard,
+.plan-standard {
+  --tier-mid: var(--tier-standard-mid);
+  --tier-fg: var(--tier-standard-fg);
+  --tier-bg: var(--tier-standard-bg);
+}
+.feat.pro,
+.plan-pro {
+  --tier-mid: var(--tier-pro-mid);
+  --tier-fg: var(--tier-pro-fg);
+  --tier-bg: var(--tier-pro-bg);
 }
 .plan.featured {
-  border-color: var(--accent);
+  /* `border-top` width (4px) is inherited from `.plan`; here we recolor all
+     four sides to the tier color so the stripe reads as a full accent border. */
+  border-color: var(--tier-mid, var(--accent));
   box-shadow:
-    0 0 0 4px color-mix(in oklab, var(--accent) 12%, transparent),
+    0 0 0 4px color-mix(in oklab, var(--tier-mid, var(--accent)) 12%, transparent),
     var(--shadow-2);
   transform: translateY(-8px);
 }
@@ -825,14 +848,14 @@ p {
   top: -14px;
   left: 50%;
   transform: translateX(-50%);
-  background: var(--accent);
+  background: var(--tier-fg, var(--accent));
   color: white;
   font-size: 0.72rem;
   font-weight: 600;
   padding: 0.35rem 0.9rem;
   border-radius: var(--r-pill);
   letter-spacing: 0.05em;
-  box-shadow: 0 4px 12px -2px color-mix(in oklab, var(--accent) 40%, transparent);
+  box-shadow: 0 4px 12px -2px color-mix(in oklab, var(--tier-mid, var(--accent)) 40%, transparent);
   white-space: nowrap;
 }
 .plan-name {
@@ -889,7 +912,7 @@ p {
   line-height: 1.5;
 }
 .plan ul li .ic {
-  color: var(--accent);
+  color: var(--tier-fg, var(--accent));
   flex-shrink: 0;
   margin-top: 3px;
 }
@@ -901,6 +924,23 @@ p {
 }
 .plan .btn {
   justify-content: center;
+}
+/* Within a plan card, route the global CTA variants through tier tokens so the
+   button hue matches the card's tier accent (e.g. Pro card → green button). */
+.plan .btn-primary {
+  background: var(--tier-mid, var(--accent));
+  box-shadow: 0 4px 14px -2px color-mix(in oklab, var(--tier-mid, var(--accent)) 50%, transparent);
+}
+.plan .btn-primary:hover {
+  background: var(--tier-fg, var(--accent-deep));
+  box-shadow: 0 8px 22px -4px color-mix(in oklab, var(--tier-mid, var(--accent)) 60%, transparent);
+}
+.plan .btn-soft {
+  background: var(--tier-bg, var(--accent-soft));
+  color: var(--tier-fg, var(--accent-deep));
+}
+.plan .btn-soft:hover {
+  background: color-mix(in oklab, var(--tier-mid, var(--accent)) 18%, var(--surface));
 }
 
 /* =========================================================
