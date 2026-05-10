@@ -139,6 +139,11 @@ html {
   scroll-behavior: smooth;
 }
 
+html,
+body {
+  overflow-x: clip;
+}
+
 body {
   font-family: var(--font-sans);
   background: var(--bg);
@@ -419,8 +424,10 @@ p {
    Phone frame
    ========================================================= */
 .phone {
-  width: 320px;
-  height: 640px;
+  width: min(320px, 100%);
+  max-width: 100%;
+  aspect-ratio: 320 / 640;
+  height: auto;
   border-radius: 48px;
   background: #1c1917;
   padding: 12px;
