@@ -1,5 +1,5 @@
 ---
-import { useTranslations } from '@utils/i18n';
+import { format, savingsMonths, useTranslations } from '@utils/i18n';
 
 interface Props {
   planKey: 'free' | 'standard' | 'pro';
@@ -20,6 +20,8 @@ const srYes = locale === 'ja' ? '○' : 'Yes';
 
 const isFree = monthly === 0 && yearly === 0;
 const yearlyPerMonth = yearly > 0 ? Math.round(yearly / 12) : 0;
+const months = savingsMonths(monthly, yearly);
+const savingsText = months > 0 ? format(t.pricing.savingsMonthsTemplate, { months }) : '';
 ---
 
 <div
@@ -68,7 +70,7 @@ const yearlyPerMonth = yearly > 0 ? Math.round(yearly / 12) : 0;
   </div>
   {!isFree && (
     <div class="billing-yearly mb-4 text-secondary-700 font-bold text-sm">
-      ¥{yearly.toLocaleString()}{t.pricing.perYear} — {t.pricing.savings}
+      ¥{yearly.toLocaleString()}{t.pricing.perYear}{savingsText && ` — ${savingsText}`}
     </div>
   )}
   <ul class="space-y-2.5 mb-8">
@@ -101,6 +103,8 @@ const yearlyPerMonth = yearly > 0 ? Math.round(yearly / 12) : 0;
 </div>
 
 <style>
+  /* `[data-billing]` is set on a parent wrapper by BillingToggle.
+     `:global(...)` opts out of Astro's component scoping so the wrapper match works. */
   .pricing-card .billing-yearly { display: none; }
   :global([data-billing="yearly"]) .pricing-card .billing-monthly { display: none; }
   :global([data-billing="yearly"]) .pricing-card .billing-yearly { display: inline; }

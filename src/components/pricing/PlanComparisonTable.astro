@@ -1,6 +1,6 @@
 ---
 import { comparisonFeatures, plans } from '@data/pricing';
-import { useTranslations } from '@utils/i18n';
+import { format, useTranslations } from '@utils/i18n';
 
 const t = useTranslations(Astro.currentLocale);
 const locale = Astro.currentLocale ?? 'ja';
@@ -14,6 +14,8 @@ const srNo = locale === 'ja' ? '×' : 'No';
 const planByKey = Object.fromEntries(plans.map((p) => [p.key, p]));
 const standardYearlyPerMonth = Math.round(planByKey.standard.yearly / 12);
 const proYearlyPerMonth = Math.round(planByKey.pro.yearly / 12);
+
+const yearlyParen = (label: string) => format(t.pricing.yearlyParenTemplate, { label });
 ---
 
 <section class="bg-white rounded-card border border-warm-gray-100 p-6 sm:p-8 fade-in-up">
@@ -41,13 +43,13 @@ const proYearlyPerMonth = Math.round(planByKey.pro.yearly / 12);
               </span>
               {t.pricing.plans.standard.name}
               <span class="text-xs font-normal text-warm-gray-500">¥{planByKey.standard.monthly}{t.pricing.perMonth}</span>
-              <span class="text-xs font-normal text-warm-gray-400">/ ¥{standardYearlyPerMonth}{t.pricing.perMonth}（{t.pricingSummary.billingYearly}）</span>
+              <span class="text-xs font-normal text-warm-gray-400">/ ¥{standardYearlyPerMonth}{t.pricing.perMonth}{yearlyParen(t.pricingSummary.billingYearly)}</span>
             </div>
           </th>
           <th class="py-3 px-3 text-center text-sm font-bold text-warm-gray-900 min-w-[100px]">
             {t.pricing.plans.pro.name}
             <div class="text-xs font-normal text-warm-gray-500 mt-0.5">¥{planByKey.pro.monthly}{t.pricing.perMonth}</div>
-            <div class="text-xs font-normal text-warm-gray-400">/ ¥{proYearlyPerMonth}{t.pricing.perMonth}（{t.pricingSummary.billingYearly}）</div>
+            <div class="text-xs font-normal text-warm-gray-400">/ ¥{proYearlyPerMonth}{t.pricing.perMonth}{yearlyParen(t.pricingSummary.billingYearly)}</div>
           </th>
         </tr>
       </thead>
