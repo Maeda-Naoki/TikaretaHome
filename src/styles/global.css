@@ -805,7 +805,7 @@ p {
 
 .plan {
   background: var(--surface);
-  border: 1px solid var(--line-soft);
+  border: 2px solid var(--tier-mid, var(--line-soft));
   border-radius: 1.75rem;
   padding: 2rem;
   display: flex;
@@ -813,10 +813,6 @@ p {
   gap: 1.25rem;
   position: relative;
   transition: all 0.25s ease;
-  /* Tier accent stripe across the top of the card. inset box-shadow renders
-     cleanly inside the border-radius, unlike border-top which would cause
-     width-mismatch tapering at the rounded corners. */
-  box-shadow: inset 0 4px 0 0 var(--tier-mid, transparent);
 }
 /* Tier → semantic-token bridges. One mapping serves both .feat tiles and
    .plan cards; everything downstream reads --tier-{bg,fg,mid}. */
@@ -841,11 +837,9 @@ p {
   --tier-bg: var(--tier-pro-bg);
 }
 .plan.featured {
-  /* Recolor the 1px border to tier color, then layer: tier stripe (inset),
-     tier halo (outer 4px), and the standard shadow elevation. */
-  border-color: var(--tier-mid, var(--accent));
+  /* Thicker tier-colored border + outer halo + standard elevation. */
+  border-width: 3px;
   box-shadow:
-    inset 0 4px 0 0 var(--tier-mid, transparent),
     0 0 0 4px color-mix(in oklab, var(--tier-mid, var(--accent)) 12%, transparent),
     var(--shadow-2);
   transform: translateY(-8px);
