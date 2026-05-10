@@ -11,6 +11,7 @@ export const ja = {
     roadmap: 'ロードマップ',
     startFree: '無料で始める',
     home: 'ホーム',
+    mainLabel: 'メインナビゲーション',
     howItWorks: '使い方',
     typeDiagnosis: 'タイプ診断',
     login: 'ログイン',
@@ -23,9 +24,15 @@ export const ja = {
     secondaryCta: '使い方を見る',
     badge: '2026年春リリース予定 / Phase 1 開発中',
     meta: ['クレカ登録不要', 'iOS / Android 対応', '家族と共有OK'],
+    floatCards: {
+      streak: { label: '連続記録', value: '12日連続' },
+      myDog: { label: 'うちの子は' },
+      todayWalk: { label: '今日のおさんぽ', duration: '18分' },
+    },
   },
   valueProposition: {
     title: '愛犬との散歩が、もっと楽しくなる',
+    subtitle: '日々の記録の積み重ねが、愛犬の個性を教えてくれます。',
     items: [
       {
         title: 'うちの子の傾向がわかる',
@@ -49,19 +56,20 @@ export const ja = {
   },
   howItWorks: {
     title: 'やることは、たったの3つ',
+    subtitle: 'アプリに記録するだけで、愛犬のおさんぽ個性が見えてきます。',
     steps: [
       {
-        number: '1',
+        number: '01',
         title: 'おさんぽを記録する',
         description: 'いつものおさんぽをアプリに残すだけ',
       },
       {
-        number: '2',
+        number: '02',
         title: 'お気に入りスポットを登録',
         description: '立ち寄った場所・理由・写真を残して思い出を保存',
       },
       {
-        number: '3',
+        number: '03',
         title: 'タイプが判明！',
         description: '記録を続けるうちに、愛犬の「おさんぽタイプ」が自動でわかります',
       },
@@ -220,6 +228,7 @@ export const ja = {
         },
       },
     },
+    freeLabel: 'Free',
     perMonth: '/ 月',
     perYear: '/ 年',
     recommended: 'おすすめ',

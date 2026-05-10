@@ -13,6 +13,7 @@ export const en: Translations = {
     roadmap: 'Roadmap',
     startFree: 'Start Free',
     home: 'Home',
+    mainLabel: 'Main navigation',
     howItWorks: 'How It Works',
     typeDiagnosis: 'Walking Types',
     login: 'Log In',
@@ -26,9 +27,15 @@ export const en: Translations = {
     secondaryCta: 'See How It Works',
     badge: 'Spring 2026 Release / Phase 1 in Development',
     meta: ['No credit card required', 'iOS & Android', 'Family sharing'],
+    floatCards: {
+      streak: { label: 'Streak', value: '12 days' },
+      myDog: { label: 'My dog is' },
+      todayWalk: { label: "Today's Walk", duration: '18 min' },
+    },
   },
   valueProposition: {
     title: 'Make every walk with your dog more meaningful',
+    subtitle: 'Every walk you log brings you closer to understanding your dog.',
     items: [
       {
         title: "Understand your dog's habits",
@@ -52,19 +59,20 @@ export const en: Translations = {
   },
   howItWorks: {
     title: 'Just three simple things to do',
+    subtitle: 'Log your walks in the app and discover what makes your dog unique.',
     steps: [
       {
-        number: '1',
+        number: '01',
         title: 'Log your walks',
         description: 'Just note your daily walks in the app',
       },
       {
-        number: '2',
+        number: '02',
         title: 'Save favourite spots',
         description: 'Save places, photos, and reasons as memories',
       },
       {
-        number: '3',
+        number: '03',
         title: 'Discover Your Type!',
         description: 'Keep walking together and your dog\'s "Walking Type" will be revealed!',
       },
@@ -222,6 +230,7 @@ export const en: Translations = {
         },
       },
     },
+    freeLabel: 'Free',
     perMonth: '/ month',
     perYear: '/ year',
     recommended: 'Recommended',

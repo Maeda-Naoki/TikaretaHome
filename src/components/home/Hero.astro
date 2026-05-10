@@ -5,7 +5,6 @@ import { useTranslations } from '@utils/i18n';
 
 const locale = Astro.currentLocale ?? 'ja';
 const t = useTranslations(locale);
-const isEn = locale === 'en';
 
 const titleLines = t.hero.title.split('\n');
 ---
@@ -26,19 +25,9 @@ const titleLines = t.hero.title.split('\n');
         <span class="dot"></span>{t.hero.badge}
       </span>
       <h1 class="hero-headline">
-        {isEn ? (
-          <>
-            {titleLines[0]}<br />
-            <span class="accent">{titleLines[1]}</span><br />
-            {titleLines[2]}
-          </>
-        ) : (
-          <>
-            うちの子の<br />
-            <span class="accent">おさんぽ<br class="md:hidden" />スタイル</span>、<br />
-            知ってる？
-          </>
-        )}
+        {titleLines[0]}<br />
+        <span class="accent">{titleLines[1]}</span><br />
+        {titleLines[2]}
       </h1>
       <p class="hero-lead">{t.hero.subtitle}</p>
       <div class="hero-cta">
@@ -69,22 +58,22 @@ const titleLines = t.hero.title.split('\n');
         <div class="float-card" style="top:6%; right:-4%; animation-delay:.2s;">
           <span class="ico">🔥</span>
           <div>
-            <p class="lbl">{isEn ? 'Streak' : '連続記録'}</p>
-            <p class="val">{isEn ? '12 days' : '12日連続'}</p>
+            <p class="lbl">{t.hero.floatCards.streak.label}</p>
+            <p class="val">{t.hero.floatCards.streak.value}</p>
           </div>
         </div>
         <div class="float-card" style="top:46%; right:-10%; animation-delay:1.1s;">
           <span class="ico">🌳</span>
           <div>
-            <p class="lbl">{isEn ? 'My dog is' : 'うちの子は'}</p>
+            <p class="lbl">{t.hero.floatCards.myDog.label}</p>
             <p class="val">{t.walkingTypes.shadeHunter.name}</p>
           </div>
         </div>
         <div class="float-card" style="bottom:6%; left:-6%; animation-delay:2s;">
           <span class="ico">📍</span>
           <div>
-            <p class="lbl">{isEn ? "Today's Walk" : '今日のおさんぽ'}</p>
-            <p class="val">1.42 km / {isEn ? '18 min' : '18分'}</p>
+            <p class="lbl">{t.hero.floatCards.todayWalk.label}</p>
+            <p class="val">1.42 km / {t.hero.floatCards.todayWalk.duration}</p>
           </div>
         </div>
       </div>
