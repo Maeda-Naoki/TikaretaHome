@@ -139,6 +139,11 @@ html {
   scroll-behavior: smooth;
 }
 
+html,
+body {
+  overflow-x: clip;
+}
+
 body {
   font-family: var(--font-sans);
   background: var(--bg);
@@ -419,8 +424,10 @@ p {
    Phone frame
    ========================================================= */
 .phone {
-  width: 320px;
-  height: 640px;
+  width: min(320px, 100%);
+  max-width: 100%;
+  aspect-ratio: 320 / 640;
+  height: auto;
   border-radius: 48px;
   background: #1c1917;
   padding: 12px;
@@ -798,7 +805,7 @@ p {
 
 .plan {
   background: var(--surface);
-  border: 1px solid var(--line-soft);
+  border: 2px solid var(--tier-mid, var(--line-soft));
   border-radius: 1.75rem;
   padding: 2rem;
   display: flex;
@@ -806,8 +813,6 @@ p {
   gap: 1.25rem;
   position: relative;
   transition: all 0.25s ease;
-  /* Tier accent stripe across the top of the card */
-  border-top: 4px solid var(--tier-mid, var(--line));
 }
 /* Tier → semantic-token bridges. One mapping serves both .feat tiles and
    .plan cards; everything downstream reads --tier-{bg,fg,mid}. */
@@ -818,21 +823,22 @@ p {
   --tier-bg: var(--tier-free-bg);
 }
 .feat.standard,
-.plan-standard {
+.plan-standard,
+.plan-monthly {
   --tier-mid: var(--tier-standard-mid);
   --tier-fg: var(--tier-standard-fg);
   --tier-bg: var(--tier-standard-bg);
 }
 .feat.pro,
-.plan-pro {
+.plan-pro,
+.plan-yearly {
   --tier-mid: var(--tier-pro-mid);
   --tier-fg: var(--tier-pro-fg);
   --tier-bg: var(--tier-pro-bg);
 }
 .plan.featured {
-  /* `border-top` width (4px) is inherited from `.plan`; here we recolor all
-     four sides to the tier color so the stripe reads as a full accent border. */
-  border-color: var(--tier-mid, var(--accent));
+  /* Thicker tier-colored border + outer halo + standard elevation. */
+  border-width: 3px;
   box-shadow:
     0 0 0 4px color-mix(in oklab, var(--tier-mid, var(--accent)) 12%, transparent),
     var(--shadow-2);
