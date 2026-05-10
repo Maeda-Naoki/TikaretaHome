@@ -57,7 +57,7 @@ export function createSoftwareApplicationLD(locale: string): SoftwareApplication
         '@type': 'Offer',
         price: '0',
         priceCurrency: 'JPY',
-        description: locale === 'ja' ? '無料プラン' : 'Free Plan',
+        description: locale === 'ja' ? 'Freeプラン' : 'Free Plan',
       },
       {
         '@type': 'Offer',
