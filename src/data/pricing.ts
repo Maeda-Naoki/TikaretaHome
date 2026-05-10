@@ -21,7 +21,7 @@ export interface Plan {
 export const plans: Plan[] = [
   {
     key: 'free',
-    name: '無料プラン',
+    name: 'Freeプラン',
     tagline: 'まずは試したい方に',
     monthly: 0,
     yearly: 0,
@@ -46,7 +46,7 @@ export const plans: Plan[] = [
     monthly: 300,
     yearly: 2400,
     features: [
-      { text: '無料プランの全て', on: true, emphasized: true },
+      { text: 'Freeプランの全て', on: true, emphasized: true },
       { text: '全期間統計・ふりかえり', on: true },
       { text: '詳細タイプ分析（複数の切り口）', on: true },
       { text: 'シェアカード生成（無制限）', on: true },

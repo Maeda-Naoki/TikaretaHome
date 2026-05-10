@@ -101,7 +101,7 @@ export const ja = {
     },
     allDataAccess: {
       title: '過去の記録をいつでも閲覧',
-      description: '無料プランでも、これまでの全記録をいつでも見返せます',
+      description: 'Freeプランでも、これまでの全記録をいつでも見返せます',
     },
     basicStats: {
       title: 'おさんぽのふりかえり（直近3日間）',
@@ -148,7 +148,7 @@ export const ja = {
   pricing: {
     plans: {
       free: {
-        name: '無料プラン',
+        name: 'Freeプラン',
         cta: '無料で始める',
         features: {
           walkTracking: 'おさんぽ記録',
@@ -164,7 +164,7 @@ export const ja = {
         name: '月額プラン',
         cta: 'プレミアムを始める',
         features: {
-          allFree: '無料プランの全て',
+          allFree: 'Freeプランの全て',
           fullStats: 'おさんぽのふりかえり（全期間）',
           detailedType: '詳細タイプ分析',
           breedComparison: '同犬種の子と比べてみる',
@@ -178,7 +178,7 @@ export const ja = {
         name: '年額プラン',
         cta: 'お得な年額プランを始める',
         features: {
-          allFree: '無料プランの全て',
+          allFree: 'Freeプランの全て',
           fullStats: 'おさんぽのふりかえり（全期間）',
           detailedType: '詳細タイプ分析',
           breedComparison: '同犬種の子と比べてみる',
@@ -255,7 +255,7 @@ export const ja = {
       },
       howManyDogs: {
         question: '犬は何匹まで登録できる？',
-        answer: '無料プランでは1匹、プレミアムプランでは最大5匹まで登録できます。',
+        answer: 'Freeプランでは1匹、プレミアムプランでは最大5匹まで登録できます。',
       },
       batteryUsage: {
         question: 'スマホのバッテリーは減りやすい？',
@@ -289,11 +289,11 @@ export const ja = {
       dataAfterDowngrade: {
         question: '有料にしないと記録が見られなくなる？',
         answer:
-          'いいえ、無料プランでも全てのおさんぽ記録はいつでも見返せます。詳細な分析や記録の保存など、プレミアム専用の機能が使えなくなるだけです。',
+          'いいえ、Freeプランでも全てのおさんぽ記録はいつでも見返せます。詳細な分析や記録の保存など、プレミアム専用の機能が使えなくなるだけです。',
       },
       cancelAnytime: {
         question: '解約はいつでもできますか？',
-        answer: 'はい、いつでも解約できます。解約後も無料プランとして継続利用できます。',
+        answer: 'はい、いつでも解約できます。解約後もFreeプランとして継続利用できます。',
       },
       paymentMethods: {
         question: '支払い方法は？',
@@ -352,7 +352,7 @@ export const ja = {
     pricing: {
       title: '料金プラン | Tikareta',
       description:
-        '無料プランから月額300円のプレミアムまで。おさんぽ記録は全て無料、もっと深く知りたい方にはプレミアムを。',
+        'Freeプランから月額300円のプレミアムまで。おさんぽ記録は全て無料、もっと深く知りたい方にはプレミアムを。',
     },
     faq: {
       title: 'よくある質問 | Tikareta',
