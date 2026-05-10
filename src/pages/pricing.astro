@@ -2,7 +2,7 @@
 import Breadcrumbs from '@components/common/Breadcrumbs.astro';
 import PlanComparisonTable from '@components/pricing/PlanComparisonTable.astro';
 import PricingCard from '@components/pricing/PricingCard.astro';
-import { pricingPlans } from '@data/pricing';
+import { plans } from '@data/pricing';
 import Layout from '@layouts/Layout.astro';
 import { useTranslations } from '@utils/i18n';
 import { createBreadcrumbListLD } from '@utils/seo';
@@ -33,19 +33,32 @@ const jsonLd = createBreadcrumbListLD([
       </p>
     </div>
 
+    <!-- Billing Toggle -->
+    <div class="billing-toggle" role="tablist" aria-label="billing">
+      <button class="toggle-btn active" type="button" data-billing-toggle="monthly" aria-pressed="true">
+        {t.pricingSummary.billingMonthly}
+      </button>
+      <button class="toggle-btn" type="button" data-billing-toggle="yearly" aria-pressed="false">
+        {t.pricingSummary.billingYearly}
+        <span class="save-tag">{t.pricingSummary.savingsTag}</span>
+      </button>
+    </div>
+
     <!-- Pricing Cards -->
-    <div class="grid md:grid-cols-3 gap-5 mb-16 items-start">
-      {pricingPlans.map((plan) => (
-        <PricingCard
-          name={t.pricing.plans[plan.id].name}
-          price={plan.price}
-          period={plan.period === 'month' ? t.pricing.perMonth : plan.period === 'year' ? t.pricing.perYear : null}
-          features={Object.values(t.pricing.plans[plan.id].features)}
-          cta={t.pricing.plans[plan.id].cta}
-          recommended={plan.recommended}
-          savings={plan.id === 'yearly' ? t.pricing.savings : undefined}
-        />
-      ))}
+    <div class="pricing-cards-wrapper" data-billing="monthly">
+      <div class="grid md:grid-cols-3 gap-5 mb-16 items-start">
+        {plans.map((plan) => (
+          <PricingCard
+            planKey={plan.key}
+            name={t.pricing.plans[plan.key].name}
+            monthly={plan.monthly}
+            yearly={plan.yearly}
+            features={Object.values(t.pricing.plans[plan.key].features)}
+            cta={t.pricing.plans[plan.key].cta}
+            recommended={plan.featured}
+          />
+        ))}
+      </div>
     </div>
 
     <!-- Comparison Table -->
@@ -115,3 +128,66 @@ const jsonLd = createBreadcrumbListLD([
     </section>
   </div>
 </Layout>
+
+<style>
+  .billing-toggle {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-bottom: 2rem;
+  }
+  .toggle-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1.1rem;
+    border-radius: 9999px;
+    border: 1px solid var(--line);
+    background: transparent;
+    font-size: 0.88rem;
+    font-weight: 500;
+    color: var(--ink-soft);
+    cursor: pointer;
+    transition: background 0.15s, color 0.15s, border-color 0.15s;
+  }
+  .toggle-btn.active {
+    background: var(--ink);
+    color: var(--bg);
+    border-color: var(--ink);
+  }
+  .save-tag {
+    padding: 0.15rem 0.5rem;
+    border-radius: 9999px;
+    background: var(--s100);
+    color: var(--s700);
+    font-size: 0.73rem;
+    font-weight: 600;
+  }
+  .toggle-btn.active .save-tag {
+    background: var(--s500);
+    color: #fff;
+  }
+</style>
+
+<script>
+  const wrappers = document.querySelectorAll<HTMLElement>('.pricing-cards-wrapper');
+  const toggleBtns = document.querySelectorAll<HTMLButtonElement>('[data-billing-toggle]');
+
+  function switchBilling(period: 'monthly' | 'yearly') {
+    for (const btn of toggleBtns) {
+      const isActive = btn.dataset.billingToggle === period;
+      btn.classList.toggle('active', isActive);
+      btn.setAttribute('aria-pressed', String(isActive));
+    }
+    for (const wrapper of wrappers) {
+      wrapper.dataset.billing = period;
+    }
+  }
+
+  for (const btn of toggleBtns) {
+    btn.addEventListener('click', () => {
+      const period = btn.dataset.billingToggle as 'monthly' | 'yearly';
+      switchBilling(period);
+    });
+  }
+</script>

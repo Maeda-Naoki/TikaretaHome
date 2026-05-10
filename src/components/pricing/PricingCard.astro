@@ -2,30 +2,34 @@
 import { useTranslations } from '@utils/i18n';
 
 interface Props {
+  planKey: 'free' | 'standard' | 'pro';
   name: string;
-  price: number;
-  period: string | null;
+  monthly: number;
+  yearly: number;
   features: string[];
   cta: string;
   recommended?: boolean;
-  savings?: string;
 }
 
-const { name, price, period, features, cta, recommended = false, savings } = Astro.props;
+const { planKey, name, monthly, yearly, features, cta, recommended = false } = Astro.props;
 const t = useTranslations(Astro.currentLocale);
 const locale = Astro.currentLocale ?? 'ja';
 
 // WCAG 1.1.1: チェックマークのスクリーンリーダー用テキスト
 const srYes = locale === 'ja' ? '○' : 'Yes';
+
+const isFree = monthly === 0 && yearly === 0;
+const yearlyPerMonth = yearly > 0 ? Math.round(yearly / 12) : 0;
 ---
 
 <div
   class:list={[
-    "rounded-card transition-all scale-in",
+    "pricing-card rounded-card transition-all scale-in",
     recommended
       ? "bg-primary-50 border-2 border-primary-700 shadow-lifted p-8 md:-mt-4 md:mb-4"
       : "bg-white border border-warm-gray-100 shadow-soft hover:shadow-card p-7"
   ]}
+  data-plan={planKey}
 >
   {recommended && (
     <!-- WCAG 1.4.3: primary-700(#c2410c)+white = 4.79:1 ✓ -->
@@ -35,20 +39,36 @@ const srYes = locale === 'ja' ? '○' : 'Yes';
   )}
   <h3 class="text-2xl font-bold text-warm-gray-900 mb-4">{name}</h3>
   <div class="mb-5 flex items-baseline gap-1">
-    <span class:list={[
-      "font-bold text-warm-gray-900",
-      recommended ? "text-5xl" : "text-4xl"
-    ]}>
-      ¥{price.toLocaleString()}
-    </span>
-    {period && (
-      <span class="text-warm-gray-500 text-sm">{period}</span>
+    {isFree ? (
+      <span class:list={["font-bold text-warm-gray-900", recommended ? "text-5xl" : "text-4xl"]}>
+        {t.pricing.freeLabel}
+      </span>
+    ) : (
+      <>
+        <span
+          class:list={[
+            "billing-monthly font-bold text-warm-gray-900",
+            recommended ? "text-5xl" : "text-4xl",
+          ]}
+        >
+          ¥{monthly.toLocaleString()}
+        </span>
+        <span class="billing-monthly text-warm-gray-500 text-sm">{t.pricing.perMonth}</span>
+        <span
+          class:list={[
+            "billing-yearly font-bold text-warm-gray-900",
+            recommended ? "text-5xl" : "text-4xl",
+          ]}
+        >
+          ¥{yearlyPerMonth.toLocaleString()}
+        </span>
+        <span class="billing-yearly text-warm-gray-500 text-sm">{t.pricing.perMonth}</span>
+      </>
     )}
   </div>
-  {savings && (
-    <!-- WCAG 1.4.3: secondary-700(#15803d) on white = 5.1:1 ✓ -->
-    <div class="mb-4 text-secondary-700 font-bold text-sm">
-      {savings}
+  {!isFree && (
+    <div class="billing-yearly mb-4 text-secondary-700 font-bold text-sm">
+      ¥{yearly.toLocaleString()}{t.pricing.perYear} — {t.pricing.savings}
     </div>
   )}
   <ul class="space-y-2.5 mb-8">
@@ -79,3 +99,10 @@ const srYes = locale === 'ja' ? '○' : 'Yes';
     <span class="sr-only">{t.common.newTab}</span>
   </a>
 </div>
+
+<style>
+  .pricing-card .billing-yearly { display: none; }
+  :global([data-billing="yearly"]) .pricing-card .billing-monthly { display: none; }
+  :global([data-billing="yearly"]) .pricing-card .billing-yearly { display: inline; }
+  :global([data-billing="yearly"]) .pricing-card div.billing-yearly { display: block; }
+</style>
