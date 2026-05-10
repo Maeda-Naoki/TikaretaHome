@@ -81,12 +81,12 @@ import PhoneMock from '@components/common/PhoneMock.astro';
 <style>
   .hero-grid {
     display: grid; gap: 3rem;
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
     align-items: center;
     padding-top: 3rem; padding-bottom: 4rem;
   }
   @media (min-width: 980px) {
-    .hero-grid { grid-template-columns: 1fr 1fr; gap: 4rem; }
+    .hero-grid { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 4rem; }
   }
 
   .badge-new {

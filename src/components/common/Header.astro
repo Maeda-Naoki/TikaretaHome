@@ -73,9 +73,13 @@ const isEn = locale === 'en';
   .nav-links a:hover { color: var(--ink); }
   .nav-right { display: flex; gap: .75rem; align-items: center; }
   .nav-login { display: none; }
+  .nav-right .btn-primary { display: none; }
   .mobile-toggle {
     display: flex; align-items: center; justify-content: center;
     color: var(--ink-soft); padding: .4rem;
+  }
+  @media (min-width: 540px) {
+    .nav-right .btn-primary { display: inline-flex; }
   }
   @media (min-width: 880px) {
     .nav-links { display: flex; }

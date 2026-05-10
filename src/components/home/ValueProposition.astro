@@ -25,7 +25,7 @@ import { valueItems } from '@data/content';
 
 <style>
   .value-grid {
-    display: grid; grid-template-columns: 1fr; gap: 1.5rem;
+    display: grid; grid-template-columns: minmax(0, 1fr); gap: 1.5rem;
   }
-  @media (min-width: 720px) { .value-grid { grid-template-columns: repeat(3, 1fr); } }
+  @media (min-width: 720px) { .value-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
 </style>
