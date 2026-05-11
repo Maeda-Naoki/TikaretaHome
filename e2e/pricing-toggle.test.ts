@@ -28,13 +28,14 @@ test.describe('Pricing page billing toggle (ja)', () => {
     const standardCard = page.locator('.pricing-card[data-plan="standard"]');
     const proCard = page.locator('.pricing-card[data-plan="pro"]');
 
-    // Yearly per-month for Standard: 2400/12 = 200
-    await expect(standardCard.locator('span.billing-yearly').first()).toContainText('¥200');
-    // Yearly per-month for Pro: 4800/12 = 400
-    await expect(proCard.locator('span.billing-yearly').first()).toContainText('¥400');
+    // Yearly total for Standard: 2400, Pro: 4800
+    await expect(standardCard.locator('span.billing-yearly').first()).toContainText('¥2,400');
+    await expect(proCard.locator('span.billing-yearly').first()).toContainText('¥4,800');
 
-    // Standard saves 4 months, Pro saves 2 months — verify per-plan accuracy
+    // Monthly equivalent annotation and savings text
+    await expect(standardCard.locator('div.billing-yearly')).toContainText('月額¥200相当');
     await expect(standardCard.locator('div.billing-yearly')).toContainText('4ヶ月分お得');
+    await expect(proCard.locator('div.billing-yearly')).toContainText('月額¥400相当');
     await expect(proCard.locator('div.billing-yearly')).toContainText('2ヶ月分お得');
   });
 
