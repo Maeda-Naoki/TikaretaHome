@@ -1,7 +1,7 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": ["config:recommended", ":dependencyDashboard", ":semanticCommits"],
-  "schedule": ["every saturday"],
+  "schedule": ["on saturday"],
   "timezone": "Asia/Tokyo",
   "minimumReleaseAge": "7 days",
   "packageRules": [
@@ -11,8 +11,7 @@
       "description": "TailwindCSS関連パッケージをまとめて更新"
     },
     {
-      "matchPackagePatterns": ["^@astrojs/"],
-      "matchPackageNames": ["astro"],
+      "matchPackageNames": ["astro", "/^@astrojs//"],
       "groupName": "astro",
       "description": "Astro関連パッケージをまとめて更新"
     },
