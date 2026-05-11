@@ -22,6 +22,7 @@ const isFree = monthly === 0 && yearly === 0;
 const yearlyPerMonth = yearly > 0 ? Math.round(yearly / 12) : 0;
 const months = savingsMonths(monthly, yearly);
 const savingsText = months > 0 ? format(t.pricing.savingsMonthsTemplate, { months }) : '';
+const monthlyEquivText = yearlyPerMonth > 0 ? format(t.pricing.monthlyEquivTemplate, { amount: yearlyPerMonth.toLocaleString() }) : '';
 ---
 
 <div
@@ -62,15 +63,15 @@ const savingsText = months > 0 ? format(t.pricing.savingsMonthsTemplate, { month
             recommended ? "text-5xl" : "text-4xl",
           ]}
         >
-          ¥{yearlyPerMonth.toLocaleString()}
+          ¥{yearly.toLocaleString()}
         </span>
-        <span class="billing-yearly text-warm-gray-500 text-sm">{t.pricing.perMonth}</span>
+        <span class="billing-yearly text-warm-gray-500 text-sm">{t.pricing.perYear}</span>
       </>
     )}
   </div>
   {!isFree && (
     <div class="billing-yearly mb-4 text-secondary-700 font-bold text-sm">
-      ¥{yearly.toLocaleString()}{t.pricing.perYear}{savingsText && ` — ${savingsText}`}
+      {monthlyEquivText}{savingsText && ` — ${savingsText}`}
     </div>
   )}
   <ul class="space-y-2.5 mb-8">

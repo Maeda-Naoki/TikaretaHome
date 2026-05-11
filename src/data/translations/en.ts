@@ -231,6 +231,7 @@ export const en: Translations = {
     recommended: 'Recommended',
     savingsMonthsTemplate: 'Save {months} months',
     yearlyParenTemplate: ' ({label})',
+    monthlyEquivTemplate: '≈ ¥{amount} / month',
     comparison: {
       title: 'Plan Feature Comparison',
       feature: 'Feature',

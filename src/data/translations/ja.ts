@@ -229,6 +229,7 @@ export const ja = {
     recommended: 'おすすめ',
     savingsMonthsTemplate: '{months}ヶ月分お得',
     yearlyParenTemplate: '（{label}）',
+    monthlyEquivTemplate: '月額¥{amount}相当',
     comparison: {
       title: 'プラン機能比較',
       feature: '機能',
