@@ -149,6 +149,25 @@ jobs:
           echo "=== Assertion Results ==="
           cat .lighthouseci/assertion-results.json 2>/dev/null | python3 -m json.tool || echo "No assertion results found"
 
+      - name: Comment failures on PR
+        if: failure() && github.event_name == 'pull_request'
+        run: |
+          FAILURES=$(python3 -c "
+          import json, sys
+          try:
+            data = json.load(open('.lighthouseci/assertion-results.json'))
+            fails = [r for r in data if not r.get('passed', True)]
+            for f in fails:
+              print(f\"{f['url']} | {f['auditId']} | actual={f['actual']:.3f} expected>={f['expected']}\")
+          except Exception as e:
+            print('Error:', e)
+          " 2>&1 || echo "Could not parse results")
+          curl -s -X POST \
+            -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+            -H "Content-Type: application/json" \
+            -d "{\"body\":\"## Lighthouse CI Failures\n\`\`\`\n${FAILURES}\n\`\`\`\"}" \
+            "https://api.github.com/repos/${{ github.repository }}/issues/${{ github.event.pull_request.number }}/comments"
+
       - name: Upload Lighthouse reports
         uses: actions/upload-artifact@v7
         if: always()
