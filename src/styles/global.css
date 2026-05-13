@@ -935,11 +935,13 @@ p {
    button hue matches the card's tier accent (e.g. Pro card → green button). */
 .plan .btn-primary {
   background: var(--tier-fg, var(--accent-deep));
-  box-shadow: 0 4px 14px -2px color-mix(in oklab, var(--tier-fg, var(--accent-deep)) 50%, transparent);
+  box-shadow: 0 4px 14px -2px
+    color-mix(in oklab, var(--tier-fg, var(--accent-deep)) 50%, transparent);
 }
 .plan .btn-primary:hover {
   background: color-mix(in oklab, var(--tier-fg, var(--accent-deep)) 80%, var(--ink));
-  box-shadow: 0 8px 22px -4px color-mix(in oklab, var(--tier-fg, var(--accent-deep)) 60%, transparent);
+  box-shadow: 0 8px 22px -4px
+    color-mix(in oklab, var(--tier-fg, var(--accent-deep)) 60%, transparent);
 }
 .plan .btn-soft {
   background: var(--tier-bg, var(--accent-soft));
