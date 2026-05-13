@@ -22,7 +22,15 @@
       "settings": {
         "chromeFlags": "--no-sandbox",
         "skipAudits": ["is-on-https", "redirects-http", "uses-http2"],
-        "throttlingMethod": "provided"
+        "throttlingMethod": "simulate",
+        "throttling": {
+          "rttMs": 0,
+          "throughputKbps": 10000,
+          "requestLatencyMs": 0,
+          "downloadThroughputKbps": 9000,
+          "uploadThroughputKbps": 9000,
+          "cpuSlowdownMultiplier": 1
+        }
       }
     },
     "assert": {
