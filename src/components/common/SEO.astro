@@ -16,8 +16,9 @@ const locale = Astro.currentLocale ?? 'ja';
 const canonicalUrl = new URL(Astro.url.pathname, Astro.site).href;
 
 // Alternate URLs for hreflang
-const jaUrl = new URL(Astro.url.pathname.replace(/^\/en/, ''), Astro.site).href;
-const enUrl = new URL(`/en${Astro.url.pathname}`, Astro.site).href;
+const basePath = Astro.url.pathname.replace(/^\/en/, '');
+const jaUrl = new URL(basePath, Astro.site).href;
+const enUrl = new URL(`/en${basePath}`, Astro.site).href;
 
 // OGP image
 const ogImageUrl = ogImage ?? getOGImageUrl(locale);

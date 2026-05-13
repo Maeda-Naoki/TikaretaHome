@@ -272,14 +272,14 @@ p {
   white-space: nowrap;
 }
 .btn-primary {
-  background: var(--accent);
+  background: var(--accent-deep);
   color: #fff;
-  box-shadow: 0 4px 14px -2px color-mix(in oklab, var(--accent) 50%, transparent);
+  box-shadow: 0 4px 14px -2px color-mix(in oklab, var(--accent-deep) 50%, transparent);
 }
 .btn-primary:hover {
   transform: translateY(-1px);
-  box-shadow: 0 8px 22px -4px color-mix(in oklab, var(--accent) 60%, transparent);
-  background: var(--accent-deep);
+  box-shadow: 0 8px 22px -4px color-mix(in oklab, var(--accent-deep) 60%, transparent);
+  background: var(--p800);
 }
 .btn-ghost {
   background: transparent;
@@ -796,7 +796,7 @@ p {
   font-family: var(--font-mono);
   font-size: 0.58rem;
   padding: 2px 6px;
-  background: var(--s500);
+  background: var(--s700);
   color: white;
   border-radius: var(--r-pill);
   letter-spacing: 0.05em;
@@ -934,12 +934,14 @@ p {
 /* Within a plan card, route the global CTA variants through tier tokens so the
    button hue matches the card's tier accent (e.g. Pro card → green button). */
 .plan .btn-primary {
-  background: var(--tier-mid, var(--accent));
-  box-shadow: 0 4px 14px -2px color-mix(in oklab, var(--tier-mid, var(--accent)) 50%, transparent);
+  background: var(--tier-fg, var(--accent-deep));
+  box-shadow: 0 4px 14px -2px
+    color-mix(in oklab, var(--tier-fg, var(--accent-deep)) 50%, transparent);
 }
 .plan .btn-primary:hover {
-  background: var(--tier-fg, var(--accent-deep));
-  box-shadow: 0 8px 22px -4px color-mix(in oklab, var(--tier-mid, var(--accent)) 60%, transparent);
+  background: color-mix(in oklab, var(--tier-fg, var(--accent-deep)) 80%, var(--ink));
+  box-shadow: 0 8px 22px -4px
+    color-mix(in oklab, var(--tier-fg, var(--accent-deep)) 60%, transparent);
 }
 .plan .btn-soft {
   background: var(--tier-bg, var(--accent-soft));
@@ -1069,7 +1071,7 @@ p {
   border-top: 1px solid var(--line);
   padding: 4rem 0 2rem;
 }
-.foot h5 {
+.foot h3 {
   font-size: 0.82rem;
   color: var(--ink);
   margin-bottom: 1rem;
