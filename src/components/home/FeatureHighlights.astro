@@ -39,7 +39,7 @@ const ITEMS: Array<{ key: FeatureKey; tier: FeatureTier; icon: IconName }> = [
         <article class={`feat ${f.tier} reveal`} style={`transition-delay:${i * 60}ms;`}>
           <span class="tag">{tierLabel[f.tier]}</span>
           <div class="ico"><Ic name={f.icon} size={20} /></div>
-          <h4 style="font-size:1.05rem; margin-bottom:.35rem;">{t.features[f.key].title}</h4>
+          <h3 style="font-size:1.05rem; margin-bottom:.35rem;">{t.features[f.key].title}</h3>
           <p style="font-size:.9rem; color:var(--ink-soft); line-height:1.55;">{t.features[f.key].description}</p>
         </article>
       ))}

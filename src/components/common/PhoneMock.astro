@@ -26,7 +26,7 @@ const styleAttr = tilt ? `transform: rotate(${tilt}deg);` : undefined;
         </div>
         <div class="ph-greet">
           <p class="muted">こんにちは、もも ちゃん</p>
-          <h4>今日もおさんぽ、<br/>いってみよっか。</h4>
+          <p class="ph-greet-title">今日もおさんぽ、<br/>いってみよっか。</p>
         </div>
         <div class="ph-streak">
           <div>
@@ -181,7 +181,7 @@ const styleAttr = tilt ? `transform: rotate(${tilt}deg);` : undefined;
 
   .ph-greet { padding:.5rem .95rem .25rem; }
   .ph-greet .muted { font-size:.7rem; color: var(--ink-mute); }
-  .ph-greet h4 { font-size:1.05rem; font-weight: 800; line-height:1.3; margin-top:.1rem; }
+  .ph-greet .ph-greet-title { font-size:1.05rem; font-weight: 800; line-height:1.3; margin-top:.1rem; }
 
   .ph-streak {
     margin: .65rem .95rem 0;
@@ -253,7 +253,7 @@ const styleAttr = tilt ? `transform: rotate(${tilt}deg);` : undefined;
   .ph-rec-row span { font-size:.65rem; opacity:.65; margin-left:.15rem; font-weight:500; }
   .ph-rec-stop {
     width:100%; padding:.65rem; border-radius: var(--r-pill);
-    background: var(--accent); color:#fff;
+    background: var(--accent-deep); color:#fff;
     font-weight:700; font-size:.78rem;
     display:flex; align-items:center; justify-content:center; gap:.4rem;
   }
