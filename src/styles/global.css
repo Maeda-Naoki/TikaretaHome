@@ -1071,7 +1071,7 @@ p {
   border-top: 1px solid var(--line);
   padding: 4rem 0 2rem;
 }
-.foot h5 {
+.foot h3 {
   font-size: 0.82rem;
   color: var(--ink);
   margin-bottom: 1rem;

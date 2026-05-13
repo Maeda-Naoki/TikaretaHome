@@ -21,7 +21,7 @@ const p = (path: string) => (locale === 'ja' ? path : `/en${path}`);
       </div>
 
       <div>
-        <h5>{t.footer.serviceTitle}</h5>
+        <h3>{t.footer.serviceTitle}</h3>
         <ul>
           <li><a href={p('/features')}>{t.nav.features}</a></li>
           <li><a href={p('/pricing')}>{t.nav.pricing}</a></li>
@@ -31,7 +31,7 @@ const p = (path: string) => (locale === 'ja' ? path : `/en${path}`);
       </div>
 
       <div>
-        <h5>{t.footer.appTitle}</h5>
+        <h3>{t.footer.appTitle}</h3>
         <ul>
           <li><a href="https://tikareta.com" target="_blank" rel="noopener">{t.footer.openWebApp}</a></li>
           <li><a href="#">{t.footer.iosApp}</a></li>
@@ -40,7 +40,7 @@ const p = (path: string) => (locale === 'ja' ? path : `/en${path}`);
       </div>
 
       <div>
-        <h5>{t.footer.legalTitle}</h5>
+        <h3>{t.footer.legalTitle}</h3>
         <ul>
           <li><a href={p('/privacy')}>{t.footer.privacy}</a></li>
           <li><a href={p('/terms')}>{t.footer.terms}</a></li>

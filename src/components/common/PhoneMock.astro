@@ -37,7 +37,7 @@ const styleAttr = tilt ? `transform: rotate(${tilt}deg);` : undefined;
             {[1,1,1,1,1,1,0].map((on) => <span class={on ? 'on' : ''}></span>)}
           </div>
         </div>
-        <div class="ph-secth"><span>今日の気分</span><a>すべて</a></div>
+        <div class="ph-secth"><span>今日の気分</span><span class="ph-link">すべて</span></div>
         <div class="ph-mood">
           {[
             { e:'🙂', l:'ふつう' },
@@ -198,7 +198,7 @@ const styleAttr = tilt ? `transform: rotate(${tilt}deg);` : undefined;
   .ph-streak-dots span.on { background: var(--accent); box-shadow: 0 0 0 2px color-mix(in oklab, var(--accent) 18%, transparent); }
 
   .ph-secth { padding:.85rem .95rem .35rem; display:flex; justify-content:space-between; align-items:center; font-size:.7rem; }
-  .ph-secth a { color: var(--accent-deep); font-weight:600; }
+  .ph-secth .ph-link { color: var(--accent-deep); font-weight:600; }
 
   .ph-mood { padding:0 .95rem; display:grid; grid-template-columns:repeat(4,1fr); gap:.3rem; }
   .ph-mood button {
