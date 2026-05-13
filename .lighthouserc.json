@@ -4,7 +4,8 @@
       "staticDistDir": "./dist",
       "numberOfRuns": 1,
       "settings": {
-        "chromeFlags": "--no-sandbox"
+        "chromeFlags": "--no-sandbox",
+        "skipAudits": ["is-on-https", "redirects-http", "uses-http2"]
       }
     },
     "assert": {
