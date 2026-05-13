@@ -141,6 +141,14 @@ jobs:
         env:
           LHCI_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Print assertion results
+        if: always()
+        run: |
+          echo "=== Chrome version ==="
+          google-chrome --version || chromium-browser --version || echo "Chrome not found at default path"
+          echo "=== Assertion Results ==="
+          cat .lighthouseci/assertion-results.json 2>/dev/null | python3 -m json.tool || echo "No assertion results found"
+
       - name: Upload Lighthouse reports
         uses: actions/upload-artifact@v7
         if: always()
