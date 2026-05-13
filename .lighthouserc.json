@@ -28,7 +28,7 @@
           "requestLatencyMs": 562.5,
           "downloadThroughputKbps": 1474.56,
           "uploadThroughputKbps": 675,
-          "cpuSlowdownMultiplier": 2
+          "cpuSlowdownMultiplier": 1
         }
       }
     },
