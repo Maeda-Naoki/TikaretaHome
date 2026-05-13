@@ -21,8 +21,7 @@
       ],
       "settings": {
         "chromeFlags": "--no-sandbox",
-        "skipAudits": ["is-on-https", "redirects-http", "uses-http2"],
-        "preset": "desktop"
+        "skipAudits": ["is-on-https", "redirects-http", "uses-http2"]
       }
     },
     "assert": {
