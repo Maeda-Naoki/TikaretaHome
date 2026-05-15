@@ -58,6 +58,7 @@ jobs:
     name: Build
     runs-on: ubuntu-latest
     needs: lint
+    environment: production
 
     steps:
       - name: Checkout repository
@@ -88,6 +89,8 @@ jobs:
 
       - name: Build project
         run: pnpm run build
+        env:
+          GOOGLE_SITE_VERIFICATION: ${{ vars.GOOGLE_SITE_VERIFICATION }}
 
       - name: Upload build artifacts
         uses: actions/upload-artifact@v7

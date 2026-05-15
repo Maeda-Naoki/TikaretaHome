@@ -26,6 +26,9 @@ const ogImageFullUrl = new URL(ogImageUrl, Astro.site).href;
 
 // OG locale
 const ogLocale = locale === 'ja' ? 'ja_JP' : 'en_US';
+
+// Google Search Console verification
+const googleSiteVerification = import.meta.env.GOOGLE_SITE_VERIFICATION;
 ---
 
 <!-- Basic meta tags -->
@@ -33,6 +36,10 @@ const ogLocale = locale === 'ja' ? 'ja_JP' : 'en_US';
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <meta name="description" content={description} />
 {noindex && <meta name="robots" content="noindex,nofollow" />}
+
+{googleSiteVerification && (
+  <meta name="google-site-verification" content={googleSiteVerification} />
+)}
 
 <!-- Canonical URL -->
 <link rel="canonical" href={canonicalUrl} />

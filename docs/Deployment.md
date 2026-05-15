@@ -157,6 +157,45 @@ push / PR → CI (Biome lint + type check + build) ← GitHub Actions
 
 ---
 
+## 環境変数
+
+ビルド時に参照される環境変数の一覧と設定箇所。
+
+| 変数名 | 用途 | 必須 |
+|--------|------|------|
+| `GOOGLE_SITE_VERIFICATION` | Google Search Console 所有権確認用トークン | 任意（未設定なら meta タグ自体が出力されない） |
+
+### Netlify 設定手順
+
+1. Netlify ダッシュボード → 該当サイト → Site settings → Environment variables
+2. **Add a variable** をクリック
+3. Key: `GOOGLE_SITE_VERIFICATION` / Value: Search Console から取得したトークン / Scopes: **Builds**
+4. 保存後、Deploys → Trigger deploy → Clear cache and deploy site
+
+### GitHub Actions 設定手順
+
+CI の `build` ジョブで `environment: production` を指定しているため、GitHub Environment のスコープ値を参照する。
+
+1. リポジトリ Settings → Environments → **New environment** → 名前: `production`
+2. **Environment variables** → **Add variable** → Name: `GOOGLE_SITE_VERIFICATION` / Value: 同じトークン
+3. 以降の CI 実行で `vars.GOOGLE_SITE_VERIFICATION` が解決され、`pnpm run build` に env として渡される
+
+> 注: `google-site-verification` の値は公開 HTML に出力される非機密データのため、Variables（`vars`）で十分。機密扱いしたい場合は Secrets に登録し、`ci.yml` の参照を `${{ secrets.GOOGLE_SITE_VERIFICATION }}` へ変更する。
+
+### ローカル開発
+
+通常は不要だが、検証用に動作確認したい場合:
+
+```bash
+cp .env.example .env
+# .env を編集して値を入れる
+pnpm build
+```
+
+`.env` は `.gitignore` 済み。
+
+---
+
 ## 検証チェックリスト
 
 - [ ] `pnpm build` がエラーなしで完了
