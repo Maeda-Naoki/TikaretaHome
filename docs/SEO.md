@@ -1,6 +1,6 @@
 # SEO設計
 
-> 最終更新: 2026-02-15
+> 最終更新: 2026-05-15
 ---
 
 ## SEOコンポーネント（`src/components/common/SEO.astro`）
@@ -167,7 +167,7 @@ interface SEOProps {
 | 環境 | 設定場所 |
 |------|---------|
 | ローカル開発 | プロジェクト直下の `.env`（`.env.example` をコピーして利用） |
-| GitHub Actions | リポジトリ Settings → Environments → `production` → Variables に `GOOGLE_SITE_VERIFICATION` を登録 |
+| GitHub Actions | リポジトリ Settings → Environments → `ci` → Variables に `GOOGLE_SITE_VERIFICATION` を登録 |
 | Netlify（本番） | Site settings → Environment variables に `GOOGLE_SITE_VERIFICATION` を登録 |
 
 ### 動作仕様

@@ -1,6 +1,6 @@
 # デプロイ設定
 
-> 最終更新: 2026-02-15
+> 最終更新: 2026-05-15
 ---
 
 ## デプロイ先
@@ -174,13 +174,15 @@ push / PR → CI (Biome lint + type check + build) ← GitHub Actions
 
 ### GitHub Actions 設定手順
 
-CI の `build` ジョブで `environment: production` を指定しているため、GitHub Environment のスコープ値を参照する。
+CI の `build` ジョブで `environment: ci` を指定しているため、GitHub Environment のスコープ値を参照する。
 
-1. リポジトリ Settings → Environments → **New environment** → 名前: `production`
+1. リポジトリ Settings → Environments → **New environment** → 名前: `ci`
 2. **Environment variables** → **Add variable** → Name: `GOOGLE_SITE_VERIFICATION` / Value: 同じトークン
 3. 以降の CI 実行で `vars.GOOGLE_SITE_VERIFICATION` が解決され、`pnpm run build` に env として渡される
 
-> 注: `google-site-verification` の値は公開 HTML に出力される非機密データのため、Variables（`vars`）で十分。機密扱いしたい場合は Secrets に登録し、`ci.yml` の参照を `${{ secrets.GOOGLE_SITE_VERIFICATION }}` へ変更する。
+> 注 1: 環境名を `ci` にしているのは、本物のデプロイ（Netlify）と区別するため。`production` 名にすると将来 deployment protection rules を付けた瞬間に CI が承認待ちでブロックされる恐れがある。
+>
+> 注 2: `google-site-verification` の値は公開 HTML に出力される非機密データのため、Variables（`vars`）で十分。機密扱いしたい場合は Secrets に登録し、`ci.yml` の参照を `${{ secrets.GOOGLE_SITE_VERIFICATION }}` へ変更する。
 
 ### ローカル開発
 
