@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest';
 
 import {
+  LEGAL_LAST_MODIFIED,
   SITE_NAME,
   SITE_URL,
   createBreadcrumbListLD,
@@ -12,28 +13,16 @@ import {
   createWebPageLD,
   createWebSiteLD,
   getOGImageUrl,
-  getPageUrl,
 } from '../src/utils/seo';
 
-describe('getPageUrl', () => {
-  it('returns the bare site URL for the JA home', () => {
-    expect(getPageUrl('ja', '/')).toBe('https://tikareta.com/');
+describe('constants', () => {
+  it('exports the canonical site URL and name', () => {
+    expect(SITE_URL).toBe('https://tikareta.com');
+    expect(SITE_NAME).toBe('Tikareta');
   });
 
-  it('prefixes /en for the EN home', () => {
-    expect(getPageUrl('en', '/')).toBe('https://tikareta.com/en/');
-  });
-
-  it('prefixes subpaths for ja', () => {
-    expect(getPageUrl('ja', '/pricing')).toBe('https://tikareta.com/pricing');
-  });
-
-  it('prefixes subpaths for en', () => {
-    expect(getPageUrl('en', '/pricing')).toBe('https://tikareta.com/en/pricing');
-  });
-
-  it('normalises paths missing a leading slash', () => {
-    expect(getPageUrl('ja', 'faq')).toBe('https://tikareta.com/faq');
+  it('exports the last-modified date for legal pages', () => {
+    expect(LEGAL_LAST_MODIFIED).toMatch(/^\d{4}-\d{2}-\d{2}$/);
   });
 });
 
@@ -55,13 +44,13 @@ describe('createWebPageLD', () => {
       locale: 'ja',
       name: 'FAQ',
       description: 'よくある質問',
-      url: 'https://tikareta.com/faq',
+      url: 'https://tikareta.com/faq/',
     });
     expect(ld['@type']).toBe('WebPage');
     expect(ld.inLanguage).toBe('ja-JP');
     expect(ld.isPartOf.name).toBe(SITE_NAME);
     expect(ld.isPartOf.url).toBe(SITE_URL);
-    expect(ld.url).toBe('https://tikareta.com/faq');
+    expect(ld.url).toBe('https://tikareta.com/faq/');
   });
 
   it('emits en-US for the en locale', () => {
@@ -69,7 +58,7 @@ describe('createWebPageLD', () => {
       locale: 'en',
       name: 'FAQ',
       description: 'desc',
-      url: 'https://tikareta.com/en/faq',
+      url: 'https://tikareta.com/en/faq/',
     });
     expect(ld.inLanguage).toBe('en-US');
   });
@@ -90,10 +79,10 @@ describe('createWebPageLD', () => {
       locale: 'ja',
       name: 'Privacy',
       description: 'd',
-      url: 'https://tikareta.com/privacy',
-      dateModified: '2026-02-15',
+      url: 'https://tikareta.com/privacy/',
+      dateModified: LEGAL_LAST_MODIFIED,
     });
-    expect(ld.dateModified).toBe('2026-02-15');
+    expect(ld.dateModified).toBe(LEGAL_LAST_MODIFIED);
   });
 });
 
@@ -103,6 +92,7 @@ describe('createSoftwareApplicationLD', () => {
       locale: 'ja',
       name: 'Tikareta',
       description: 'desc',
+      pricingUrl: 'https://tikareta.com/pricing/',
     });
     expect(ld['@type']).toBe('SoftwareApplication');
     expect(ld.applicationCategory).toBe('LifestyleApplication');
@@ -110,16 +100,37 @@ describe('createSoftwareApplicationLD', () => {
     expect(ld.offers).toHaveLength(5);
     expect(ld.offers.every((o) => o.priceCurrency === 'JPY')).toBe(true);
     expect(ld.offers.every((o) => o.availability === 'https://schema.org/InStock')).toBe(true);
+    expect(ld.offers.every((o) => o.url === 'https://tikareta.com/pricing/')).toBe(true);
     expect(ld.offers.map((o) => o.price)).toEqual(['0', '300', '2400', '500', '4800']);
   });
 
-  it('uses /en pricing URLs when the locale is en', () => {
+  it('uses the caller-supplied pricing URL for every offer', () => {
     const ld = createSoftwareApplicationLD({
       locale: 'en',
       name: 'Tikareta',
       description: 'desc',
+      pricingUrl: 'https://tikareta.com/en/pricing/',
     });
-    expect(ld.offers.every((o) => o.url === 'https://tikareta.com/en/pricing')).toBe(true);
+    expect(ld.offers.every((o) => o.url === 'https://tikareta.com/en/pricing/')).toBe(true);
+  });
+
+  it('localises offer descriptions', () => {
+    const ja = createSoftwareApplicationLD({
+      locale: 'ja',
+      name: 'Tikareta',
+      description: 'desc',
+      pricingUrl: 'https://tikareta.com/pricing/',
+    });
+    const en = createSoftwareApplicationLD({
+      locale: 'en',
+      name: 'Tikareta',
+      description: 'desc',
+      pricingUrl: 'https://tikareta.com/en/pricing/',
+    });
+    expect(ja.offers[0].description).toBe('Freeプラン');
+    expect(en.offers[0].description).toBe('Free Plan');
+    expect(ja.offers[1].description).toBe('Standard月額プラン');
+    expect(en.offers[1].description).toBe('Standard Monthly Plan');
   });
 
   it('does not include a softwareVersion (pre-release)', () => {
@@ -127,6 +138,7 @@ describe('createSoftwareApplicationLD', () => {
       locale: 'ja',
       name: 'Tikareta',
       description: 'desc',
+      pricingUrl: 'https://tikareta.com/pricing/',
     });
     expect('softwareVersion' in ld).toBe(false);
   });
@@ -175,43 +187,45 @@ describe('createBreadcrumbListLD', () => {
   it('assigns 1-based positions', () => {
     const ld = createBreadcrumbListLD([
       { name: 'Home', url: 'https://tikareta.com/' },
-      { name: 'FAQ', url: 'https://tikareta.com/faq' },
+      { name: 'FAQ', url: 'https://tikareta.com/faq/' },
     ]);
     expect(ld.itemListElement[0].position).toBe(1);
     expect(ld.itemListElement[1].position).toBe(2);
-    expect(ld.itemListElement[1].item).toBe('https://tikareta.com/faq');
+    expect(ld.itemListElement[1].item).toBe('https://tikareta.com/faq/');
   });
 });
 
 describe('createProductLD', () => {
-  it('returns a single offer object when only one offer is given', () => {
+  it('always returns offers as an array (even for single offer)', () => {
     const ld = createProductLD({
       name: 'Tikareta Standard',
       description: 'tagline',
-      offers: [{ price: 300, description: 'Monthly', url: 'https://tikareta.com/pricing' }],
+      offers: [{ price: 300, description: 'Monthly', url: 'https://tikareta.com/pricing/' }],
     });
-    expect(Array.isArray(ld.offers)).toBe(false);
-    expect((ld.offers as { price: string }).price).toBe('300');
+    expect(Array.isArray(ld.offers)).toBe(true);
+    expect(ld.offers).toHaveLength(1);
+    expect(ld.offers[0].price).toBe('300');
   });
 
-  it('returns an offer array when multiple offers are given', () => {
+  it('preserves offer order for multiple offers', () => {
     const ld = createProductLD({
       name: 'Tikareta Standard',
       description: 'tagline',
       offers: [
-        { price: 300, description: 'Monthly', url: 'https://tikareta.com/pricing' },
-        { price: 2400, description: 'Yearly', url: 'https://tikareta.com/pricing' },
+        { price: 300, description: 'Monthly', url: 'https://tikareta.com/pricing/' },
+        { price: 2400, description: 'Yearly', url: 'https://tikareta.com/pricing/' },
       ],
     });
-    expect(Array.isArray(ld.offers)).toBe(true);
-    expect((ld.offers as unknown[]).length).toBe(2);
+    expect(ld.offers).toHaveLength(2);
+    expect(ld.offers[0].price).toBe('300');
+    expect(ld.offers[1].price).toBe('2400');
   });
 
   it('uses SITE_NAME for the brand', () => {
     const ld = createProductLD({
       name: 'Tikareta Standard',
       description: 'tagline',
-      offers: [{ price: 300, description: 'Monthly', url: 'https://tikareta.com/pricing' }],
+      offers: [{ price: 300, description: 'Monthly', url: 'https://tikareta.com/pricing/' }],
     });
     expect(ld.brand.name).toBe(SITE_NAME);
   });

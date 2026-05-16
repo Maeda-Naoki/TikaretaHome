@@ -6,45 +6,33 @@ import HowItWorks from '@components/home/HowItWorks.astro';
 import PricingSummary from '@components/home/PricingSummary.astro';
 import TypeDiagnosis from '@components/home/TypeDiagnosis.astro';
 import ValueProposition from '@components/home/ValueProposition.astro';
+import { getAbsoluteLocaleUrl } from 'astro:i18n';
 import { faqByCategory } from '@data/faq';
 import Layout from '@layouts/Layout.astro';
 import { useTranslations } from '@utils/i18n';
 import {
+  type Locale,
   createFAQPageLD,
   createOrganizationLD,
   createSoftwareApplicationLD,
   createWebSiteLD,
 } from '@utils/seo';
-import { type FAQCategory, getFAQItemData } from '@utils/translationTypes';
+import { mapFAQItems } from '@utils/translationTypes';
 
 const t = useTranslations(Astro.currentLocale);
-const locale = Astro.currentLocale ?? 'en';
+const locale: Locale = 'en';
 
-const homeFAQItems = faqByCategory.basic.slice(0, 3).map((item) => {
-  const categoryKey = item.category as FAQCategory;
-  const parts = item.questionKey.split('.');
-  const itemKey = parts[parts.length - 2];
-  const itemData = getFAQItemData(t, categoryKey, itemKey);
-  return {
-    question: itemData?.question ?? '',
-    answer: itemData?.answer ?? '',
-  };
-});
+const homeFAQItems = mapFAQItems(t, faqByCategory.basic.slice(0, 3));
 
 const jsonLd = [
-  createWebSiteLD({
-    name: t.site.name,
-    description: t.pages.home.description,
-  }),
+  createWebSiteLD({ name: t.site.name, description: t.pages.home.description }),
   createSoftwareApplicationLD({
     locale,
     name: t.site.name,
     description: t.pages.home.description,
+    pricingUrl: getAbsoluteLocaleUrl(locale, '/pricing'),
   }),
-  createOrganizationLD({
-    name: t.site.name,
-    description: t.site.description,
-  }),
+  createOrganizationLD({ name: t.site.name, description: t.site.description }),
   createFAQPageLD(homeFAQItems, locale),
 ];
 

@@ -103,15 +103,21 @@ interface SEOProps {
 
 ### ヘルパー関数（`src/utils/seo.ts`）
 
-呼び出し側は翻訳から `name` / `description` を渡す（単一情報源を翻訳ファイルに統一するため）。
+呼び出し側は翻訳から `name` / `description` を渡す（単一情報源を翻訳ファイルに統一するため）。ロケール接頭辞付き URL は Astro 標準の `astro:i18n` を使う。
 
 ```typescript
-SITE_URL    // 'https://tikareta.com'
-SITE_NAME   // 'Tikareta'
-getPageUrl(locale, '/path')               // ロケール接頭辞付きフル URL を返す
+SITE_URL              // 'https://tikareta.com'
+SITE_NAME             // 'Tikareta'
+LEGAL_LAST_MODIFIED   // 法的ページの最終更新日
+type Locale = 'ja' | 'en'
 
-createSoftwareApplicationLD({ locale, name, description })
-createOrganizationLD({ name, description, logo? })   // logo は実ファイル配置後に渡す
+// 各ページで URL を生成
+import { getAbsoluteLocaleUrl } from 'astro:i18n';
+getAbsoluteLocaleUrl(locale, '/pricing')   // -> https://tikareta.com[/en]/pricing/
+
+// JSON-LD ヘルパー
+createSoftwareApplicationLD({ locale, name, description, pricingUrl })
+createOrganizationLD({ name, description, logo? })
 createWebSiteLD({ name, description })
 createWebPageLD({ locale, name, description, url, dateModified?, datePublished? })
 createFAQPageLD(faqs, locale)
@@ -122,10 +128,12 @@ createItemListLD({ name, items })
 
 #### 設計メモ
 
+- ロケール付き URL 生成は Astro の `astro:i18n`（`getAbsoluteLocaleUrl` / `getAbsoluteLocaleUrlList`）に統一。独自ヘルパは持たない。
 - `SoftwareApplication.operatingSystem` は現状 `'Web'` のみ（iOS/Android は準備中）
+- `SoftwareApplication.offers` は `@data/pricing` の `plans` 配列を単一情報源として自動構築
 - `Organization.logo` は実ファイル未配置のためデフォルト未出力
-- `Product` は無料プランを除外（Google Merchant の警告を回避）
-- 無料プランの情報は `SoftwareApplication.offers` でカバー
+- `Product` は無料プランを除外（Google Merchant の警告を回避）。無料プランの情報は `SoftwareApplication.offers` でカバー
+- FAQ のテキスト解決は `mapFAQItems(t, items)` / `resolveFAQItem(t, item)` ヘルパー（`@utils/translationTypes`）に集約
 
 ### トップページ（例）
 

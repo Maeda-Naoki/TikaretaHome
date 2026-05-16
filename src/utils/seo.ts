@@ -1,11 +1,15 @@
+import { plans } from '@data/pricing';
+
+export type Locale = 'ja' | 'en';
+
 export const SITE_URL = 'https://tikareta.com';
 export const SITE_NAME = 'Tikareta';
+export const LEGAL_LAST_MODIFIED = '2026-02-15';
 
-export function getPageUrl(locale: string, path: string): string {
-  const prefix = locale === 'en' ? '/en' : '';
-  const normalized = path.startsWith('/') ? path : `/${path}`;
-  return `${SITE_URL}${prefix}${normalized === '/' ? '/' : normalized}`;
-}
+const LANG_TAG: Record<Locale, string> = {
+  ja: 'ja-JP',
+  en: 'en-US',
+};
 
 export interface OfferLD {
   '@type': 'Offer';
@@ -14,14 +18,6 @@ export interface OfferLD {
   description: string;
   availability?: string;
   url?: string;
-}
-
-export interface AggregateOfferLD {
-  '@type': 'AggregateOffer';
-  priceCurrency: string;
-  lowPrice: string;
-  highPrice: string;
-  offerCount: string;
 }
 
 export interface SoftwareApplicationLD {
@@ -114,7 +110,7 @@ export interface ProductLD {
     '@type': 'Brand';
     name: string;
   };
-  offers: OfferLD | OfferLD[] | AggregateOfferLD;
+  offers: OfferLD[];
 }
 
 export interface ItemListLD {
@@ -129,75 +125,60 @@ export interface ItemListLD {
   }>;
 }
 
-function langTag(locale: string): string {
-  return locale === 'ja' ? 'ja-JP' : 'en-US';
+function describeOffer(
+  planKey: string,
+  period: 'free' | 'monthly' | 'yearly',
+  locale: Locale
+): string {
+  if (period === 'free') return locale === 'ja' ? 'Freeプラン' : 'Free Plan';
+  const planName = planKey.charAt(0).toUpperCase() + planKey.slice(1);
+  const ja = period === 'monthly' ? `${planName}月額プラン` : `${planName}年額プラン`;
+  const en = period === 'monthly' ? `${planName} Monthly Plan` : `${planName} Yearly Plan`;
+  return locale === 'ja' ? ja : en;
+}
+
+function buildAppOffers(locale: Locale, pricingUrl: string): OfferLD[] {
+  const baseOffer = (price: number, description: string): OfferLD => ({
+    '@type': 'Offer',
+    price: String(price),
+    priceCurrency: 'JPY',
+    description,
+    availability: 'https://schema.org/InStock',
+    url: pricingUrl,
+  });
+
+  return plans.flatMap((plan) => {
+    if (plan.monthly === 0 && plan.yearly === 0) {
+      return [baseOffer(plan.monthly, describeOffer(plan.key, 'free', locale))];
+    }
+    return [
+      baseOffer(plan.monthly, describeOffer(plan.key, 'monthly', locale)),
+      baseOffer(plan.yearly, describeOffer(plan.key, 'yearly', locale)),
+    ];
+  });
 }
 
 export function createSoftwareApplicationLD(params: {
-  locale: string;
+  locale: Locale;
   name: string;
   description: string;
+  pricingUrl: string;
 }): SoftwareApplicationLD {
-  const { locale, name, description } = params;
-  const localePrefix = locale === 'en' ? '/en' : '';
-  const pricingUrl = `${SITE_URL}${localePrefix}/pricing`;
-
   return {
     '@context': 'https://schema.org',
     '@type': 'SoftwareApplication',
-    name,
+    name: params.name,
     applicationCategory: 'LifestyleApplication',
     operatingSystem: 'Web',
     url: SITE_URL,
-    description,
+    description: params.description,
     inLanguage: ['ja', 'en'],
     author: {
       '@type': 'Organization',
       name: SITE_NAME,
       url: SITE_URL,
     },
-    offers: [
-      {
-        '@type': 'Offer',
-        price: '0',
-        priceCurrency: 'JPY',
-        description: locale === 'ja' ? 'Freeプラン' : 'Free Plan',
-        availability: 'https://schema.org/InStock',
-        url: pricingUrl,
-      },
-      {
-        '@type': 'Offer',
-        price: '300',
-        priceCurrency: 'JPY',
-        description: locale === 'ja' ? 'Standard月額プラン' : 'Standard Monthly Plan',
-        availability: 'https://schema.org/InStock',
-        url: pricingUrl,
-      },
-      {
-        '@type': 'Offer',
-        price: '2400',
-        priceCurrency: 'JPY',
-        description: locale === 'ja' ? 'Standard年額プラン' : 'Standard Yearly Plan',
-        availability: 'https://schema.org/InStock',
-        url: pricingUrl,
-      },
-      {
-        '@type': 'Offer',
-        price: '500',
-        priceCurrency: 'JPY',
-        description: locale === 'ja' ? 'Pro月額プラン' : 'Pro Monthly Plan',
-        availability: 'https://schema.org/InStock',
-        url: pricingUrl,
-      },
-      {
-        '@type': 'Offer',
-        price: '4800',
-        priceCurrency: 'JPY',
-        description: locale === 'ja' ? 'Pro年額プラン' : 'Pro Yearly Plan',
-        availability: 'https://schema.org/InStock',
-        url: pricingUrl,
-      },
-    ],
+    offers: buildAppOffers(params.locale, params.pricingUrl),
   };
 }
 
@@ -206,36 +187,34 @@ export function createOrganizationLD(params: {
   description: string;
   logo?: string;
 }): OrganizationLD {
-  const { name, description, logo } = params;
   return {
     '@context': 'https://schema.org',
     '@type': 'Organization',
-    name,
+    name: params.name,
     url: SITE_URL,
-    description,
-    ...(logo && { logo }),
+    description: params.description,
+    ...(params.logo && { logo: params.logo }),
   };
 }
 
 export function createWebSiteLD(params: { name: string; description: string }): WebSiteLD {
-  const { name, description } = params;
   return {
     '@context': 'https://schema.org',
     '@type': 'WebSite',
-    name,
+    name: params.name,
     url: SITE_URL,
-    description,
+    description: params.description,
     inLanguage: ['ja', 'en'],
     publisher: {
       '@type': 'Organization',
-      name,
+      name: params.name,
       url: SITE_URL,
     },
   };
 }
 
 export function createWebPageLD(params: {
-  locale: string;
+  locale: Locale;
   name: string;
   description: string;
   url: string;
@@ -248,7 +227,7 @@ export function createWebPageLD(params: {
     name: params.name,
     description: params.description,
     url: params.url,
-    inLanguage: langTag(params.locale),
+    inLanguage: LANG_TAG[params.locale],
     isPartOf: {
       '@type': 'WebSite',
       name: SITE_NAME,
@@ -261,12 +240,12 @@ export function createWebPageLD(params: {
 
 export function createFAQPageLD(
   faqs: Array<{ question: string; answer: string }>,
-  locale = 'ja'
+  locale: Locale = 'ja'
 ): FAQPageLD {
   return {
     '@context': 'https://schema.org',
     '@type': 'FAQPage',
-    inLanguage: langTag(locale),
+    inLanguage: LANG_TAG[locale],
     mainEntity: faqs.map((faq) => ({
       '@type': 'Question',
       name: faq.question,
@@ -298,15 +277,6 @@ export function createProductLD(params: {
   description: string;
   offers: Array<{ price: number; description: string; url: string }>;
 }): ProductLD {
-  const yenOffers: OfferLD[] = params.offers.map((offer) => ({
-    '@type': 'Offer',
-    price: String(offer.price),
-    priceCurrency: 'JPY',
-    description: offer.description,
-    availability: 'https://schema.org/InStock',
-    url: offer.url,
-  }));
-
   return {
     '@context': 'https://schema.org',
     '@type': 'Product',
@@ -316,7 +286,14 @@ export function createProductLD(params: {
       '@type': 'Brand',
       name: SITE_NAME,
     },
-    offers: yenOffers.length === 1 ? yenOffers[0] : yenOffers,
+    offers: params.offers.map((offer) => ({
+      '@type': 'Offer',
+      price: String(offer.price),
+      priceCurrency: 'JPY',
+      description: offer.description,
+      availability: 'https://schema.org/InStock',
+      url: offer.url,
+    })),
   };
 }
 
@@ -337,6 +314,6 @@ export function createItemListLD(params: {
   };
 }
 
-export function getOGImageUrl(locale: string): string {
+export function getOGImageUrl(locale: Locale): string {
   return `/og/default-${locale}.svg`;
 }

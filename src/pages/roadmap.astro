@@ -1,20 +1,21 @@
 ---
 import Breadcrumbs from '@components/common/Breadcrumbs.astro';
 import Layout from '@layouts/Layout.astro';
+import { getAbsoluteLocaleUrl } from 'astro:i18n';
 import { Check, Circle } from '@lucide/astro';
 import { useTranslations } from '@utils/i18n';
 import {
+  type Locale,
   createBreadcrumbListLD,
   createWebPageLD,
-  getPageUrl,
 } from '@utils/seo';
 
 const t = useTranslations(Astro.currentLocale);
-const locale = Astro.currentLocale ?? 'ja';
-const pageUrl = getPageUrl(locale, '/roadmap');
+const locale: Locale = Astro.currentLocale === 'en' ? 'en' : 'ja';
+const pageUrl = getAbsoluteLocaleUrl(locale, '/roadmap');
 
 const breadcrumbJsonLd = createBreadcrumbListLD([
-  { name: t.nav.home, url: getPageUrl(locale, '/') },
+  { name: t.nav.home, url: getAbsoluteLocaleUrl(locale, '/') },
   { name: t.nav.roadmap, url: pageUrl },
 ]);
 

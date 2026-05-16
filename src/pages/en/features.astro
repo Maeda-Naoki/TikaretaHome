@@ -2,22 +2,23 @@
 import Breadcrumbs from '@components/common/Breadcrumbs.astro';
 import CTAButton from '@components/common/CTAButton.astro';
 import FeatureCard from '@components/features/FeatureCard.astro';
+import { getAbsoluteLocaleUrl } from 'astro:i18n';
 import { freeFeatures, premiumFeatures } from '@data/features';
 import Layout from '@layouts/Layout.astro';
 import { useTranslations } from '@utils/i18n';
 import {
+  type Locale,
   createBreadcrumbListLD,
   createItemListLD,
   createWebPageLD,
-  getPageUrl,
 } from '@utils/seo';
 
 const t = useTranslations(Astro.currentLocale);
-const locale = Astro.currentLocale ?? 'en';
-const pageUrl = getPageUrl(locale, '/features');
+const locale: Locale = 'en';
+const pageUrl = getAbsoluteLocaleUrl(locale, '/features');
 
 const breadcrumbJsonLd = createBreadcrumbListLD([
-  { name: t.nav.home, url: getPageUrl(locale, '/') },
+  { name: t.nav.home, url: getAbsoluteLocaleUrl(locale, '/') },
   { name: t.nav.features, url: pageUrl },
 ]);
 

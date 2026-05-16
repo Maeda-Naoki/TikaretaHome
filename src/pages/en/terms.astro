@@ -1,20 +1,21 @@
 ---
 import Breadcrumbs from '@components/common/Breadcrumbs.astro';
 import Layout from '@layouts/Layout.astro';
+import { getAbsoluteLocaleUrl } from 'astro:i18n';
 import { useTranslations } from '@utils/i18n';
 import {
+  LEGAL_LAST_MODIFIED,
+  type Locale,
   createBreadcrumbListLD,
   createWebPageLD,
-  getPageUrl,
 } from '@utils/seo';
 
 const t = useTranslations(Astro.currentLocale);
-const locale = Astro.currentLocale ?? 'en';
-const lastModified = '2026-02-15';
-const pageUrl = getPageUrl(locale, '/terms');
+const locale: Locale = 'en';
+const pageUrl = getAbsoluteLocaleUrl(locale, '/terms');
 
 const breadcrumbJsonLd = createBreadcrumbListLD([
-  { name: t.nav.home, url: getPageUrl(locale, '/') },
+  { name: t.nav.home, url: getAbsoluteLocaleUrl(locale, '/') },
   { name: t.footer.terms, url: pageUrl },
 ]);
 
@@ -23,7 +24,7 @@ const webPageJsonLd = createWebPageLD({
   name: t.pages.terms.title,
   description: t.pages.terms.description,
   url: pageUrl,
-  dateModified: lastModified,
+  dateModified: LEGAL_LAST_MODIFIED,
 });
 
 const jsonLd = [webPageJsonLd, breadcrumbJsonLd];
@@ -33,7 +34,7 @@ const jsonLd = [webPageJsonLd, breadcrumbJsonLd];
   title={t.pages.terms.title}
   description={t.pages.terms.description}
   ogType="article"
-  dateModified={lastModified}
+  dateModified={LEGAL_LAST_MODIFIED}
   jsonLd={jsonLd}
 >
   <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">

@@ -1,39 +1,34 @@
 ---
 import Breadcrumbs from '@components/common/Breadcrumbs.astro';
 import FAQItem from '@components/faq/FAQItem.astro';
+import { getAbsoluteLocaleUrl } from 'astro:i18n';
 import { faqByCategory } from '@data/faq';
 import Layout from '@layouts/Layout.astro';
 import { useTranslations } from '@utils/i18n';
 import {
+  type Locale,
   createBreadcrumbListLD,
   createFAQPageLD,
   createWebPageLD,
-  getPageUrl,
 } from '@utils/seo';
-import { type FAQCategory, getFAQItemData } from '@utils/translationTypes';
+import { resolveFAQItem } from '@utils/translationTypes';
 
 const t = useTranslations(Astro.currentLocale);
-const locale = Astro.currentLocale ?? 'ja';
-const pageUrl = getPageUrl(locale, '/faq');
+const locale: Locale = Astro.currentLocale === 'en' ? 'en' : 'ja';
+const pageUrl = getAbsoluteLocaleUrl(locale, '/faq');
 
-// Create FAQ JSON-LD
-const allFAQs = Object.values(faqByCategory).flat();
+const resolvedByCategory = Object.entries(faqByCategory).map(([category, items]) => ({
+  category: category as keyof typeof faqByCategory,
+  items: items.map((item) => resolveFAQItem(t, item)),
+}));
+
 const faqJsonLd = createFAQPageLD(
-  allFAQs.map((item) => {
-    const categoryKey = item.category as FAQCategory;
-    const parts = item.questionKey.split('.');
-    const itemKey = parts[parts.length - 2];
-    const itemData = getFAQItemData(t, categoryKey, itemKey);
-    return {
-      question: itemData?.question || '',
-      answer: itemData?.answer || '',
-    };
-  }),
+  resolvedByCategory.flatMap((c) => c.items.map(({ question, answer }) => ({ question, answer }))),
   locale
 );
 
 const breadcrumbJsonLd = createBreadcrumbListLD([
-  { name: t.nav.home, url: getPageUrl(locale, '/') },
+  { name: t.nav.home, url: getAbsoluteLocaleUrl(locale, '/') },
   { name: t.nav.faq, url: pageUrl },
 ]);
 
@@ -60,25 +55,16 @@ const webPageJsonLd = createWebPageLD({
       <div class="w-14 h-1 bg-primary-400 rounded-full hero-slide-in-left"></div>
     </div>
 
-    {Object.entries(faqByCategory).map(([category, items]) => (
+    {resolvedByCategory.map(({ category, items }) => (
       <section class="mb-12">
         <h2 class="text-xl font-bold text-warm-gray-900 mb-2 fade-in-up">
-          {t.faq.categories[category as keyof typeof t.faq.categories]}
+          {t.faq.categories[category]}
         </h2>
         <div class="w-8 h-0.5 bg-secondary-400 rounded-full mb-5 fade-in-up"></div>
         <div class="space-y-3">
-          {items.map((item) => {
-            const parts = item.questionKey.split('.');
-            const itemKey = parts[parts.length - 2];
-            const itemData = getFAQItemData(t, category as FAQCategory, itemKey);
-            return (
-              <FAQItem
-                id={item.id}
-                question={itemData?.question || ''}
-                answer={itemData?.answer || ''}
-              />
-            );
-          })}
+          {items.map((item) => (
+            <FAQItem id={item.id} question={item.question} answer={item.answer} />
+          ))}
         </div>
       </section>
     ))}
