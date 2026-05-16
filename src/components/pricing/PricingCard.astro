@@ -27,7 +27,7 @@ const monthlyEquivText = yearlyPerMonth > 0 ? format(t.pricing.monthlyEquivTempl
 
 <div
   class:list={[
-    "pricing-card rounded-card transition-all scale-in",
+    "pricing-card rounded-card transition-all scale-in flex flex-col h-full",
     recommended
       ? "bg-primary-50 border-2 border-primary-700 shadow-lifted p-8 md:-mt-4 md:mb-4"
       : "bg-white border border-warm-gray-100 shadow-soft hover:shadow-card p-7"
@@ -74,7 +74,7 @@ const monthlyEquivText = yearlyPerMonth > 0 ? format(t.pricing.monthlyEquivTempl
       {monthlyEquivText}{savingsText && ` — ${savingsText}`}
     </div>
   )}
-  <ul class="space-y-2.5 mb-8">
+  <ul class="space-y-2.5 mb-8 flex-1">
     {features.map((feature) => (
       <li class="flex items-start gap-2 text-sm text-warm-gray-700">
         {/* WCAG 1.1.1: 情報SVGに代替テキスト、WCAG 1.4.11: secondary-600(#16a34a) on white = 3.06:1 ✓ */}
