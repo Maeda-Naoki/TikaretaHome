@@ -6,14 +6,60 @@ import PricingCard from '@components/pricing/PricingCard.astro';
 import { plans } from '@data/pricing';
 import Layout from '@layouts/Layout.astro';
 import { useTranslations } from '@utils/i18n';
-import { createBreadcrumbListLD } from '@utils/seo';
+import {
+  createBreadcrumbListLD,
+  createProductLD,
+  createWebPageLD,
+} from '@utils/seo';
 
 const t = useTranslations(Astro.currentLocale);
+const locale = Astro.currentLocale ?? 'en';
+const pricingPageUrl = 'https://tikareta.com/en/pricing';
 
-const jsonLd = createBreadcrumbListLD([
+const breadcrumbJsonLd = createBreadcrumbListLD([
   { name: t.nav.home, url: 'https://tikareta.com/en/' },
-  { name: t.nav.pricing, url: 'https://tikareta.com/en/pricing' },
+  { name: t.nav.pricing, url: pricingPageUrl },
 ]);
+
+const webPageJsonLd = createWebPageLD({
+  locale,
+  name: t.pages.pricing.title,
+  description: t.pages.pricing.description,
+  url: pricingPageUrl,
+});
+
+const planProducts = plans.map((plan) => {
+  const planT = t.pricing.plans[plan.key];
+  const offers: Array<{ price: number; description: string; url: string }> = [];
+
+  if (plan.monthly === 0 && plan.yearly === 0) {
+    offers.push({
+      price: 0,
+      description: 'Free plan',
+      url: pricingPageUrl,
+    });
+  } else {
+    offers.push({
+      price: plan.monthly,
+      description: 'Monthly plan',
+      url: pricingPageUrl,
+    });
+    offers.push({
+      price: plan.yearly,
+      description: 'Yearly plan',
+      url: pricingPageUrl,
+    });
+  }
+
+  return createProductLD({
+    locale,
+    name: `Tikareta ${planT.name}`,
+    description: planT.tagline,
+    offers,
+  });
+});
+
+const jsonLd = [webPageJsonLd, breadcrumbJsonLd, ...planProducts];
 ---
 
 <Layout

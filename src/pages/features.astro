@@ -5,14 +5,39 @@ import FeatureCard from '@components/features/FeatureCard.astro';
 import { freeFeatures, premiumFeatures } from '@data/features';
 import Layout from '@layouts/Layout.astro';
 import { useTranslations } from '@utils/i18n';
-import { createBreadcrumbListLD } from '@utils/seo';
+import {
+  createBreadcrumbListLD,
+  createItemListLD,
+  createWebPageLD,
+} from '@utils/seo';
 
 const t = useTranslations(Astro.currentLocale);
+const locale = Astro.currentLocale ?? 'ja';
 
-const jsonLd = createBreadcrumbListLD([
+const breadcrumbJsonLd = createBreadcrumbListLD([
   { name: t.nav.home, url: 'https://tikareta.com/' },
   { name: t.nav.features, url: 'https://tikareta.com/features' },
 ]);
+
+const webPageJsonLd = createWebPageLD({
+  locale,
+  name: t.pages.features.title,
+  description: t.pages.features.description,
+  url: 'https://tikareta.com/features',
+});
+
+const featureListJsonLd = createItemListLD({
+  name: t.pages.features.title,
+  items: [...freeFeatures, ...premiumFeatures].map((feature) => {
+    const featureKey = feature.titleKey.split('.')[1] as keyof typeof t.features;
+    return {
+      name: t.features[featureKey].title,
+      description: t.features[featureKey].description,
+    };
+  }),
+});
+
+const jsonLd = [webPageJsonLd, breadcrumbJsonLd, featureListJsonLd];
 ---
 
 <Layout

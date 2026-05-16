@@ -3,20 +3,30 @@ import Breadcrumbs from '@components/common/Breadcrumbs.astro';
 import Layout from '@layouts/Layout.astro';
 import { Check, Circle } from '@lucide/astro';
 import { useTranslations } from '@utils/i18n';
-import { createBreadcrumbListLD } from '@utils/seo';
+import { createBreadcrumbListLD, createWebPageLD } from '@utils/seo';
 
 const t = useTranslations(Astro.currentLocale);
+const locale = Astro.currentLocale ?? 'en';
 
 const breadcrumbJsonLd = createBreadcrumbListLD([
   { name: t.nav.home, url: 'https://tikareta.com/en/' },
   { name: t.nav.roadmap, url: 'https://tikareta.com/en/roadmap' },
 ]);
+
+const webPageJsonLd = createWebPageLD({
+  locale,
+  name: t.pages.roadmap.title,
+  description: t.pages.roadmap.description,
+  url: 'https://tikareta.com/en/roadmap',
+});
+
+const jsonLd = [webPageJsonLd, breadcrumbJsonLd];
 ---
 
 <Layout
   title={t.pages.roadmap.title}
   description={t.pages.roadmap.description}
-  jsonLd={breadcrumbJsonLd}
+  jsonLd={jsonLd}
 >
   <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
     <Breadcrumbs items={[{ name: t.nav.roadmap, url: '/en/roadmap' }]} />

@@ -2,19 +2,33 @@
 import Breadcrumbs from '@components/common/Breadcrumbs.astro';
 import Layout from '@layouts/Layout.astro';
 import { useTranslations } from '@utils/i18n';
-import { createBreadcrumbListLD } from '@utils/seo';
+import { createBreadcrumbListLD, createWebPageLD } from '@utils/seo';
 
 const t = useTranslations(Astro.currentLocale);
+const locale = Astro.currentLocale ?? 'en';
+const lastModified = '2026-02-15';
 
-const jsonLd = createBreadcrumbListLD([
+const breadcrumbJsonLd = createBreadcrumbListLD([
   { name: t.nav.home, url: 'https://tikareta.com/en/' },
   { name: t.footer.terms, url: 'https://tikareta.com/en/terms' },
 ]);
+
+const webPageJsonLd = createWebPageLD({
+  locale,
+  name: t.pages.terms.title,
+  description: t.pages.terms.description,
+  url: 'https://tikareta.com/en/terms',
+  dateModified: lastModified,
+});
+
+const jsonLd = [webPageJsonLd, breadcrumbJsonLd];
 ---
 
 <Layout
   title={t.pages.terms.title}
   description={t.pages.terms.description}
+  ogType="article"
+  dateModified={lastModified}
   jsonLd={jsonLd}
 >
   <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">

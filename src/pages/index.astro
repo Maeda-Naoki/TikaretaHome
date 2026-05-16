@@ -8,19 +8,68 @@ import PricingSummary from '@components/home/PricingSummary.astro';
 import Showcase from '@components/home/Showcase.astro';
 import TypeDiagnosis from '@components/home/TypeDiagnosis.astro';
 import ValueProposition from '@components/home/ValueProposition.astro';
+import { faqByCategory } from '@data/faq';
 import Layout from '@layouts/Layout.astro';
 import { useTranslations } from '@utils/i18n';
-import { createOrganizationLD, createSoftwareApplicationLD } from '@utils/seo';
+import {
+  createFAQPageLD,
+  createOrganizationLD,
+  createSoftwareApplicationLD,
+  createWebSiteLD,
+} from '@utils/seo';
+import { type FAQCategory, getFAQItemData } from '@utils/translationTypes';
 
 const t = useTranslations(Astro.currentLocale);
 const locale = Astro.currentLocale ?? 'ja';
 
-const jsonLd = [createSoftwareApplicationLD(locale), createOrganizationLD(locale)];
+const homeFAQItems = faqByCategory.basic.slice(0, 3).map((item) => {
+  const categoryKey = item.category as FAQCategory;
+  const parts = item.questionKey.split('.');
+  const itemKey = parts[parts.length - 2];
+  const itemData = getFAQItemData(t, categoryKey, itemKey);
+  return {
+    question: itemData?.question ?? '',
+    answer: itemData?.answer ?? '',
+  };
+});
+
+const jsonLd = [
+  createWebSiteLD(locale),
+  createSoftwareApplicationLD(locale),
+  createOrganizationLD(locale),
+  createFAQPageLD(homeFAQItems, locale),
+];
+
+const keywords =
+  locale === 'ja'
+    ? [
+        '犬',
+        '散歩',
+        'おさんぽ',
+        'おさんぽタイプ',
+        '愛犬',
+        '散歩記録',
+        '散歩アプリ',
+        '犬種',
+        'タイプ診断',
+        'Tikareta',
+      ]
+    : [
+        'dog',
+        'walking',
+        'dog walking',
+        'walk tracker',
+        'walking type',
+        'dog app',
+        'pet tracker',
+        'Tikareta',
+      ];
 ---
 
 <Layout
   title={t.pages.home.title}
   description={t.pages.home.description}
+  keywords={keywords}
   jsonLd={jsonLd}
 >
   <Hero />

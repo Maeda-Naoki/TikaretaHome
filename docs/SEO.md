@@ -1,6 +1,6 @@
 # SEO設計
 
-> 最終更新: 2026-05-15
+> 最終更新: 2026-05-16
 ---
 
 ## SEOコンポーネント（`src/components/common/SEO.astro`）
@@ -11,8 +11,19 @@
 
 ```html
 <!-- 基本メタ -->
-<title>{title}</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <meta name="description" content="{description}" />
+<meta name="keywords" content="{keywords}" />            <!-- オプション -->
+<meta name="author" content="Tikareta" />
+<meta name="format-detection" content="telephone=no" />
+<meta name="theme-color" content="#F97316" />
+<meta name="color-scheme" content="light" />
+<meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1" />
+<title>{title}</title>
+
+<!-- Google Search Console (環境変数があれば) -->
+<meta name="google-site-verification" content="{token}" />
 
 <!-- Canonical + hreflang -->
 <link rel="canonical" href="{canonicalUrl}" />
@@ -20,37 +31,51 @@
 <link rel="alternate" hreflang="en" href="{enUrl}" />
 <link rel="alternate" hreflang="x-default" href="{jaUrl}" />
 
-<!-- OGP -->
-<meta property="og:type" content="website" />
+<!-- OGP / Facebook -->
+<meta property="og:type" content="{website|article}" />
 <meta property="og:title" content="{title}" />
 <meta property="og:description" content="{description}" />
 <meta property="og:image" content="{ogImageUrl}" />
+<meta property="og:image:type" content="{mime}" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:image:alt" content="{ogImageAlt}" />
 <meta property="og:url" content="{canonicalUrl}" />
 <meta property="og:locale" content="ja_JP" />
-<meta property="og:site_name" content="おさんぽタイプ" />
+<meta property="og:locale:alternate" content="en_US" />
+<meta property="og:site_name" content="Tikareta" />
+
+<!-- article 専用 (利用規約・プライバシーポリシー等で og:type="article" を指定したときに出力) -->
+<meta property="article:modified_time" content="{dateModified}" />
 
 <!-- Twitter Card -->
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content="{title}" />
 <meta name="twitter:description" content="{description}" />
 <meta name="twitter:image" content="{ogImageUrl}" />
+<meta name="twitter:image:alt" content="{ogImageAlt}" />
 
-<!-- Favicon -->
+<!-- Favicon (Layout.astro 側で出力) -->
 <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 
 <!-- JSON-LD -->
-<script type="application/ld+json">{jsonLd}</script>
+<script is:inline type="application/ld+json">{jsonLd}</script>
 ```
 
 ### コンポーネントProps
 
 ```typescript
 interface SEOProps {
-  title: string;           // ページタイトル（50-60文字目安）
-  description: string;     // メタディスクリプション（150-160文字目安）
-  ogImage?: string;        // OGP画像パス（デフォルト: /og/default-{locale}.png）
-  noindex?: boolean;       // noindex設定（デフォルト: false）
-  jsonLd?: Record<string, unknown>;  // JSON-LD構造化データ
+  title: string;              // ページタイトル（50-60文字目安）
+  description: string;        // メタディスクリプション（150-160文字目安）
+  ogImage?: string;           // OGP画像パス（デフォルト: /og/default-{locale}.svg）
+  ogImageAlt?: string;        // OG画像 alt（既定はサイトのキャッチコピー）
+  ogType?: 'website' | 'article';  // 既定は website。法的ページ等は article
+  noindex?: boolean;          // noindex設定（デフォルト: false）
+  keywords?: string[];        // meta keywords（カンマ区切りで出力）
+  datePublished?: string;     // article:published_time（ISO 8601）
+  dateModified?: string;      // article:modified_time（ISO 8601）
+  jsonLd?: unknown;           // JSON-LD構造化データ（単体 or 配列）
 }
 ```
 
@@ -64,73 +89,94 @@ interface SEOProps {
 
 ## 構造化データ（JSON-LD）
 
-### トップページ
+### 各ページの構造化データ一覧
+
+| ページ | 出力する JSON-LD |
+|--------|---------|
+| トップ（`/`, `/en/`） | `WebSite` + `SoftwareApplication` + `Organization` + `FAQPage`（上位3件） |
+| 機能紹介（`/features`） | `WebPage` + `BreadcrumbList` + `ItemList`（機能一覧） |
+| 料金プラン（`/pricing`） | `WebPage` + `BreadcrumbList` + `Product`×3（Free / Standard / Pro） |
+| FAQ（`/faq`） | `WebPage` + `FAQPage`（全件） + `BreadcrumbList` |
+| ロードマップ（`/roadmap`） | `WebPage` + `BreadcrumbList` |
+| プライバシー・利用規約（`/privacy`, `/terms`） | `WebPage`（`dateModified` 付き） + `BreadcrumbList`、`og:type=article` |
+| 404 | `noindex` のみ |
+
+### ヘルパー関数（`src/utils/seo.ts`）
+
+```typescript
+createSoftwareApplicationLD(locale)  // アプリ全体のメタ
+createOrganizationLD(locale)         // 提供元組織
+createWebSiteLD(locale)              // サイト全体
+createWebPageLD({ locale, name, description, url, dateModified? })
+createFAQPageLD(faqs, locale)
+createBreadcrumbListLD(items)
+createProductLD({ locale, name, description, offers })  // 各料金プラン
+createItemListLD({ name, items })    // 機能一覧
+```
+
+### トップページ（例）
 
 ```json
 [
   {
     "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "Tikareta",
+    "url": "https://tikareta.com",
+    "description": "...",
+    "inLanguage": ["ja", "en"],
+    "publisher": { "@type": "Organization", "name": "Tikareta", "url": "https://tikareta.com" }
+  },
+  {
+    "@context": "https://schema.org",
     "@type": "SoftwareApplication",
-    "name": "おさんぽタイプ",
+    "name": "Tikareta",
     "applicationCategory": "LifestyleApplication",
-    "operatingSystem": "Web",
+    "operatingSystem": "Web, iOS, Android",
+    "url": "https://tikareta.com",
+    "description": "...",
+    "inLanguage": ["ja", "en"],
+    "softwareVersion": "1.0.0",
+    "author": { "@type": "Organization", "name": "Tikareta", "url": "https://tikareta.com" },
     "offers": [
-      {
-        "@type": "Offer",
-        "price": "0",
-        "priceCurrency": "JPY",
-        "description": "無料プラン"
-      },
-      {
-        "@type": "Offer",
-        "price": "300",
-        "priceCurrency": "JPY",
-        "description": "月額プレミアム"
-      },
-      {
-        "@type": "Offer",
-        "price": "2400",
-        "priceCurrency": "JPY",
-        "description": "年額プレミアム"
-      }
-    ],
-    "description": "犬の散歩パターンを記録・分析し、愛犬のおさんぽタイプを診断するWebアプリ"
+      { "@type": "Offer", "price": "0", "priceCurrency": "JPY", "description": "Freeプラン", "availability": "https://schema.org/InStock", "url": "https://tikareta.com/pricing" },
+      { "@type": "Offer", "price": "300", "priceCurrency": "JPY", "description": "Standard月額プラン", "availability": "https://schema.org/InStock", "url": "https://tikareta.com/pricing" }
+      /* ...（他のプランも） */
+    ]
   },
   {
     "@context": "https://schema.org",
     "@type": "Organization",
-    "name": "おさんぽタイプ",
+    "name": "Tikareta",
     "url": "https://tikareta.com",
-    "logo": "https://tikareta.com/images/logo.svg"
+    "logo": "https://tikareta.com/images/logo.svg",
+    "description": "..."
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "inLanguage": "ja-JP",
+    "mainEntity": [ /* ...基本カテゴリの先頭3問 */ ]
   }
 ]
 ```
 
-### FAQページ
+### 料金プラン（例）
 
 ```json
-{
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "おさんぽタイプとは？",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "犬の散歩パターンを記録・分析し、愛犬の「おさんぽタイプ」を診断するWebアプリです。"
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "無料で何ができますか？",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "散歩記録、休憩スポット登録、全期間データ閲覧、基本統計（直近3日間）、基本タイプ診断、コミュニティが無料で利用できます。"
-      }
-    }
-  ]
-}
+[
+  {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    "name": "Tikareta Standard",
+    "description": "もっと深く知りたい方に",
+    "brand": { "@type": "Brand", "name": "Tikareta" },
+    "offers": [
+      { "@type": "Offer", "price": "300", "priceCurrency": "JPY", "description": "月額プラン", "availability": "https://schema.org/InStock", "url": "https://tikareta.com/pricing" },
+      { "@type": "Offer", "price": "2400", "priceCurrency": "JPY", "description": "年額プラン", "availability": "https://schema.org/InStock", "url": "https://tikareta.com/pricing" }
+    ]
+  }
+]
 ```
 
 ### パンくずリスト（サブページ共通）
@@ -140,18 +186,8 @@ interface SEOProps {
   "@context": "https://schema.org",
   "@type": "BreadcrumbList",
   "itemListElement": [
-    {
-      "@type": "ListItem",
-      "position": 1,
-      "name": "ホーム",
-      "item": "https://tikareta.com"
-    },
-    {
-      "@type": "ListItem",
-      "position": 2,
-      "name": "{ページ名}",
-      "item": "https://tikareta.com/{path}"
-    }
+    { "@type": "ListItem", "position": 1, "name": "ホーム", "item": "https://tikareta.com/" },
+    { "@type": "ListItem", "position": 2, "name": "{ページ名}", "item": "https://tikareta.com/{path}" }
   ]
 }
 ```
@@ -234,26 +270,34 @@ Sitemap: https://tikareta.com/sitemap-index.xml
 
 ### Critical
 
-- [ ] 全ページにtitle + description
-- [ ] canonical URL設定
-- [ ] hreflang（ja/en/x-default）
-- [ ] HTTPS有効
-- [ ] robots.txtでクロール許可
-- [ ] 単一 `<h1>` / ページ
+- [x] 全ページに title + description
+- [x] canonical URL 設定
+- [x] hreflang（ja / en / x-default）
+- [x] HTTPS 有効（Netlify）
+- [x] robots.txt でクロール許可
+- [x] 単一 `<h1>` / ページ
+- [x] 拡張 `robots` メタ（`max-image-preview:large` 等）
+- [x] theme-color / color-scheme メタ
 
 ### High Priority
 
-- [ ] sitemap.xml生成・確認
-- [ ] OGP画像（日英）
-- [ ] モバイルレスポンシブ
-- [ ] Core Web Vitals合格
+- [x] sitemap.xml 生成（hreflang リンク付き）
+- [x] OGP 画像（日英）と og:image:width/height/alt/type
+- [x] og:locale:alternate（言語切替）
+- [x] モバイルレスポンシブ
+- [ ] Core Web Vitals 合格（Lighthouse で確認）
 
 ### Medium Priority
 
-- [ ] JSON-LD構造化データ（トップ、FAQ）
-- [ ] パンくずリスト
-- [ ] 画像altテキスト
-- [ ] 内部リンク（ナビゲーション、フッター）
+- [x] JSON-LD: `WebSite`, `SoftwareApplication`, `Organization`（トップ）
+- [x] JSON-LD: `FAQPage`（トップ抜粋 + FAQ 全件）
+- [x] JSON-LD: `Product`（料金プラン）
+- [x] JSON-LD: `ItemList`（機能紹介）
+- [x] JSON-LD: `WebPage` + `dateModified`（法的ページ）
+- [x] JSON-LD: `BreadcrumbList`（全サブページ）
+- [x] パンくずリスト UI
+- [x] 画像 alt テキスト
+- [x] 内部リンク（ナビゲーション、フッター）
 
 ### 検証ツール
 
@@ -261,5 +305,6 @@ Sitemap: https://tikareta.com/sitemap-index.xml
 |--------|------|
 | Lighthouse | Performance, Accessibility, SEO, Best Practices |
 | Google Rich Results Test | 構造化データの検証 |
-| Schema.org Validator | JSON-LDの検証 |
+| Schema.org Validator | JSON-LD の検証 |
 | Google Search Console | クロールエラー、インデックス状況の確認 |
+| OpenGraph.xyz / X Card Validator | OGP の見え方確認 |
