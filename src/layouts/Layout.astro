@@ -9,11 +9,27 @@ interface Props {
   title: string;
   description: string;
   ogImage?: string;
+  ogImageAlt?: string;
+  ogType?: 'website' | 'article';
   noindex?: boolean;
+  keywords?: string[];
+  datePublished?: string;
+  dateModified?: string;
   jsonLd?: unknown;
 }
 
-const { title, description, ogImage, noindex = false, jsonLd } = Astro.props;
+const {
+  title,
+  description,
+  ogImage,
+  ogImageAlt,
+  ogType,
+  noindex = false,
+  keywords,
+  datePublished,
+  dateModified,
+  jsonLd,
+} = Astro.props;
 const locale = Astro.currentLocale ?? 'ja';
 const lang = locale === 'en' ? 'en' : 'ja';
 ---
@@ -25,7 +41,12 @@ const lang = locale === 'en' ? 'en' : 'ja';
       title={title}
       description={description}
       ogImage={ogImage}
+      ogImageAlt={ogImageAlt}
+      ogType={ogType}
       noindex={noindex}
+      keywords={keywords}
+      datePublished={datePublished}
+      dateModified={dateModified}
       jsonLd={jsonLd}
     />
     <title>{title}</title>

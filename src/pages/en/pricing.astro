@@ -3,17 +3,50 @@ import Breadcrumbs from '@components/common/Breadcrumbs.astro';
 import BillingToggle from '@components/pricing/BillingToggle.astro';
 import PlanComparisonTable from '@components/pricing/PlanComparisonTable.astro';
 import PricingCard from '@components/pricing/PricingCard.astro';
+import { getAbsoluteLocaleUrl } from 'astro:i18n';
 import { plans } from '@data/pricing';
 import Layout from '@layouts/Layout.astro';
 import { useTranslations } from '@utils/i18n';
-import { createBreadcrumbListLD } from '@utils/seo';
+import {
+  type Locale,
+  createBreadcrumbListLD,
+  createProductLD,
+  createWebPageLD,
+} from '@utils/seo';
 
 const t = useTranslations(Astro.currentLocale);
+const locale: Locale = 'en';
+const pricingPageUrl = getAbsoluteLocaleUrl(locale, '/pricing');
 
-const jsonLd = createBreadcrumbListLD([
-  { name: t.nav.home, url: 'https://tikareta.com/en/' },
-  { name: t.nav.pricing, url: 'https://tikareta.com/en/pricing' },
+const breadcrumbJsonLd = createBreadcrumbListLD([
+  { name: t.nav.home, url: getAbsoluteLocaleUrl(locale, '/') },
+  { name: t.nav.pricing, url: pricingPageUrl },
 ]);
+
+const webPageJsonLd = createWebPageLD({
+  locale,
+  name: t.pages.pricing.title,
+  description: t.pages.pricing.description,
+  url: pricingPageUrl,
+});
+
+// Free plan intentionally excluded — Google Merchant guidelines treat
+// Product/Offer as retail goods, and SaaS free tiers can trigger warnings.
+// Free pricing is still surfaced via SoftwareApplication.offers on the home page.
+const planProducts = plans
+  .filter((plan) => plan.monthly > 0 || plan.yearly > 0)
+  .map((plan) =>
+    createProductLD({
+      name: `Tikareta ${t.pricing.plans[plan.key].name}`,
+      description: t.pricing.plans[plan.key].tagline,
+      offers: [
+        { price: plan.monthly, description: 'Monthly plan', url: pricingPageUrl },
+        { price: plan.yearly, description: 'Yearly plan', url: pricingPageUrl },
+      ],
+    })
+  );
+
+const jsonLd = [webPageJsonLd, breadcrumbJsonLd, ...planProducts];
 ---
 
 <Layout

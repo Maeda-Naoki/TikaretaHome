@@ -1,39 +1,49 @@
 ---
 import Breadcrumbs from '@components/common/Breadcrumbs.astro';
 import FAQItem from '@components/faq/FAQItem.astro';
+import { getAbsoluteLocaleUrl } from 'astro:i18n';
 import { faqByCategory } from '@data/faq';
 import Layout from '@layouts/Layout.astro';
 import { useTranslations } from '@utils/i18n';
-import { createBreadcrumbListLD, createFAQPageLD } from '@utils/seo';
-import { type FAQCategory, getFAQItemData } from '@utils/translationTypes';
+import {
+  type Locale,
+  createBreadcrumbListLD,
+  createFAQPageLD,
+  createWebPageLD,
+} from '@utils/seo';
+import { resolveFAQItem } from '@utils/translationTypes';
 
 const t = useTranslations(Astro.currentLocale);
+const locale: Locale = Astro.currentLocale === 'en' ? 'en' : 'ja';
+const pageUrl = getAbsoluteLocaleUrl(locale, '/faq');
 
-// Create FAQ JSON-LD
-const allFAQs = Object.values(faqByCategory).flat();
+const resolvedByCategory = Object.entries(faqByCategory).map(([category, items]) => ({
+  category: category as keyof typeof faqByCategory,
+  items: items.map((item) => resolveFAQItem(t, item)),
+}));
+
 const faqJsonLd = createFAQPageLD(
-  allFAQs.map((item) => {
-    const categoryKey = item.category as FAQCategory;
-    const parts = item.questionKey.split('.');
-    const itemKey = parts[parts.length - 2];
-    const itemData = getFAQItemData(t, categoryKey, itemKey);
-    return {
-      question: itemData?.question || '',
-      answer: itemData?.answer || '',
-    };
-  })
+  resolvedByCategory.flatMap((c) => c.items.map(({ question, answer }) => ({ question, answer }))),
+  locale
 );
 
 const breadcrumbJsonLd = createBreadcrumbListLD([
-  { name: t.nav.home, url: 'https://tikareta.com/' },
-  { name: t.nav.faq, url: 'https://tikareta.com/faq' },
+  { name: t.nav.home, url: getAbsoluteLocaleUrl(locale, '/') },
+  { name: t.nav.faq, url: pageUrl },
 ]);
+
+const webPageJsonLd = createWebPageLD({
+  locale,
+  name: t.pages.faq.title,
+  description: t.pages.faq.description,
+  url: pageUrl,
+});
 ---
 
 <Layout
   title={t.pages.faq.title}
   description={t.pages.faq.description}
-  jsonLd={[faqJsonLd, breadcrumbJsonLd]}
+  jsonLd={[webPageJsonLd, faqJsonLd, breadcrumbJsonLd]}
 >
   <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
     <Breadcrumbs items={[{ name: t.nav.faq, url: '/faq' }]} />
@@ -45,25 +55,16 @@ const breadcrumbJsonLd = createBreadcrumbListLD([
       <div class="w-14 h-1 bg-primary-400 rounded-full hero-slide-in-left"></div>
     </div>
 
-    {Object.entries(faqByCategory).map(([category, items]) => (
+    {resolvedByCategory.map(({ category, items }) => (
       <section class="mb-12">
         <h2 class="text-xl font-bold text-warm-gray-900 mb-2 fade-in-up">
-          {t.faq.categories[category as keyof typeof t.faq.categories]}
+          {t.faq.categories[category]}
         </h2>
         <div class="w-8 h-0.5 bg-secondary-400 rounded-full mb-5 fade-in-up"></div>
         <div class="space-y-3">
-          {items.map((item) => {
-            const parts = item.questionKey.split('.');
-            const itemKey = parts[parts.length - 2];
-            const itemData = getFAQItemData(t, category as FAQCategory, itemKey);
-            return (
-              <FAQItem
-                id={item.id}
-                question={itemData?.question || ''}
-                answer={itemData?.answer || ''}
-              />
-            );
-          })}
+          {items.map((item) => (
+            <FAQItem id={item.id} question={item.question} answer={item.answer} />
+          ))}
         </div>
       </section>
     ))}

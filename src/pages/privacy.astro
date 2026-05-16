@@ -1,20 +1,40 @@
 ---
 import Breadcrumbs from '@components/common/Breadcrumbs.astro';
 import Layout from '@layouts/Layout.astro';
+import { getAbsoluteLocaleUrl } from 'astro:i18n';
 import { useTranslations } from '@utils/i18n';
-import { createBreadcrumbListLD } from '@utils/seo';
+import {
+  LEGAL_LAST_MODIFIED,
+  type Locale,
+  createBreadcrumbListLD,
+  createWebPageLD,
+} from '@utils/seo';
 
 const t = useTranslations(Astro.currentLocale);
+const locale: Locale = Astro.currentLocale === 'en' ? 'en' : 'ja';
+const pageUrl = getAbsoluteLocaleUrl(locale, '/privacy');
 
-const jsonLd = createBreadcrumbListLD([
-  { name: t.nav.home, url: 'https://tikareta.com/' },
-  { name: t.footer.privacy, url: 'https://tikareta.com/privacy' },
+const breadcrumbJsonLd = createBreadcrumbListLD([
+  { name: t.nav.home, url: getAbsoluteLocaleUrl(locale, '/') },
+  { name: t.footer.privacy, url: pageUrl },
 ]);
+
+const webPageJsonLd = createWebPageLD({
+  locale,
+  name: t.pages.privacy.title,
+  description: t.pages.privacy.description,
+  url: pageUrl,
+  dateModified: LEGAL_LAST_MODIFIED,
+});
+
+const jsonLd = [webPageJsonLd, breadcrumbJsonLd];
 ---
 
 <Layout
   title={t.pages.privacy.title}
   description={t.pages.privacy.description}
+  ogType="article"
+  dateModified={LEGAL_LAST_MODIFIED}
   jsonLd={jsonLd}
 >
   <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">

@@ -1,11 +1,12 @@
 ---
 import Icon from '@components/common/Icon.astro';
 import Layout from '@layouts/Layout.astro';
+import { getRelativeLocaleUrl } from 'astro:i18n';
 import { useTranslations } from '@utils/i18n';
 
 const t = useTranslations(Astro.currentLocale);
-const locale = Astro.currentLocale ?? 'ja';
-const homeUrl = locale === 'ja' ? '/' : '/en/';
+const locale = Astro.currentLocale === 'en' ? 'en' : 'ja';
+const homeUrl = getRelativeLocaleUrl(locale, '/');
 ---
 
 <Layout

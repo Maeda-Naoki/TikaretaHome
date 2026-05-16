@@ -2,17 +2,45 @@
 import Breadcrumbs from '@components/common/Breadcrumbs.astro';
 import CTAButton from '@components/common/CTAButton.astro';
 import FeatureCard from '@components/features/FeatureCard.astro';
+import { getAbsoluteLocaleUrl } from 'astro:i18n';
 import { freeFeatures, premiumFeatures } from '@data/features';
 import Layout from '@layouts/Layout.astro';
 import { useTranslations } from '@utils/i18n';
-import { createBreadcrumbListLD } from '@utils/seo';
+import {
+  type Locale,
+  createBreadcrumbListLD,
+  createItemListLD,
+  createWebPageLD,
+} from '@utils/seo';
 
 const t = useTranslations(Astro.currentLocale);
+const locale: Locale = 'en';
+const pageUrl = getAbsoluteLocaleUrl(locale, '/features');
 
-const jsonLd = createBreadcrumbListLD([
-  { name: t.nav.home, url: 'https://tikareta.com/en/' },
-  { name: t.nav.features, url: 'https://tikareta.com/en/features' },
+const breadcrumbJsonLd = createBreadcrumbListLD([
+  { name: t.nav.home, url: getAbsoluteLocaleUrl(locale, '/') },
+  { name: t.nav.features, url: pageUrl },
 ]);
+
+const webPageJsonLd = createWebPageLD({
+  locale,
+  name: t.pages.features.title,
+  description: t.pages.features.description,
+  url: pageUrl,
+});
+
+const featureListJsonLd = createItemListLD({
+  name: t.pages.features.title,
+  items: [...freeFeatures, ...premiumFeatures].map((feature) => {
+    const featureKey = feature.titleKey.split('.')[1] as keyof typeof t.features;
+    return {
+      name: t.features[featureKey].title,
+      description: t.features[featureKey].description,
+    };
+  }),
+});
+
+const jsonLd = [webPageJsonLd, breadcrumbJsonLd, featureListJsonLd];
 ---
 
 <Layout
