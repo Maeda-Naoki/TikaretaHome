@@ -1,6 +1,6 @@
 # SEO設計
 
-> 最終更新: 2026-02-15
+> 最終更新: 2026-05-15
 ---
 
 ## SEOコンポーネント（`src/components/common/SEO.astro`）
@@ -155,6 +155,33 @@ interface SEOProps {
   ]
 }
 ```
+
+---
+
+## Google Search Console 検証
+
+`google-site-verification` メタタグを `SEO.astro` から出力する。値は環境変数 `GOOGLE_SITE_VERIFICATION` で設定する。
+
+### 設定箇所
+
+| 環境 | 設定場所 |
+|------|---------|
+| ローカル開発 | プロジェクト直下の `.env`（`.env.example` をコピーして利用） |
+| GitHub Actions | リポジトリ Settings → Environments → `ci` → Variables に `GOOGLE_SITE_VERIFICATION` を登録 |
+| Netlify（本番） | Site settings → Environment variables に `GOOGLE_SITE_VERIFICATION` を登録 |
+
+### 動作仕様
+
+- 値が設定されていれば `<meta name="google-site-verification" content="..." />` が `<head>` に出力される
+- 値が未設定なら meta タグ自体が出力されない（空 content の meta タグは出さない）
+- `output: 'static'` のためビルド時にのみ評価される。値変更後は再ビルドが必要
+
+### 検証手順
+
+1. Google Search Console → プロパティ追加 → HTML タグ方式 → トークン取得
+2. Netlify と GitHub Environment にトークンを登録
+3. 再デプロイ → 本番 HTML のソースで meta タグを確認
+4. Search Console で「所有権を確認」
 
 ---
 
