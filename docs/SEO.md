@@ -103,16 +103,29 @@ interface SEOProps {
 
 ### ヘルパー関数（`src/utils/seo.ts`）
 
+呼び出し側は翻訳から `name` / `description` を渡す（単一情報源を翻訳ファイルに統一するため）。
+
 ```typescript
-createSoftwareApplicationLD(locale)  // アプリ全体のメタ
-createOrganizationLD(locale)         // 提供元組織
-createWebSiteLD(locale)              // サイト全体
-createWebPageLD({ locale, name, description, url, dateModified? })
+SITE_URL    // 'https://tikareta.com'
+SITE_NAME   // 'Tikareta'
+getPageUrl(locale, '/path')               // ロケール接頭辞付きフル URL を返す
+
+createSoftwareApplicationLD({ locale, name, description })
+createOrganizationLD({ name, description, logo? })   // logo は実ファイル配置後に渡す
+createWebSiteLD({ name, description })
+createWebPageLD({ locale, name, description, url, dateModified?, datePublished? })
 createFAQPageLD(faqs, locale)
 createBreadcrumbListLD(items)
-createProductLD({ locale, name, description, offers })  // 各料金プラン
-createItemListLD({ name, items })    // 機能一覧
+createProductLD({ name, description, offers })       // 有料プラン専用
+createItemListLD({ name, items })
 ```
+
+#### 設計メモ
+
+- `SoftwareApplication.operatingSystem` は現状 `'Web'` のみ（iOS/Android は準備中）
+- `Organization.logo` は実ファイル未配置のためデフォルト未出力
+- `Product` は無料プランを除外（Google Merchant の警告を回避）
+- 無料プランの情報は `SoftwareApplication.offers` でカバー
 
 ### トップページ（例）
 
@@ -244,8 +257,10 @@ Sitemap: https://tikareta.com/sitemap-index.xml
 
 | ファイル | サイズ | 内容 |
 |---------|--------|------|
-| `/public/og/default-ja.png` | 1200x630px | 日本語キャッチコピー + 犬イラスト + ロゴ |
-| `/public/og/default-en.png` | 1200x630px | 英語キャッチコピー + 犬イラスト + ロゴ |
+| `/public/og/default-ja.svg` | 1200x630（暫定 SVG） | 日本語キャッチコピー + 犬イラスト + ロゴ |
+| `/public/og/default-en.svg` | 1200x630（暫定 SVG） | 英語キャッチコピー + 犬イラスト + ロゴ |
+
+> ⚠️ **既知の制約**: 現状の OG 画像は SVG。Facebook / X (Twitter) / LinkedIn は SVG をプレビュー表示しないため、本番ローンチ前に PNG (1200x630) を生成して差し替える必要がある。`SEO.astro` の `og:image:type` は拡張子から自動判定するため、PNG 配置後にコード変更は不要。
 
 ### デザイン要件
 
@@ -282,7 +297,7 @@ Sitemap: https://tikareta.com/sitemap-index.xml
 ### High Priority
 
 - [x] sitemap.xml 生成（hreflang リンク付き）
-- [x] OGP 画像（日英）と og:image:width/height/alt/type
+- [ ] OGP 画像（日英）と og:image:width/height/alt/type ※ 現状は SVG のため本番前に PNG 生成が必要
 - [x] og:locale:alternate（言語切替）
 - [x] モバイルレスポンシブ
 - [ ] Core Web Vitals 合格（Lighthouse で確認）

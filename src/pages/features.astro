@@ -9,21 +9,23 @@ import {
   createBreadcrumbListLD,
   createItemListLD,
   createWebPageLD,
+  getPageUrl,
 } from '@utils/seo';
 
 const t = useTranslations(Astro.currentLocale);
 const locale = Astro.currentLocale ?? 'ja';
+const pageUrl = getPageUrl(locale, '/features');
 
 const breadcrumbJsonLd = createBreadcrumbListLD([
-  { name: t.nav.home, url: 'https://tikareta.com/' },
-  { name: t.nav.features, url: 'https://tikareta.com/features' },
+  { name: t.nav.home, url: getPageUrl(locale, '/') },
+  { name: t.nav.features, url: pageUrl },
 ]);
 
 const webPageJsonLd = createWebPageLD({
   locale,
   name: t.pages.features.title,
   description: t.pages.features.description,
-  url: 'https://tikareta.com/features',
+  url: pageUrl,
 });
 
 const featureListJsonLd = createItemListLD({

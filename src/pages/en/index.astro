@@ -32,9 +32,19 @@ const homeFAQItems = faqByCategory.basic.slice(0, 3).map((item) => {
 });
 
 const jsonLd = [
-  createWebSiteLD(locale),
-  createSoftwareApplicationLD(locale),
-  createOrganizationLD(locale),
+  createWebSiteLD({
+    name: t.site.name,
+    description: t.pages.home.description,
+  }),
+  createSoftwareApplicationLD({
+    locale,
+    name: t.site.name,
+    description: t.pages.home.description,
+  }),
+  createOrganizationLD({
+    name: t.site.name,
+    description: t.site.description,
+  }),
   createFAQPageLD(homeFAQItems, locale),
 ];
 

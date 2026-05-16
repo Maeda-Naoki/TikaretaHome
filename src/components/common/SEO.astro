@@ -1,4 +1,5 @@
 ---
+import { useTranslations } from '@utils/i18n';
 import { getOGImageUrl } from '@utils/seo';
 
 interface Props {
@@ -27,6 +28,7 @@ const {
   jsonLd,
 } = Astro.props;
 const locale = Astro.currentLocale ?? 'ja';
+const t = useTranslations(locale);
 
 // Canonical URL
 const canonicalUrl = new URL(Astro.url.pathname, Astro.site).href;
@@ -39,11 +41,12 @@ const enUrl = new URL(`/en${basePath}`, Astro.site).href;
 // OGP image
 const ogImagePath = ogImage ?? getOGImageUrl(locale);
 const ogImageFullUrl = new URL(ogImagePath, Astro.site).href;
-const ogImageMime = ogImagePath.endsWith('.svg')
+const ogImagePathLower = ogImagePath.toLowerCase();
+const ogImageMime = ogImagePathLower.endsWith('.svg')
   ? 'image/svg+xml'
-  : ogImagePath.endsWith('.png')
+  : ogImagePathLower.endsWith('.png')
     ? 'image/png'
-    : ogImagePath.endsWith('.webp')
+    : ogImagePathLower.endsWith('.webp')
       ? 'image/webp'
       : 'image/jpeg';
 
@@ -51,16 +54,11 @@ const ogImageMime = ogImagePath.endsWith('.svg')
 const ogLocale = locale === 'ja' ? 'ja_JP' : 'en_US';
 const ogLocaleAlternate = locale === 'ja' ? 'en_US' : 'ja_JP';
 
-// Site / brand strings
-const siteNameJa = 'Tikareta';
-const siteNameEn = 'Tikareta';
-const siteName = locale === 'ja' ? siteNameJa : siteNameEn;
+// Site / brand strings (single source of truth from translations)
+const siteName = t.site.name;
 
 // Default OG image alt (used when caller doesn't supply one)
-const defaultOgImageAlt =
-  locale === 'ja'
-    ? 'Tikareta - うちの子のおさんぽスタイル、知ってる？'
-    : "Tikareta - Do you know your dog's walking style?";
+const defaultOgImageAlt = `${siteName} - ${t.site.tagline}`;
 const finalOgImageAlt = ogImageAlt ?? defaultOgImageAlt;
 
 // Google Search Console verification

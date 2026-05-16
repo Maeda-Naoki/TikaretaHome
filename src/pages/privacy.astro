@@ -2,22 +2,27 @@
 import Breadcrumbs from '@components/common/Breadcrumbs.astro';
 import Layout from '@layouts/Layout.astro';
 import { useTranslations } from '@utils/i18n';
-import { createBreadcrumbListLD, createWebPageLD } from '@utils/seo';
+import {
+  createBreadcrumbListLD,
+  createWebPageLD,
+  getPageUrl,
+} from '@utils/seo';
 
 const t = useTranslations(Astro.currentLocale);
 const locale = Astro.currentLocale ?? 'ja';
 const lastModified = '2026-02-15';
+const pageUrl = getPageUrl(locale, '/privacy');
 
 const breadcrumbJsonLd = createBreadcrumbListLD([
-  { name: t.nav.home, url: 'https://tikareta.com/' },
-  { name: t.footer.privacy, url: 'https://tikareta.com/privacy' },
+  { name: t.nav.home, url: getPageUrl(locale, '/') },
+  { name: t.footer.privacy, url: pageUrl },
 ]);
 
 const webPageJsonLd = createWebPageLD({
   locale,
   name: t.pages.privacy.title,
   description: t.pages.privacy.description,
-  url: 'https://tikareta.com/privacy',
+  url: pageUrl,
   dateModified: lastModified,
 });
 

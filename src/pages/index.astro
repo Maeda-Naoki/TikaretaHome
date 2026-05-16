@@ -34,36 +34,34 @@ const homeFAQItems = faqByCategory.basic.slice(0, 3).map((item) => {
 });
 
 const jsonLd = [
-  createWebSiteLD(locale),
-  createSoftwareApplicationLD(locale),
-  createOrganizationLD(locale),
+  createWebSiteLD({
+    name: t.site.name,
+    description: t.pages.home.description,
+  }),
+  createSoftwareApplicationLD({
+    locale,
+    name: t.site.name,
+    description: t.pages.home.description,
+  }),
+  createOrganizationLD({
+    name: t.site.name,
+    description: t.site.description,
+  }),
   createFAQPageLD(homeFAQItems, locale),
 ];
 
-const keywords =
-  locale === 'ja'
-    ? [
-        '犬',
-        '散歩',
-        'おさんぽ',
-        'おさんぽタイプ',
-        '愛犬',
-        '散歩記録',
-        '散歩アプリ',
-        '犬種',
-        'タイプ診断',
-        'Tikareta',
-      ]
-    : [
-        'dog',
-        'walking',
-        'dog walking',
-        'walk tracker',
-        'walking type',
-        'dog app',
-        'pet tracker',
-        'Tikareta',
-      ];
+const keywords = [
+  '犬',
+  '散歩',
+  'おさんぽ',
+  'おさんぽタイプ',
+  '愛犬',
+  '散歩記録',
+  '散歩アプリ',
+  '犬種',
+  'タイプ診断',
+  'Tikareta',
+];
 ---
 
 <Layout

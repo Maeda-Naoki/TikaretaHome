@@ -10,14 +10,15 @@ import {
   createBreadcrumbListLD,
   createProductLD,
   createWebPageLD,
+  getPageUrl,
 } from '@utils/seo';
 
 const t = useTranslations(Astro.currentLocale);
 const locale = Astro.currentLocale ?? 'en';
-const pricingPageUrl = 'https://tikareta.com/en/pricing';
+const pricingPageUrl = getPageUrl(locale, '/pricing');
 
 const breadcrumbJsonLd = createBreadcrumbListLD([
-  { name: t.nav.home, url: 'https://tikareta.com/en/' },
+  { name: t.nav.home, url: getPageUrl(locale, '/') },
   { name: t.nav.pricing, url: pricingPageUrl },
 ]);
 
@@ -28,31 +29,27 @@ const webPageJsonLd = createWebPageLD({
   url: pricingPageUrl,
 });
 
-const planProducts = plans.map((plan) => {
-  const planT = t.pricing.plans[plan.key];
-  const offers: Array<{ price: number; description: string; url: string }> = [];
+// Free plan is intentionally excluded from Product LD — Google's Product
+// type is for retail goods; SaaS free tiers can trigger Merchant warnings.
+// The Free offer is already covered by SoftwareApplication.offers on the home page.
+const paidPlans = plans.filter((plan) => plan.monthly > 0 || plan.yearly > 0);
 
-  if (plan.monthly === 0 && plan.yearly === 0) {
-    offers.push({
-      price: 0,
-      description: 'Free plan',
-      url: pricingPageUrl,
-    });
-  } else {
-    offers.push({
+const planProducts = paidPlans.map((plan) => {
+  const planT = t.pricing.plans[plan.key];
+  const offers = [
+    {
       price: plan.monthly,
       description: 'Monthly plan',
       url: pricingPageUrl,
-    });
-    offers.push({
+    },
+    {
       price: plan.yearly,
       description: 'Yearly plan',
       url: pricingPageUrl,
-    });
-  }
+    },
+  ];
 
   return createProductLD({
-    locale,
     name: `Tikareta ${planT.name}`,
     description: planT.tagline,
     offers,

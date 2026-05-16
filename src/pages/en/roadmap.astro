@@ -3,21 +3,26 @@ import Breadcrumbs from '@components/common/Breadcrumbs.astro';
 import Layout from '@layouts/Layout.astro';
 import { Check, Circle } from '@lucide/astro';
 import { useTranslations } from '@utils/i18n';
-import { createBreadcrumbListLD, createWebPageLD } from '@utils/seo';
+import {
+  createBreadcrumbListLD,
+  createWebPageLD,
+  getPageUrl,
+} from '@utils/seo';
 
 const t = useTranslations(Astro.currentLocale);
 const locale = Astro.currentLocale ?? 'en';
+const pageUrl = getPageUrl(locale, '/roadmap');
 
 const breadcrumbJsonLd = createBreadcrumbListLD([
-  { name: t.nav.home, url: 'https://tikareta.com/en/' },
-  { name: t.nav.roadmap, url: 'https://tikareta.com/en/roadmap' },
+  { name: t.nav.home, url: getPageUrl(locale, '/') },
+  { name: t.nav.roadmap, url: pageUrl },
 ]);
 
 const webPageJsonLd = createWebPageLD({
   locale,
   name: t.pages.roadmap.title,
   description: t.pages.roadmap.description,
-  url: 'https://tikareta.com/en/roadmap',
+  url: pageUrl,
 });
 
 const jsonLd = [webPageJsonLd, breadcrumbJsonLd];

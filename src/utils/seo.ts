@@ -1,7 +1,11 @@
 export const SITE_URL = 'https://tikareta.com';
-export const SITE_NAME_JA = 'Tikareta';
-export const SITE_NAME_EN = 'Tikareta';
-export const SITE_LOGO_URL = `${SITE_URL}/images/logo.svg`;
+export const SITE_NAME = 'Tikareta';
+
+export function getPageUrl(locale: string, path: string): string {
+  const prefix = locale === 'en' ? '/en' : '';
+  const normalized = path.startsWith('/') ? path : `/${path}`;
+  return `${SITE_URL}${prefix}${normalized === '/' ? '/' : normalized}`;
+}
 
 export interface OfferLD {
   '@type': 'Offer';
@@ -30,8 +34,6 @@ export interface SoftwareApplicationLD {
   description: string;
   inLanguage: string[];
   offers: OfferLD[];
-  screenshot?: string;
-  softwareVersion?: string;
   author?: {
     '@type': 'Organization';
     name: string;
@@ -44,9 +46,8 @@ export interface OrganizationLD {
   '@type': 'Organization';
   name: string;
   url: string;
-  logo: string;
   description: string;
-  sameAs?: string[];
+  logo?: string;
 }
 
 export interface WebSiteLD {
@@ -77,7 +78,6 @@ export interface WebPageLD {
   };
   datePublished?: string;
   dateModified?: string;
-  breadcrumb?: BreadcrumbListLD;
 }
 
 export interface FAQPageLD {
@@ -129,36 +129,31 @@ export interface ItemListLD {
   }>;
 }
 
-function siteName(locale: string): string {
-  return locale === 'ja' ? SITE_NAME_JA : SITE_NAME_EN;
+function langTag(locale: string): string {
+  return locale === 'ja' ? 'ja-JP' : 'en-US';
 }
 
-function appDescription(locale: string): string {
-  return locale === 'ja'
-    ? '犬の散歩パターンを記録・分析し、愛犬のおさんぽタイプを診断するWebアプリ。お散歩記録、お気に入りスポット保存、8タイプ診断、コミュニティを無料で利用できます。'
-    : 'A web app that records and analyzes dog walking patterns to diagnose each dog\'s unique "walking type". Free walk logging, favourite spot saving, 8-type diagnosis, and community.';
-}
+export function createSoftwareApplicationLD(params: {
+  locale: string;
+  name: string;
+  description: string;
+}): SoftwareApplicationLD {
+  const { locale, name, description } = params;
+  const localePrefix = locale === 'en' ? '/en' : '';
+  const pricingUrl = `${SITE_URL}${localePrefix}/pricing`;
 
-function orgDescription(locale: string): string {
-  return locale === 'ja'
-    ? 'うちの子だけの「おさんぽタイプ」を見つけるサービスを提供しています。'
-    : 'We help dog owners discover their dog\'s unique "Walking Type" through daily walks.';
-}
-
-export function createSoftwareApplicationLD(locale: string): SoftwareApplicationLD {
   return {
     '@context': 'https://schema.org',
     '@type': 'SoftwareApplication',
-    name: siteName(locale),
+    name,
     applicationCategory: 'LifestyleApplication',
-    operatingSystem: 'Web, iOS, Android',
+    operatingSystem: 'Web',
     url: SITE_URL,
-    description: appDescription(locale),
+    description,
     inLanguage: ['ja', 'en'],
-    softwareVersion: '1.0.0',
     author: {
       '@type': 'Organization',
-      name: SITE_NAME_JA,
+      name: SITE_NAME,
       url: SITE_URL,
     },
     offers: [
@@ -168,7 +163,7 @@ export function createSoftwareApplicationLD(locale: string): SoftwareApplication
         priceCurrency: 'JPY',
         description: locale === 'ja' ? 'Freeプラン' : 'Free Plan',
         availability: 'https://schema.org/InStock',
-        url: `${SITE_URL}${locale === 'en' ? '/en' : ''}/pricing`,
+        url: pricingUrl,
       },
       {
         '@type': 'Offer',
@@ -176,7 +171,7 @@ export function createSoftwareApplicationLD(locale: string): SoftwareApplication
         priceCurrency: 'JPY',
         description: locale === 'ja' ? 'Standard月額プラン' : 'Standard Monthly Plan',
         availability: 'https://schema.org/InStock',
-        url: `${SITE_URL}${locale === 'en' ? '/en' : ''}/pricing`,
+        url: pricingUrl,
       },
       {
         '@type': 'Offer',
@@ -184,7 +179,7 @@ export function createSoftwareApplicationLD(locale: string): SoftwareApplication
         priceCurrency: 'JPY',
         description: locale === 'ja' ? 'Standard年額プラン' : 'Standard Yearly Plan',
         availability: 'https://schema.org/InStock',
-        url: `${SITE_URL}${locale === 'en' ? '/en' : ''}/pricing`,
+        url: pricingUrl,
       },
       {
         '@type': 'Offer',
@@ -192,7 +187,7 @@ export function createSoftwareApplicationLD(locale: string): SoftwareApplication
         priceCurrency: 'JPY',
         description: locale === 'ja' ? 'Pro月額プラン' : 'Pro Monthly Plan',
         availability: 'https://schema.org/InStock',
-        url: `${SITE_URL}${locale === 'en' ? '/en' : ''}/pricing`,
+        url: pricingUrl,
       },
       {
         '@type': 'Offer',
@@ -200,34 +195,40 @@ export function createSoftwareApplicationLD(locale: string): SoftwareApplication
         priceCurrency: 'JPY',
         description: locale === 'ja' ? 'Pro年額プラン' : 'Pro Yearly Plan',
         availability: 'https://schema.org/InStock',
-        url: `${SITE_URL}${locale === 'en' ? '/en' : ''}/pricing`,
+        url: pricingUrl,
       },
     ],
   };
 }
 
-export function createOrganizationLD(locale: string): OrganizationLD {
+export function createOrganizationLD(params: {
+  name: string;
+  description: string;
+  logo?: string;
+}): OrganizationLD {
+  const { name, description, logo } = params;
   return {
     '@context': 'https://schema.org',
     '@type': 'Organization',
-    name: siteName(locale),
+    name,
     url: SITE_URL,
-    logo: SITE_LOGO_URL,
-    description: orgDescription(locale),
+    description,
+    ...(logo && { logo }),
   };
 }
 
-export function createWebSiteLD(locale: string): WebSiteLD {
+export function createWebSiteLD(params: { name: string; description: string }): WebSiteLD {
+  const { name, description } = params;
   return {
     '@context': 'https://schema.org',
     '@type': 'WebSite',
-    name: siteName(locale),
+    name,
     url: SITE_URL,
-    description: appDescription(locale),
+    description,
     inLanguage: ['ja', 'en'],
     publisher: {
       '@type': 'Organization',
-      name: siteName(locale),
+      name,
       url: SITE_URL,
     },
   };
@@ -247,10 +248,10 @@ export function createWebPageLD(params: {
     name: params.name,
     description: params.description,
     url: params.url,
-    inLanguage: params.locale === 'ja' ? 'ja-JP' : 'en-US',
+    inLanguage: langTag(params.locale),
     isPartOf: {
       '@type': 'WebSite',
-      name: siteName(params.locale),
+      name: SITE_NAME,
       url: SITE_URL,
     },
     ...(params.datePublished && { datePublished: params.datePublished }),
@@ -265,7 +266,7 @@ export function createFAQPageLD(
   return {
     '@context': 'https://schema.org',
     '@type': 'FAQPage',
-    inLanguage: locale === 'ja' ? 'ja-JP' : 'en-US',
+    inLanguage: langTag(locale),
     mainEntity: faqs.map((faq) => ({
       '@type': 'Question',
       name: faq.question,
@@ -293,7 +294,6 @@ export function createBreadcrumbListLD(
 }
 
 export function createProductLD(params: {
-  locale: string;
   name: string;
   description: string;
   offers: Array<{ price: number; description: string; url: string }>;
@@ -314,7 +314,7 @@ export function createProductLD(params: {
     description: params.description,
     brand: {
       '@type': 'Brand',
-      name: siteName(params.locale),
+      name: SITE_NAME,
     },
     offers: yenOffers.length === 1 ? yenOffers[0] : yenOffers,
   };
