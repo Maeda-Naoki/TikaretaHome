@@ -73,7 +73,7 @@ const jsonLd = [webPageJsonLd, breadcrumbJsonLd, ...planProducts];
 
     <!-- Pricing Cards -->
     <div class="pricing-cards-wrapper" data-billing="monthly">
-      <div class="grid md:grid-cols-3 gap-5 mb-16 items-start">
+      <div class="grid md:grid-cols-3 gap-5 mb-16 items-stretch">
         {plans.map((plan) => (
           <PricingCard
             planKey={plan.key}
