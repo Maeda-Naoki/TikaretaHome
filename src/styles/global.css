@@ -131,6 +131,12 @@
   --gutter: 1.5rem;
 }
 
+@media (max-width: 640px) {
+  :root {
+    --section-py: 5rem;
+  }
+}
+
 /* =========================================================
    Base resets
    ========================================================= */
@@ -151,6 +157,10 @@ body {
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
   line-height: 1.6;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  min-height: 100dvh;
 }
 
 a {
@@ -1070,6 +1080,7 @@ p {
   background: var(--bg);
   border-top: 1px solid var(--line);
   padding: 4rem 0 2rem;
+  padding-bottom: max(2rem, env(safe-area-inset-bottom));
 }
 .foot h3 {
   font-size: 0.82rem;
