@@ -36,9 +36,17 @@ for (const { path, name } of pages) {
         await footer.scrollIntoViewIfNeeded();
         await expect(footer).toBeVisible();
 
-        // ヘッダー内の .btn-primary は狭い viewport で display:none になるため
-        // main コンテンツ内のボタンのみ対象にする
-        const primaryBtn = page.locator('main .btn-primary').first();
+        // フッターがページ最下部に配置されていること（flex-1 レイアウト崩壊を検出）
+        const footerBox = await footer.boundingBox();
+        const pageScrollHeight = await page.evaluate(() => document.documentElement.scrollHeight);
+        if (footerBox) {
+          expect(footerBox.y + footerBox.height).toBeGreaterThanOrEqual(pageScrollHeight - 50);
+        }
+
+        // ヘッダー内の .btn は狭い viewport で display:none になるため
+        // main コンテンツ内のボタン系要素のみ対象にする
+        // .btn-primary / .btn-soft / .btn-ghost 等を網羅する .btn ベースクラスで検索
+        const primaryBtn = page.locator('main .btn').first();
         const btnCount = await primaryBtn.count();
         if (btnCount > 0) {
           await primaryBtn.scrollIntoViewIfNeeded();
