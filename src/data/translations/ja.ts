@@ -25,9 +25,9 @@ export const ja = {
     badge: '2026年春リリース予定 / Phase 1 開発中',
     meta: ['クレカ登録不要', 'iOS / Android 対応', '家族と共有OK'],
     floatCards: {
-      streak: { label: '連続記録', value: '12日連続' },
+      streak: { label: '連続記録', value: '3日連続' },
       myDog: { label: 'うちの子は' },
-      todayWalk: { label: '今日のおさんぽ', duration: '18分' },
+      todayWalk: { label: '今日のおさんぽ', duration: '30分' },
     },
   },
   valueProposition: {
@@ -104,7 +104,7 @@ export const ja = {
   showcase: {
     title: 'ひとつのアプリで、すべてが揃う。',
     subtitle: '記録・診断・ふりかえり・仲間との交流まで、おさんぽのすべてがTikaretaに。',
-    screens: ['ホーム画面', '記録中', 'タイプ診断', 'ふりかえり', 'コミュニティ'],
+    screens: ['ホーム画面', 'さんぽ記録中', 'タイプ診断', '統計', 'コミュニティ'],
   },
   footer: {
     privacy: 'プライバシーポリシー',

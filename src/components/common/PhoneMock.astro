@@ -1,9 +1,8 @@
 ---
 import Ic from './Ic.astro';
-import LogoMark from './LogoMark.astro';
 
 interface Props {
-  variant?: 'home' | 'record' | 'result' | 'history' | 'profile' | 'community';
+  variant?: 'home' | 'record' | 'result' | 'stats' | 'community';
   size?: 'lg' | 'md';
   tilt?: number;
 }
@@ -12,287 +11,1182 @@ const { variant = 'home', size = 'lg', tilt = 0 } = Astro.props;
 const frameClass = size === 'lg' ? 'phone' : 'mini-phone';
 const screenClass = size === 'lg' ? 'phone-screen' : 'mini-screen';
 const styleAttr = tilt ? `transform: rotate(${tilt}deg);` : undefined;
+
+// 01 · Home — 連続記録 (Pen-faithful: 土〜金, 木=今日, 金=未来)
+const weekDays: { d: string; done?: boolean; today?: boolean; future?: boolean }[] = [
+  { d: '土', done: true },
+  { d: '日', done: true },
+  { d: '月' },
+  { d: '火' },
+  { d: '水', done: true },
+  { d: '木', today: true },
+  { d: '金', future: true },
+] as const;
+
+// 20 · Stats — 今週の散歩 km/日 (土を強調)
+const statBars: { d: string; v: number; hot?: boolean }[] = [
+  { d: '月', v: 3.2 },
+  { d: '火', v: 5.4 },
+  { d: '水', v: 2.1 },
+  { d: '木', v: 7.0 },
+  { d: '金', v: 4.3 },
+  { d: '土', v: 8.1, hot: true },
+  { d: '日', v: 5.2 },
+] as const;
+const statMax = 8.1;
+
+// Bottom navigation (5 tabs) — matches the v2 app shell
+const navItems = [
+  {
+    id: 'home',
+    label: 'ホーム',
+    path: '<path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6h-6v6H4a1 1 0 0 1-1-1v-9z"/>',
+  },
+  {
+    id: 'walk',
+    label: 'さんぽ',
+    path: '<circle cx="6" cy="9" r="1.8"/><circle cx="10" cy="6" r="1.8"/><circle cx="14" cy="6" r="1.8"/><circle cx="18" cy="9" r="1.8"/><path d="M8 16c0-3 2-5 4-5s4 2 4 5c0 2-2 3-4 3s-4-1-4-3z"/>',
+  },
+  {
+    id: 'stats',
+    label: '統計',
+    path: '<path d="M4 19V8M10 19V4M16 19v-8M22 19h-20"/>',
+  },
+  {
+    id: 'community',
+    label: 'コミュニティ',
+    path: '<circle cx="9" cy="9" r="3"/><path d="M3 19c0-3 2.7-5 6-5s6 2 6 5"/><circle cx="17" cy="7" r="2"/><path d="M15 14c3 0 5 1.7 6 4"/>',
+  },
+  {
+    id: 'account',
+    label: 'アカウント',
+    path: '<circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 4-6 8-6s8 2 8 6"/>',
+  },
+] as const;
+
+// Which bottom-nav tab is active per screen
+const activeTab: Record<string, string> = {
+  home: 'home',
+  result: 'home',
+  stats: 'stats',
+  community: 'community',
+};
 ---
 <div class={frameClass} style={styleAttr}>
   <div class="phone-notch" aria-hidden="true"></div>
   <div class={screenClass}>
+    <div class={`tk-screen tk-${variant}${variant === 'record' ? ' tk-dark' : ''}`}>
 
-    {variant === 'home' && (
-      <div class="ph-home">
-        <div class="ph-status"><span>9:41</span><span class="ph-status-r"><Ic name="signal" size={11} /><Ic name="wifi" size={11} /><Ic name="battery-full" size={14} /></span></div>
-        <div class="ph-topbar">
-          <div class="row" style="gap:.5rem;"><LogoMark /><strong style="font-size:.92rem;">Tikareta</strong></div>
-          <span class="ph-iconbtn"><Ic name="bell" size={14} /></span>
-        </div>
-        <div class="ph-greet">
-          <p class="muted">こんにちは、もも ちゃん</p>
-          <p class="ph-greet-title">今日もおさんぽ、<br/>いってみよっか。</p>
-        </div>
-        <div class="ph-streak">
-          <div>
-            <p class="muted">連続記録</p>
-            <p class="num">12<span>日</span></p>
-          </div>
-          <div class="ph-streak-dots">
-            {[1,1,1,1,1,1,0].map((on) => <span class={on ? 'on' : ''}></span>)}
-          </div>
-        </div>
-        <div class="ph-secth"><span>今日の気分</span><span class="ph-link">すべて</span></div>
-        <div class="ph-mood">
-          {[
-            { e:'🙂', l:'ふつう' },
-            { e:'😄', l:'ごきげん', active:true },
-            { e:'🐾', l:'そわそわ' },
-            { e:'😴', l:'ねむい' },
-          ].map((m) => (
-            <button class={m.active ? 'active' : ''} type="button">
-              <span class="e">{m.e}</span><span class="l">{m.l}</span>
+      <!-- ===== Status bar ===== -->
+      <div class="tk-status">
+        <span>9:41</span>
+        <span class="tk-status-icons"><Ic name="signal" size={11} /><Ic name="wifi" size={11} /><Ic name="battery-full" size={15} /></span>
+      </div>
+
+      {variant === 'home' && (
+        <>
+          <header class="tk-top">
+            <div class="tk-brand">
+              <span class="tk-logo" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="#2a1f00"><path d="M12 13.5c-3 0-5.5 2.2-5.5 4.7 0 1.6 1.3 2.8 3 2.8.9 0 1.7-.3 2.5-.6.8.3 1.6.6 2.5.6 1.7 0 3-1.2 3-2.8 0-2.5-2.5-4.7-5.5-4.7zM6.5 11c1.1 0 2-1.3 2-2.8s-.9-2.8-2-2.8-2 1.3-2 2.8.9 2.8 2 2.8zm11 0c1.1 0 2-1.3 2-2.8s-.9-2.8-2-2.8-2 1.3-2 2.8.9 2.8 2 2.8zM9 7c.8 0 1.5-1.1 1.5-2.5S9.8 2 9 2s-1.5 1.1-1.5 2.5S8.2 7 9 7zm6 0c.8 0 1.5-1.1 1.5-2.5S15.8 2 15 2s-1.5 1.1-1.5 2.5S14.2 7 15 7z"/></svg>
+              </span>
+              <strong>Tikareta</strong>
+            </div>
+            <div class="tk-top-r">
+              <span class="tk-iconbtn"><Ic name="bell" size={15} /><span class="tk-dot"></span></span>
+              <span class="tk-dog" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="rgba(255,255,255,0.95)"><ellipse cx="7" cy="9" rx="1.4" ry="1.8"/><ellipse cx="11" cy="6" rx="1.4" ry="1.8"/><ellipse cx="15" cy="6" rx="1.4" ry="1.8"/><ellipse cx="19" cy="9" rx="1.4" ry="1.8"/><path d="M8 17c0-3 2-5 5-5s5 2 5 5c0 2-2 3-5 3s-5-1-5-3z"/></svg>
+              </span>
+            </div>
+          </header>
+
+          <div class="tk-body">
+            <button class="tk-hero" type="button">
+              <div>
+                <span class="tk-hero-kicker">TAP TO START</span>
+                <span class="tk-hero-title">さんぽを始める</span>
+              </div>
+              <span class="tk-hero-circle"><Ic name="footprints" size={20} /></span>
             </button>
-          ))}
-        </div>
-        <button class="ph-fab" type="button">
-          <span class="ring"></span>
-          <Ic name="footprints" size={26} />
-          <span class="lbl">おさんぽ開始</span>
-        </button>
-        <nav class="ph-tabs">
-          <span class="active"><Ic name="footprints" size={16} /><em>ホーム</em></span>
-          <span><Ic name="map" size={16} /><em>記録</em></span>
-          <span><Ic name="bar-chart-3" size={16} /><em>分析</em></span>
-          <span><Ic name="user-round" size={16} /><em>プロフ</em></span>
-        </nav>
-      </div>
-    )}
 
-    {variant === 'record' && (
-      <div class="ph-record">
-        <div class="ph-status dark"><span>9:41</span><span class="ph-status-r"><Ic name="signal" size={11} /><Ic name="wifi" size={11} /><Ic name="battery-full" size={14} /></span></div>
-        <div class="ph-rec-map">
-          <svg viewBox="0 0 240 320" preserveAspectRatio="none" aria-hidden="true">
-            <defs>
-              <pattern id="grid-pat" width="20" height="20" patternUnits="userSpaceOnUse">
-                <path d="M20 0 L0 0 0 20" fill="none" stroke="rgba(255,255,255,.07)" stroke-width="1"/>
-              </pattern>
-            </defs>
-            <rect width="240" height="320" fill="url(#grid-pat)"/>
-            <path d="M30 280 C 60 220 90 240 110 200 S 160 150 150 110 S 200 60 220 40" fill="none" stroke="#FB923C" stroke-width="3" stroke-linecap="round" stroke-dasharray="2 6"/>
-            <circle cx="30" cy="280" r="6" fill="#22C55E"/>
-            <circle cx="220" cy="40" r="6" fill="#FB923C"/>
-          </svg>
-          <div class="ph-rec-overlay">
-            <p class="ph-rec-time">00:18:42</p>
-            <div class="ph-rec-row">
-              <div><em>距離</em><strong>1.42<span>km</span></strong></div>
-              <div><em>ペース</em><strong>13'12"</strong></div>
-              <div><em>歩数</em><strong>2,180</strong></div>
+            <button class="tk-typecard" type="button">
+              <span class="tk-type-emoji"><Ic name="thermometer" size={22} /></span>
+              <span class="tk-type-mid">
+                <em>愛犬タイプ</em>
+                <strong>日陰ハンター型</strong>
+              </span>
+              <Ic name="chevron-right" size={16} />
+            </button>
+
+            <h3 class="tk-h3">連続記録</h3>
+            <div class="tk-card">
+              <div class="tk-streak-head">
+                <span class="tk-streak-num"><Ic name="flame" size={20} /><b>3</b><i>日連続</i></span>
+                <span class="tk-mut">今週の記録</span>
+              </div>
+              <div class="tk-week">
+                {weekDays.map((w) => (
+                  <span class="tk-wd">
+                    <span class={`tk-wd-dot${w.done ? ' done' : ''}${w.today ? ' today' : ''}${w.future ? ' future' : ''}`}>
+                      {w.done && <Ic name="check" size={11} />}
+                    </span>
+                    <em class={w.today ? 'on' : ''}>{w.d}</em>
+                  </span>
+                ))}
+              </div>
             </div>
-            <button class="ph-rec-stop" type="button"><Ic name="square" size={14} />おさんぽを終える</button>
+
+            <h3 class="tk-h3">今日のサマリー</h3>
+            <div class="tk-card">
+              <div class="tk-sum">
+                <span class="tk-sum-col"><b>1.5<i>km</i></b><em>距離</em></span>
+                <span class="tk-vline"></span>
+                <span class="tk-sum-col"><b>30<i>分</i></b><em>時間</em></span>
+                <span class="tk-vline"></span>
+                <span class="tk-sum-col"><b>2<i>回</i></b><em>休憩</em></span>
+              </div>
+              <div class="tk-divider"></div>
+              <p class="tk-sub-label">休憩の理由</p>
+              <div class="tk-trend"><span class="l"><Ic name="thermometer" size={13} />暑い</span><span class="t"><i style="width:60%"></i></span><span class="v">1回 · 60%</span></div>
+              <div class="tk-trend"><span class="l"><Ic name="flower" size={13} />匂い</span><span class="t"><i style="width:40%"></i></span><span class="v">1回 · 40%</span></div>
+            </div>
           </div>
-        </div>
-      </div>
-    )}
+        </>
+      )}
 
-    {variant === 'result' && (
-      <div class="ph-result">
-        <div class="ph-status"><span>9:41</span><span class="ph-status-r"><Ic name="signal" size={11} /><Ic name="wifi" size={11} /><Ic name="battery-full" size={14} /></span></div>
-        <div class="ph-topbar"><strong style="font-size:.92rem;">タイプ診断</strong><span class="ph-iconbtn"><Ic name="share-2" size={14} /></span></div>
-        <div class="ph-result-hero">
-          <div class="emoji">🌳</div>
-          <p class="muted">あなたの愛犬は</p>
-          <h3>日陰ハンター型</h3>
-          <p class="sub">暑さを避けて木陰を求める慎重派。お気に入りの「涼しい休憩スポット」を見つける天才。</p>
-        </div>
-        <div class="ph-bars">
-          {[
-            { l:'慎重さ', v:86 },
-            { l:'好奇心', v:72 },
-            { l:'社交性', v:58 },
-            { l:'運動量', v:64 },
-          ].map((s) => (
-            <div class="ph-bar">
-              <span class="l">{s.l}</span>
-              <span class="track"><span class="fill" style={`width:${s.v}%`}></span></span>
-              <span class="v">{s.v}</span>
+      {variant === 'record' && (
+        <>
+          <header class="tk-top tk-top-dark">
+            <span class="tk-iconbtn ghost"><Ic name="menu" size={18} /></span>
+            <span class="tk-iconbtn ghost"><Ic name="map-pin" size={16} /></span>
+          </header>
+
+          <div class="tk-rec-timer">
+            <span class="tk-rec-kicker">経過時間</span>
+            <span class="tk-rec-time">12:45</span>
+            <div class="tk-rec-stats">
+              <span><b>1.24</b><em>km</em></span>
+              <span class="tk-vline dark"></span>
+              <span><b>1</b><em>休憩</em></span>
+              <span class="tk-vline dark"></span>
+              <span><b>5.8</b><em>km/h</em></span>
             </div>
-          ))}
-        </div>
-        <button class="ph-cta" type="button">レポートを見る</button>
-      </div>
-    )}
+          </div>
 
-    {variant === 'history' && (
-      <div class="ph-history">
-        <div class="ph-status"><span>9:41</span><span class="ph-status-r"><Ic name="signal" size={11} /><Ic name="wifi" size={11} /><Ic name="battery-full" size={14} /></span></div>
-        <div class="ph-topbar"><strong style="font-size:.92rem;">11月のふりかえり</strong><span class="ph-iconbtn"><Ic name="history" size={14} /></span></div>
-        <div class="ph-summary">
-          <div><em>合計</em><strong>32.4<span>km</span></strong></div>
-          <div><em>回数</em><strong>26<span>回</span></strong></div>
-          <div><em>時間</em><strong>14:22</strong></div>
-        </div>
-        <div class="ph-cal">
-          {[0,0,2,3,1,0,2,3,4,2,0,1,3,4,2,1,0,2,3,4,2,1,0,3,4,2,1,3,4,2].map((lvl) => (
-            <span class={`hc lvl-${lvl}`}></span>
-          ))}
-        </div>
-        <p class="ph-note">先週より <strong>+12%</strong> 多く歩けました 🎉</p>
-      </div>
-    )}
+          <div class="tk-rec-map">
+            <svg viewBox="0 0 240 280" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+              <defs>
+                <pattern id="tk-grid" width="28" height="28" patternUnits="userSpaceOnUse">
+                  <path d="M28 0 L0 0 0 28" fill="none" stroke="rgba(255,255,255,.06)" stroke-width="1"/>
+                </pattern>
+              </defs>
+              <rect width="240" height="280" fill="url(#tk-grid)"/>
+              <path d="M-10 150 Q60 120 110 160 T260 130" stroke="rgba(255,255,255,.10)" stroke-width="14" fill="none"/>
+              <path d="M40 300 C70 220 120 220 120 150 S180 60 210 -10" stroke="var(--app-accent)" stroke-width="3" fill="none" stroke-linecap="round" stroke-dasharray="2 7"/>
+            </svg>
+            <span class="tk-rec-weather"><Ic name="sun" size={12} />28°C · 渋谷</span>
+            <span class="tk-rec-loc" aria-hidden="true"></span>
+          </div>
 
-    {variant === 'community' && (
-      <div class="ph-comm">
-        <div class="ph-status"><span>9:41</span><span class="ph-status-r"><Ic name="signal" size={11} /><Ic name="wifi" size={11} /><Ic name="battery-full" size={14} /></span></div>
-        <div class="ph-topbar"><strong style="font-size:.92rem;">ちかくのおともだち</strong><span class="ph-iconbtn"><Ic name="users" size={14} /></span></div>
-        <ul class="ph-comm-list">
-          {[
-            { n:'まる', b:'トイプー', t:'🌅 朝型', d:'350m', e:'🐩' },
-            { n:'そら', b:'コーギー', t:'⚡ パワフル', d:'480m', e:'🐕' },
-            { n:'コタロー', b:'柴犬', t:'🧭 探検家', d:'720m', e:'🦮' },
-            { n:'ミルク', b:'ポメ', t:'🛤 定番派', d:'880m', e:'🐶' },
-          ].map((u) => (
-            <li>
-              <span class="av">{u.e}</span>
-              <span class="mid"><strong>{u.n}</strong><em>{u.b} ・ {u.t}</em></span>
-              <span class="d">{u.d}</span>
-            </li>
-          ))}
-        </ul>
-      </div>
-    )}
+          <div class="tk-rec-actions">
+            <button class="tk-hero tk-rec-log" type="button">
+              <div>
+                <span class="tk-hero-kicker">TAP TO LOG</span>
+                <span class="tk-hero-title">いま休憩した</span>
+                <span class="tk-hero-note">位置と時刻は自動取得</span>
+              </div>
+              <span class="tk-hero-circle sq"><Ic name="plus" size={24} /></span>
+            </button>
+            <button class="tk-rec-stop" type="button">長押しで終了</button>
+            <p class="tk-rec-foot">屋外でも見やすいダークUI</p>
+          </div>
+        </>
+      )}
 
+      {variant === 'result' && (
+        <>
+          <header class="tk-top">
+            <span class="tk-iconbtn ghost"><Ic name="chevron-left" size={18} /></span>
+            <strong class="tk-top-title">愛犬タイプ診断</strong>
+            <span class="tk-iconbtn ghost"><Ic name="share-2" size={16} /></span>
+          </header>
+
+          <div class="tk-body">
+            <div class="tk-diag-card">
+              <span class="tk-diag-glow" aria-hidden="true"></span>
+              <span class="tk-diag-emoji"><Ic name="thermometer" size={48} /></span>
+              <div class="tk-diag-title">日陰ハンター型</div>
+              <p class="tk-diag-desc">気温が高くなると休憩が増える、暑さに敏感なタイプです。木陰やベンチを好んで休憩します。</p>
+            </div>
+
+            <div class="tk-card tk-feat">
+              <p class="tk-feat-label">特徴</p>
+              <ul>
+                <li><span>•</span>25℃以上で休憩率が2倍に増加</li>
+                <li><span>•</span>日陰のある場所を好んで休憩</li>
+                <li><span>•</span>朝の散歩では休憩が少ない傾向</li>
+              </ul>
+            </div>
+          </div>
+        </>
+      )}
+
+      {variant === 'stats' && (
+        <>
+          <header class="tk-top">
+            <strong class="tk-page-title">統計</strong>
+            <span class="tk-iconbtn ghost"><Ic name="share-2" size={16} /></span>
+          </header>
+
+          <div class="tk-body">
+            <div class="tk-seg">
+              <span class="on">週間</span>
+              <span>月間<Ic name="lock" size={10} /></span>
+              <span>全期間<Ic name="lock" size={10} /></span>
+            </div>
+
+            <div class="tk-card tk-stat-hero">
+              <div class="tk-stat-hero-top">
+                <div>
+                  <span class="tk-mut up">今週の散歩</span>
+                  <p class="tk-stat-big">5.2<i>km</i></p>
+                  <span class="tk-mut">1月8日 〜 14日</span>
+                </div>
+                <span class="tk-pill-pos"><Ic name="trending-up" size={11} />+12%</span>
+              </div>
+              <div class="tk-bars">
+                {statBars.map((b) => (
+                  <span class="tk-bar">
+                    <i class={b.hot ? 'hot' : ''} style={`height:${Math.max(8, Math.round((b.v / statMax) * 56))}px`}></i>
+                    <em>{b.d}</em>
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            <div class="tk-mini-grid">
+              <div class="tk-card tk-mini"><span class="r"><Ic name="clock" size={13} /><i class="pos">+3</i></span><b>28<em>分</em></b><span class="tk-mut">平均時間</span></div>
+              <div class="tk-card tk-mini"><span class="r"><Ic name="footprints" size={13} /><i class="neg">−2</i></span><b>12<em>回</em></b><span class="tk-mut">休憩数</span></div>
+              <div class="tk-card tk-mini"><span class="r"><Ic name="flame" size={13} /><i class="pos">+1</i></span><b>3<em>日</em></b><span class="tk-mut">連続</span></div>
+              <div class="tk-card tk-mini"><span class="r"><Ic name="trending-up" size={13} /><i>±0</i></span><b>4.6<em>km/h</em></b><span class="tk-mut">ペース</span></div>
+            </div>
+          </div>
+        </>
+      )}
+
+      {variant === 'community' && (
+        <>
+          <header class="tk-top">
+            <strong class="tk-page-title">コミュニティ</strong>
+          </header>
+
+          <div class="tk-body">
+            <h3 class="tk-h3">今日の休憩トレンド</h3>
+            <div class="tk-card tk-trend-card">
+              <div class="tk-trow"><span class="l"><Ic name="flame" size={16} />暑い</span><span class="d">↑42%</span></div>
+              <div class="tk-divider"></div>
+              <div class="tk-trow"><span class="l"><Ic name="moon" size={16} />疲れた</span><span class="d">18%</span></div>
+              <div class="tk-divider"></div>
+              <div class="tk-trow"><span class="l"><Ic name="flower" size={16} />匂い</span><span class="d">12%</span></div>
+            </div>
+
+            <h3 class="tk-h3">タイムライン</h3>
+            <div class="tk-card tk-post">
+              <div class="tk-post-head">
+                <span class="tk-dog sm" aria-hidden="true"><svg viewBox="0 0 24 24" fill="rgba(255,255,255,0.95)"><ellipse cx="7" cy="9" rx="1.4" ry="1.8"/><ellipse cx="11" cy="6" rx="1.4" ry="1.8"/><ellipse cx="15" cy="6" rx="1.4" ry="1.8"/><ellipse cx="19" cy="9" rx="1.4" ry="1.8"/><path d="M8 17c0-3 2-5 5-5s5 2 5 5c0 2-2 3-5 3s-5-1-5-3z"/></svg></span>
+                <span class="tk-post-id"><b>もも太郎</b><em>柴犬 3歳 · 晴れ 28℃ · 5分前</em></span>
+              </div>
+              <div class="tk-reacts">
+                <span class="r"><Ic name="footprints" size={13} />うちも！<i>12</i></span>
+                <span class="r"><Ic name="lightbulb" size={13} /><i>5</i></span>
+                <span class="r"><Ic name="dumbbell" size={13} /><i>3</i></span>
+                <span class="r"><Ic name="heart" size={13} /><i>8</i></span>
+              </div>
+            </div>
+            <div class="tk-card tk-post">
+              <div class="tk-post-head">
+                <span class="tk-dog sm" aria-hidden="true"><svg viewBox="0 0 24 24" fill="rgba(255,255,255,0.95)"><ellipse cx="7" cy="9" rx="1.4" ry="1.8"/><ellipse cx="11" cy="6" rx="1.4" ry="1.8"/><ellipse cx="15" cy="6" rx="1.4" ry="1.8"/><ellipse cx="19" cy="9" rx="1.4" ry="1.8"/><path d="M8 17c0-3 2-5 5-5s5 2 5 5c0 2-2 3-5 3s-5-1-5-3z"/></svg></span>
+                <span class="tk-post-id"><b>まる子ママ</b><em>トイプードル 5歳 · 曇り 22℃ · 15分前</em></span>
+              </div>
+              <div class="tk-reacts">
+                <span class="r"><Ic name="footprints" size={13} />うちも！<i>24</i></span>
+                <span class="r"><Ic name="lightbulb" size={13} /><i>8</i></span>
+                <span class="r"><Ic name="dumbbell" size={13} /><i>15</i></span>
+              </div>
+            </div>
+          </div>
+        </>
+      )}
+
+      {activeTab[variant] && (
+        <nav class="tk-nav" aria-hidden="true">
+          {navItems.map((it) => (
+            <span class={`tk-tab${activeTab[variant] === it.id ? ' active' : ''}`}>
+              <svg class="tk-nav-svg" viewBox="0 0 24 24" set:html={it.path} />
+              <em>{it.label}</em>
+            </span>
+          ))}
+        </nav>
+      )}
+
+    </div>
   </div>
 </div>
 
 <style>
-  .ph-status {
-    display:flex; justify-content:space-between; align-items:center;
-    padding: .55rem .9rem .25rem;
-    font-size: .68rem; font-family: var(--font-mono);
-    color: var(--w700);
+  /* ===========================================================
+     Tikareta v2 app screens — faithful in-phone reproductions.
+     Local theme tokens mirror the app (amber/gold), independent
+     of the landing page's orange palette so the mockups read as
+     real app screenshots.
+     =========================================================== */
+  .tk-screen {
+    --app-accent: #faaa00;
+    --app-accent-soft: #fee59a;
+    --app-accent-strong: #a36a10;
+    --app-page: #f5f4f1;
+    --app-card: #ffffff;
+    --app-muted: #f0efec;
+    --app-line: #e5e3df;
+    --app-ink: #1a1a1a;
+    --app-ink-2: #6b6b6b;
+    --app-ink-3: #8a857c;
+    --app-pos: #2e7d32;
+    --app-neg: #c62828;
+
+    flex: 1 1 auto;
+    min-height: 0;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    background: var(--app-page);
+    color: var(--app-ink);
+    font-size: 11px;
+    line-height: 1.4;
+    overflow: hidden;
   }
-  .ph-status .ph-status-r { display:flex; gap:.2rem; align-items:center; }
-  .ph-status.dark { color: #fff; position: absolute; top:0; left:0; right:0; z-index:3; }
-
-  .ph-topbar { display:flex; justify-content:space-between; align-items:center; padding:.55rem .9rem .35rem; }
-  .ph-iconbtn {
-    width: 26px; height: 26px; border-radius: 9px;
-    background: var(--surface-2); display: grid; place-items: center;
-    color: var(--ink-soft);
+  .tk-screen.tk-dark {
+    background: #1a1816;
+    color: #fff5d6;
   }
 
-  .ph-greet { padding:.5rem .95rem .25rem; }
-  .ph-greet .muted { font-size:.7rem; color: var(--ink-mute); }
-  .ph-greet .ph-greet-title { font-size:1.05rem; font-weight: 800; line-height:1.3; margin-top:.1rem; }
-
-  .ph-streak {
-    margin: .65rem .95rem 0;
-    background: linear-gradient(135deg, var(--accent-soft), color-mix(in oklab, var(--accent) 14%, var(--surface)));
-    border: 1px solid color-mix(in oklab, var(--accent) 18%, transparent);
-    border-radius: 14px; padding: .65rem .85rem;
-    display: flex; align-items: center; justify-content: space-between;
+  .tk-screen :global(.ic) {
+    stroke-width: 2;
+    flex-shrink: 0;
   }
-  .ph-streak .muted { font-size:.6rem; color: var(--accent-deep); font-weight:600; letter-spacing:.05em; text-transform:uppercase; }
-  .ph-streak .num { font-size:1.4rem; font-weight:800; color: var(--accent-deep); line-height:1; margin-top:.1rem; }
-  .ph-streak .num span { font-size:.7rem; margin-left:.15rem; font-weight:600; }
-  .ph-streak-dots { display:flex; gap:3px; }
-  .ph-streak-dots span { width: 14px; height: 14px; border-radius: 50%; background: rgba(0,0,0,.06); }
-  .ph-streak-dots span.on { background: var(--accent); box-shadow: 0 0 0 2px color-mix(in oklab, var(--accent) 18%, transparent); }
 
-  .ph-secth { padding:.85rem .95rem .35rem; display:flex; justify-content:space-between; align-items:center; font-size:.7rem; }
-  .ph-secth .ph-link { color: var(--accent-deep); font-weight:600; }
-
-  .ph-mood { padding:0 .95rem; display:grid; grid-template-columns:repeat(4,1fr); gap:.3rem; }
-  .ph-mood button {
-    background: var(--surface-2); border-radius: 10px;
-    padding: .45rem .15rem;
-    display:flex; flex-direction:column; align-items:center; gap:.1rem;
-    border: 1px solid transparent;
+  /* ----- Status bar ----- */
+  .tk-status {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 0.9rem 0.15rem;
+    font-size: 0.62rem;
+    font-weight: 700;
+    flex-shrink: 0;
   }
-  .ph-mood button.active { background: var(--surface); border-color: var(--accent); box-shadow: 0 0 0 2px color-mix(in oklab, var(--accent) 14%, transparent); }
-  .ph-mood .e { font-size: 1.05rem; }
-  .ph-mood .l { font-size: .55rem; color: var(--ink-soft); font-weight:600; }
-
-  .ph-fab {
-    margin: 1rem auto 0; position:relative;
-    width: 96px; height: 96px; border-radius: 50%;
-    background: var(--accent); color: #fff;
-    display:flex; flex-direction:column; align-items:center; justify-content:center; gap:.1rem;
-    box-shadow: 0 12px 28px -8px color-mix(in oklab, var(--accent) 60%, transparent);
+  .tk-status-icons {
+    display: flex;
+    gap: 0.18rem;
+    align-items: center;
   }
-  .ph-fab .ring {
-    position: absolute; inset: -6px; border-radius: 50%;
-    border: 2px dashed color-mix(in oklab, var(--accent) 35%, transparent);
-    animation: spin 18s linear infinite;
+  .tk-dark .tk-status {
+    color: #fff;
   }
-  @keyframes spin { to { transform: rotate(360deg); } }
-  .ph-fab .lbl { font-size: .55rem; letter-spacing:.05em; font-weight:700; }
 
-  .ph-tabs {
+  /* ----- Top bar ----- */
+  .tk-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.35rem 0.85rem 0.4rem;
+    flex-shrink: 0;
+  }
+  .tk-brand {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+  .tk-brand strong {
+    font-size: 0.82rem;
+    font-weight: 700;
+    letter-spacing: 0.01em;
+  }
+  .tk-logo {
+    width: 26px;
+    height: 26px;
+    border-radius: 8px;
+    background: linear-gradient(135deg, #ffd66b 0%, #faaa00 50%, #d88c00 100%);
+    display: grid;
+    place-items: center;
+    box-shadow: 0 2px 8px rgba(250, 170, 0, 0.3);
+  }
+  .tk-logo svg {
+    width: 15px;
+    height: 15px;
+  }
+  .tk-top-r {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+  .tk-top-title {
+    font-size: 0.78rem;
+    font-weight: 600;
+  }
+  .tk-page-title {
+    font-size: 1rem;
+    font-weight: 700;
+  }
+  .tk-iconbtn {
+    position: relative;
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    color: var(--app-ink-2);
+  }
+  .tk-iconbtn.ghost {
+    color: var(--app-ink);
+  }
+  .tk-top-dark .tk-iconbtn {
+    color: rgba(255, 245, 214, 0.7);
+  }
+  .tk-dot {
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #f37535;
+    border: 1.5px solid #fff;
+  }
+  .tk-dog {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #f3d795 0%, #e0a86b 50%, #b87333 100%);
+    display: grid;
+    place-items: center;
+    box-shadow: inset 0 -2px 6px rgba(0, 0, 0, 0.1);
+  }
+  .tk-dog svg {
+    width: 16px;
+    height: 16px;
+  }
+  .tk-dog.sm {
+    width: 28px;
+    height: 28px;
+  }
+  .tk-dog.sm svg {
+    width: 15px;
+    height: 15px;
+  }
+
+  /* ----- Scroll body ----- */
+  .tk-body {
+    flex: 1;
+    overflow: hidden;
+    padding: 0.3rem 0.9rem 0.6rem;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* ----- Section heading ----- */
+  .tk-h3 {
+    font-size: 0.8rem;
+    font-weight: 700;
+    margin: 0.85rem 0 0.4rem;
+  }
+  .tk-mut {
+    color: var(--app-ink-3);
+    font-size: 0.62rem;
+  }
+  .tk-mut.up {
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+
+  /* ----- Card ----- */
+  .tk-card {
+    background: var(--app-card);
+    border: 1px solid var(--app-line);
+    border-radius: 14px;
+    padding: 0.7rem;
+  }
+  .tk-divider {
+    height: 1px;
+    background: var(--app-line);
+    margin: 0.55rem 0;
+  }
+  .tk-vline {
+    width: 1px;
+    align-self: stretch;
+    background: var(--app-line);
+  }
+  .tk-vline.dark {
+    background: rgba(255, 255, 255, 0.12);
+  }
+
+  /* ----- Golden-retriever hero button ----- */
+  .tk-hero {
+    width: 100%;
+    margin-top: 0.4rem;
+    padding: 0.75rem 0.85rem;
+    border-radius: 18px;
+    background: linear-gradient(160deg, #f3ce7e 0%, #d9a84e 100%);
+    border: 1px solid #a8762a;
+    color: #382a1a;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    text-align: left;
+    box-shadow: 0 8px 22px rgba(168, 118, 42, 0.28);
+  }
+  .tk-hero-kicker {
+    display: block;
+    font-size: 0.55rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    opacity: 0.85;
+  }
+  .tk-hero-title {
+    display: block;
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-top: 0.15rem;
+    letter-spacing: -0.01em;
+  }
+  .tk-hero-note {
+    display: block;
+    font-size: 0.58rem;
+    opacity: 0.85;
+    margin-top: 0.15rem;
+  }
+  .tk-hero-circle {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    background: #382a1a;
+    color: #d1a24b;
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+  }
+  .tk-hero-circle.sq {
+    border-radius: 14px;
+    width: 46px;
+    height: 46px;
+  }
+
+  /* ----- Dog-type card (Home) ----- */
+  .tk-typecard {
+    width: 100%;
+    margin-top: 0.9rem;
+    padding: 0.6rem;
+    border-radius: 16px;
+    border: 1px solid var(--app-line);
+    background: var(--app-card);
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    text-align: left;
+  }
+  .tk-type-emoji {
+    width: 40px;
+    height: 40px;
+    border-radius: 12px;
+    flex-shrink: 0;
+    background: linear-gradient(150deg, #2a2724, #1a1816);
+    border: 1px solid var(--app-accent);
+    color: var(--app-accent);
+    display: grid;
+    place-items: center;
+  }
+  .tk-type-mid {
+    flex: 1;
+    min-width: 0;
+  }
+  .tk-type-mid em {
+    display: block;
+    font-style: normal;
+    font-size: 0.5rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    color: var(--app-accent-strong);
+    text-transform: uppercase;
+  }
+  .tk-type-mid strong {
+    display: block;
+    font-size: 0.82rem;
+    font-weight: 700;
+    margin-top: 0.1rem;
+  }
+  .tk-typecard > :global(.ic) {
+    color: var(--app-ink-3);
+  }
+
+  /* ----- Streak ----- */
+  .tk-streak-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 0.55rem;
+  }
+  .tk-streak-num {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 0.25rem;
+    color: var(--app-accent-strong);
+  }
+  .tk-streak-num :global(.ic) {
+    align-self: center;
+  }
+  .tk-streak-num b {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--app-ink);
+    letter-spacing: -0.02em;
+  }
+  .tk-streak-num i {
+    font-style: normal;
+    font-size: 0.62rem;
+    color: var(--app-ink-2);
+  }
+  .tk-week {
+    display: flex;
+    justify-content: space-between;
+  }
+  .tk-wd {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.25rem;
+  }
+  .tk-wd-dot {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    border: 1.5px solid var(--app-line);
+    display: grid;
+    place-items: center;
+    color: #2a1f00;
+    box-sizing: border-box;
+  }
+  .tk-wd-dot.done {
+    background: var(--app-accent);
+    border: none;
+  }
+  .tk-wd-dot.today {
+    border: 2.5px solid var(--app-accent-strong);
+  }
+  .tk-wd-dot.future {
+    border: 1.5px dashed var(--app-ink-3);
+  }
+  .tk-wd em {
+    font-style: normal;
+    font-size: 0.55rem;
+    color: var(--app-ink-3);
+  }
+  .tk-wd em.on {
+    color: var(--app-ink);
+    font-weight: 700;
+  }
+
+  /* ----- Today summary ----- */
+  .tk-sum {
+    display: flex;
+    gap: 0.5rem;
+  }
+  .tk-sum-col {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.1rem;
+  }
+  .tk-sum-col b {
+    font-size: 1.15rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+  }
+  .tk-sum-col b i {
+    font-style: normal;
+    font-size: 0.6rem;
+    font-weight: 500;
+    color: var(--app-ink-2);
+    margin-left: 0.1rem;
+  }
+  .tk-sum-col em {
+    font-style: normal;
+    font-size: 0.58rem;
+    color: var(--app-ink-3);
+  }
+  .tk-sub-label {
+    font-size: 0.58rem;
+    color: var(--app-ink-3);
+    letter-spacing: 0.05em;
+    margin-bottom: 0.4rem;
+  }
+  .tk-trend {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: 0.45rem;
+    margin-top: 0.35rem;
+    font-size: 0.6rem;
+  }
+  .tk-trend .l {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+  }
+  .tk-trend .t {
+    height: 5px;
+    background: var(--app-muted);
+    border-radius: 99px;
+    overflow: hidden;
+  }
+  .tk-trend .t i {
+    display: block;
+    height: 100%;
+    background: var(--app-accent);
+  }
+  .tk-trend .v {
+    color: var(--app-ink-3);
+  }
+
+  /* ===== Record (WalkActive, dark) ===== */
+  .tk-rec-timer {
+    text-align: center;
+    padding: 0.5rem 1rem 0.7rem;
+    flex-shrink: 0;
+  }
+  .tk-rec-kicker {
+    font-size: 0.55rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(255, 245, 214, 0.7);
+    font-weight: 600;
+  }
+  .tk-rec-time {
+    display: block;
+    font-size: 3.1rem;
+    font-weight: 700;
+    letter-spacing: -0.04em;
+    line-height: 1;
+    margin-top: 0.2rem;
+    color: #fff;
+  }
+  .tk-rec-stats {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.9rem;
+    margin-top: 0.6rem;
+  }
+  .tk-rec-stats span:not(.tk-vline) {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .tk-rec-stats b {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: #fff;
+    letter-spacing: -0.02em;
+  }
+  .tk-rec-stats em {
+    font-style: normal;
+    font-size: 0.55rem;
+    color: rgba(255, 245, 214, 0.5);
+  }
+  .tk-rec-stats .tk-vline.dark {
+    height: 22px;
+  }
+  .tk-rec-map {
+    flex: 1;
+    position: relative;
+    margin: 0 0.7rem 0.6rem;
+    border-radius: 18px;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    background: linear-gradient(135deg, #2a2724, #211e1a);
+  }
+  .tk-rec-map svg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+  .tk-rec-weather {
+    position: absolute;
+    top: 9px;
+    left: 9px;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    padding: 0.3rem 0.6rem;
+    border-radius: 99px;
+    background: rgba(0, 0, 0, 0.55);
+    color: #fff5d6;
+    font-size: 0.58rem;
+    backdrop-filter: blur(6px);
+  }
+  .tk-rec-weather :global(.ic) {
+    color: var(--app-accent);
+  }
+  .tk-rec-loc {
+    position: absolute;
+    top: 56%;
+    left: 48%;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: var(--app-accent);
+    border: 3px solid #fff;
+    transform: translate(-50%, -50%);
+    box-shadow: 0 0 0 7px rgba(250, 170, 0, 0.25);
+  }
+  .tk-rec-actions {
+    padding: 0 0.85rem 0.7rem;
+    flex-shrink: 0;
+  }
+  .tk-rec-log {
+    margin-top: 0;
+    box-shadow: 0 10px 28px rgba(168, 118, 42, 0.35);
+  }
+  .tk-rec-stop {
+    width: 100%;
+    margin-top: 0.5rem;
+    height: 38px;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 140, 140, 0.35);
+    background: rgba(255, 80, 80, 0.08);
+    color: #ffb8b8;
+    font-size: 0.72rem;
+    font-weight: 600;
+  }
+  .tk-rec-foot {
+    margin-top: 0.45rem;
+    text-align: center;
+    font-size: 0.55rem;
+    color: rgba(255, 245, 214, 0.65);
+  }
+
+  /* ===== Result (Diagnosis) ===== */
+  .tk-diag-card {
+    position: relative;
+    margin-top: 0.4rem;
+    padding: 1rem 0.9rem;
+    border-radius: 20px;
+    background: linear-gradient(150deg, #2a2724 0%, #1a1816 50%, #0f0e0c 100%);
+    color: #fff5d6;
+    border: 2px solid #faaa00;
+    overflow: hidden;
+    box-shadow: 0 18px 36px rgba(0, 0, 0, 0.18);
+  }
+  .tk-diag-glow {
+    position: absolute;
+    top: -40px;
+    right: -40px;
+    width: 150px;
+    height: 150px;
+    background: radial-gradient(circle, rgba(250, 170, 0, 0.28) 0%, transparent 62%);
+    pointer-events: none;
+  }
+  .tk-diag-emoji {
+    position: relative;
+    color: var(--app-accent);
+    filter: drop-shadow(0 4px 12px rgba(250, 170, 0, 0.4));
+  }
+  .tk-diag-title {
+    position: relative;
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin-top: 0.35rem;
+  }
+  .tk-diag-desc {
+    position: relative;
+    font-size: 0.64rem;
+    line-height: 1.65;
+    margin-top: 0.6rem;
+    color: rgba(255, 245, 214, 0.85);
+  }
+  .tk-feat {
+    margin-top: 0.8rem;
+  }
+  .tk-feat-label {
+    font-size: 0.55rem;
+    letter-spacing: 0.1em;
+    color: var(--app-ink-3);
+    text-transform: uppercase;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+  }
+  .tk-feat ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+  }
+  .tk-feat li {
+    display: flex;
+    gap: 0.45rem;
+    font-size: 0.68rem;
+    line-height: 1.45;
+  }
+  .tk-feat li span {
+    color: var(--app-accent-strong);
+    font-weight: 700;
+  }
+
+  /* ===== Stats ===== */
+  .tk-seg {
+    display: flex;
+    gap: 0.15rem;
+    background: var(--app-muted);
+    border-radius: 99px;
+    padding: 0.18rem;
+    margin-top: 0.4rem;
+  }
+  .tk-seg span {
+    flex: 1;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.2rem;
+    padding: 0.35rem 0;
+    border-radius: 99px;
+    font-size: 0.62rem;
+    font-weight: 600;
+    color: var(--app-ink-2);
+  }
+  .tk-seg span :global(.ic) {
+    color: #f97316;
+  }
+  .tk-seg span.on {
+    background: var(--app-card);
+    color: var(--app-ink);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+  }
+  .tk-stat-hero {
+    margin-top: 0.7rem;
+  }
+  .tk-stat-hero-top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+  }
+  .tk-stat-big {
+    font-size: 1.9rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin: 0.1rem 0;
+  }
+  .tk-stat-big i {
+    font-style: normal;
+    font-size: 0.7rem;
+    font-weight: 500;
+    color: var(--app-ink-2);
+    margin-left: 0.15rem;
+  }
+  .tk-pill-pos {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.2rem;
+    padding: 0.2rem 0.45rem;
+    border-radius: 99px;
+    font-size: 0.6rem;
+    font-weight: 700;
+    background: rgba(80, 160, 90, 0.13);
+    color: #2e7d32;
+  }
+  .tk-bars {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 0.3rem;
+    height: 72px;
+    margin-top: 0.7rem;
+  }
+  .tk-bar {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.25rem;
+    justify-content: flex-end;
+    height: 100%;
+  }
+  .tk-bar i {
+    display: block;
+    width: 100%;
+    max-width: 16px;
+    border-radius: 4px 4px 0 0;
+    background: var(--app-accent-soft);
+  }
+  .tk-bar i.hot {
+    background: var(--app-accent);
+  }
+  .tk-bar em {
+    font-style: normal;
+    font-size: 0.52rem;
+    color: var(--app-ink-3);
+  }
+  .tk-mini-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.5rem;
+    margin-top: 0.6rem;
+  }
+  .tk-mini {
+    padding: 0.55rem 0.6rem;
+  }
+  .tk-mini .r {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: var(--app-ink-2);
+    margin-bottom: 0.25rem;
+  }
+  .tk-mini .r i {
+    font-style: normal;
+    font-size: 0.55rem;
+    font-weight: 600;
+    color: var(--app-ink-3);
+  }
+  .tk-mini .r i.pos {
+    color: var(--app-pos);
+  }
+  .tk-mini .r i.neg {
+    color: var(--app-neg);
+  }
+  .tk-mini b {
+    font-size: 1.1rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+  }
+  .tk-mini b em {
+    font-style: normal;
+    font-size: 0.58rem;
+    font-weight: 500;
+    color: var(--app-ink-2);
+    margin-left: 0.12rem;
+  }
+  .tk-mini .tk-mut {
+    display: block;
+    margin-top: 0.05rem;
+  }
+
+  /* ===== Community ===== */
+  .tk-trend-card {
+    margin-top: 0;
+  }
+  .tk-trow {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .tk-trow .l {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.72rem;
+    font-weight: 500;
+  }
+  .tk-trow .l :global(.ic) {
+    color: var(--app-ink-2);
+  }
+  .tk-trow .d {
+    font-size: 0.65rem;
+    font-weight: 700;
+    color: var(--app-accent-strong);
+  }
+  .tk-post {
+    margin-bottom: 0.5rem;
+  }
+  .tk-post-head {
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+  }
+  .tk-post-id b {
+    display: block;
+    font-size: 0.72rem;
+    font-weight: 700;
+  }
+  .tk-post-id em {
+    display: block;
+    font-style: normal;
+    font-size: 0.55rem;
+    color: var(--app-ink-3);
+    margin-top: 0.1rem;
+  }
+  .tk-reacts {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.3rem;
+    margin-top: 0.5rem;
+  }
+  .tk-reacts .r {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.2rem;
+    padding: 0.25rem 0.45rem;
+    border-radius: 99px;
+    border: 1px solid var(--app-line);
+    background: var(--app-page);
+    font-size: 0.58rem;
+    font-weight: 500;
+  }
+  .tk-reacts .r :global(.ic) {
+    color: var(--app-ink-2);
+  }
+  .tk-reacts .r i {
+    font-style: normal;
+    color: var(--app-ink-2);
+  }
+
+  /* ===== Bottom nav ===== */
+  .tk-nav {
     margin-top: auto;
-    display:grid; grid-template-columns:repeat(4,1fr);
-    border-top: 1px solid var(--line); padding: .4rem 0 .55rem;
-    background: var(--surface);
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    border-top: 1px solid var(--app-line);
+    background: var(--app-card);
+    padding: 0.4rem 0.2rem 0.5rem;
+    flex-shrink: 0;
   }
-  .ph-tabs span { display:flex; flex-direction:column; align-items:center; gap:.1rem; color: var(--ink-mute); font-size:.55rem; }
-  .ph-tabs span.active { color: var(--accent-deep); }
-  .ph-tabs em { font-style: normal; font-weight: 600; }
-
-  /* Record */
-  .ph-record { position:relative; height:100%; background:#1c1917; }
-  .ph-rec-map { position:absolute; inset:0; }
-  .ph-rec-map svg { width:100%; height:100%; }
-  .ph-rec-overlay {
-    position:absolute; left:0; right:0; bottom:0;
-    background: linear-gradient(to top, rgba(0,0,0,.85), rgba(0,0,0,0));
-    color: #fff; padding: 1.2rem 1rem 1rem;
+  .tk-tab {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.18rem;
+    color: var(--app-ink-2);
   }
-  .ph-rec-time { font-size: 1.8rem; font-weight: 800; font-family: var(--font-mono); letter-spacing:-.02em; }
-  .ph-rec-row { display:flex; gap:.6rem; margin: .6rem 0 .85rem; }
-  .ph-rec-row > div { flex:1; }
-  .ph-rec-row em { font-style: normal; font-size:.55rem; color:rgba(255,255,255,.55); letter-spacing:.05em; text-transform:uppercase; }
-  .ph-rec-row strong { display:block; font-size: .95rem; font-weight:700; }
-  .ph-rec-row span { font-size:.65rem; opacity:.65; margin-left:.15rem; font-weight:500; }
-  .ph-rec-stop {
-    width:100%; padding:.65rem; border-radius: var(--r-pill);
-    background: var(--accent-deep); color:#fff;
-    font-weight:700; font-size:.78rem;
-    display:flex; align-items:center; justify-content:center; gap:.4rem;
+  .tk-tab.active {
+    color: var(--app-ink);
   }
-
-  /* Result */
-  .ph-result-hero { padding: .65rem .95rem .25rem; text-align:center; }
-  .ph-result-hero .emoji { width: 64px; height: 64px; border-radius: 18px; background: var(--accent-soft); display: grid; place-items: center; font-size: 2rem; margin: .35rem auto .5rem; }
-  .ph-result-hero .muted { font-size:.62rem; color: var(--ink-mute); letter-spacing:.05em; }
-  .ph-result-hero h3 { font-size: 1.05rem; font-weight: 800; }
-  .ph-result-hero .sub { font-size:.65rem; color: var(--ink-soft); line-height:1.5; margin-top:.3rem; padding:0 .25rem; }
-
-  .ph-bars { padding: .7rem .95rem .25rem; display:flex; flex-direction:column; gap:.5rem; }
-  .ph-bar { display:flex; align-items:center; gap:.5rem; font-size:.62rem; }
-  .ph-bar .l { width:42px; color:var(--ink-soft); font-weight:600; }
-  .ph-bar .track { flex:1; height:6px; background: var(--surface-2); border-radius: var(--r-pill); overflow:hidden; }
-  .ph-bar .fill { display:block; height:100%; background: linear-gradient(90deg, var(--accent), color-mix(in oklab, var(--accent) 60%, var(--accent-2))); border-radius: inherit; }
-  .ph-bar .v { width:18px; text-align:right; font-family: var(--font-mono); color: var(--ink); font-weight:700; }
-  .ph-cta { margin: .65rem .95rem 1rem; padding: .65rem; border-radius: var(--r-pill); background: var(--ink); color: var(--bg); font-weight: 700; font-size:.78rem; }
-
-  /* History */
-  .ph-summary { display:flex; padding:.45rem .95rem; gap:.6rem; }
-  .ph-summary > div { flex:1; background: var(--surface-2); border-radius:10px; padding:.55rem .55rem .5rem; }
-  .ph-summary em { font-style:normal; font-size:.55rem; color:var(--ink-mute); letter-spacing:.05em; text-transform:uppercase; }
-  .ph-summary strong { display:block; font-size:.95rem; font-weight:800; margin-top:.1rem; }
-  .ph-summary span { font-size:.6rem; opacity:.7; margin-left:.15rem; font-weight:500; }
-  .ph-cal { margin: .85rem .95rem 0; display:grid; grid-template-columns: repeat(6, 1fr); gap: 4px; }
-  .hc { aspect-ratio:1; border-radius: 4px; background: var(--surface-2); }
-  .hc.lvl-1 { background: color-mix(in oklab, var(--accent) 22%, var(--surface)); }
-  .hc.lvl-2 { background: color-mix(in oklab, var(--accent) 45%, var(--surface)); }
-  .hc.lvl-3 { background: color-mix(in oklab, var(--accent) 70%, var(--surface)); }
-  .hc.lvl-4 { background: var(--accent); }
-  .ph-note { padding: .85rem .95rem; font-size:.7rem; color: var(--ink-soft); text-align:center; }
-
-  /* Community */
-  .ph-comm-list { list-style:none; padding:.4rem .55rem; margin:0; display:flex; flex-direction:column; gap:.3rem; }
-  .ph-comm-list li { display:flex; align-items:center; gap:.5rem; padding:.55rem; border-radius: 12px; background: var(--surface-2); }
-  .ph-comm-list .av { width: 30px; height: 30px; border-radius:10px; background: var(--surface); display:grid; place-items:center; font-size:1rem; }
-  .ph-comm-list .mid { display:flex; flex-direction:column; flex:1; min-width:0; }
-  .ph-comm-list .mid strong { font-size:.75rem; font-weight:700; }
-  .ph-comm-list .mid em { font-style:normal; font-size:.58rem; color:var(--ink-mute); }
-  .ph-comm-list .d { font-size:.6rem; color:var(--accent-deep); font-weight:700; font-family: var(--font-mono); }
+  .tk-tab.active .tk-nav-svg {
+    color: var(--app-accent-strong);
+  }
+  .tk-nav-svg {
+    width: 19px;
+    height: 19px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.8;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+  .tk-tab em {
+    font-style: normal;
+    font-size: 0.5rem;
+    font-weight: 600;
+  }
 </style>

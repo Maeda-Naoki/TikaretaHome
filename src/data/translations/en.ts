@@ -28,9 +28,9 @@ export const en: Translations = {
     badge: 'Spring 2026 Release / Phase 1 in Development',
     meta: ['No credit card required', 'iOS & Android', 'Family sharing'],
     floatCards: {
-      streak: { label: 'Streak', value: '12 days' },
+      streak: { label: 'Streak', value: '3 days' },
       myDog: { label: 'My dog is' },
-      todayWalk: { label: "Today's Walk", duration: '18 min' },
+      todayWalk: { label: "Today's Walk", duration: '30 min' },
     },
   },
   valueProposition: {
@@ -107,7 +107,7 @@ export const en: Translations = {
   showcase: {
     title: 'Everything in one app.',
     subtitle: 'Walk logging, type diagnosis, memories, and community — all in Tikareta.',
-    screens: ['Home', 'Recording', 'Type Diagnosis', 'History', 'Community'],
+    screens: ['Home', 'Walk Tracking', 'Type Diagnosis', 'Stats', 'Community'],
   },
   footer: {
     privacy: 'Privacy Policy',

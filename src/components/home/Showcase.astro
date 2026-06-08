@@ -5,7 +5,7 @@ import { useTranslations } from '@utils/i18n';
 const locale = Astro.currentLocale ?? 'ja';
 const t = useTranslations(locale);
 
-const variants = ['home', 'record', 'result', 'history', 'community'] as const;
+const variants = ['home', 'record', 'result', 'stats', 'community'] as const;
 const screens = variants.map((variant, i) => ({
   variant,
   label: t.showcase.screens[i],
