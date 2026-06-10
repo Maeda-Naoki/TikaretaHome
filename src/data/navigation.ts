@@ -35,3 +35,6 @@ export const footerNav: NavItem[] = [
 ];
 
 export const appUrl = 'https://tikareta.com';
+
+// アプリ公開時は false に変更するだけで全ページのリンクが復元される
+export const APP_COMING_SOON = true;

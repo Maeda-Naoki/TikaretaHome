@@ -1,5 +1,5 @@
 ---
-import { appUrl } from '@data/navigation';
+import { APP_COMING_SOON, appUrl } from '@data/navigation';
 import { useTranslations } from '@utils/i18n';
 
 interface Props {
@@ -26,12 +26,18 @@ const sizeClasses = {
 };
 ---
 
-<a
-  href={appUrl}
-  class={`inline-block font-bold rounded-button transition-all duration-300 ${variantClasses[variant]} ${sizeClasses[size]}`}
-  target="_blank"
-  rel="noopener noreferrer"
->
-  {text}
-  <span class="sr-only">{t.common.newTab}</span>
-</a>
+{APP_COMING_SOON ? (
+  <span class={`inline-block font-bold rounded-button cursor-default opacity-60 ${variantClasses[variant]} ${sizeClasses[size]}`}>
+    {t.common.comingSoon}
+  </span>
+) : (
+  <a
+    href={appUrl}
+    class={`inline-block font-bold rounded-button transition-all duration-300 ${variantClasses[variant]} ${sizeClasses[size]}`}
+    target="_blank"
+    rel="noopener noreferrer"
+  >
+    {text}
+    <span class="sr-only">{t.common.newTab}</span>
+  </a>
+)}

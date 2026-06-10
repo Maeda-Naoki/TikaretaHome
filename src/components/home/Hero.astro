@@ -1,6 +1,7 @@
 ---
 import Ic from '@components/common/Ic.astro';
 import PhoneMock from '@components/common/PhoneMock.astro';
+import { APP_COMING_SOON } from '@data/navigation';
 import { useTranslations } from '@utils/i18n';
 
 const locale = Astro.currentLocale ?? 'ja';
@@ -22,7 +23,7 @@ const titleLines = t.hero.title.split('\n');
     <!-- Copy -->
     <div class="hero-copy">
       <span class="badge-new">
-        <span class="dot"></span>{t.hero.badge}
+        <span class="dot"></span>{APP_COMING_SOON ? t.common.comingSoon : t.hero.badge}
       </span>
       <h1 class="hero-headline">
         {titleLines[0]}<br />
@@ -31,9 +32,15 @@ const titleLines = t.hero.title.split('\n');
       </h1>
       <p class="hero-lead">{t.hero.subtitle}</p>
       <div class="hero-cta">
-        <a class="btn btn-primary btn-lg" href="#cta">
-          <Ic name="footprints" size={18} />{t.hero.cta}
-        </a>
+        {APP_COMING_SOON ? (
+          <span class="btn btn-primary btn-lg" style="cursor:default; opacity:.6; pointer-events:none;">
+            <Ic name="footprints" size={18} />{t.common.comingSoon}
+          </span>
+        ) : (
+          <a class="btn btn-primary btn-lg" href="#cta">
+            <Ic name="footprints" size={18} />{t.hero.cta}
+          </a>
+        )}
         <a class="btn btn-ghost btn-lg" href="#how">
           <Ic name="play" size={14} />{t.hero.secondaryCta}
         </a>

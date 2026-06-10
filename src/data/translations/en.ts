@@ -431,5 +431,6 @@ export const en: Translations = {
     close: 'Close',
     language: 'Language',
     newTab: '(opens in new tab)',
+    comingSoon: 'Coming Soon',
   },
 };
