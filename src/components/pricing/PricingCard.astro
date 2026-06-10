@@ -1,4 +1,5 @@
 ---
+import { APP_COMING_SOON } from '@data/navigation';
 import { format, savingsMonths, useTranslations } from '@utils/i18n';
 
 interface Props {
@@ -86,21 +87,34 @@ const monthlyEquivText = yearlyPerMonth > 0 ? format(t.pricing.monthlyEquivTempl
       </li>
     ))}
   </ul>
-  <!-- WCAG 3.2.5: target="_blank" に sr-only で通知 -->
-  <a
-    href="https://tikareta.com"
-    class:list={[
-      "block text-center font-bold py-3 px-6 rounded-button transition-all duration-300",
-      recommended
-        ? "bg-primary-700 hover:bg-primary-800 text-white shadow-soft hover:shadow-hover"
-        : "bg-warm-gray-50 hover:bg-warm-gray-100 text-warm-gray-800 border border-warm-gray-200"
-    ]}
-    target="_blank"
-    rel="noopener noreferrer"
-  >
-    {cta}
-    <span class="sr-only">{t.common.newTab}</span>
-  </a>
+  {APP_COMING_SOON ? (
+    <span
+      class:list={[
+        "block text-center font-bold py-3 px-6 rounded-button cursor-default opacity-60",
+        recommended
+          ? "bg-primary-700 text-white"
+          : "bg-warm-gray-50 text-warm-gray-800 border border-warm-gray-200"
+      ]}
+    >
+      {t.common.comingSoon}
+    </span>
+  ) : (
+    <!-- WCAG 3.2.5: target="_blank" に sr-only で通知 -->
+    <a
+      href="https://tikareta.com"
+      class:list={[
+        "block text-center font-bold py-3 px-6 rounded-button transition-all duration-300",
+        recommended
+          ? "bg-primary-700 hover:bg-primary-800 text-white shadow-soft hover:shadow-hover"
+          : "bg-warm-gray-50 hover:bg-warm-gray-100 text-warm-gray-800 border border-warm-gray-200"
+      ]}
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      {cta}
+      <span class="sr-only">{t.common.newTab}</span>
+    </a>
+  )}
 </div>
 
 <style>

@@ -1,4 +1,5 @@
 ---
+import { APP_COMING_SOON } from '@data/navigation';
 import { useTranslations } from '@utils/i18n';
 import LogoMark from './LogoMark.astro';
 
@@ -33,9 +34,15 @@ const p = (path: string) => (locale === 'ja' ? path : `/en${path}`);
       <div>
         <h3>{t.footer.appTitle}</h3>
         <ul>
-          <li><a href="https://tikareta.com" target="_blank" rel="noopener">{t.footer.openWebApp}</a></li>
-          <li><a href="#">{t.footer.iosApp}</a></li>
-          <li><a href="#">{t.footer.androidApp}</a></li>
+          <li>
+            {APP_COMING_SOON ? (
+              <span style="cursor:default; opacity:.55;">{t.footer.openWebApp} — {t.common.comingSoon}</span>
+            ) : (
+              <a href="https://tikareta.com" target="_blank" rel="noopener">{t.footer.openWebApp}</a>
+            )}
+          </li>
+          <li><span style="opacity:.55;">{t.footer.iosApp}</span></li>
+          <li><span style="opacity:.55;">{t.footer.androidApp}</span></li>
         </ul>
       </div>
 
