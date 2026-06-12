@@ -31,7 +31,7 @@ not_found_handling = "404-page"
 ```
 
 - `not_found_handling = "404-page"` が存在しないパスに対して `/404.html` を 404 ステータスで
-  返すため、リダイレクトルール（旧 `netlify.toml` の `/* → /404.html`）は不要。
+  返すため、別途リダイレクトルールを定義する必要はない。
 - `compatibility_date` はローカルの wrangler バイナリがサポートする範囲で設定する
   （新しすぎると `wrangler dev` のランタイムが起動しないため、過去日付でよい）。
 

@@ -5,5 +5,4 @@ compatibility_date = "2026-06-02"
 [assets]
 directory = "./dist"
 # Astro が生成する /404.html を 404 応答として自動配信
-# （旧 netlify.toml の `/* -> /404.html (404)` リダイレクトを代替）
 not_found_handling = "404-page"
