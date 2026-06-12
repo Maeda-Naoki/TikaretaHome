@@ -172,10 +172,6 @@ export const ja = {
       title: 'おさんぽ記録の保存',
       description: 'これまでの記録をファイルに保存・管理できます',
     },
-    customShare: {
-      title: 'カスタマイズ版シェアカード',
-      description: 'うちの子の個性をおしゃれな画像でシェア',
-    },
     trendAnalysis: {
       title: 'トレンド分析',
       description: '先月比・季節別の変化を可視化。傾向の変化も発見。',
@@ -207,7 +203,6 @@ export const ja = {
           fullStats: 'おさんぽのふりかえり（全期間）',
           detailedType: '詳細タイプ分析',
           dataExport: 'おさんぽ記録の保存',
-          customShare: 'カスタマイズ版シェアカード',
         },
       },
       pro: {

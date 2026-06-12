@@ -59,12 +59,6 @@ export const designFeatures: DesignFeature[] = [
     body: '愛犬の個性をより深く分析し、おさんぽへのアドバイスも。',
   },
   {
-    tier: 'standard',
-    icon: 'share-2',
-    title: 'シェア用カード生成',
-    body: 'カスタマイズ可能なSNS投稿用画像を無制限に。',
-  },
-  {
     tier: 'pro',
     icon: 'route',
     title: '苦手スポット回避ルート',
@@ -204,14 +198,6 @@ export const features: Feature[] = [
     iconType: 'lucide',
     titleKey: 'features.dataExport.title',
     descriptionKey: 'features.dataExport.description',
-    tier: 'premium',
-  },
-  {
-    id: 'custom-share',
-    icon: 'Sparkles',
-    iconType: 'lucide',
-    titleKey: 'features.customShare.title',
-    descriptionKey: 'features.customShare.description',
     tier: 'premium',
   },
 ];

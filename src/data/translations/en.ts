@@ -174,10 +174,6 @@ export const en: Translations = {
       title: 'Save Your Walk Records',
       description: 'Export and keep your walk records as files',
     },
-    customShare: {
-      title: 'Custom Share Cards',
-      description: "Share your dog's personality with a stylish image",
-    },
     trendAnalysis: {
       title: 'Trend Analysis',
       description:
@@ -209,7 +205,6 @@ export const en: Translations = {
           fullStats: 'Full Walk History',
           detailedType: 'Detailed Type Analysis',
           dataExport: 'Save Your Walk Records',
-          customShare: 'Custom Share Cards',
         },
       },
       pro: {
