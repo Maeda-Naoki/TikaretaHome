@@ -245,8 +245,18 @@ describe('createItemListLD', () => {
 });
 
 describe('getOGImageUrl', () => {
-  it('returns the SVG path for the locale', () => {
-    expect(getOGImageUrl('ja')).toBe('/og/default-ja.svg');
-    expect(getOGImageUrl('en')).toBe('/og/default-en.svg');
+  it('returns the locale-specific OGP image path', () => {
+    expect(getOGImageUrl('ja')).toBe('/og/default-ja.png');
+    expect(getOGImageUrl('en')).toBe('/og/default-en.png');
+  });
+
+  // Regression: social platforms (X, Facebook, LINE, Slack, ...) do not render
+  // SVG og:image, so the OGP image must stay a raster (PNG) format.
+  it('uses a raster format, never SVG', () => {
+    for (const locale of ['ja', 'en'] as const) {
+      const url = getOGImageUrl(locale);
+      expect(url.endsWith('.png')).toBe(true);
+      expect(url.endsWith('.svg')).toBe(false);
+    }
   });
 });
