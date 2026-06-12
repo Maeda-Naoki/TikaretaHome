@@ -31,8 +31,8 @@ export const designFeatures: DesignFeature[] = [
   {
     tier: 'free',
     icon: 'history',
-    title: '全期間データ閲覧',
-    body: '無料でも過去の全記録をいつでも見返せます。',
+    title: '過去のおさんぽをマップで見返し',
+    body: '登録したスポットや過去のおさんぽを、ホームのマップと一緒に見返せます。',
   },
   {
     tier: 'free',
@@ -57,12 +57,6 @@ export const designFeatures: DesignFeature[] = [
     icon: 'sparkles',
     title: '詳細タイプ分析',
     body: '愛犬の個性をより深く分析し、おさんぽへのアドバイスも。',
-  },
-  {
-    tier: 'standard',
-    icon: 'share-2',
-    title: 'シェア用カード生成',
-    body: 'カスタマイズ可能なSNS投稿用画像を無制限に。',
   },
   {
     tier: 'pro',
@@ -204,14 +198,6 @@ export const features: Feature[] = [
     iconType: 'lucide',
     titleKey: 'features.dataExport.title',
     descriptionKey: 'features.dataExport.description',
-    tier: 'premium',
-  },
-  {
-    id: 'custom-share',
-    icon: 'Sparkles',
-    iconType: 'lucide',
-    titleKey: 'features.customShare.title',
-    descriptionKey: 'features.customShare.description',
     tier: 'premium',
   },
 ];
