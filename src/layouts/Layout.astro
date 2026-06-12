@@ -51,20 +51,22 @@ const lang = locale === 'en' ? 'en' : 'ja';
     />
     <title>{title}</title>
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    {/* セルフホストのサブセットフォント。@font-faceはglobal.cssで定義。
+       LCP(ヒーロー見出し=900 / 本文=400)に効く2書体だけ先読みする。 */}
     <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;500;700;900&family=JetBrains+Mono:wght@400;500&display=optional"
-      media="print"
-      onload="this.media='all'"
+      rel="preload"
+      as="font"
+      type="font/woff2"
+      href="/fonts/zen-kaku-gothic-new-400.woff2"
+      crossorigin
     />
-    <noscript>
-      <link
-        rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;500;700;900&family=JetBrains+Mono:wght@400;500&display=optional"
-      />
-    </noscript>
+    <link
+      rel="preload"
+      as="font"
+      type="font/woff2"
+      href="/fonts/zen-kaku-gothic-new-900.woff2"
+      crossorigin
+    />
   </head>
   <body style="background:var(--bg);color:var(--ink);" class="min-h-screen flex flex-col">
     <SkipToContent />
