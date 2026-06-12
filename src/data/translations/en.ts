@@ -135,8 +135,8 @@ export const en: Translations = {
       description: 'Weather during walks is saved automatically',
     },
     allDataAccess: {
-      title: 'View Past Walks Anytime',
-      description: 'All your walk records are always available, even on the free plan',
+      title: 'Revisit Walks on the Map',
+      description: 'Look back on your saved spots and past walks together with the home map',
     },
     basicStats: {
       title: 'Walk Recap (Last 3 Days)',
@@ -190,7 +190,7 @@ export const en: Translations = {
           walkTracking: 'Walk Logging',
           restSpots: 'Favourite Spot Saving',
           weatherTracking: 'Auto Weather Logging',
-          allDataAccess: 'View Past Walks Anytime',
+          allDataAccess: 'Revisit Walks on the Map',
           basicStats: 'Walk Recap (Last 3 Days)',
           basicType: 'Basic Type Diagnosis',
           community: 'Community',
@@ -317,12 +317,12 @@ export const en: Translations = {
       freeFeatures: {
         question: 'What can I do for free?',
         answer:
-          'Logging walks, saving favourite spots, viewing your past walks, a 3-day look-back, and basic type diagnosis — all free.',
+          'Logging walks, saving favourite spots, revisiting past walks on the map, a 3-day look-back, and basic type diagnosis — all free.',
       },
       dataAfterDowngrade: {
         question: 'Will I lose my walk records without premium?',
         answer:
-          'No, all your walk records are always accessible on the free plan. Only premium-specific features like detailed analysis will be unavailable.',
+          'No. Even on the free plan you can revisit your saved spots and past walks on the map. Only premium-specific features like detailed analysis become unavailable.',
       },
       cancelAnytime: {
         question: 'Can I cancel anytime?',

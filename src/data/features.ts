@@ -31,8 +31,8 @@ export const designFeatures: DesignFeature[] = [
   {
     tier: 'free',
     icon: 'history',
-    title: '全期間データ閲覧',
-    body: '無料でも過去の全記録をいつでも見返せます。',
+    title: '過去のおさんぽをマップで見返し',
+    body: '登録したスポットや過去のおさんぽを、ホームのマップと一緒に見返せます。',
   },
   {
     tier: 'free',

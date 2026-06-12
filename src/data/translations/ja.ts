@@ -133,8 +133,8 @@ export const ja = {
       description: 'おさんぽ中の天候を自動で残します',
     },
     allDataAccess: {
-      title: '過去の記録をいつでも閲覧',
-      description: 'Freeプランでも、これまでの全記録をいつでも見返せます',
+      title: '過去のおさんぽをマップで見返し',
+      description: '登録したスポットや過去のおさんぽを、ホームのマップと一緒に見返せます',
     },
     basicStats: {
       title: 'おさんぽのふりかえり（直近3日間）',
@@ -188,7 +188,7 @@ export const ja = {
           walkTracking: 'おさんぽ記録',
           restSpots: 'お気に入りスポット登録',
           weatherTracking: '天気・気温の自動記録',
-          allDataAccess: '過去の記録をいつでも閲覧',
+          allDataAccess: '過去のおさんぽをマップで見返し',
           basicStats: 'おさんぽのふりかえり（直近3日間）',
           basicType: '基本タイプ診断',
           community: 'コミュニティ',
@@ -317,12 +317,12 @@ export const ja = {
       freeFeatures: {
         question: '無料で何ができますか？',
         answer:
-          'おさんぽの記録、お気に入りスポットの保存、過去の記録の閲覧、直近3日間のふりかえり、基本のタイプ診断が、すべて無料で使えます。',
+          'おさんぽの記録、お気に入りスポットの保存、過去のおさんぽをマップで見返すこと、直近3日間のふりかえり、基本のタイプ診断が、すべて無料で使えます。',
       },
       dataAfterDowngrade: {
         question: '有料にしないと記録が見られなくなる？',
         answer:
-          'いいえ、Freeプランでも全てのおさんぽ記録はいつでも見返せます。詳細な分析など、プレミアム専用の機能が使えなくなるだけです。',
+          'いいえ、Freeプランでも登録したスポットや過去のおさんぽをマップから見返せます。詳細な分析など、プレミアム専用の機能が使えなくなるだけです。',
       },
       cancelAnytime: {
         question: '解約はいつでもできますか？',
