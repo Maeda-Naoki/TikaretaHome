@@ -3,7 +3,7 @@ import tailwindcss from '@tailwindcss/vite';
 import { defineConfig } from 'astro/config';
 
 export default defineConfig({
-  site: 'https://tikareta.com',
+  site: 'https://tikareta-home.luckyretriever.app',
   output: 'static',
   i18n: {
     locales: ['ja', 'en'],
@@ -27,7 +27,10 @@ export default defineConfig({
       serialize(item) {
         const url = item.url;
         // トップページ（最高優先度）
-        if (url === 'https://tikareta.com/' || url === 'https://tikareta.com/en/') {
+        if (
+          url === 'https://tikareta-home.luckyretriever.app/' ||
+          url === 'https://tikareta-home.luckyretriever.app/en/'
+        ) {
           return { ...item, changefreq: 'weekly', priority: 1.0 } as unknown as typeof item;
         }
         // 機能紹介・料金ページ（高優先度）

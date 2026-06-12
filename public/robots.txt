@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://tikareta.com/sitemap-index.xml
+Sitemap: https://tikareta-home.luckyretriever.app/sitemap-index.xml

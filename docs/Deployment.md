@@ -52,13 +52,6 @@
   [headers.values]
     Cache-Control = "public, max-age=31536000, immutable"
 
-# リダイレクト: www → non-www
-[[redirects]]
-  from = "https://www.tikareta.com/*"
-  to = "https://tikareta.com/:splat"
-  status = 301
-  force = true
-
 # 404ページ
 [[redirects]]
   from = "/*"

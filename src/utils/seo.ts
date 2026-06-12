@@ -2,7 +2,7 @@ import { plans } from '@data/pricing';
 
 export type Locale = 'ja' | 'en';
 
-export const SITE_URL = 'https://tikareta.com';
+export const SITE_URL = 'https://tikareta-home.luckyretriever.app';
 export const SITE_NAME = 'Tikareta';
 export const LEGAL_LAST_MODIFIED = '2026-02-15';
 

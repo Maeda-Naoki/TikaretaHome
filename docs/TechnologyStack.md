@@ -28,7 +28,7 @@ import tailwindcss from '@tailwindcss/vite';
 import sitemap from '@astrojs/sitemap';
 
 export default defineConfig({
-  site: 'https://tikareta.com', // 本番URL（初期はNetlifyドメイン）
+  site: 'https://tikareta-home.luckyretriever.app', // 本番URL（LP。アプリは tikareta.luckyretriever.app）
   output: 'static',
   i18n: {
     locales: ['ja', 'en'],
