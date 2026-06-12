@@ -32,3 +32,6 @@ playwright-report/
 # Netlify
 .netlify/
 .lighthouseci/
+
+# OGP font cache (downloaded at build time)
+scripts/.fonts/

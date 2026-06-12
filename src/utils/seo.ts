@@ -315,5 +315,5 @@ export function createItemListLD(params: {
 }
 
 export function getOGImageUrl(locale: Locale): string {
-  return `/og/default-${locale}.svg`;
+  return `/og/default-${locale}.png`;
 }
