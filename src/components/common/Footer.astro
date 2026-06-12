@@ -36,13 +36,13 @@ const p = (path: string) => (locale === 'ja' ? path : `/en${path}`);
         <ul>
           <li>
             {APP_COMING_SOON ? (
-              <span style="cursor:default; opacity:.55;">{t.footer.openWebApp} — {t.common.comingSoon}</span>
+              <span style="cursor:default; color:var(--ink-mute);">{t.footer.openWebApp} — {t.common.comingSoon}</span>
             ) : (
               <a href="https://tikareta.com" target="_blank" rel="noopener">{t.footer.openWebApp}</a>
             )}
           </li>
-          <li><span style="opacity:.55;">{t.footer.iosApp}</span></li>
-          <li><span style="opacity:.55;">{t.footer.androidApp}</span></li>
+          <li><span style="color:var(--ink-mute);">{t.footer.iosApp}</span></li>
+          <li><span style="color:var(--ink-mute);">{t.footer.androidApp}</span></li>
         </ul>
       </div>
 
