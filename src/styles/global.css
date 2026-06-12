@@ -40,8 +40,8 @@
   --color-warm-gray-900: #1c1917;
 
   /* Fonts */
-  --font-sans: 'Zen Kaku Gothic New', 'Noto Sans JP', system-ui, sans-serif;
-  --font-display: 'Zen Kaku Gothic New', 'Noto Sans JP', system-ui, sans-serif;
+  --font-sans: 'Zen Kaku Gothic New', system-ui, sans-serif;
+  --font-display: 'Zen Kaku Gothic New', system-ui, sans-serif;
   --font-mono: 'JetBrains Mono', ui-monospace, monospace;
 
   /* Border radius */

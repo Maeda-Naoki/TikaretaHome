@@ -47,7 +47,7 @@ not_found_handling = "404-page"
   X-Content-Type-Options: nosniff
   Referrer-Policy: strict-origin-when-cross-origin
   Permissions-Policy: camera=(), microphone=(), geolocation=()
-  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self'
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://cloudflareinsights.com
 
 /_astro/*
   Cache-Control: public, max-age=31536000, immutable
@@ -79,11 +79,11 @@ not_found_handling = "404-page"
 | ディレクティブ | 値 | 理由 |
 |---------------|-----|------|
 | default-src | 'self' | デフォルトは自サイトのみ |
-| script-src | 'self' 'unsafe-inline' | Astroのインラインスクリプト対応 |
+| script-src | 'self' 'unsafe-inline' static.cloudflareinsights.com | Astroのインラインスクリプト + Cloudflare Web Analytics のビーコン |
 | style-src | 'self' 'unsafe-inline' fonts.googleapis.com | Tailwind + Google Fonts |
 | font-src | 'self' fonts.gstatic.com | Google Fontsのフォントファイル |
 | img-src | 'self' data: https: | 画像（OGP等で外部参照の可能性） |
-| connect-src | 'self' | API接続は自サイトのみ |
+| connect-src | 'self' cloudflareinsights.com | 自サイト + Cloudflare Web Analytics の計測送信先 |
 
 ---
 
