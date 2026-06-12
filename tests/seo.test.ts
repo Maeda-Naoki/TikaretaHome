@@ -17,7 +17,7 @@ import {
 
 describe('constants', () => {
   it('exports the canonical site URL and name', () => {
-    expect(SITE_URL).toBe('https://tikareta.com');
+    expect(SITE_URL).toBe('https://tikareta-home.luckyretriever.app');
     expect(SITE_NAME).toBe('Tikareta');
   });
 
@@ -44,13 +44,13 @@ describe('createWebPageLD', () => {
       locale: 'ja',
       name: 'FAQ',
       description: 'よくある質問',
-      url: 'https://tikareta.com/faq/',
+      url: 'https://tikareta-home.luckyretriever.app/faq/',
     });
     expect(ld['@type']).toBe('WebPage');
     expect(ld.inLanguage).toBe('ja-JP');
     expect(ld.isPartOf.name).toBe(SITE_NAME);
     expect(ld.isPartOf.url).toBe(SITE_URL);
-    expect(ld.url).toBe('https://tikareta.com/faq/');
+    expect(ld.url).toBe('https://tikareta-home.luckyretriever.app/faq/');
   });
 
   it('emits en-US for the en locale', () => {
@@ -58,7 +58,7 @@ describe('createWebPageLD', () => {
       locale: 'en',
       name: 'FAQ',
       description: 'desc',
-      url: 'https://tikareta.com/en/faq/',
+      url: 'https://tikareta-home.luckyretriever.app/en/faq/',
     });
     expect(ld.inLanguage).toBe('en-US');
   });
@@ -68,7 +68,7 @@ describe('createWebPageLD', () => {
       locale: 'ja',
       name: 'p',
       description: 'd',
-      url: 'https://tikareta.com/p',
+      url: 'https://tikareta-home.luckyretriever.app/p',
     });
     expect(ld.datePublished).toBeUndefined();
     expect(ld.dateModified).toBeUndefined();
@@ -79,7 +79,7 @@ describe('createWebPageLD', () => {
       locale: 'ja',
       name: 'Privacy',
       description: 'd',
-      url: 'https://tikareta.com/privacy/',
+      url: 'https://tikareta-home.luckyretriever.app/privacy/',
       dateModified: LEGAL_LAST_MODIFIED,
     });
     expect(ld.dateModified).toBe(LEGAL_LAST_MODIFIED);
@@ -92,7 +92,7 @@ describe('createSoftwareApplicationLD', () => {
       locale: 'ja',
       name: 'Tikareta',
       description: 'desc',
-      pricingUrl: 'https://tikareta.com/pricing/',
+      pricingUrl: 'https://tikareta-home.luckyretriever.app/pricing/',
     });
     expect(ld['@type']).toBe('SoftwareApplication');
     expect(ld.applicationCategory).toBe('LifestyleApplication');
@@ -100,7 +100,9 @@ describe('createSoftwareApplicationLD', () => {
     expect(ld.offers).toHaveLength(5);
     expect(ld.offers.every((o) => o.priceCurrency === 'JPY')).toBe(true);
     expect(ld.offers.every((o) => o.availability === 'https://schema.org/InStock')).toBe(true);
-    expect(ld.offers.every((o) => o.url === 'https://tikareta.com/pricing/')).toBe(true);
+    expect(
+      ld.offers.every((o) => o.url === 'https://tikareta-home.luckyretriever.app/pricing/')
+    ).toBe(true);
     expect(ld.offers.map((o) => o.price)).toEqual(['0', '300', '2400', '500', '4800']);
   });
 
@@ -109,9 +111,11 @@ describe('createSoftwareApplicationLD', () => {
       locale: 'en',
       name: 'Tikareta',
       description: 'desc',
-      pricingUrl: 'https://tikareta.com/en/pricing/',
+      pricingUrl: 'https://tikareta-home.luckyretriever.app/en/pricing/',
     });
-    expect(ld.offers.every((o) => o.url === 'https://tikareta.com/en/pricing/')).toBe(true);
+    expect(
+      ld.offers.every((o) => o.url === 'https://tikareta-home.luckyretriever.app/en/pricing/')
+    ).toBe(true);
   });
 
   it('localises offer descriptions', () => {
@@ -119,13 +123,13 @@ describe('createSoftwareApplicationLD', () => {
       locale: 'ja',
       name: 'Tikareta',
       description: 'desc',
-      pricingUrl: 'https://tikareta.com/pricing/',
+      pricingUrl: 'https://tikareta-home.luckyretriever.app/pricing/',
     });
     const en = createSoftwareApplicationLD({
       locale: 'en',
       name: 'Tikareta',
       description: 'desc',
-      pricingUrl: 'https://tikareta.com/en/pricing/',
+      pricingUrl: 'https://tikareta-home.luckyretriever.app/en/pricing/',
     });
     expect(ja.offers[0].description).toBe('Freeプラン');
     expect(en.offers[0].description).toBe('Free Plan');
@@ -138,7 +142,7 @@ describe('createSoftwareApplicationLD', () => {
       locale: 'ja',
       name: 'Tikareta',
       description: 'desc',
-      pricingUrl: 'https://tikareta.com/pricing/',
+      pricingUrl: 'https://tikareta-home.luckyretriever.app/pricing/',
     });
     expect('softwareVersion' in ld).toBe(false);
   });
@@ -156,9 +160,9 @@ describe('createOrganizationLD', () => {
     const ld = createOrganizationLD({
       name: 'Tikareta',
       description: 'd',
-      logo: 'https://tikareta.com/images/logo.svg',
+      logo: 'https://tikareta-home.luckyretriever.app/images/logo.svg',
     });
-    expect(ld.logo).toBe('https://tikareta.com/images/logo.svg');
+    expect(ld.logo).toBe('https://tikareta-home.luckyretriever.app/images/logo.svg');
   });
 });
 
@@ -186,12 +190,12 @@ describe('createFAQPageLD', () => {
 describe('createBreadcrumbListLD', () => {
   it('assigns 1-based positions', () => {
     const ld = createBreadcrumbListLD([
-      { name: 'Home', url: 'https://tikareta.com/' },
-      { name: 'FAQ', url: 'https://tikareta.com/faq/' },
+      { name: 'Home', url: 'https://tikareta-home.luckyretriever.app/' },
+      { name: 'FAQ', url: 'https://tikareta-home.luckyretriever.app/faq/' },
     ]);
     expect(ld.itemListElement[0].position).toBe(1);
     expect(ld.itemListElement[1].position).toBe(2);
-    expect(ld.itemListElement[1].item).toBe('https://tikareta.com/faq/');
+    expect(ld.itemListElement[1].item).toBe('https://tikareta-home.luckyretriever.app/faq/');
   });
 });
 
@@ -200,7 +204,13 @@ describe('createProductLD', () => {
     const ld = createProductLD({
       name: 'Tikareta Standard',
       description: 'tagline',
-      offers: [{ price: 300, description: 'Monthly', url: 'https://tikareta.com/pricing/' }],
+      offers: [
+        {
+          price: 300,
+          description: 'Monthly',
+          url: 'https://tikareta-home.luckyretriever.app/pricing/',
+        },
+      ],
     });
     expect(Array.isArray(ld.offers)).toBe(true);
     expect(ld.offers).toHaveLength(1);
@@ -212,8 +222,16 @@ describe('createProductLD', () => {
       name: 'Tikareta Standard',
       description: 'tagline',
       offers: [
-        { price: 300, description: 'Monthly', url: 'https://tikareta.com/pricing/' },
-        { price: 2400, description: 'Yearly', url: 'https://tikareta.com/pricing/' },
+        {
+          price: 300,
+          description: 'Monthly',
+          url: 'https://tikareta-home.luckyretriever.app/pricing/',
+        },
+        {
+          price: 2400,
+          description: 'Yearly',
+          url: 'https://tikareta-home.luckyretriever.app/pricing/',
+        },
       ],
     });
     expect(ld.offers).toHaveLength(2);
@@ -225,7 +243,13 @@ describe('createProductLD', () => {
     const ld = createProductLD({
       name: 'Tikareta Standard',
       description: 'tagline',
-      offers: [{ price: 300, description: 'Monthly', url: 'https://tikareta.com/pricing/' }],
+      offers: [
+        {
+          price: 300,
+          description: 'Monthly',
+          url: 'https://tikareta-home.luckyretriever.app/pricing/',
+        },
+      ],
     });
     expect(ld.brand.name).toBe(SITE_NAME);
   });
@@ -245,8 +269,18 @@ describe('createItemListLD', () => {
 });
 
 describe('getOGImageUrl', () => {
-  it('returns the SVG path for the locale', () => {
-    expect(getOGImageUrl('ja')).toBe('/og/default-ja.svg');
-    expect(getOGImageUrl('en')).toBe('/og/default-en.svg');
+  it('returns the locale-specific OGP image path', () => {
+    expect(getOGImageUrl('ja')).toBe('/og/default-ja.png');
+    expect(getOGImageUrl('en')).toBe('/og/default-en.png');
+  });
+
+  // Regression: social platforms (X, Facebook, LINE, Slack, ...) do not render
+  // SVG og:image, so the OGP image must stay a raster (PNG) format.
+  it('uses a raster format, never SVG', () => {
+    for (const locale of ['ja', 'en'] as const) {
+      const url = getOGImageUrl(locale);
+      expect(url.endsWith('.png')).toBe(true);
+      expect(url.endsWith('.svg')).toBe(false);
+    }
   });
 });

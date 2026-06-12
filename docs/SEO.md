@@ -106,14 +106,14 @@ interface SEOProps {
 呼び出し側は翻訳から `name` / `description` を渡す（単一情報源を翻訳ファイルに統一するため）。ロケール接頭辞付き URL は Astro 標準の `astro:i18n` を使う。
 
 ```typescript
-SITE_URL              // 'https://tikareta.com'
+SITE_URL              // 'https://tikareta-home.luckyretriever.app'
 SITE_NAME             // 'Tikareta'
 LEGAL_LAST_MODIFIED   // 法的ページの最終更新日
 type Locale = 'ja' | 'en'
 
 // 各ページで URL を生成
 import { getAbsoluteLocaleUrl } from 'astro:i18n';
-getAbsoluteLocaleUrl(locale, '/pricing')   // -> https://tikareta.com[/en]/pricing/
+getAbsoluteLocaleUrl(locale, '/pricing')   // -> https://tikareta-home.luckyretriever.app[/en]/pricing/
 
 // JSON-LD ヘルパー
 createSoftwareApplicationLD({ locale, name, description, pricingUrl })
@@ -143,10 +143,10 @@ createItemListLD({ name, items })
     "@context": "https://schema.org",
     "@type": "WebSite",
     "name": "Tikareta",
-    "url": "https://tikareta.com",
+    "url": "https://tikareta-home.luckyretriever.app",
     "description": "...",
     "inLanguage": ["ja", "en"],
-    "publisher": { "@type": "Organization", "name": "Tikareta", "url": "https://tikareta.com" }
+    "publisher": { "@type": "Organization", "name": "Tikareta", "url": "https://tikareta-home.luckyretriever.app" }
   },
   {
     "@context": "https://schema.org",
@@ -154,14 +154,14 @@ createItemListLD({ name, items })
     "name": "Tikareta",
     "applicationCategory": "LifestyleApplication",
     "operatingSystem": "Web, iOS, Android",
-    "url": "https://tikareta.com",
+    "url": "https://tikareta-home.luckyretriever.app",
     "description": "...",
     "inLanguage": ["ja", "en"],
     "softwareVersion": "1.0.0",
-    "author": { "@type": "Organization", "name": "Tikareta", "url": "https://tikareta.com" },
+    "author": { "@type": "Organization", "name": "Tikareta", "url": "https://tikareta-home.luckyretriever.app" },
     "offers": [
-      { "@type": "Offer", "price": "0", "priceCurrency": "JPY", "description": "Freeプラン", "availability": "https://schema.org/InStock", "url": "https://tikareta.com/pricing" },
-      { "@type": "Offer", "price": "300", "priceCurrency": "JPY", "description": "Standard月額プラン", "availability": "https://schema.org/InStock", "url": "https://tikareta.com/pricing" }
+      { "@type": "Offer", "price": "0", "priceCurrency": "JPY", "description": "Freeプラン", "availability": "https://schema.org/InStock", "url": "https://tikareta-home.luckyretriever.app/pricing" },
+      { "@type": "Offer", "price": "300", "priceCurrency": "JPY", "description": "Standard月額プラン", "availability": "https://schema.org/InStock", "url": "https://tikareta-home.luckyretriever.app/pricing" }
       /* ...（他のプランも） */
     ]
   },
@@ -169,8 +169,8 @@ createItemListLD({ name, items })
     "@context": "https://schema.org",
     "@type": "Organization",
     "name": "Tikareta",
-    "url": "https://tikareta.com",
-    "logo": "https://tikareta.com/images/logo.svg",
+    "url": "https://tikareta-home.luckyretriever.app",
+    "logo": "https://tikareta-home.luckyretriever.app/images/logo.svg",
     "description": "..."
   },
   {
@@ -193,8 +193,8 @@ createItemListLD({ name, items })
     "description": "もっと深く知りたい方に",
     "brand": { "@type": "Brand", "name": "Tikareta" },
     "offers": [
-      { "@type": "Offer", "price": "300", "priceCurrency": "JPY", "description": "月額プラン", "availability": "https://schema.org/InStock", "url": "https://tikareta.com/pricing" },
-      { "@type": "Offer", "price": "2400", "priceCurrency": "JPY", "description": "年額プラン", "availability": "https://schema.org/InStock", "url": "https://tikareta.com/pricing" }
+      { "@type": "Offer", "price": "300", "priceCurrency": "JPY", "description": "月額プラン", "availability": "https://schema.org/InStock", "url": "https://tikareta-home.luckyretriever.app/pricing" },
+      { "@type": "Offer", "price": "2400", "priceCurrency": "JPY", "description": "年額プラン", "availability": "https://schema.org/InStock", "url": "https://tikareta-home.luckyretriever.app/pricing" }
     ]
   }
 ]
@@ -207,8 +207,8 @@ createItemListLD({ name, items })
   "@context": "https://schema.org",
   "@type": "BreadcrumbList",
   "itemListElement": [
-    { "@type": "ListItem", "position": 1, "name": "ホーム", "item": "https://tikareta.com/" },
-    { "@type": "ListItem", "position": 2, "name": "{ページ名}", "item": "https://tikareta.com/{path}" }
+    { "@type": "ListItem", "position": 1, "name": "ホーム", "item": "https://tikareta-home.luckyretriever.app/" },
+    { "@type": "ListItem", "position": 2, "name": "{ページ名}", "item": "https://tikareta-home.luckyretriever.app/{path}" }
   ]
 }
 ```
@@ -247,7 +247,7 @@ createItemListLD({ name, items })
 ```
 User-agent: *
 Allow: /
-Sitemap: https://tikareta.com/sitemap-index.xml
+Sitemap: https://tikareta-home.luckyretriever.app/sitemap-index.xml
 ```
 
 ---
