@@ -32,6 +32,12 @@ const {
 } = Astro.props;
 const locale = Astro.currentLocale ?? 'ja';
 const lang = locale === 'en' ? 'en' : 'ja';
+
+// 太字ウェイト(900)はトップページのヒーロー/数値背景でしか使わないため、
+// 先読みはトップ(/ , /en/)に限定する。他ページで先読みすると未使用の76KBを
+// 余計に取得し「preloaded but not used」警告になる。
+const pathname = Astro.url.pathname.replace(/\/+$/, '');
+const isHome = pathname === '' || pathname === '/en';
 ---
 
 <!doctype html>
@@ -51,20 +57,26 @@ const lang = locale === 'en' ? 'en' : 'ja';
     />
     <title>{title}</title>
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    {/* セルフホストのサブセットフォント。@font-faceはglobal.cssで定義。
+       本文(400)は全ページ、ヒーロー見出し(900)はトップのLCP向けのみ先読み。 */}
     <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;500;700;900&family=JetBrains+Mono:wght@400;500&display=optional"
-      media="print"
-      onload="this.media='all'"
+      rel="preload"
+      as="font"
+      type="font/woff2"
+      href="/fonts/zen-kaku-gothic-new-400.woff2"
+      crossorigin
     />
-    <noscript>
-      <link
-        rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;500;700;900&family=JetBrains+Mono:wght@400;500&display=optional"
-      />
-    </noscript>
+    {
+      isHome && (
+        <link
+          rel="preload"
+          as="font"
+          type="font/woff2"
+          href="/fonts/zen-kaku-gothic-new-900.woff2"
+          crossorigin
+        />
+      )
+    }
   </head>
   <body style="background:var(--bg);color:var(--ink);" class="min-h-screen flex flex-col">
     <SkipToContent />

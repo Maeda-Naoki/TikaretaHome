@@ -1,7 +1,7 @@
 ---
 import { ICONS, type IconName } from '@data/icons';
 import {
-  BarChart3,
+  ChartColumn,
   Cloud,
   CloudSun,
   Compass,
@@ -45,7 +45,8 @@ const lucideMap: Record<string, typeof TreePine> = {
   MapPin,
   Image,
   CloudSun,
-  BarChart3,
+  // content/data 側は 'BarChart3' 名で参照しているためキー名は維持
+  BarChart3: ChartColumn,
   TrendingUp,
   Dog,
   MessageCircle,
