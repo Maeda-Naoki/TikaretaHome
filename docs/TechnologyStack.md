@@ -14,7 +14,7 @@
 | サイトマップ | @astrojs/sitemap | 最新 | 自動sitemap.xml生成、i18n対応 |
 | Linter/Formatter | Biome | 2.x | tikaretaメインプロジェクトと統一 |
 | Git hooks | lefthook | 2.x | pre-commitでBiome自動実行 |
-| デプロイ | Netlify | - | 無料枠で十分、CDN、自動デプロイ |
+| デプロイ | Cloudflare Workers（Static Assets） | - | 帯域無制限の無料枠、グローバルCDN、自動デプロイ |
 
 ---
 
@@ -60,7 +60,7 @@ export default defineConfig({
 |------|------|------|
 | output | `static` | ランディングページは完全静的、SSR不要 |
 | prefixDefaultLocale | `false` | 日本語がメイン。`/features`（日本語）、`/en/features`（英語） |
-| Netlifyアダプター | 不使用（初期） | 静的サイトでは不要。画像最適化が必要になった時点で追加 |
+| Astro Cloudflareアダプター | 不使用 | 完全静的（assets-only）のため不要。SSR/エッジ機能が必要になった時点で追加 |
 
 ---
 
@@ -200,12 +200,13 @@ TikaretaHome/
 ├── tsconfig.json
 ├── biome.json
 ├── lefthook.yml
-├── netlify.toml
+├── wrangler.toml
 ├── .node-version
 ├── .npmrc
 ├── public/
 │   ├── favicon.svg
 │   ├── robots.txt
+│   ├── _headers
 │   ├── og/
 │   │   ├── default-ja.png
 │   │   └── default-en.png
