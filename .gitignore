@@ -29,8 +29,8 @@ pnpm-debug.log*
 test-results/
 playwright-report/
 
-# Netlify
-.netlify/
+# Cloudflare Wrangler
+.wrangler/
 .lighthouseci/
 
 # OGP font cache (downloaded at build time)

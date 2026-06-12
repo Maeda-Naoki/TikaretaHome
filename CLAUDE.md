@@ -1,6 +1,6 @@
 # TikaretaHome - おさんぽタイプ ランディングページ
 
-> 最終更新: 2026-05-10
+> 最終更新: 2026-06-12
 ---
 
 ## ドキュメント一覧
@@ -13,7 +13,7 @@
 | **デザインシステム** | カラー、フォント、スペーシング、コンポーネント | [docs/DesignSystem.md](./docs/DesignSystem.md) |
 | **ページ設計** | 各ページの構成、メタタグ、ワイヤーフレーム | [docs/Pages.md](./docs/Pages.md) |
 | **SEO設計** | メタタグ戦略、構造化データ、OGP | [docs/SEO.md](./docs/SEO.md) |
-| **デプロイ設定** | Netlify設定、セキュリティヘッダー | [docs/Deployment.md](./docs/Deployment.md) |
+| **デプロイ設定** | Cloudflare Workers設定、セキュリティヘッダー | [docs/Deployment.md](./docs/Deployment.md) |
 
 ---
 
@@ -50,7 +50,7 @@
 | Linter | oxlint |
 | Formatter | oxfmt |
 | Git hooks | lefthook |
-| デプロイ先 | Netlify |
+| デプロイ先 | Cloudflare Workers（Static Assets） |
 | Node.js | v24 |
 | パッケージマネージャー | pnpm |
 
@@ -86,7 +86,7 @@
 ### Phase A: 基盤構築
 1. Astroプロジェクト初期化（pnpm create astro）
 2. パッケージインストール（tailwindcss, @astrojs/sitemap, biome, lefthook）
-3. 設定ファイル作成（astro.config.ts, tsconfig.json, biome.json, netlify.toml等）
+3. 設定ファイル作成（astro.config.ts, tsconfig.json, biome.json, wrangler.toml等）
 4. グローバルCSS（Tailwind @theme カスタムテーマ）
 
 ### Phase B: i18n基盤 + 共通コンポーネント
@@ -104,7 +104,7 @@
 10. robots.txt, favicon, OGP画像, JSON-LD, アニメーション, 404ページ
 
 ### Phase F: 検証 + デプロイ
-11. Lighthouse全項目90以上、日英レスポンシブ確認、Netlifyデプロイ
+11. Lighthouse全項目90以上、日英レスポンシブ確認、Cloudflare Workersデプロイ
 
 ---
 
@@ -114,7 +114,7 @@
 - [x] 言語対応: **日本語 + 英語**（i18n）
 - [x] ページ構成: **複数ページ**（6ページ × 2言語 + 404）
 - [x] デザイントーン: **温かみ・親しみ系**（パステルカラー + 丸みのあるUI）
-- [x] デプロイ先: **Netlify**
+- [x] デプロイ先: **Cloudflare Workers（Static Assets）**
 - [x] i18n方式: **Astroビルトイン**（astro-i18n-autは非採用）
 - [x] 翻訳データ: **TypeScript**（JSONではなく型安全なTS）
 - [x] 出力: **完全静的**（output: 'static'）
@@ -122,7 +122,7 @@
 - [x] パフォーマンス目標: **Lighthouse 90以上**（Performance, Accessibility, SEO, Best Practices全て）
 - [x] セキュリティヘッダー: **CSP + その他**（Content-Security-Policy, X-Content-Type-Options, X-Frame-Options, Referrer-Policy）
 - [x] キャッシュ戦略: **静的アセットは長期キャッシュ**（Cache-Control: public, max-age=31536000, immutable）
-- [x] Node.jsバージョン: **24**（Netlifyでサポートされている最新安定版）
+- [x] Node.jsバージョン: **24**（最新安定版）
 - [x] パッケージマネージャー: **pnpm**（軽量で高速なパッケージ管理）
 - [x] Linter: **oxlint**（Rust製・高速、ESLint v8互換）
 - [x] Formatter: **oxfmt**（Rust製・高速、Prettier互換）

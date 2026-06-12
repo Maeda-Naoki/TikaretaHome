@@ -225,7 +225,7 @@ createItemListLD({ name, items })
 |------|---------|
 | ローカル開発 | プロジェクト直下の `.env`（`.env.example` をコピーして利用） |
 | GitHub Actions | リポジトリ Settings → Environments → `ci` → Variables に `GOOGLE_SITE_VERIFICATION` を登録 |
-| Netlify（本番） | Site settings → Environment variables に `GOOGLE_SITE_VERIFICATION` を登録 |
+| Cloudflare（本番） | Worker の Variables and Secrets（Build variable）に `GOOGLE_SITE_VERIFICATION` を登録 |
 
 ### 動作仕様
 
@@ -236,7 +236,7 @@ createItemListLD({ name, items })
 ### 検証手順
 
 1. Google Search Console → プロパティ追加 → HTML タグ方式 → トークン取得
-2. Netlify と GitHub Environment にトークンを登録
+2. Cloudflare と GitHub Environment にトークンを登録
 3. 再デプロイ → 本番 HTML のソースで meta タグを確認
 4. Search Console で「所有権を確認」
 
@@ -296,7 +296,7 @@ Sitemap: https://tikareta-home.luckyretriever.app/sitemap-index.xml
 - [x] 全ページに title + description
 - [x] canonical URL 設定
 - [x] hreflang（ja / en / x-default）
-- [x] HTTPS 有効（Netlify）
+- [x] HTTPS 有効（Cloudflare）
 - [x] robots.txt でクロール許可
 - [x] 単一 `<h1>` / ページ
 - [x] 拡張 `robots` メタ（`max-image-preview:large` 等）
