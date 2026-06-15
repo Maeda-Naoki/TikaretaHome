@@ -30,6 +30,25 @@ export const ja = {
       todayWalk: { label: '今日のおさんぽ', duration: '30分' },
     },
   },
+  about: {
+    eyebrow: 'About Tikareta',
+    title: 'Tikareta とは',
+    lead: 'Tikareta は、愛犬との毎日のおさんぽを記録するためのモバイルアプリ（PWA）です。散歩したルートや立ち寄ったスポット、休憩の様子を手軽に記録すると、愛犬の行動の傾向や個性を可視化し、「おさんぽタイプ」として診断します。',
+    items: [
+      {
+        title: 'おさんぽを記録',
+        description: 'ルート・スポット・休憩などを数タップで記録します。',
+      },
+      {
+        title: '個性を診断',
+        description: '記録したデータから愛犬のおさんぽタイプを自動で判定します。',
+      },
+      {
+        title: '飼い主同士でつながる',
+        description: '同じ傾向を持つ飼い主とゆるくつながり、記録を楽しめます。',
+      },
+    ],
+  },
   valueProposition: {
     title: '愛犬との散歩が、もっと楽しくなる',
     subtitle: '日々の記録の積み重ねが、愛犬の個性を教えてくれます。',
