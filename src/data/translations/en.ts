@@ -33,6 +33,26 @@ export const en: Translations = {
       todayWalk: { label: "Today's Walk", duration: '30 min' },
     },
   },
+  about: {
+    eyebrow: 'About Tikareta',
+    title: 'About Tikareta',
+    lead: 'Tikareta is a mobile app (PWA) for logging your daily walks with your dog. Easily record the routes you take, the spots you visit, and your dog\'s breaks — and Tikareta visualises your dog\'s tendencies and personality, diagnosing them as a "Walking Type".',
+    items: [
+      {
+        title: 'Log your walks',
+        description: 'Record routes, spots, breaks, and more in just a few taps.',
+      },
+      {
+        title: 'Diagnose their personality',
+        description: "Automatically determine your dog's walking type from your logged data.",
+      },
+      {
+        title: 'Connect with owners',
+        description:
+          'Loosely connect with owners who share similar tendencies and enjoy logging together.',
+      },
+    ],
+  },
   valueProposition: {
     title: 'Make every walk with your dog more meaningful',
     subtitle: 'Every walk you log brings you closer to understanding your dog.',

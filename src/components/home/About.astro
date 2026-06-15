@@ -1,0 +1,97 @@
+---
+import Ic from '@components/common/Ic.astro';
+import type { IconName } from '@data/icons';
+import { useTranslations } from '@utils/i18n';
+
+const locale = Astro.currentLocale ?? 'ja';
+const t = useTranslations(locale);
+
+const icons: IconName[] = ['map-pin', 'target', 'heart'];
+const items = t.about.items.map((item, i) => ({
+  ...item,
+  icon: icons[i],
+}));
+---
+<section id="about" class="section-pad" aria-labelledby="about-title">
+  <div class="container-narrow">
+    <div class="about-card reveal">
+      <span class="eyebrow">{t.about.eyebrow}</span>
+      <h2 id="about-title">{t.about.title}</h2>
+      <p class="about-lead">{t.about.lead}</p>
+
+      <ul class="about-list">
+        {items.map((item) => (
+          <li>
+            <span class="about-ico"><Ic name={item.icon} size={20} /></span>
+            <div>
+              <strong>{item.title}</strong>
+              <span>{item.description}</span>
+            </div>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </div>
+</section>
+
+<style>
+  .about-card {
+    background: var(--surface);
+    border: 1px solid var(--line-soft);
+    border-radius: 1.75rem;
+    padding: 3rem;
+    box-shadow: var(--shadow-1);
+  }
+  @media (max-width: 600px) {
+    .about-card { padding: 2rem 1.5rem; }
+  }
+  .about-card h2 {
+    font-size: clamp(1.7rem, 3.5vw, 2.4rem);
+    margin: 0.9rem 0 1.1rem;
+    text-wrap: pretty;
+  }
+  .about-lead {
+    color: var(--ink-soft);
+    font-size: 1.08rem;
+    line-height: 1.75;
+    text-wrap: pretty;
+  }
+  .about-list {
+    list-style: none;
+    padding: 0;
+    margin: 2rem 0 0;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1.25rem;
+  }
+  @media (max-width: 760px) {
+    .about-list { grid-template-columns: minmax(0, 1fr); gap: 1rem; }
+  }
+  .about-list li {
+    display: flex;
+    gap: 0.85rem;
+    align-items: flex-start;
+  }
+  .about-ico {
+    flex-shrink: 0;
+    width: 40px;
+    height: 40px;
+    border-radius: 12px;
+    background: var(--accent-soft);
+    color: var(--accent-deep);
+    display: grid;
+    place-items: center;
+  }
+  .about-list strong {
+    display: block;
+    font-size: 0.98rem;
+    margin-bottom: 0.2rem;
+    color: var(--ink);
+  }
+  .about-list li div span {
+    display: block;
+    font-size: 0.86rem;
+    color: var(--ink-soft);
+    line-height: 1.55;
+  }
+</style>
