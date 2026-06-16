@@ -12,3 +12,16 @@ allowBuilds:
 # allowBuilds に未記載のパッケージがライフサイクルスクリプトを持つ場合にインストールをエラーで停止する
 # false（デフォルト）では警告のみで続行するため、明示的に true を設定する
 strictDepBuilds: true
+
+# 公開から 7 日以内のパッケージバージョンのインストールを禁止する（単位: 分）
+# タイポスクワッティングや悪意あるパッケージのハイジャックに対する緩衝期間
+minimumReleaseAge: 10080
+
+# minimumReleaseAge の対象外とするパッケージ（頻繁にリリースされるものや、即時採用が必要なもの）
+minimumReleaseAgeExclude:
+  - oxlint
+  - oxfmt
+  - "@oxlint/*"
+  - "@oxfmt/*"
+  - "@astrojs/*"
+  - astro
