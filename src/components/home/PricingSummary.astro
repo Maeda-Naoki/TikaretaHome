@@ -25,6 +25,7 @@ const t = useTranslations(locale);
         const isFree = plan.monthly === 0 && plan.yearly === 0;
         const months = savingsMonths(plan.monthly, plan.yearly);
         const savingsText = months > 0 ? format(t.pricing.savingsMonthsTemplate, { months }) : '';
+        const monthlyEquivText = yearlyPerMonth > 0 ? format(t.pricing.monthlyEquivTemplate, { amount: yearlyPerMonth.toLocaleString() }) : '';
         return (
           <div class={`plan plan-${plan.key} reveal ${plan.featured ? 'featured' : ''}`}>
             {plan.featured && <span class="badge">{t.pricing.recommended}</span>}
@@ -44,15 +45,15 @@ const t = useTranslations(locale);
                   </span>
                   <span class="billing-yearly">
                     <span class="currency">¥</span>
-                    <span class="amount">{yearlyPerMonth.toLocaleString()}</span>
-                    <span class="period">{t.pricing.perMonth}</span>
+                    <span class="amount">{plan.yearly.toLocaleString()}</span>
+                    <span class="period">{t.pricing.perYear}</span>
                   </span>
                 </>
               )}
             </div>
             {!isFree && (
               <p class="plan-yearly-note billing-yearly">
-                ¥{plan.yearly.toLocaleString()}{t.pricing.perYear}{savingsText && ` — ${savingsText}`}
+                {monthlyEquivText}{savingsText && ` — ${savingsText}`}
               </p>
             )}
             <ul>
