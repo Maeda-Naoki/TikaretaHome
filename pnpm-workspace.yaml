@@ -1,0 +1,14 @@
+# https://pnpm.io/pnpm-workspace_yaml
+
+# ライフサイクルスクリプト（postinstall等）の実行を許可するパッケージを明示的にホワイトリスト化する
+# ここに列挙していないパッケージはスクリプトを実行できない
+# .npmrc の ignore-dep-scripts=true と組み合わせた多層防御（pnpm v10.26.0 以降）
+allowBuilds:
+  sharp: true              # Wrangler/miniflare・Astro がネイティブ画像処理に使用
+  "@resvg/resvg-js": true  # OG 画像生成スクリプト（scripts/generate-og.mjs）用ネイティブモジュール
+  lefthook: true           # Git hooks 管理ツール（プラットフォーム別バイナリのセットアップ）
+  esbuild: true            # Vite/Astro が内部で使用する JavaScript バンドラー
+
+# allowBuilds に未記載のパッケージがライフサイクルスクリプトを持つ場合にインストールをエラーで停止する
+# false（デフォルト）では警告のみで続行するため、明示的に true を設定する
+strictDepBuilds: true
