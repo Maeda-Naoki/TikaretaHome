@@ -40,6 +40,7 @@ trustPolicy: accept
 # ここに列挙していないパッケージはスクリプトを実行できない（pnpm v10.26.0 以降）
 allowBuilds:
   sharp: true              # Wrangler/miniflare・Astro がネイティブ画像処理に使用
+  workerd: true            # Wrangler/miniflare が使用する Cloudflare Workers ランタイム
   "@resvg/resvg-js": true  # OG 画像生成スクリプト（scripts/generate-og.mjs）用ネイティブモジュール
   lefthook: true           # Git hooks 管理ツール（プラットフォーム別バイナリのセットアップ）
   esbuild: true            # Vite/Astro が内部で使用する JavaScript バンドラー
