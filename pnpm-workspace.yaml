@@ -1,0 +1,50 @@
+# https://pnpm.io/pnpm-workspace_yaml
+
+# =============================================================================
+# パッケージ管理
+# =============================================================================
+
+# pnpm add 時にバージョンを完全固定で保存する（^ や ~ を付けない）
+saveExact: true
+
+# =============================================================================
+# サプライチェーン攻撃対策
+# =============================================================================
+
+# 公開から 7 日以内のパッケージバージョンのインストールを禁止する（単位: 分）
+# タイポスクワッティングや悪意あるパッケージのハイジャックに対する緩衝期間
+minimumReleaseAge: 10080
+
+# minimumReleaseAge の対象外とするパッケージ（頻繁にリリースされるものや即時採用が必要なもの）
+minimumReleaseAgeExclude:
+  - oxlint
+  - oxfmt
+  - "@oxlint/*"
+  - "@oxfmt/*"
+  - "@astrojs/*"
+  - astro
+
+# トランスイティブ依存のソースを npm レジストリに限定する（git URL・tarball URL を禁止）
+blockExoticSubdeps: true
+
+# パッケージストア内のファイルが改ざんされていないか検証する
+verifyStoreIntegrity: true
+
+# ストア内のパッケージコンテンツを厳密にチェックする
+strictStorePkgContentCheck: true
+
+# 新たに追加されたトランスイティブ依存を自動的に受け入れる
+trustPolicy: accept
+
+# ライフサイクルスクリプト（postinstall 等）の実行を許可するパッケージをホワイトリストで制御する
+# ここに列挙していないパッケージはスクリプトを実行できない（pnpm v10.26.0 以降）
+allowBuilds:
+  sharp: true              # Wrangler/miniflare・Astro がネイティブ画像処理に使用
+  workerd: true            # Wrangler/miniflare が使用する Cloudflare Workers ランタイム
+  "@resvg/resvg-js": true  # OG 画像生成スクリプト（scripts/generate-og.mjs）用ネイティブモジュール
+  lefthook: true           # Git hooks 管理ツール（プラットフォーム別バイナリのセットアップ）
+  esbuild: true            # Vite/Astro が内部で使用する JavaScript バンドラー
+
+# allowBuilds に未記載のパッケージがライフサイクルスクリプトを持つ場合にインストールをエラーで停止する
+# false（デフォルト）では警告のみで続行するため、明示的に true を設定する
+strictDepBuilds: true
