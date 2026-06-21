@@ -95,20 +95,21 @@ const purposeItems = [
   'Security assurance (detecting and preventing unauthorized access)',
 ];
 
-// Google OAuth scopes requested
+// Google OAuth scopes requested (Supabase Auth's default Google provider scopes;
+// the app specifies no additional scopes, and these are all non-sensitive)
 const googleScopes = [
   {
     scope: 'openid',
     detail:
-      'A Google account identifier that uniquely identifies you. Used for account creation and authentication.',
+      'A Google account identifier (OpenID Connect) that uniquely identifies you. Used for account creation and authentication.',
   },
   {
-    scope: '.../auth/userinfo.email (email)',
+    scope: 'https://www.googleapis.com/auth/userinfo.email (email)',
     detail:
       'Your email address and its verification status. Used for account creation, identity verification, and preventing duplicate registrations. Email addresses are kept private.',
   },
   {
-    scope: '.../auth/userinfo.profile (profile)',
+    scope: 'https://www.googleapis.com/auth/userinfo.profile (profile)',
     detail:
       'Your name (display name) and profile image URL. Used to display your identity within the Service (default nickname and avatar).',
   },
@@ -316,7 +317,7 @@ const badge =
         </h2>
         <div class="pl-10 space-y-4 text-warm-gray-700">
           <p>
-            The Service offers sign-in with your Google account (Google OAuth 2.0) as one of its authentication methods. Only when you choose to sign in with Google, and with your consent, we obtain the following information (scopes) from Google. If you prefer not to use a Google account, you can authenticate with LINE or a Passkey instead.
+            The Service offers sign-in with your Google account (Google OAuth 2.0) as one of its authentication methods. Only when you choose to sign in with Google, and with your consent, we obtain the following information (scopes) from Google. The Service requests only Google's non-sensitive scopes and never requests restricted or sensitive scopes such as Gmail, Calendar, or Drive. If you prefer not to use a Google account, you can authenticate with LINE or a Passkey instead.
           </p>
           <div class="overflow-x-auto">
             <table class="w-full text-sm border-collapse">

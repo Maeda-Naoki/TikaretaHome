@@ -94,20 +94,21 @@ const purposeItems = [
   'セキュリティの確保（不正アクセスの検知・防止）',
 ];
 
-// Google OAuth で取得するスコープ
+// Google OAuth で取得するスコープ（Supabase Auth の Google プロバイダ既定スコープ。
+// アプリ側で追加スコープは指定しておらず、非機微スコープのみ）
 const googleScopes = [
   {
     scope: 'openid',
     detail:
-      'お客様を一意に識別するためのGoogleアカウントID。アカウントの作成・認証に使用します。',
+      'お客様を一意に識別するためのGoogleアカウントID（OpenID Connect）。アカウントの作成・認証に使用します。',
   },
   {
-    scope: '.../auth/userinfo.email（email）',
+    scope: 'https://www.googleapis.com/auth/userinfo.email（email）',
     detail:
       'メールアドレスおよびメール確認状態。アカウントの作成・本人確認・重複登録の防止に使用します。メールアドレスは非公開です。',
   },
   {
-    scope: '.../auth/userinfo.profile（profile）',
+    scope: 'https://www.googleapis.com/auth/userinfo.profile（profile）',
     detail:
       '氏名（表示名）およびプロフィール画像のURL。サービス内でのお客様の表示（ニックネーム初期値・アイコン）に使用します。',
   },
@@ -315,7 +316,7 @@ const badge =
         </h2>
         <div class="pl-10 space-y-4 text-warm-gray-700">
           <p>
-            本サービスは、ログイン手段の一つとして Google アカウントによる認証（Google OAuth 2.0）を提供しています。Google アカウントでログインする場合に限り、お客様の同意のもとで以下の範囲（スコープ）の情報を Google から取得します。Google アカウントを利用しない場合は、LINE または Passkey による認証をご利用いただけます。
+            本サービスは、ログイン手段の一つとして Google アカウントによる認証（Google OAuth 2.0）を提供しています。Google アカウントでログインする場合に限り、お客様の同意のもとで以下の範囲（スコープ）の情報を Google から取得します。本サービスが要求するのは Google の非機微（non-sensitive）スコープのみで、Gmail・カレンダー・ドライブ等の制限付き（restricted / sensitive）スコープは一切要求しません。Google アカウントを利用しない場合は、LINE または Passkey による認証をご利用いただけます。
           </p>
           <div class="overflow-x-auto">
             <table class="w-full text-sm border-collapse">
