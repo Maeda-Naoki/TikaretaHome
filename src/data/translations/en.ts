@@ -418,7 +418,8 @@ export const en: Translations = {
     },
     privacy: {
       title: 'Privacy Policy | Tikareta',
-      description: 'How we handle your personal data at Tikareta.',
+      description:
+        "Tikareta's Privacy Policy — how we collect, use, and protect your personal data, including data obtained via Google OAuth sign-in and third-party services.",
     },
     terms: {
       title: 'Terms of Service | Tikareta',
