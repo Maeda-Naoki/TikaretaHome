@@ -4,7 +4,7 @@ import Layout from '@layouts/Layout.astro';
 import { getAbsoluteLocaleUrl } from 'astro:i18n';
 import { useTranslations } from '@utils/i18n';
 import {
-  LEGAL_LAST_MODIFIED,
+  PRIVACY_LAST_MODIFIED,
   type Locale,
   createBreadcrumbListLD,
   createWebPageLD,
@@ -13,6 +13,8 @@ import {
 const t = useTranslations(Astro.currentLocale);
 const locale: Locale = 'en';
 const pageUrl = getAbsoluteLocaleUrl(locale, '/privacy');
+
+const CONTACT_EMAIL = 'support@tikareta.luckyretriever.app';
 
 const breadcrumbJsonLd = createBreadcrumbListLD([
   { name: t.nav.home, url: getAbsoluteLocaleUrl(locale, '/') },
@@ -24,17 +26,211 @@ const webPageJsonLd = createWebPageLD({
   name: t.pages.privacy.title,
   description: t.pages.privacy.description,
   url: pageUrl,
-  dateModified: LEGAL_LAST_MODIFIED,
+  dateModified: PRIVACY_LAST_MODIFIED,
 });
 
 const jsonLd = [webPageJsonLd, breadcrumbJsonLd];
+
+// Personal information categories collected
+const dataCategories = [
+  {
+    name: 'Account Information',
+    items: 'Email address, nickname, profile image (obtained from authentication provider)',
+    purpose:
+      'Used for user authentication and display within the Service. Email addresses are kept private.',
+  },
+  {
+    name: 'Location Data',
+    items: 'GPS coordinates (walk routes, rest spot locations)',
+    purpose:
+      'Used for walk recording, analysis, and walking type diagnosis. Location data is visible only to you and is not shared with other users. Even when shared to the community, location data is excluded.',
+  },
+  {
+    name: 'Home Location',
+    items: 'Registered home point coordinates (stored as approximate location at 100–200m precision)',
+    purpose:
+      'Used for route suggestion features (paid plans). Home location is visible only to you.',
+  },
+  {
+    name: 'Photos',
+    items: 'Photos taken or selected at rest spots (up to 3 per spot, max 5MB each)',
+    purpose:
+      'Used for spot documentation and community sharing (only when you opt in). Photos are stored on Cloudflare R2. GPS information (EXIF data) embedded in uploaded photos is automatically removed to protect your privacy.',
+  },
+  {
+    name: 'Dog Information',
+    items: "Dog's name, breed, age, weight",
+    purpose:
+      'Used for walk pattern analysis and type diagnosis. Information is visible only to you; only the breed is displayed in the community.',
+  },
+  {
+    name: 'Payment Information',
+    items:
+      'Stripe customer ID (credit card information is managed directly by Stripe and is not stored on our servers)',
+    purpose: 'Used for Standard plan or above payment processing.',
+  },
+  {
+    name: 'Usage Data',
+    items: 'Walk records, rest reason tags, reactions, streak count',
+    purpose:
+      'Used for saving and displaying walk records, statistical analysis of rest patterns, calculating walk type diagnoses, displaying shared content in the community, calculating streak counts, and improving the Service.',
+  },
+  {
+    name: 'Device Information',
+    items: 'IP address, browser type and version, OS information, screen resolution',
+    purpose:
+      'Used for security measures (detecting unauthorized access), service improvement, and access analytics.',
+  },
+];
+
+// Purposes of use
+const purposeItems = [
+  'Provision, operation, and maintenance of the Service',
+  'Walk pattern analysis and walking type diagnosis',
+  'Provision of community features',
+  'Payment processing for paid plans',
+  'Responding to customer inquiries',
+  'Bug fixes, access and error log analysis for feature improvement, and user flow analysis for new feature development',
+  'Addressing violations of the Terms of Service',
+  'Security assurance (detecting and preventing unauthorized access)',
+];
+
+// Google OAuth scopes requested (Supabase Auth's default Google provider scopes;
+// the app specifies no additional scopes, and these are all non-sensitive)
+const googleScopes = [
+  {
+    scope: 'openid',
+    detail:
+      'A Google account identifier (OpenID Connect) that uniquely identifies you. Used for account creation and authentication.',
+  },
+  {
+    scope: 'https://www.googleapis.com/auth/userinfo.email (email)',
+    detail:
+      'Your email address and its verification status. Used for account creation, identity verification, and preventing duplicate registrations. Email addresses are kept private.',
+  },
+  {
+    scope: 'https://www.googleapis.com/auth/userinfo.profile (profile)',
+    detail:
+      'Your name (display name) and profile image URL. Used to display your identity within the Service (default nickname and avatar).',
+  },
+];
+
+// Third-party services
+const thirdPartyServices = [
+  {
+    name: 'Supabase',
+    purpose: 'User authentication, database, file storage',
+    data: 'Account information, walk data, photo metadata',
+    country: 'United States',
+    measures: 'SOC2 Type II certified, data encrypted at rest and in transit',
+  },
+  {
+    name: 'Cloudflare',
+    purpose: 'Website hosting, CDN, photo storage (R2), caching (KV)',
+    data: 'Access logs (including IP addresses), photo data',
+    country: 'United States (global CDN)',
+    measures: 'SOC2 Type II certified, ISO 27001 certified, GDPR compliant',
+  },
+  {
+    name: 'Stripe',
+    purpose: 'Payment processing',
+    data: 'Information required for payment (credit card information is managed directly by Stripe)',
+    country: 'United States',
+    measures: 'PCI DSS Level 1 certified, SOC2 certified',
+  },
+  {
+    name: 'Google',
+    purpose: 'OAuth authentication (Google account login)',
+    data: 'Authentication information (email address, profile image URL)',
+    country: 'United States',
+    measures: 'SOC2/3 certified, ISO 27001 certified, GDPR compliant',
+  },
+  {
+    name: 'LINE',
+    purpose: 'OAuth authentication (LINE account login)',
+    data: 'Authentication information (LINE user ID, display name, profile image URL)',
+    country: 'Japan (LINE Corporation)',
+    measures: "Compliant with Japan's Act on the Protection of Personal Information",
+  },
+  {
+    name: 'Open-Meteo',
+    purpose: 'Automatic weather data retrieval',
+    data: 'Location coordinates (sent to the API for weather data; no registration or API key required)',
+    country: 'Germany',
+    measures: 'GDPR compliant, open-source project',
+  },
+  {
+    name: 'MapLibre / OpenStreetMap',
+    purpose: 'Map display',
+    data: 'Your IP address is sent to tile servers when loading map tiles (location coordinates are not sent)',
+    country: 'Various (distributed tile servers)',
+    measures: 'Open-source project, map tile retrieval only',
+  },
+];
+
+// External transmission disclosure (Telecommunications Business Act, Art. 27-12)
+const externalServices = [
+  {
+    name: 'Supabase',
+    data: 'Authentication tokens, user ID, usage data',
+    purpose: 'User authentication, data storage and retrieval',
+    optout: 'Required for service operation; opt-out is not available',
+  },
+  {
+    name: 'Cloudflare',
+    data: 'IP address, access logs',
+    purpose: 'Website hosting, content delivery optimization, security',
+    optout: 'Required for service operation; opt-out is not available',
+  },
+  {
+    name: 'Stripe',
+    data: 'Payment-related information (card details managed directly by Stripe)',
+    purpose: 'Payment processing',
+    optout: 'Required for paid plan usage; opt-out is not available',
+  },
+  {
+    name: 'Google',
+    data: 'Authentication information (email address, profile image URL)',
+    purpose: 'OAuth authentication via Google account',
+    optout: 'If you do not wish to use Google login, please use Passkey or another method',
+  },
+  {
+    name: 'LINE',
+    data: 'Authentication information (LINE user ID, display name, profile image URL)',
+    purpose: 'OAuth authentication via LINE account',
+    optout: 'If you do not wish to use LINE login, please use Passkey or another method',
+  },
+  {
+    name: 'Open-Meteo',
+    data: 'Location coordinates (latitude/longitude of walk location)',
+    purpose: 'Automatic retrieval of weather and temperature data',
+    optout: 'You can skip automatic weather retrieval during walk recording',
+  },
+  {
+    name: 'OpenStreetMap (Tile Servers)',
+    data: 'IP address (when retrieving map tiles)',
+    purpose: 'Retrieving tile images for map display',
+    optout: 'Map display is a core feature; opt-out is not available',
+  },
+];
+
+// User rights
+const rightsItems = [
+  'Request disclosure of retained personal data',
+  'Request correction, addition, or deletion of retained personal data',
+  'Request suspension of use or erasure of retained personal data',
+  'Request suspension of third-party provision of retained personal data',
+];
+
+const badge =
+  'w-7 h-7 bg-primary-100 rounded-soft flex items-center justify-center text-sm font-bold text-primary-700 flex-shrink-0';
 ---
 
 <Layout
   title={t.pages.privacy.title}
   description={t.pages.privacy.description}
   ogType="article"
-  dateModified={LEGAL_LAST_MODIFIED}
+  dateModified={PRIVACY_LAST_MODIFIED}
   jsonLd={jsonLd}
 >
   <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
@@ -45,90 +241,299 @@ const jsonLd = [webPageJsonLd, breadcrumbJsonLd];
         {t.footer.privacy}
       </h1>
       <div class="w-14 h-1 bg-primary-400 rounded-full hero-slide-in-left"></div>
+      <p class="text-sm text-warm-gray-500 mt-4">Last updated: April 25, 2026</p>
     </div>
 
     <div class="bg-white rounded-card border border-warm-gray-100 divide-y divide-warm-gray-100 fade-in-up">
-      <div class="p-8">
+      <!-- 1. Introduction -->
+      <section class="p-8">
         <h2 class="text-lg font-bold text-warm-gray-900 mb-3 flex items-center gap-3">
-          <span class="w-7 h-7 bg-primary-100 rounded-soft flex items-center justify-center text-sm font-bold text-primary-700 flex-shrink-0">1</span>
-          Handling of Personal Information
+          <span class={badge}>1</span>
+          Introduction
         </h2>
-        <p class="text-warm-gray-700 pl-10">
-          Osanpo Type ("the Service") properly manages user personal information and handles it in compliance with privacy protection laws.
-        </p>
-      </div>
+        <div class="pl-10 space-y-3 text-warm-gray-700">
+          <p>
+            Tikareta (Osanpo Type; hereinafter "the Service") is a web app (PWA) that records and analyzes your daily walks with your dog and diagnoses your dog's "walking type" from rest data such as location, time, weather, and reason. The Service provides walk recording, saving favorite spots, type diagnosis, and a community for fellow owners.
+          </p>
+          <p>
+            The Service considers the protection of your personal information to be of utmost importance. We comply with the Act on the Protection of Personal Information (APPI) of Japan and have established this Privacy Policy (hereinafter "the Policy"). This Policy applies to all users of the Service. When you register an account, we obtain your explicit consent to this Policy along with the Terms of Service.
+          </p>
+        </div>
+      </section>
 
-      <div class="p-8">
+      <!-- 2. Operator information -->
+      <section class="p-8">
         <h2 class="text-lg font-bold text-warm-gray-900 mb-3 flex items-center gap-3">
-          <span class="w-7 h-7 bg-primary-100 rounded-soft flex items-center justify-center text-sm font-bold text-primary-700 flex-shrink-0">2</span>
-          Information We Collect
+          <span class={badge}>2</span>
+          Operator Information & Contact
         </h2>
-        <ul class="list-disc list-inside text-warm-gray-700 space-y-1.5 pl-10">
-          <li>Email address</li>
-          <li>Pet profile information (breed, age, name, etc.)</li>
-          <li>Walk records (GPS location, time, distance, etc.)</li>
-          <li>Rest spot information (location, photos, notes, etc.)</li>
-          <li>Usage data</li>
-        </ul>
-      </div>
+        <div class="pl-10 space-y-2 text-warm-gray-700">
+          <p>
+            Operator details (the disclosure required under the Act on Specified Commercial Transactions) are provided promptly upon request. The contact point for inquiries regarding the handling of personal information is as follows.
+          </p>
+          <p>
+            Contact email:
+            <a href={`mailto:${CONTACT_EMAIL}`} class="text-primary-700 underline break-all">{CONTACT_EMAIL}</a>
+          </p>
+          <p class="text-sm text-warm-gray-500">We are not a member of any certified personal information protection organization.</p>
+        </div>
+      </section>
 
-      <div class="p-8">
+      <!-- 3. Personal information we collect -->
+      <section class="p-8">
         <h2 class="text-lg font-bold text-warm-gray-900 mb-3 flex items-center gap-3">
-          <span class="w-7 h-7 bg-primary-100 rounded-soft flex items-center justify-center text-sm font-bold text-primary-700 flex-shrink-0">3</span>
+          <span class={badge}>3</span>
+          Personal Information We Collect
+        </h2>
+        <p class="text-warm-gray-700 pl-10 mb-4">The Service collects and uses the following personal information.</p>
+        <div class="pl-10 grid gap-3 sm:grid-cols-2">
+          {dataCategories.map((c) => (
+            <div class="rounded-soft bg-warm-gray-50 border border-warm-gray-100 p-4">
+              <h3 class="font-semibold text-warm-gray-900 text-sm mb-1.5">{c.name}</h3>
+              <p class="text-sm text-warm-gray-600 mb-1"><span class="text-warm-gray-400">Data: </span>{c.items}</p>
+              <p class="text-sm text-warm-gray-600"><span class="text-warm-gray-400">Purpose: </span>{c.purpose}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <!-- 4. Purpose of use -->
+      <section class="p-8">
+        <h2 class="text-lg font-bold text-warm-gray-900 mb-3 flex items-center gap-3">
+          <span class={badge}>4</span>
           Purpose of Use
         </h2>
+        <p class="text-warm-gray-700 pl-10 mb-2">The Service uses collected personal information for the following purposes.</p>
         <ul class="list-disc list-inside text-warm-gray-700 space-y-1.5 pl-10">
-          <li>Providing and operating the Service</li>
-          <li>Conducting Walking Type diagnosis</li>
-          <li>Creating and analyzing statistical data</li>
-          <li>Improving the Service and developing new features</li>
-          <li>Responding to inquiries</li>
+          {purposeItems.map((item) => <li>{item}</li>)}
         </ul>
-      </div>
+      </section>
 
-      <div class="p-8">
+      <!-- 5. Handling of Google user data (Google OAuth) -->
+      <section class="p-8 scroll-mt-24" id="google-oauth">
         <h2 class="text-lg font-bold text-warm-gray-900 mb-3 flex items-center gap-3">
-          <span class="w-7 h-7 bg-primary-100 rounded-soft flex items-center justify-center text-sm font-bold text-primary-700 flex-shrink-0">4</span>
-          Third-Party Disclosure
+          <span class={badge}>5</span>
+          Handling of Google User Data (Google OAuth)
         </h2>
-        <p class="text-warm-gray-700 pl-10">
-          The Service will not provide personal information to third parties without user consent, except as required by law.
-        </p>
-      </div>
+        <div class="pl-10 space-y-4 text-warm-gray-700">
+          <p>
+            The Service offers sign-in with your Google account (Google OAuth 2.0) as one of its authentication methods. Only when you choose to sign in with Google, and with your consent, we obtain the following information (scopes) from Google. The Service requests only Google's non-sensitive scopes and never requests restricted or sensitive scopes such as Gmail, Calendar, or Drive. If you prefer not to use a Google account, you can authenticate with LINE or a Passkey instead.
+          </p>
+          <div class="overflow-x-auto">
+            <table class="w-full text-sm border-collapse">
+              <thead>
+                <tr class="border-b border-warm-gray-200 text-left">
+                  <th class="py-2 pr-4 font-semibold text-warm-gray-900 align-top whitespace-nowrap">Scope</th>
+                  <th class="py-2 font-semibold text-warm-gray-900 align-top">Data obtained &amp; purpose of use</th>
+                </tr>
+              </thead>
+              <tbody>
+                {googleScopes.map((s) => (
+                  <tr class="border-b border-warm-gray-100 align-top">
+                    <td class="py-2 pr-4"><code class="text-xs bg-warm-gray-100 rounded px-1.5 py-0.5 text-warm-gray-700 break-all">{s.scope}</code></td>
+                    <td class="py-2 text-warm-gray-600">{s.detail}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          <div class="rounded-soft bg-primary-50 border border-primary-100 p-4 space-y-2 text-sm">
+            <p class="font-semibold text-warm-gray-900">How we handle the Google user data we obtain</p>
+            <ul class="list-disc list-inside space-y-1.5 text-warm-gray-700">
+              <li><span class="font-medium">Limited purpose:</span> The information obtained is used solely for the account authentication and in-service display purposes described above, and for no other purpose.</li>
+              <li><span class="font-medium">No sharing:</span> We do not sell, lease, or transfer Google user data to third parties, nor do we use it for advertising.</li>
+              <li><span class="font-medium">Storage &amp; deletion:</span> The information is securely stored in Supabase Auth, our authentication infrastructure. You can delete your account at any time from the app's settings screen to erase this information.</li>
+              <li><span class="font-medium">Limited Use compliance:</span> The Service's use and transfer to any other app of information received from Google APIs adheres to the <a href="https://developers.google.com/terms/api-services-user-data-policy" class="text-primary-700 underline" target="_blank" rel="noopener noreferrer">Google API Services User Data Policy</a>, including the Limited Use requirements.</li>
+              <li><span class="font-medium">Revoking access:</span> You can revoke the Service's access at any time from your <a href="https://myaccount.google.com/permissions" class="text-primary-700 underline" target="_blank" rel="noopener noreferrer">Google account security settings</a>.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
 
-      <div class="p-8">
+      <!-- 6. Third-party services -->
+      <section class="p-8">
         <h2 class="text-lg font-bold text-warm-gray-900 mb-3 flex items-center gap-3">
-          <span class="w-7 h-7 bg-primary-100 rounded-soft flex items-center justify-center text-sm font-bold text-primary-700 flex-shrink-0">5</span>
-          Location Data Handling
+          <span class={badge}>6</span>
+          Third-Party Services
         </h2>
-        <p class="text-warm-gray-700 pl-10">
-          GPS location data is used only for creating walk records and will not be disclosed to other users unless explicitly shared.
+        <p class="text-warm-gray-700 pl-10 mb-4">
+          The Service uses the following third-party services and may provide some of your personal information to them. Please refer to each service's privacy policy for details on how they handle personal information.
         </p>
-      </div>
+        <div class="pl-10 grid gap-3 sm:grid-cols-2">
+          {thirdPartyServices.map((s) => (
+            <div class="rounded-soft bg-warm-gray-50 border border-warm-gray-100 p-4">
+              <h3 class="font-semibold text-warm-gray-900 text-sm mb-1.5">{s.name}</h3>
+              <p class="text-sm text-warm-gray-600 mb-1"><span class="text-warm-gray-400">Purpose: </span>{s.purpose}</p>
+              <p class="text-sm text-warm-gray-600 mb-1"><span class="text-warm-gray-400">Data provided: </span>{s.data}</p>
+              <p class="text-sm text-warm-gray-600"><span class="text-warm-gray-400">Country / safeguards: </span>{s.country} / {s.measures}</p>
+            </div>
+          ))}
+        </div>
+      </section>
 
-      <div class="p-8">
+      <!-- 7. External transmission disclosure -->
+      <section class="p-8">
         <h2 class="text-lg font-bold text-warm-gray-900 mb-3 flex items-center gap-3">
-          <span class="w-7 h-7 bg-primary-100 rounded-soft flex items-center justify-center text-sm font-bold text-primary-700 flex-shrink-0">6</span>
+          <span class={badge}>7</span>
+          External Transmission of Information
+        </h2>
+        <p class="text-warm-gray-700 pl-10 mb-4">
+          In accordance with Article 27-12 of the Telecommunications Business Act, we disclose the following information about data transmitted from user terminals to external parties.
+        </p>
+        <div class="pl-10 grid gap-3 sm:grid-cols-2">
+          {externalServices.map((s) => (
+            <div class="rounded-soft bg-warm-gray-50 border border-warm-gray-100 p-4">
+              <h3 class="font-semibold text-warm-gray-900 text-sm mb-1.5">{s.name}</h3>
+              <p class="text-sm text-warm-gray-600 mb-1"><span class="text-warm-gray-400">Data sent: </span>{s.data}</p>
+              <p class="text-sm text-warm-gray-600 mb-1"><span class="text-warm-gray-400">Purpose: </span>{s.purpose}</p>
+              <p class="text-sm text-warm-gray-600"><span class="text-warm-gray-400">Opt-out: </span>{s.optout}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <!-- 8. Use of anonymized and aggregated data -->
+      <section class="p-8">
+        <h2 class="text-lg font-bold text-warm-gray-900 mb-3 flex items-center gap-3">
+          <span class={badge}>8</span>
+          Use of Anonymized and Aggregated Data
+        </h2>
+        <div class="pl-10 space-y-2 text-warm-gray-700">
+          <p>The Service may use data that has been anonymized and aggregated so that individuals cannot be identified, in the following cases.</p>
+          <ul class="list-disc list-inside space-y-1.5">
+            <li>"Popular Rest Points" feature: Rest spot data from all users is aggregated into 50-meter grid squares and displayed as a heatmap in a form that does not allow identification of individual locations.</li>
+            <li>"Today's Rest Trends" feature: Statistical data on rest reasons is aggregated and displayed as anonymized trend information.</li>
+            <li>"Breed Comparison" feature: Data from dogs of the same breed is statistically aggregated to provide comparison data in a form that does not identify individual users.</li>
+          </ul>
+          <p>This anonymized and aggregated data is processed as statistical information from which individuals cannot be identified, and does not constitute "anonymously processed information" as defined in Article 2, Paragraph 6 of the Act on the Protection of Personal Information.</p>
+        </div>
+      </section>
+
+      <!-- 9. Disclosure to third parties -->
+      <section class="p-8">
+        <h2 class="text-lg font-bold text-warm-gray-900 mb-3 flex items-center gap-3">
+          <span class={badge}>9</span>
+          Disclosure to Third Parties
+        </h2>
+        <div class="pl-10 space-y-2 text-warm-gray-700">
+          <p>The Service will not provide your personal information to third parties except in the following cases.</p>
+          <ul class="list-disc list-inside space-y-1.5">
+            <li>When you have given consent (such as sharing posts to the community through opt-in)</li>
+            <li>When required by law</li>
+            <li>When necessary to protect the life, body, or property of a person and it is difficult to obtain your consent</li>
+            <li>When particularly necessary for improving public health or promoting the healthy development of children</li>
+            <li>When it is necessary to cooperate with a national or local government body in performing duties prescribed by law</li>
+          </ul>
+          <p>The Service does not sell your personal information.</p>
+        </div>
+      </section>
+
+      <!-- 10. Data retention period -->
+      <section class="p-8">
+        <h2 class="text-lg font-bold text-warm-gray-900 mb-3 flex items-center gap-3">
+          <span class={badge}>10</span>
           Data Retention Period
         </h2>
-        <p class="text-warm-gray-700 pl-10">
-          Even after account deletion, data may be retained for periods required by law.
-        </p>
-      </div>
+        <div class="pl-10 space-y-2 text-warm-gray-700">
+          <p>Your personal information is retained while your account is active. When you delete your account, all data associated with you (walk records, spot information, photos, dog information, etc.) will be promptly and completely deleted.</p>
+          <p>Retention periods by data category:</p>
+          <ul class="list-disc list-inside space-y-1.5">
+            <li>Access logs (IP addresses, etc.): 90 days</li>
+            <li>Payment records: 7 years (as required by tax law)</li>
+            <li>Backup data: Completely deleted within 30 days after account deletion</li>
+            <li>Anonymized/aggregated data: Retained as statistical data after account deletion as it does not constitute personal information</li>
+          </ul>
+          <p>Information required to be retained by other applicable laws will be kept for the period prescribed by those laws.</p>
+        </div>
+      </section>
 
-      <div class="p-8">
+      <!-- 11. Security measures -->
+      <section class="p-8">
         <h2 class="text-lg font-bold text-warm-gray-900 mb-3 flex items-center gap-3">
-          <span class="w-7 h-7 bg-primary-100 rounded-soft flex items-center justify-center text-sm font-bold text-primary-700 flex-shrink-0">7</span>
-          Contact
+          <span class={badge}>11</span>
+          Security Measures
+        </h2>
+        <div class="pl-10 space-y-2 text-warm-gray-700">
+          <p>The Service implements the following security measures to properly protect your personal information.</p>
+          <ul class="list-disc list-inside space-y-1.5">
+            <li>Row Level Security (RLS) applied to all database access, ensuring users can only access their own data</li>
+            <li>Encryption of communications via HTTPS</li>
+            <li>Security headers (CSP, HSTS, etc.) configured</li>
+            <li>Payment information is managed directly by Stripe and is not stored on our servers</li>
+            <li>Application of the principle of least privilege for access rights</li>
+            <li>Rate limiting applied to API endpoints</li>
+            <li>Regular security reviews</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- 12. Your rights -->
+      <section class="p-8">
+        <h2 class="text-lg font-bold text-warm-gray-900 mb-3 flex items-center gap-3">
+          <span class={badge}>12</span>
+          Your Rights
+        </h2>
+        <div class="pl-10 space-y-2 text-warm-gray-700">
+          <p>Under the Act on the Protection of Personal Information, you have the following rights.</p>
+          <ul class="list-disc list-inside space-y-1.5">
+            {rightsItems.map((item) => <li>{item}</li>)}
+          </ul>
+          <p>To exercise the above rights, please contact us at the contact point above. We will respond within a reasonable period (generally within two weeks) after verifying your identity. You can also delete all your personal data by deleting your account from the settings page.</p>
+        </div>
+      </section>
+
+      <!-- 13. Cookies and local storage -->
+      <section class="p-8">
+        <h2 class="text-lg font-bold text-warm-gray-900 mb-3 flex items-center gap-3">
+          <span class={badge}>13</span>
+          Cookies and Local Storage
+        </h2>
+        <div class="pl-10 space-y-2 text-warm-gray-700">
+          <p>The Service uses the following technologies.</p>
+          <ul class="list-disc list-inside space-y-1.5">
+            <li>Session Cookies: Used to maintain user authentication. These are essential for the Service and cannot be disabled.</li>
+            <li>Language Preference Cookie: Used to retain your language settings.</li>
+            <li>Local Storage / IndexedDB: Used for PWA (Progressive Web App) offline functionality. GPS tracking data is temporarily stored offline and synced with the server when connectivity is restored.</li>
+          </ul>
+          <p>You can disable cookies in your browser settings, but please note that some features of the Service may become unavailable. We use Cloudflare Web Analytics for access analytics, which does not use cookies.</p>
+        </div>
+      </section>
+
+      <!-- 14. Children's privacy -->
+      <section class="p-8">
+        <h2 class="text-lg font-bold text-warm-gray-900 mb-3 flex items-center gap-3">
+          <span class={badge}>14</span>
+          Children's Privacy
         </h2>
         <p class="text-warm-gray-700 pl-10">
-          For inquiries regarding this Privacy Policy, please contact us through the inquiry form within the Service.
+          The Service is not intended for children under 16 years of age. If a person under 16 uses the Service, parental consent is required. If we discover that we have unintentionally collected personal information of a child under 16, we will promptly delete it.
         </p>
-      </div>
+      </section>
+
+      <!-- 15. Changes to this policy -->
+      <section class="p-8">
+        <h2 class="text-lg font-bold text-warm-gray-900 mb-3 flex items-center gap-3">
+          <span class={badge}>15</span>
+          Changes to This Policy
+        </h2>
+        <p class="text-warm-gray-700 pl-10">
+          This Policy may be updated in response to changes in laws or the Service. In the case of significant changes, we will notify you through the Service or by email. The revised Policy takes effect when it is posted on the Service.
+        </p>
+      </section>
+
+      <!-- 16. Contact us -->
+      <section class="p-8">
+        <h2 class="text-lg font-bold text-warm-gray-900 mb-3 flex items-center gap-3">
+          <span class={badge}>16</span>
+          Contact Us
+        </h2>
+        <p class="text-warm-gray-700 pl-10">
+          For inquiries regarding this Policy, please contact us at the following.<br />
+          <a href={`mailto:${CONTACT_EMAIL}`} class="text-primary-700 underline break-all">{CONTACT_EMAIL}</a>
+        </p>
+      </section>
     </div>
 
-    <p class="text-sm text-warm-gray-500 mt-6 fade-in-up">
-      Last updated: February 15, 2026
-    </p>
+    <p class="text-sm text-warm-gray-500 mt-6 fade-in-up">Last updated: April 25, 2026</p>
   </div>
 </Layout>

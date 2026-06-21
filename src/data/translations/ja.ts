@@ -418,7 +418,8 @@ export const ja = {
     },
     privacy: {
       title: 'プライバシーポリシー | Tikareta',
-      description: 'Tikaretaにおける個人情報の取り扱いについてご説明します。',
+      description:
+        'Tikaretaのプライバシーポリシー。収集する個人情報、利用目的、Google OAuthで取得・利用するデータ、第三者サービスへの提供などについて説明します。',
     },
     terms: {
       title: '利用規約 | Tikareta',
