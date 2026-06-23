@@ -23,7 +23,7 @@ export const mainNav: NavItem[] = [
   },
 ];
 
-export const appUrl = 'https://tikareta.com';
+export const appUrl = 'https://tikareta.luckyretriever.app';
 
 export const legalUrls = {
   privacy: `${appUrl}/privacy`,

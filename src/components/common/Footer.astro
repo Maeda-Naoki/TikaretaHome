@@ -1,5 +1,5 @@
 ---
-import { APP_COMING_SOON, legalUrls } from '@data/navigation';
+import { APP_COMING_SOON, appUrl, legalUrls } from '@data/navigation';
 import { useTranslations } from '@utils/i18n';
 import LogoMark from './LogoMark.astro';
 
@@ -38,7 +38,7 @@ const p = (path: string) => (locale === 'ja' ? path : `/en${path}`);
             {APP_COMING_SOON ? (
               <span style="cursor:default; color:var(--ink-mute);">{t.footer.openWebApp} — {t.common.comingSoon}</span>
             ) : (
-              <a href="https://tikareta.com" target="_blank" rel="noopener">{t.footer.openWebApp}</a>
+              <a href={appUrl} target="_blank" rel="noopener noreferrer">{t.footer.openWebApp}</a>
             )}
           </li>
           <li><span style="color:var(--ink-mute);">{t.footer.iosApp}</span></li>
