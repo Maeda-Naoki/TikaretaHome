@@ -23,6 +23,11 @@ minimumReleaseAgeExclude:
   - "@oxfmt/*"
   - "@astrojs/*"
   - astro
+  # Astro 7 が @astrojs/markdown-satteri 経由で依存する Markdown/MDX エンジン（Astro コアメンテナ作）。
+  # un-namespaced のため @astrojs/* に含まれず、個別に除外指定する。
+  # @bruits/* は satteri のプラットフォーム別 wasm/native バイナリ（同一 org・同一作者）
+  - satteri
+  - "@bruits/*"
 
 # トランスイティブ依存のソースを npm レジストリに限定する（git URL・tarball URL を禁止）
 blockExoticSubdeps: true
