@@ -1,6 +1,6 @@
 # TikaretaHome - おさんぽタイプ ランディングページ
 
-> 最終更新: 2026-06-12
+> 最終更新: 2026-06-23
 ---
 
 ## ドキュメント一覧
@@ -43,7 +43,7 @@
 > **詳細は [技術スタック詳細](./docs/TechnologyStack.md) を参照**
 | カテゴリ | 選択 |
 |----------|------|
-| フレームワーク | Astro 5.x（最新安定版） |
+| フレームワーク | Astro 7.x（最新安定版） |
 | CSS | Tailwind CSS 4.x（@tailwindcss/vite） |
 | i18n | Astro ビルトイン i18n |
 | サイトマップ | @astrojs/sitemap |

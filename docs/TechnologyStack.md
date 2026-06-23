@@ -1,13 +1,13 @@
 # 技術スタック詳細
 
-> 最終更新: 2026-02-15
+> 最終更新: 2026-06-23
 ---
 
 ## 技術選定一覧
 
 | カテゴリ | 選択 | バージョン | 選定理由 |
 |----------|------|-----------|---------|
-| フレームワーク | Astro | 5.x（最新安定版） | 静的サイト生成に最適、ゼロJSデフォルト、高速 |
+| フレームワーク | Astro | 7.x（最新安定版） | 静的サイト生成に最適、ゼロJSデフォルト、高速。v7 で Rust コンパイラ + Vite 8 |
 | CSS | Tailwind CSS | 4.x | CSS-first設定、@themeでカスタマイズ、MotekitaHomeと同一 |
 | Tailwind統合 | @tailwindcss/vite | 4.x | Astro（Viteベース）との統合プラグイン |
 | i18n | Astro ビルトイン | - | 外部依存なし、Astro公式サポート |
@@ -181,7 +181,7 @@ Tailwind CSS 4はCSS-first設定。`tailwind.config.ts`は不要で、グロー�
 
 | 項目 | MotekitaHome | TikaretaHome |
 |------|-------------|-------------|
-| Astro | 5.2 | 5.x（最新安定版） |
+| Astro | 5.2 | 7.x（最新安定版） |
 | i18n | astro-i18n-aut（外部パッケージ） | Astroビルトインi18n |
 | 翻訳データ | JSON (`public/locales/*.json`) | TypeScript (`src/data/translations/*.ts`) |
 | Node.js | v22 | v24 |
