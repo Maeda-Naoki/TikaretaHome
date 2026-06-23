@@ -26,11 +26,13 @@ export const mainNav: NavItem[] = [
 export const footerNav: NavItem[] = [
   {
     labelKey: 'footer.privacy',
-    href: '/privacy',
+    href: 'https://tikareta.luckyretriever.app/privacy',
+    external: true,
   },
   {
     labelKey: 'footer.terms',
-    href: '/terms',
+    href: 'https://tikareta.luckyretriever.app/legal/terms',
+    external: true,
   },
 ];
 

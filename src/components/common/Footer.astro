@@ -49,8 +49,8 @@ const p = (path: string) => (locale === 'ja' ? path : `/en${path}`);
       <div>
         <h3>{t.footer.legalTitle}</h3>
         <ul>
-          <li><a href={p('/privacy')}>{t.footer.privacy}</a></li>
-          <li><a href={p('/terms')}>{t.footer.terms}</a></li>
+          <li><a href="https://tikareta.luckyretriever.app/privacy" target="_blank" rel="noopener">{t.footer.privacy}</a></li>
+          <li><a href="https://tikareta.luckyretriever.app/legal/terms" target="_blank" rel="noopener">{t.footer.terms}</a></li>
         </ul>
       </div>
     </div>

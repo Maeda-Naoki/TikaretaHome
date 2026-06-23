@@ -41,10 +41,6 @@ export default defineConfig({
         if (url.includes('/faq') || url.includes('/roadmap')) {
           return { ...item, changefreq: 'monthly', priority: 0.7 } as unknown as typeof item;
         }
-        // プライバシーポリシー・利用規約（低優先度）
-        if (url.includes('/privacy') || url.includes('/terms')) {
-          return { ...item, changefreq: 'yearly', priority: 0.3 } as unknown as typeof item;
-        }
         return item;
       },
     }),
