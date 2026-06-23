@@ -1,7 +1,6 @@
 import { describe, expect, it } from 'vitest';
 
 import {
-  LEGAL_LAST_MODIFIED,
   SITE_NAME,
   SITE_URL,
   createBreadcrumbListLD,
@@ -19,10 +18,6 @@ describe('constants', () => {
   it('exports the canonical site URL and name', () => {
     expect(SITE_URL).toBe('https://tikareta-home.luckyretriever.app');
     expect(SITE_NAME).toBe('Tikareta');
-  });
-
-  it('exports the last-modified date for legal pages', () => {
-    expect(LEGAL_LAST_MODIFIED).toMatch(/^\d{4}-\d{2}-\d{2}$/);
   });
 });
 
@@ -80,9 +75,9 @@ describe('createWebPageLD', () => {
       name: 'Privacy',
       description: 'd',
       url: 'https://tikareta-home.luckyretriever.app/privacy/',
-      dateModified: LEGAL_LAST_MODIFIED,
+      dateModified: '2026-04-25',
     });
-    expect(ld.dateModified).toBe(LEGAL_LAST_MODIFIED);
+    expect(ld.dateModified).toBe('2026-04-25');
   });
 });
 

@@ -23,18 +23,12 @@ export const mainNav: NavItem[] = [
   },
 ];
 
-export const footerNav: NavItem[] = [
-  {
-    labelKey: 'footer.privacy',
-    href: '/privacy',
-  },
-  {
-    labelKey: 'footer.terms',
-    href: '/terms',
-  },
-];
+export const appUrl = 'https://tikareta.luckyretriever.app';
 
-export const appUrl = 'https://tikareta.com';
+export const legalUrls = {
+  privacy: `${appUrl}/privacy`,
+  terms: `${appUrl}/legal/terms`,
+} as const;
 
 // アプリ公開時は false に変更するだけで全ページのリンクが復元される
 export const APP_COMING_SOON = true;

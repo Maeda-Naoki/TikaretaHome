@@ -1,6 +1,6 @@
 ---
 import Ic from '@components/common/Ic.astro';
-import { APP_COMING_SOON } from '@data/navigation';
+import { APP_COMING_SOON, appUrl } from '@data/navigation';
 import { useTranslations } from '@utils/i18n';
 
 const locale = Astro.currentLocale ?? 'ja';
@@ -49,7 +49,7 @@ const dogTypes = typeKeys.map((key, i) => ({
           <Ic name="sparkles" size={16} />{t.common.comingSoon}
         </span>
       ) : (
-        <a class="btn btn-soft" href="https://tikareta.com" target="_blank" rel="noopener">
+        <a class="btn btn-soft" href={appUrl} target="_blank" rel="noopener noreferrer">
           <Ic name="sparkles" size={16} />{t.typeDiagnosis.cta}
         </a>
       )}
