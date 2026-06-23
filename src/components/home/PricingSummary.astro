@@ -1,7 +1,7 @@
 ---
 import Ic from '@components/common/Ic.astro';
 import BillingToggle from '@components/pricing/BillingToggle.astro';
-import { APP_COMING_SOON } from '@data/navigation';
+import { APP_COMING_SOON, appUrl } from '@data/navigation';
 import { plans } from '@data/pricing';
 import { format, planFeature, savingsMonths, useTranslations } from '@utils/i18n';
 
@@ -69,7 +69,7 @@ const t = useTranslations(locale);
                 {t.common.comingSoon}
               </span>
             ) : (
-              <a class={`btn ${plan.ctaStyle}`} href="https://tikareta.com" target="_blank" rel="noopener">
+              <a class={`btn ${plan.ctaStyle}`} href={appUrl} target="_blank" rel="noopener noreferrer">
                 {planTexts.cta}
               </a>
             )}
