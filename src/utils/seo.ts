@@ -4,9 +4,6 @@ export type Locale = 'ja' | 'en';
 
 export const SITE_URL = 'https://tikareta-home.luckyretriever.app';
 export const SITE_NAME = 'Tikareta';
-export const LEGAL_LAST_MODIFIED = '2026-02-15';
-/** プライバシーポリシーの最終更新日（メインアプリ tikareta の正本に合わせる） */
-export const PRIVACY_LAST_MODIFIED = '2026-04-25';
 
 const LANG_TAG: Record<Locale, string> = {
   ja: 'ja-JP',

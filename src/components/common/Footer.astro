@@ -1,5 +1,5 @@
 ---
-import { APP_COMING_SOON } from '@data/navigation';
+import { APP_COMING_SOON, legalUrls } from '@data/navigation';
 import { useTranslations } from '@utils/i18n';
 import LogoMark from './LogoMark.astro';
 
@@ -49,8 +49,8 @@ const p = (path: string) => (locale === 'ja' ? path : `/en${path}`);
       <div>
         <h3>{t.footer.legalTitle}</h3>
         <ul>
-          <li><a href="https://tikareta.luckyretriever.app/privacy" target="_blank" rel="noopener">{t.footer.privacy}</a></li>
-          <li><a href="https://tikareta.luckyretriever.app/legal/terms" target="_blank" rel="noopener">{t.footer.terms}</a></li>
+          <li><a href={legalUrls.privacy} target="_blank" rel="noopener noreferrer">{t.footer.privacy}</a></li>
+          <li><a href={legalUrls.terms} target="_blank" rel="noopener noreferrer">{t.footer.terms}</a></li>
         </ul>
       </div>
     </div>
