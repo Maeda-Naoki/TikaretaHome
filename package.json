@@ -40,7 +40,7 @@
     "oxlint": "1.70.0",
     "subset-font": "2.5.0",
     "typescript": "6.0.3",
-    "vitest": "4.1.8",
+    "vitest": "4.1.9",
     "wrangler": "4.101.0"
   },
   "packageManager": "pnpm@10.33.4"
