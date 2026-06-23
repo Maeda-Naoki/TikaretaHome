@@ -8,15 +8,11 @@
         "http://localhost/features/",
         "http://localhost/pricing/",
         "http://localhost/faq/",
-        "http://localhost/privacy/",
-        "http://localhost/terms/",
         "http://localhost/roadmap/",
         "http://localhost/en/",
         "http://localhost/en/features/",
         "http://localhost/en/pricing/",
         "http://localhost/en/faq/",
-        "http://localhost/en/privacy/",
-        "http://localhost/en/terms/",
         "http://localhost/en/roadmap/"
       ],
       "settings": {
