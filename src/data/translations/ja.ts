@@ -221,7 +221,6 @@ export const ja = {
           allFree: 'Freeプランの全て',
           fullStats: 'おさんぽのふりかえり（全期間）',
           detailedType: '詳細タイプ分析',
-          dataExport: 'おさんぽ記録の保存',
         },
       },
       pro: {
@@ -233,7 +232,6 @@ export const ja = {
           breedComparison: '同犬種の子と比べてみる',
           routeSuggestion: '苦手スポット回避ルート',
           heatmap: 'みんなのお気に入りスポット',
-          trendAnalysis: 'トレンド分析（先月比・季節別）',
         },
       },
     },

@@ -224,7 +224,6 @@ export const en: Translations = {
           allFree: 'Everything in Free',
           fullStats: 'Full Walk History',
           detailedType: 'Detailed Type Analysis',
-          dataExport: 'Save Your Walk Records',
         },
       },
       pro: {
@@ -236,7 +235,6 @@ export const en: Translations = {
           breedComparison: 'Compare with Same Breed',
           routeSuggestion: 'Avoid Stressful Spots',
           heatmap: 'Where Others Like to Stop',
-          trendAnalysis: 'Trend Analysis',
         },
       },
     },
