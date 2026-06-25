@@ -377,7 +377,7 @@ export const ja = {
     comingSoon: 'Coming Soon',
     plannedTitle: '今後の予定',
     released: 'リリース済み',
-    plannedItems: ['マルチ犬プロフィール管理の強化'],
+    plannedItems: [],
     versions: [
       {
         version: 'v1.0.0',

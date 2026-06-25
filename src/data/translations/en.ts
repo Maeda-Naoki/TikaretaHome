@@ -378,7 +378,7 @@ export const en: Translations = {
     comingSoon: 'Coming Soon',
     plannedTitle: 'Planned Features',
     released: 'Released',
-    plannedItems: ['Enhanced multi-dog profile management'],
+    plannedItems: [],
     versions: [
       {
         version: 'v1.0.0',

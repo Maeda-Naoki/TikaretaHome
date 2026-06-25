@@ -1,12 +1,13 @@
 ---
 import Ic from '@components/common/Ic.astro';
+import type { IconName } from '@data/icons';
 import { APP_COMING_SOON, appUrl } from '@data/navigation';
+import { walkingTypes } from '@data/walkingTypes';
 import { useTranslations } from '@utils/i18n';
 
 const locale = Astro.currentLocale ?? 'ja';
 const t = useTranslations(locale);
 
-const emojis = ['🌳', '🧭', '🌅', '⚡', '🐾', '🛤️', '🌙', '☔'];
 const typeKeys = [
   'shadeHunter',
   'explorer',
@@ -18,8 +19,10 @@ const typeKeys = [
   'weatherFlexible',
 ] as const;
 
-const dogTypes = typeKeys.map((key, i) => ({
-  emoji: emojis[i],
+const iconMap = Object.fromEntries(walkingTypes.map((wt) => [wt.id, wt.icon as IconName]));
+
+const dogTypes = typeKeys.map((key) => ({
+  icon: iconMap[key],
   name: t.walkingTypes[key].name,
   body: t.walkingTypes[key].description,
 }));
@@ -36,7 +39,7 @@ const dogTypes = typeKeys.map((key, i) => ({
       {dogTypes.map((d, i) => (
         <article class="type-card reveal" style={`transition-delay:${i * 60}ms;`}>
           <span class="arrow"><Ic name="arrow-up-right" size={14} /></span>
-          <div class="type-emoji">{d.emoji}</div>
+          <div class="type-emoji"><Ic name={d.icon} size={24} /></div>
           <h3 style="font-size:1rem; margin-bottom:.35rem;">{d.name}</h3>
           <p style="font-size:.82rem; color:var(--ink-soft); line-height:1.55;">{d.body}</p>
         </article>

@@ -36,4 +36,6 @@ const steps = t.howItWorks.steps.map((s, i) => ({
 <style>
   .how-grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: 1.5rem; }
   @media (min-width: 820px) { .how-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+  .how-grid article { display: flex; flex-direction: column; }
+  .how-grid article p { flex: 1; }
 </style>
