@@ -132,7 +132,7 @@ const titleLines = t.hero.title.split('\n');
   .hero-visual { position: relative; min-height: 580px; min-width: 0; }
   .hero-stack { position: relative; display: grid; place-items: center; padding: 2rem 0; width: 100%; min-width: 0; }
   .hp-back { position: absolute; left: 8%; top: 12%; opacity: .9; }
-  .hp-front { position: relative; z-index: 2; animation: floaty 7s ease-in-out infinite; }
+  .hp-front { position: relative; z-index: 2; animation: floaty 7s ease-in-out infinite; width: min(320px, 100%); }
 
   .hide-sm { display: none; }
   @media (min-width: 768px) { .hide-sm { display: inline; } }
