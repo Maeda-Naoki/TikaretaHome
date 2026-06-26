@@ -133,7 +133,7 @@ export const ja = {
     serviceTitle: 'サービス',
     appTitle: 'アプリ',
     legalTitle: '法的情報',
-    openWebApp: 'Webアプリを開く',
+    openWebApp: 'Webアプリ',
     iosApp: 'iOSアプリ（準備中）',
     androidApp: 'Androidアプリ（準備中）',
   },

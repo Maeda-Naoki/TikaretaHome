@@ -137,7 +137,7 @@ export const en: Translations = {
     serviceTitle: 'Services',
     appTitle: 'App',
     legalTitle: 'Legal',
-    openWebApp: 'Open Web App',
+    openWebApp: 'Web App',
     iosApp: 'iOS (Coming Soon)',
     androidApp: 'Android (Coming Soon)',
   },
