@@ -1,6 +1,6 @@
 ---
 import Ic from '@components/common/Ic.astro';
-import { APP_COMING_SOON, appUrl } from '@data/navigation';
+import { APP_COMING_SOON, welcomeUrl } from '@data/navigation';
 import { useTranslations } from '@utils/i18n';
 
 const locale = Astro.currentLocale ?? 'ja';
@@ -19,7 +19,7 @@ const t = useTranslations(locale);
             <Ic name="footprints" size={18} />{t.common.comingSoon}
           </span>
         ) : (
-          <a class="btn btn-primary" href={appUrl} target="_blank" rel="noopener noreferrer">
+          <a class="btn btn-primary" href={welcomeUrl} target="_blank" rel="noopener noreferrer">
             <Ic name="footprints" size={18} />{t.finalCTA.cta}
           </a>
         )}

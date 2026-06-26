@@ -1,5 +1,5 @@
 ---
-import { APP_COMING_SOON, appUrl } from '@data/navigation';
+import { APP_COMING_SOON, welcomeUrl } from '@data/navigation';
 import { format, savingsMonths, useTranslations } from '@utils/i18n';
 
 interface Props {
@@ -101,7 +101,7 @@ const monthlyEquivText = yearlyPerMonth > 0 ? format(t.pricing.monthlyEquivTempl
   ) : (
     <!-- WCAG 3.2.5: target="_blank" に sr-only で通知 -->
     <a
-      href={appUrl}
+      href={welcomeUrl}
       class:list={[
         "block text-center font-bold py-3 px-6 rounded-button transition-all duration-300",
         recommended

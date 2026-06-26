@@ -1,5 +1,5 @@
 ---
-import { APP_COMING_SOON, appUrl } from '@data/navigation';
+import { APP_COMING_SOON, welcomeUrl } from '@data/navigation';
 import { useTranslations } from '@utils/i18n';
 
 interface Props {
@@ -32,7 +32,7 @@ const sizeClasses = {
   </span>
 ) : (
   <a
-    href={appUrl}
+    href={welcomeUrl}
     class={`inline-block font-bold rounded-button transition-all duration-300 ${variantClasses[variant]} ${sizeClasses[size]}`}
     target="_blank"
     rel="noopener noreferrer"

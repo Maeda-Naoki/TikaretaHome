@@ -24,11 +24,12 @@ export const mainNav: NavItem[] = [
 ];
 
 export const appUrl = 'https://tikareta.luckyretriever.app';
+export const welcomeUrl = 'https://tikareta.luckyretriever.app/welcome';
+export const loginUrl = 'https://tikareta.luckyretriever.app/auth/login';
 
 export const legalUrls = {
   privacy: `${appUrl}/privacy`,
   terms: `${appUrl}/legal/terms`,
 } as const;
 
-// アプリ公開時は false に変更するだけで全ページのリンクが復元される
-export const APP_COMING_SOON = true;
+export const APP_COMING_SOON = false;
