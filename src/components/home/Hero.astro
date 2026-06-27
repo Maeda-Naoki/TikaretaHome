@@ -1,7 +1,7 @@
 ---
 import Ic from '@components/common/Ic.astro';
 import PhoneMock from '@components/common/PhoneMock.astro';
-import { APP_COMING_SOON } from '@data/navigation';
+import { APP_COMING_SOON, welcomeUrl } from '@data/navigation';
 import { useTranslations } from '@utils/i18n';
 
 const locale = Astro.currentLocale ?? 'ja';
@@ -37,7 +37,7 @@ const titleLines = t.hero.title.split('\n');
             <Ic name="footprints" size={18} />{t.common.comingSoon}
           </span>
         ) : (
-          <a class="btn btn-primary btn-lg" href="#cta">
+          <a class="btn btn-primary btn-lg" href={welcomeUrl} target="_blank" rel="noopener noreferrer">
             <Ic name="footprints" size={18} />{t.hero.cta}
           </a>
         )}

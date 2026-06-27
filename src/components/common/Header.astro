@@ -1,4 +1,5 @@
 ---
+import { loginUrl, welcomeUrl } from '@data/navigation';
 import { useTranslations } from '@utils/i18n';
 import Ic from './Ic.astro';
 import LogoMark from './LogoMark.astro';
@@ -36,8 +37,8 @@ const isEn = locale === 'en';
         <button class={!isEn ? 'active' : ''} type="button" onclick={`location.href='${jaUrl}'`}>日本語</button>
         <button class={isEn ? 'active' : ''} type="button" onclick={`location.href='${enUrl}'`}>EN</button>
       </div>
-      <a class="btn btn-ghost nav-login" href="#">{t.nav.login}</a>
-      <a class="btn btn-primary" href="#cta">
+      <a class="btn btn-ghost nav-login" href={loginUrl} target="_blank" rel="noopener noreferrer">{t.nav.login}</a>
+      <a class="btn btn-primary" href={welcomeUrl} target="_blank" rel="noopener noreferrer">
         <Ic name="arrow-right" size={16} />{t.nav.startFree}
       </a>
     </div>
@@ -54,7 +55,7 @@ const isEn = locale === 'en';
       {navLinks.map((l) => <a href={l.href}>{l.label}</a>)}
     </nav>
     <div class="mobile-footer">
-      <a class="btn btn-primary" href="#cta" style="justify-content:center; width:100%;">{t.nav.startFree}</a>
+      <a class="btn btn-primary" href={welcomeUrl} target="_blank" rel="noopener noreferrer" style="justify-content:center; width:100%;">{t.nav.startFree}</a>
     </div>
   </div>
 </header>

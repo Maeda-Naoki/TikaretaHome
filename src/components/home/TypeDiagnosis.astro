@@ -1,7 +1,7 @@
 ---
 import Ic from '@components/common/Ic.astro';
 import type { IconName } from '@data/icons';
-import { APP_COMING_SOON, appUrl } from '@data/navigation';
+import { APP_COMING_SOON, welcomeUrl } from '@data/navigation';
 import { walkingTypes } from '@data/walkingTypes';
 import { useTranslations } from '@utils/i18n';
 
@@ -52,7 +52,7 @@ const dogTypes = typeKeys.map((key) => ({
           <Ic name="sparkles" size={16} />{t.common.comingSoon}
         </span>
       ) : (
-        <a class="btn btn-soft" href={appUrl} target="_blank" rel="noopener noreferrer">
+        <a class="btn btn-soft" href={welcomeUrl} target="_blank" rel="noopener noreferrer">
           <Ic name="sparkles" size={16} />{t.typeDiagnosis.cta}
         </a>
       )}
