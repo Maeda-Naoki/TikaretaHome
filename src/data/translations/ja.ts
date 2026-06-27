@@ -22,7 +22,7 @@ export const ja = {
     cta: '無料で始める',
     subCta: 'アカウント登録は30秒',
     secondaryCta: '使い方を見る',
-    badge: '2026年春リリース予定 / Phase 1 開発中',
+    badge: '公開中',
     meta: ['クレカ登録不要', 'iOS / Android 対応', '家族と共有OK'],
     floatCards: {
       streak: { label: '連続記録', value: '3日連続' },
@@ -134,8 +134,8 @@ export const ja = {
     appTitle: 'アプリ',
     legalTitle: '法的情報',
     openWebApp: 'Webアプリ',
-    iosApp: 'iOSアプリ（準備中）',
-    androidApp: 'Androidアプリ（準備中）',
+    iosApp: 'iOSアプリ',
+    androidApp: 'Androidアプリ',
   },
   // 機能一覧
   features: {
