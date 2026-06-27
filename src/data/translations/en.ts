@@ -25,7 +25,7 @@ export const en: Translations = {
     cta: 'Start Free',
     subCta: 'Sign up in 30 seconds',
     secondaryCta: 'See How It Works',
-    badge: 'Spring 2026 Release / Phase 1 in Development',
+    badge: 'Now Available',
     meta: ['No credit card required', 'iOS & Android', 'Family sharing'],
     floatCards: {
       streak: { label: 'Streak', value: '3 days' },
@@ -138,8 +138,8 @@ export const en: Translations = {
     appTitle: 'App',
     legalTitle: 'Legal',
     openWebApp: 'Web App',
-    iosApp: 'iOS (Coming Soon)',
-    androidApp: 'Android (Coming Soon)',
+    iosApp: 'iOS',
+    androidApp: 'Android',
   },
   features: {
     walkTracking: {
