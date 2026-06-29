@@ -110,7 +110,7 @@ export const en: Translations = {
   },
   pricingSummary: {
     title: 'Pricing Plans',
-    subtitle: 'Walk tracking is free to start. Go premium for deeper insights.',
+    subtitle: 'Walk tracking is free to start. Go Standard or Pro for deeper insights.',
     cta: 'View Details',
     billingLabel: 'Billing cycle',
     billingMonthly: 'Monthly',
@@ -407,7 +407,7 @@ export const en: Translations = {
     pricing: {
       title: 'Pricing | Tikareta',
       description:
-        'Free plan to ¥300/month premium. Walk logging is free; go premium for deeper insights into your dog.',
+        'From Free to Standard at ¥300/month or Pro at ¥500/month. Walk logging is free; go Standard or Pro for deeper insights into your dog.',
     },
     faq: {
       title: 'FAQ | Tikareta',
