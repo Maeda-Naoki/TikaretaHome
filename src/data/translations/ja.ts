@@ -106,7 +106,7 @@ export const ja = {
   },
   pricingSummary: {
     title: '料金プラン',
-    subtitle: 'おさんぽ記録は無料でスタート。もっと深く知りたい方にはプレミアムを。',
+    subtitle: 'おさんぽ記録は無料でスタート。もっと深く知りたい方にはStandardプラン・Proプランを。',
     cta: '詳しく見る',
     billingLabel: '請求サイクル',
     billingMonthly: '月払い',
@@ -407,7 +407,7 @@ export const ja = {
     pricing: {
       title: '料金プラン | Tikareta',
       description:
-        'Freeプランから月額300円のプレミアムまで。おさんぽ記録は全て無料、もっと深く知りたい方にはプレミアムを。',
+        'Freeプランから月額300円のStandardプラン、月額500円のProプランまで。おさんぽ記録は全て無料、もっと深く知りたい方にはStandardプラン・Proプランを。',
     },
     faq: {
       title: 'よくある質問 | Tikareta',
