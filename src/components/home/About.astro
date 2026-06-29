@@ -55,6 +55,7 @@ const items = t.about.items.map((item, i) => ({
     font-size: 1.08rem;
     line-height: 1.75;
     text-wrap: pretty;
+    line-break: strict;
   }
   .about-list {
     list-style: none;
@@ -93,5 +94,9 @@ const items = t.about.items.map((item, i) => ({
     font-size: 0.86rem;
     color: var(--ink-soft);
     line-height: 1.55;
+    word-break: normal;
+    overflow-wrap: break-word;
+    line-break: strict;
+    text-wrap: pretty;
   }
 </style>

@@ -226,13 +226,22 @@ h4 {
   line-height: 1.18;
   margin: 0;
   color: var(--ink);
-  word-break: keep-all;
+  word-break: normal;
   overflow-wrap: break-word;
+  line-break: strict;
 }
 p {
   margin: 0;
-  word-break: keep-all;
+  word-break: normal;
   overflow-wrap: break-word;
+  line-break: strict;
+  text-wrap: pretty;
+}
+li {
+  word-break: normal;
+  overflow-wrap: break-word;
+  line-break: strict;
+  text-wrap: pretty;
 }
 
 /* WCAG 2.4.7 */
