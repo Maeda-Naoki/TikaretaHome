@@ -229,6 +229,7 @@ h4 {
   word-break: normal;
   overflow-wrap: break-word;
   line-break: strict;
+  text-wrap: pretty;
 }
 p {
   margin: 0;
@@ -238,6 +239,12 @@ p {
   text-wrap: pretty;
 }
 li {
+  word-break: normal;
+  overflow-wrap: break-word;
+  line-break: strict;
+  text-wrap: pretty;
+}
+summary {
   word-break: normal;
   overflow-wrap: break-word;
   line-break: strict;
@@ -282,7 +289,6 @@ li {
 .section-head p {
   color: var(--ink-soft);
   font-size: 1.05rem;
-  text-wrap: pretty;
 }
 
 .eyebrow {
