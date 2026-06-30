@@ -7,13 +7,13 @@ import LogoMark from './LogoMark.astro';
 const locale = Astro.currentLocale ?? 'ja';
 const t = useTranslations(locale);
 const homeUrl = locale === 'ja' ? '/' : '/en/';
+const p = (path: string) => (locale === 'ja' ? path : `/en${path}`);
 
 const navLinks = [
-  { href: '#how', label: t.nav.howItWorks },
-  { href: '#types', label: t.nav.typeDiagnosis },
-  { href: '#features', label: t.nav.features },
-  { href: '#pricing', label: t.nav.pricing },
-  { href: '#faq', label: t.nav.faq },
+  { href: p('/features'), label: t.nav.features },
+  { href: p('/pricing'), label: t.nav.pricing },
+  { href: p('/faq'), label: t.nav.faq },
+  { href: p('/roadmap'), label: t.nav.roadmap },
 ];
 
 const jaUrl = Astro.url.pathname.replace(/^\/en\//, '/') || '/';
