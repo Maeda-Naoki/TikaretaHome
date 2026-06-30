@@ -107,7 +107,7 @@ const titleLines = t.hero.title.split('\n');
     margin-bottom: 1.5rem;
   }
   .badge-new .dot {
-    width: 7px; height: 7px; border-radius: 50%;
+    width: 0.4375rem; height: 0.4375rem; border-radius: 50%;
     background: var(--s500);
     box-shadow: 0 0 0 4px color-mix(in oklab, var(--s500) 25%, transparent);
     animation: pulse 2s ease-in-out infinite;
@@ -116,7 +116,7 @@ const titleLines = t.hero.title.split('\n');
 
   .hero-lead {
     margin-top: 1.5rem; font-size: 1.05rem; color: var(--ink-soft);
-    max-width: 540px; line-height: 1.75; text-wrap: pretty;
+    max-width: 33.75rem; line-height: 1.75; text-wrap: pretty;
   }
   .hero-lead strong { color: var(--ink); font-weight: 700; }
   .hero-cta { display: flex; gap: .75rem; flex-wrap: wrap; margin-top: 2rem; }
@@ -129,10 +129,10 @@ const titleLines = t.hero.title.split('\n');
   .hero-meta li { display: inline-flex; align-items: center; gap: .35rem; }
   .hero-meta .ic { color: var(--s600); }
 
-  .hero-visual { position: relative; min-height: 580px; min-width: 0; }
+  .hero-visual { position: relative; min-height: 36.25rem; min-width: 0; }
   .hero-stack { position: relative; display: grid; place-items: center; padding: 2rem 0; width: 100%; min-width: 0; }
   .hp-back { position: absolute; left: 8%; top: 12%; opacity: .9; }
-  .hp-front { position: relative; z-index: 2; animation: floaty 7s ease-in-out infinite; width: min(320px, 100%); }
+  .hp-front { position: relative; z-index: 2; animation: floaty 7s ease-in-out infinite; width: min(20rem, 100%); }
 
   .hide-sm { display: none; }
   @media (min-width: 768px) { .hide-sm { display: inline; } }
