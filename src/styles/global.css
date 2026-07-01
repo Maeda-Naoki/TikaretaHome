@@ -255,19 +255,19 @@ summary {
 :focus-visible {
   outline: 3px solid var(--accent-deep);
   outline-offset: 2px;
-  border-radius: 2px;
+  border-radius: 0.125rem;
 }
 
 /* =========================================================
    Layout
    ========================================================= */
 .container-page {
-  max-width: 1240px;
+  max-width: 77.5rem;
   margin: 0 auto;
   padding: 0 var(--gutter);
 }
 .container-narrow {
-  max-width: 920px;
+  max-width: 57.5rem;
   margin: 0 auto;
   padding: 0 var(--gutter);
 }
@@ -278,7 +278,7 @@ summary {
 }
 .section-head {
   text-align: center;
-  max-width: 720px;
+  max-width: 45rem;
   margin: 0 auto 4rem;
 }
 .section-head h2 {
@@ -392,9 +392,9 @@ summary {
    Logo mark
    ========================================================= */
 .logo-mark {
-  width: 32px;
-  height: 32px;
-  border-radius: 10px;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 0.625rem;
   background: linear-gradient(
     135deg,
     var(--accent),
@@ -412,12 +412,12 @@ summary {
 .logo-mark::after {
   content: '';
   position: absolute;
-  width: 6px;
-  height: 6px;
+  width: 0.375rem;
+  height: 0.375rem;
   border-radius: 50%;
   background: #fff;
-  top: 7px;
-  right: 7px;
+  top: 0.4375rem;
+  right: 0.4375rem;
   opacity: 0.9;
 }
 
@@ -430,7 +430,7 @@ summary {
   background: var(--surface);
   border: 1px solid var(--line);
   border-radius: var(--r-pill);
-  padding: 2px;
+  padding: 0.125rem;
   font-size: 0.78rem;
   font-family: var(--font-mono);
 }
@@ -486,13 +486,13 @@ summary {
    Phone frame
    ========================================================= */
 .phone {
-  width: min(320px, 100%);
+  width: min(20rem, 100%);
   max-width: 100%;
   aspect-ratio: 320 / 640;
   height: auto;
-  border-radius: 48px;
+  border-radius: 3rem;
   background: #1c1917;
-  padding: 12px;
+  padding: 0.75rem;
   box-shadow:
     0 30px 60px -15px rgba(28, 25, 23, 0.25),
     0 60px 120px -30px rgba(28, 25, 23, 0.2),
@@ -503,7 +503,7 @@ summary {
 .phone-screen {
   width: 100%;
   height: 100%;
-  border-radius: 38px;
+  border-radius: 2.375rem;
   overflow: hidden;
   background: var(--cream);
   position: relative;
@@ -512,27 +512,27 @@ summary {
 }
 .phone-notch {
   position: absolute;
-  top: 14px;
+  top: 0.875rem;
   left: 50%;
   transform: translateX(-50%);
-  width: 110px;
-  height: 28px;
+  width: 6.875rem;
+  height: 1.75rem;
   background: #1c1917;
-  border-radius: 16px;
+  border-radius: 1rem;
   z-index: 5;
 }
 .mini-phone {
-  width: 280px;
-  height: 560px;
-  border-radius: 38px;
+  width: 17.5rem;
+  height: 35rem;
+  border-radius: 2.375rem;
   background: #1c1917;
-  padding: 9px;
+  padding: 0.5625rem;
   box-shadow: var(--shadow-2);
 }
 .mini-screen {
   width: 100%;
   height: 100%;
-  border-radius: 30px;
+  border-radius: 1.875rem;
   overflow: hidden;
   background: var(--cream);
   position: relative;
@@ -557,9 +557,9 @@ summary {
   animation: floaty 6s ease-in-out infinite;
 }
 .float-card .ico {
-  width: 38px;
-  height: 38px;
-  border-radius: 12px;
+  width: 2.375rem;
+  height: 2.375rem;
+  border-radius: 0.75rem;
   display: grid;
   place-items: center;
   background: var(--accent-soft);
@@ -662,9 +662,9 @@ summary {
 }
 
 .icon-wrap {
-  width: 52px;
-  height: 52px;
-  border-radius: 16px;
+  width: 3.25rem;
+  height: 3.25rem;
+  border-radius: 1rem;
   background: var(--accent-soft);
   color: var(--accent-deep);
   display: grid;
@@ -675,8 +675,8 @@ summary {
 
 .num-bg {
   position: absolute;
-  right: -10px;
-  bottom: -30px;
+  right: -0.625rem;
+  bottom: -1.875rem;
   font-size: 7rem;
   font-weight: 900;
   color: var(--line-soft);
@@ -687,9 +687,9 @@ summary {
 }
 
 .step-num {
-  width: 44px;
-  height: 44px;
-  border-radius: 14px;
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 0.875rem;
   background: var(--ink);
   color: var(--bg);
   display: grid;
@@ -732,9 +732,9 @@ summary {
   border-color: var(--accent);
 }
 .type-emoji {
-  width: 48px;
-  height: 48px;
-  border-radius: 14px;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 0.875rem;
   background: var(--accent-soft);
   display: grid;
   place-items: center;
@@ -773,14 +773,14 @@ summary {
 }
 .showcase-slot {
   flex: 0 0 auto;
-  width: 280px;
+  width: 17.5rem;
   scroll-snap-align: center;
   display: flex;
   flex-direction: column;
   gap: 1rem;
 }
 .showcase-spacer {
-  width: calc(50vw - 140px);
+  width: calc(50vw - 8.75rem);
   flex: 0 0 auto;
 }
 
@@ -801,9 +801,9 @@ summary {
   box-shadow: var(--shadow-1);
 }
 .feat .ico {
-  width: 42px;
-  height: 42px;
-  border-radius: 12px;
+  width: 2.625rem;
+  height: 2.625rem;
+  border-radius: 0.75rem;
   background: var(--tier-bg, var(--surface-2));
   color: var(--tier-fg, var(--ink-soft));
   display: grid;
@@ -818,7 +818,7 @@ summary {
   font-family: var(--font-mono);
   font-size: 0.65rem;
   letter-spacing: 0.1em;
-  padding: 3px 8px;
+  padding: 0.1875rem 0.5rem;
   border-radius: var(--r-pill);
   background: var(--tier-bg, var(--surface-2));
   color: var(--tier-fg, var(--ink-mute));
@@ -835,7 +835,7 @@ summary {
   background: var(--surface);
   border: 1px solid var(--line);
   border-radius: var(--r-pill);
-  padding: 4px;
+  padding: 0.25rem;
   margin-bottom: 3rem;
 }
 .billing-toggle button {
@@ -853,11 +853,11 @@ summary {
 }
 .billing-toggle .save-tag {
   position: absolute;
-  top: -10px;
-  right: -8px;
+  top: -0.625rem;
+  right: -0.5rem;
   font-family: var(--font-mono);
   font-size: 0.58rem;
-  padding: 2px 6px;
+  padding: 0.125rem 0.375rem;
   background: var(--s700);
   color: white;
   border-radius: var(--r-pill);
@@ -913,7 +913,7 @@ summary {
 }
 .plan .badge {
   position: absolute;
-  top: -14px;
+  top: -0.875rem;
   left: 50%;
   transform: translateX(-50%);
   background: var(--tier-fg, var(--accent));
@@ -982,7 +982,7 @@ summary {
 .plan ul li .ic {
   color: var(--tier-fg, var(--accent));
   flex-shrink: 0;
-  margin-top: 3px;
+  margin-top: 0.1875rem;
 }
 .plan ul li.muted {
   color: var(--ink-mute);
@@ -1081,7 +1081,7 @@ summary {
   position: relative;
 }
 .final-cta-card {
-  max-width: 920px;
+  max-width: 57.5rem;
   margin: 0 auto;
   background: linear-gradient(
     135deg,
@@ -1102,7 +1102,7 @@ summary {
 .final-cta-card p {
   color: rgba(255, 255, 255, 0.78);
   margin: 1.25rem auto 2rem;
-  max-width: 520px;
+  max-width: 32.5rem;
 }
 .final-cta-card .btn-primary {
   padding: 1rem 1.8rem;
@@ -1112,16 +1112,16 @@ summary {
   position: absolute;
   border: 2px dashed rgba(255, 255, 255, 0.08);
   border-radius: 50%;
-  width: 600px;
-  height: 600px;
+  width: 37.5rem;
+  height: 37.5rem;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   pointer-events: none;
 }
 .final-cta-card .deco-ring.r2 {
-  width: 380px;
-  height: 380px;
+  width: 23.75rem;
+  height: 23.75rem;
   border-color: rgba(255, 255, 255, 0.05);
 }
 

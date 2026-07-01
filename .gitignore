@@ -28,6 +28,9 @@ pnpm-debug.log*
 # Playwright
 test-results/
 playwright-report/
+# VRT スナップショット (ブラウザ/OS依存のためコミットしない。
+# `pnpm test:vrt:update` で各環境で生成する)
+e2e/**/*-snapshots/
 
 # Cloudflare Wrangler
 .wrangler/

@@ -20,6 +20,8 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "test:e2e": "playwright test",
+    "test:vrt": "playwright test --config playwright.vrt.config.ts",
+    "test:vrt:update": "playwright test --config playwright.vrt.config.ts --update-snapshots",
     "og": "node scripts/generate-og.mjs",
     "fonts": "node scripts/subset-fonts.mjs"
   },
