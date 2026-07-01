@@ -23,11 +23,21 @@ export default defineConfig({
       name: 'chromium',
       use: {
         browserName: 'chromium',
-        // 実行環境にプリインストールされた Chromium を使う場合のみ上書き
-        // (未設定時は Playwright 既定のブラウザを使用)。
-        ...(process.env.PW_EXECUTABLE_PATH
-          ? { launchOptions: { executablePath: process.env.PW_EXECUTABLE_PATH } }
-          : {}),
+        launchOptions: {
+          // スクリーンショット比較(VRT)のフォント/アンチエイリアスを実行間で
+          // 決定的にし、GPU ラスタライズ由来の 1/255 レベルのゆらぎを排除する。
+          args: [
+            '--disable-gpu',
+            '--force-color-profile=srgb',
+            '--disable-lcd-text',
+            '--font-render-hinting=none',
+          ],
+          // 実行環境にプリインストールされた Chromium を使う場合のみ上書き
+          // (未設定時は Playwright 既定のブラウザを使用)。
+          ...(process.env.PW_EXECUTABLE_PATH
+            ? { executablePath: process.env.PW_EXECUTABLE_PATH }
+            : {}),
+        },
       },
     },
   ],
