@@ -43,7 +43,7 @@
     "subset-font": "2.5.0",
     "typescript": "6.0.3",
     "vitest": "4.1.11",
-    "wrangler": "4.103.0"
+    "wrangler": "4.127.1"
   },
   "packageManager": "pnpm@11.22.0"
 }
