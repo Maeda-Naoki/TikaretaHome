@@ -46,8 +46,8 @@ importers:
         specifier: 1.85.0
         version: 1.85.0
       subset-font:
-        specifier: 2.7.0
-        version: 2.7.0
+        specifier: 2.9.0
+        version: 2.9.0
       typescript:
         specifier: 6.0.3
         version: 6.0.3
@@ -2389,8 +2389,8 @@ packages:
   h3@1.15.11:
     resolution: {integrity: sha512-L3THSe2MPeBwgIZVSH5zLdBBU90TOxarvhK9d04IDY2AmVS8j2Jz2LIWtwsGOU3lu2I5jCN7FNvVfY2+XyF+mg==}
 
-  harfbuzzjs@0.10.3:
-    resolution: {integrity: sha512-GJnLUrgLMadlMYrBGEXwYEimObbysy3prWT4HyPpFQERvgTU/OZ+ReUlEPOum6w4RBtFXzXiCCmECOr4sz3qwQ==}
+  harfbuzzjs@1.6.2:
+    resolution: {integrity: sha512-95c1vWuzoHjM19d5fQgPbz1wcv1pTa0UM9dZrdPgSMUEVuSwuzeVPkq6UhHHw3jLOkE9AYzzTP8XQkRBpPYpEg==}
 
   has-flag@3.0.0:
     resolution: {integrity: sha512-sKJf1+ceQBr4SMkvQnBDNDtf4TXpVhVGateu0t918bl30FnbE2m4vNLX+VWe/dpjlb+HugGYzW7uQXH98HPEYw==}
@@ -3539,8 +3539,8 @@ packages:
     resolution: {integrity: sha512-Y38VPSHcqkFrCpFnQ9vuSXmquuv5oXOKpGeT6aGrr3o3Gc9AlVa6JBfUSOCnbxGGZF+/0ooI7KrPuUSztUdU5A==}
     engines: {node: '>=8'}
 
-  subset-font@2.7.0:
-    resolution: {integrity: sha512-KoBEshkhodCspvR8DweQFkxRB0OxLmXiWV49y8O5fksD9gf/qBK8gcLwUOlGP4ktm55t2Ot0gLRsVQLT4391QQ==}
+  subset-font@2.9.0:
+    resolution: {integrity: sha512-WJulQeFwbewrXIGcLJbSZFWI44fHW8gNRuPzLywfDL8w38IPRbN1JFxwG76aoohw9kcFdvjVIn2QmID1iy119A==}
 
   supports-color@10.2.2:
     resolution: {integrity: sha512-SS+jx45GF1QjgEXQx4NJZV9ImqmO2NPz5FNsIHrsDjh2YsHnawpan7SNQ1o8NuhrbHZy9AZhIoCUiCeaW/C80g==}
@@ -6284,7 +6284,7 @@ snapshots:
       ufo: 1.6.4
       uncrypto: 0.1.3
 
-  harfbuzzjs@0.10.3: {}
+  harfbuzzjs@1.6.2: {}
 
   has-flag@3.0.0: {}
 
@@ -7865,10 +7865,10 @@ snapshots:
     dependencies:
       ansi-regex: 5.0.1
 
-  subset-font@2.7.0:
+  subset-font@2.9.0:
     dependencies:
       fontverter: 2.0.0
-      harfbuzzjs: 0.10.3
+      harfbuzzjs: 1.6.2
       p-limit: 3.1.0
 
   supports-color@10.2.2: {}
