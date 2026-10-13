@@ -6,7 +6,7 @@
   "scripts": {
     "prepare": "lefthook install",
     "dev": "astro dev",
-    "build": "pnpm type-check && astro build",
+    "build": "astro check && astro build",
     "preview": "astro preview",
     "deploy": "pnpm build && wrangler deploy",
     "cf:preview": "pnpm build && wrangler dev",
@@ -16,7 +16,7 @@
     "format:check": "oxfmt --check",
     "check": "oxlint && oxfmt --check",
     "check:fix": "oxlint --fix && oxfmt",
-    "type-check": "astro sync && tsc --noEmit && astro-check",
+    "type-check": "astro check",
     "test": "vitest run",
     "test:watch": "vitest",
     "test:e2e": "playwright test",
@@ -41,7 +41,7 @@
     "oxfmt": "0.72.0",
     "oxlint": "1.87.0",
     "subset-font": "2.9.0",
-    "typescript": "7.0.2",
+    "typescript": "6.0.3",
     "vitest": "5.0.3",
     "wrangler": "4.147.0"
   },

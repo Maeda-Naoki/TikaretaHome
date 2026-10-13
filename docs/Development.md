@@ -181,7 +181,7 @@ pre-commit:
   "scripts": {
     "prepare": "lefthook install",
     "dev": "astro dev",
-    "build": "pnpm type-check && astro build",
+    "build": "astro check && astro build",
     "preview": "astro preview",
     "lint": "oxlint",
     "lint:fix": "oxlint --fix",
@@ -189,7 +189,7 @@ pre-commit:
     "format:check": "oxfmt --check",
     "check": "oxlint && oxfmt --check",
     "check:fix": "oxlint --fix && oxfmt",
-    "type-check": "astro sync && tsc --noEmit && astro-check",
+    "type-check": "astro check",
     "test:e2e": "playwright test"
   }
 }
@@ -206,13 +206,8 @@ pre-commit:
 | ロックファイル | `pnpm-lock.yaml` を必ずコミット |
 | 定期的な更新 | 依存関係は定期的に更新してセキュリティと機能を維持 |
 
-プロジェクトの TypeScript は **7.0.2** を使用する。TypeScript 7 で廃止された
-`baseUrl` は使わず、`paths` の参照先は `./src/...` の相対パスで指定する。
+TypeScript は Astro 標準の型チェッカーが対応する **6.0.3** を使用する。
+`pnpm type-check`（`astro check`）で TypeScript と Astro ファイルをまとめて検査し、
+ビルドと CI でも同じチェッカーを使用する。
 
-`pnpm type-check` は `astro sync` で型を生成し、TypeScript 7 の `tsc --noEmit` と
-Astro ファイル用の `astro-check` を順に実行する。ビルドと CI でもこのコマンドを使用する。
-
-`@astrojs/check` 0.9.10 が必要とする JavaScript の Language Service API は
-TypeScript 7.0.2 に未実装のため、[.pnpmfile.cjs](../.pnpmfile.cjs) でこの検査ツールの
-TypeScript を peer dependency から専用の依存（6.0.3）に変更する。
-Astro チェッカーが7系に対応したら、この互換処理を削除する。
+エイリアスは `paths` に `./src/...` の相対パスで指定し、`baseUrl` は使用しない。
