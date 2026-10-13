@@ -38,8 +38,8 @@ verifyStoreIntegrity: true
 # ストア内のパッケージコンテンツを厳密にチェックする
 strictStorePkgContentCheck: true
 
-# 新たに追加されたトランスイティブ依存を自動的に受け入れる
-trustPolicy: accept
+# 新たに追加されたトランスイティブ依存を自動的に受け入れる（pnpm 12 では accept → off）
+trustPolicy: off
 
 # ライフサイクルスクリプト（postinstall 等）の実行を許可するパッケージをホワイトリストで制御する
 # ここに列挙していないパッケージはスクリプトを実行できない（pnpm v10.26.0 以降）

@@ -15,11 +15,15 @@ export default defineConfig({
   ...base,
   testIgnore: undefined,
   testMatch: ['**/vrt.spec.ts'],
+  // 長いページの全画面キャプチャでも、連続する画像の安定を待てるようにする。
+  expect: {
+    timeout: 15_000,
+  },
   // ピクセル厳密比較のため、必ず最新ソースをビルドした dist/ を preview で配信する。
   // reuseExistingServer:false で、別に起動中の dev サーバ(HMR入り・未minify)を
   // 誤って再利用して偽の差分が出るのを防ぐ。
   webServer: {
-    command: 'pnpm build && pnpm preview',
+    command: 'pnpm build && pnpm preview --ignore-lock',
     port: 4321,
     reuseExistingServer: false,
     timeout: 120_000,

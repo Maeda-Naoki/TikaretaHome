@@ -1,6 +1,6 @@
 # 開発環境設定
 
-> 最終更新: 2026-05-10
+> 最終更新: 2026-10-13
 ---
 
 ## パッケージマネージャー
@@ -39,23 +39,17 @@ pnpm add -D @astrojs/sitemap oxlint oxfmt lefthook
 
 ---
 
-## .npmrc
+## pnpm-workspace.yaml
 
-tikaretaメインプロジェクトと統一したサプライチェーンセキュリティ設定。
+pnpm のバージョンは `package.json` の `packageManager` で固定し、設定は
+[pnpm-workspace.yaml](../pnpm-workspace.yaml) で管理する。
 
-```ini
-save-exact=true
-ignore-dep-scripts=true
-minimum-release-age=10080
-minimum-release-age-exclude[]='oxlint'
-minimum-release-age-exclude[]='oxfmt'
-minimum-release-age-exclude[]='@astrojs/*'
-minimum-release-age-exclude[]='astro'
-trust-policy=accept
-block-exotic-subdeps=true
-verify-store-integrity=true
-strict-store-pkg-content-check=true
-```
+- 依存バージョンは完全固定し、原則として公開後7日以上経過した安定版を使用する。
+- `minimumReleaseAgeExclude` に列挙されたパッケージは公開直後でも更新できる。
+- 依存のライフサイクルスクリプトは `allowBuilds` に列挙されたパッケージだけ許可し、
+  未承認のスクリプトは `strictDepBuilds: true` でエラーにする。
+- pnpm 12 では従来の `trustPolicy: accept` に相当する設定は `trustPolicy: off`。
+  公開後の待機期間、依存ソースの制限、ストアの整合性検証は個別の設定で維持する。
 
 ---
 
@@ -73,14 +67,13 @@ strict-store-pkg-content-check=true
 {
   "extends": "astro/tsconfigs/strict",
   "compilerOptions": {
-    "baseUrl": ".",
     "paths": {
-      "@components/*": ["src/components/*"],
-      "@layouts/*": ["src/layouts/*"],
-      "@utils/*": ["src/utils/*"],
-      "@data/*": ["src/data/*"],
-      "@styles/*": ["src/styles/*"],
-      "@assets/*": ["src/assets/*"]
+      "@components/*": ["./src/components/*"],
+      "@layouts/*": ["./src/layouts/*"],
+      "@utils/*": ["./src/utils/*"],
+      "@data/*": ["./src/data/*"],
+      "@styles/*": ["./src/styles/*"],
+      "@assets/*": ["./src/assets/*"]
     }
   }
 }
@@ -212,3 +205,9 @@ pre-commit:
 | バージョン固定 | `save-exact=true` で正確なバージョンを指定 |
 | ロックファイル | `pnpm-lock.yaml` を必ずコミット |
 | 定期的な更新 | 依存関係は定期的に更新してセキュリティと機能を維持 |
+
+TypeScript は Astro 標準の型チェッカーが対応する **6.0.3** を使用する。
+`pnpm type-check`（`astro check`）で TypeScript と Astro ファイルをまとめて検査し、
+ビルドと CI でも同じチェッカーを使用する。
+
+エイリアスは `paths` に `./src/...` の相対パスで指定し、`baseUrl` は使用しない。
