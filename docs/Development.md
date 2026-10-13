@@ -1,6 +1,6 @@
 # 開発環境設定
 
-> 最終更新: 2026-05-10
+> 最終更新: 2026-10-13
 ---
 
 ## パッケージマネージャー
@@ -39,23 +39,17 @@ pnpm add -D @astrojs/sitemap oxlint oxfmt lefthook
 
 ---
 
-## .npmrc
+## pnpm-workspace.yaml
 
-tikaretaメインプロジェクトと統一したサプライチェーンセキュリティ設定。
+pnpm のバージョンは `package.json` の `packageManager` で固定し、設定は
+[pnpm-workspace.yaml](../pnpm-workspace.yaml) で管理する。
 
-```ini
-save-exact=true
-ignore-dep-scripts=true
-minimum-release-age=10080
-minimum-release-age-exclude[]='oxlint'
-minimum-release-age-exclude[]='oxfmt'
-minimum-release-age-exclude[]='@astrojs/*'
-minimum-release-age-exclude[]='astro'
-trust-policy=accept
-block-exotic-subdeps=true
-verify-store-integrity=true
-strict-store-pkg-content-check=true
-```
+- 依存バージョンは完全固定し、原則として公開後7日以上経過した安定版を使用する。
+- `minimumReleaseAgeExclude` に列挙されたパッケージは公開直後でも更新できる。
+- 依存のライフサイクルスクリプトは `allowBuilds` に列挙されたパッケージだけ許可し、
+  未承認のスクリプトは `strictDepBuilds: true` でエラーにする。
+- pnpm 12 では従来の `trustPolicy: accept` に相当する設定は `trustPolicy: off`。
+  公開後の待機期間、依存ソースの制限、ストアの整合性検証は個別の設定で維持する。
 
 ---
 
@@ -73,14 +67,13 @@ strict-store-pkg-content-check=true
 {
   "extends": "astro/tsconfigs/strict",
   "compilerOptions": {
-    "baseUrl": ".",
     "paths": {
-      "@components/*": ["src/components/*"],
-      "@layouts/*": ["src/layouts/*"],
-      "@utils/*": ["src/utils/*"],
-      "@data/*": ["src/data/*"],
-      "@styles/*": ["src/styles/*"],
-      "@assets/*": ["src/assets/*"]
+      "@components/*": ["./src/components/*"],
+      "@layouts/*": ["./src/layouts/*"],
+      "@utils/*": ["./src/utils/*"],
+      "@data/*": ["./src/data/*"],
+      "@styles/*": ["./src/styles/*"],
+      "@assets/*": ["./src/assets/*"]
     }
   }
 }
@@ -188,7 +181,7 @@ pre-commit:
   "scripts": {
     "prepare": "lefthook install",
     "dev": "astro dev",
-    "build": "astro check && astro build",
+    "build": "pnpm type-check && astro build",
     "preview": "astro preview",
     "lint": "oxlint",
     "lint:fix": "oxlint --fix",
@@ -196,7 +189,7 @@ pre-commit:
     "format:check": "oxfmt --check",
     "check": "oxlint && oxfmt --check",
     "check:fix": "oxlint --fix && oxfmt",
-    "type-check": "astro check",
+    "type-check": "astro sync && tsc --noEmit && astro-check",
     "test:e2e": "playwright test"
   }
 }
@@ -212,3 +205,14 @@ pre-commit:
 | バージョン固定 | `save-exact=true` で正確なバージョンを指定 |
 | ロックファイル | `pnpm-lock.yaml` を必ずコミット |
 | 定期的な更新 | 依存関係は定期的に更新してセキュリティと機能を維持 |
+
+プロジェクトの TypeScript は **7.0.2** を使用する。TypeScript 7 で廃止された
+`baseUrl` は使わず、`paths` の参照先は `./src/...` の相対パスで指定する。
+
+`pnpm type-check` は `astro sync` で型を生成し、TypeScript 7 の `tsc --noEmit` と
+Astro ファイル用の `astro-check` を順に実行する。ビルドと CI でもこのコマンドを使用する。
+
+`@astrojs/check` 0.9.10 が必要とする JavaScript の Language Service API は
+TypeScript 7.0.2 に未実装のため、[.pnpmfile.cjs](../.pnpmfile.cjs) でこの検査ツールの
+TypeScript を peer dependency から専用の依存（6.0.3）に変更する。
+Astro チェッカーが7系に対応したら、この互換処理を削除する。

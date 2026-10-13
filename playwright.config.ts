@@ -14,7 +14,9 @@ export default defineConfig({
     baseURL: 'http://localhost:4321',
   },
   webServer: {
-    command: 'pnpm preview',
+    // Astro のエージェント環境での自動バックグラウンド起動を無効にし、
+    // Playwright がサーバープロセスを起動・終了できるようにする。
+    command: 'pnpm preview --ignore-lock',
     port: 4321,
     reuseExistingServer: !process.env.CI,
   },
