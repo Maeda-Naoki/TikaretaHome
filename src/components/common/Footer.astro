@@ -1,11 +1,12 @@
 ---
 import { APP_COMING_SOON, legalUrls, welcomeUrl } from '@data/navigation';
 import { useTranslations } from '@utils/i18n';
+import { getRelativeLocaleUrl } from 'astro:i18n';
 import LogoMark from './LogoMark.astro';
 
 const locale = Astro.currentLocale ?? 'ja';
 const t = useTranslations(locale);
-const p = (path: string) => (locale === 'ja' ? path : `/en${path}`);
+const p = (path: string) => getRelativeLocaleUrl(locale, path);
 ---
 
 <footer class="foot">

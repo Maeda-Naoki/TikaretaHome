@@ -1,17 +1,17 @@
 import { expect, test } from '@playwright/test';
 
 const jaNavLinks = [
-  { label: '機能紹介', href: '/features' },
-  { label: '料金プラン', href: '/pricing' },
-  { label: 'よくある質問', href: '/faq' },
-  { label: 'ロードマップ', href: '/roadmap' },
+  { label: '機能紹介', href: '/features/' },
+  { label: '料金プラン', href: '/pricing/' },
+  { label: 'よくある質問', href: '/faq/' },
+  { label: 'ロードマップ', href: '/roadmap/' },
 ];
 
 const enNavLinks = [
-  { label: 'Features', href: '/en/features' },
-  { label: 'Pricing', href: '/en/pricing' },
-  { label: 'FAQ', href: '/en/faq' },
-  { label: 'Roadmap', href: '/en/roadmap' },
+  { label: 'Features', href: '/en/features/' },
+  { label: 'Pricing', href: '/en/pricing/' },
+  { label: 'FAQ', href: '/en/faq/' },
+  { label: 'Roadmap', href: '/en/roadmap/' },
 ];
 
 test.describe('Header navigation (Japanese, desktop)', () => {
@@ -37,7 +37,7 @@ test.describe('Header navigation (Japanese, desktop)', () => {
 
   test('clicking a nav link navigates to the correct page', async ({ page }) => {
     await page.locator('header nav.nav-links a', { hasText: '機能紹介' }).click();
-    await expect(page).toHaveURL('/features');
+    await expect(page).toHaveURL('/features/');
   });
 });
 
@@ -64,7 +64,7 @@ test.describe('Header navigation (English, desktop)', () => {
 
   test('clicking a nav link navigates to the correct page', async ({ page }) => {
     await page.locator('header nav.nav-links a', { hasText: 'Features' }).click();
-    await expect(page).toHaveURL('/en/features');
+    await expect(page).toHaveURL('/en/features/');
   });
 });
 
@@ -93,7 +93,7 @@ test.describe('Header mobile menu navigation', () => {
   test('clicking a mobile menu link navigates and closes menu', async ({ page }) => {
     await page.locator('#mobile-menu-btn').click();
     await page.locator('#mobile-menu nav a', { hasText: '料金プラン' }).click();
-    await expect(page).toHaveURL('/pricing');
+    await expect(page).toHaveURL('/pricing/');
     await expect(page.locator('#mobile-menu')).toBeHidden();
   });
 });
