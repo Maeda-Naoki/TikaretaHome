@@ -1,13 +1,14 @@
 ---
 import { loginUrl, welcomeUrl } from '@data/navigation';
 import { useTranslations } from '@utils/i18n';
+import { getRelativeLocaleUrl } from 'astro:i18n';
 import Ic from './Ic.astro';
 import LogoMark from './LogoMark.astro';
 
 const locale = Astro.currentLocale ?? 'ja';
 const t = useTranslations(locale);
 const homeUrl = locale === 'ja' ? '/' : '/en/';
-const p = (path: string) => (locale === 'ja' ? path : `/en${path}`);
+const p = (path: string) => getRelativeLocaleUrl(locale, path);
 
 const navLinks = [
   { href: p('/features'), label: t.nav.features },
