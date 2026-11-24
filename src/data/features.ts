@@ -38,7 +38,7 @@ export const designFeatures: DesignFeature[] = [
     tier: 'free',
     icon: 'target',
     title: '基本タイプ診断',
-    body: '8つのおさんぽタイプから愛犬の個性を診断。',
+    body: '14種類のおさんぽタイプから愛犬の個性を診断。',
   },
   {
     tier: 'free',
