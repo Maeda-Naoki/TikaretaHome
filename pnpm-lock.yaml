@@ -167,8 +167,8 @@ importers:
   .:
     dependencies:
       '@lucide/astro':
-        specifier: 1.74.0
-        version: 1.74.0(astro@7.4.13(@types/node@26.6.6)(esbuild@0.28.2)(jiti@2.7.0)(yaml@2.9.1))
+        specifier: 1.75.0
+        version: 1.75.0(astro@7.4.13(@types/node@26.6.6)(esbuild@0.28.2)(jiti@2.7.0)(yaml@2.9.1))
       '@tailwindcss/vite':
         specifier: 4.3.5
         version: 4.3.5(vite@8.3.8(@types/node@26.6.6)(esbuild@0.28.2)(jiti@2.7.0)(yaml@2.9.1))
@@ -898,8 +898,8 @@ packages:
     resolution: {integrity: sha512-+hiBITsPkxtMnHJLuL7K6I3DPzanfsfPoBobj24ThdcB/eqgkuqjyXU6PmujObPofx1fWNxMJFq2LdHabzgDAA==}
     engines: {node: '>=22.19.0'}
 
-  '@lucide/astro@1.74.0':
-    resolution: {integrity: sha512-FkaIh74Gmst7ogy7XqY6qoHIrVs/Z0imrdvmmShvJmg+R83PSwUZrI9M7jl2yMwPFH5KqhygA10B9w2MkOoz0g==}
+  '@lucide/astro@1.75.0':
+    resolution: {integrity: sha512-cTkJqOYjEFhWBySwHG/6kqER3gEWHhkR0yf5G8hr/EycfEL+VvyLQHgvWgYhYiK9QNiW9tuUQKNNJPSV6TboUQ==}
     peerDependencies:
       astro: ^4 || ^5 || ^6 || ^7
 
@@ -4766,7 +4766,7 @@ snapshots:
       - webpack
       - yauzl
 
-  '@lucide/astro@1.74.0(astro@7.4.13(@types/node@26.6.6)(esbuild@0.28.2)(jiti@2.7.0)(yaml@2.9.1))':
+  '@lucide/astro@1.75.0(astro@7.4.13(@types/node@26.6.6)(esbuild@0.28.2)(jiti@2.7.0)(yaml@2.9.1))':
     dependencies:
       astro: 7.4.13(@types/node@26.6.6)(esbuild@0.28.2)(jiti@2.7.0)(yaml@2.9.1)
 
