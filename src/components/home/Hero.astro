@@ -1,4 +1,5 @@
 ---
+import PhraseText from '@components/common/PhraseText.astro';
 import Ic from '@components/common/Ic.astro';
 import PhoneMock from '@components/common/PhoneMock.astro';
 import { APP_COMING_SOON, welcomeUrl } from '@data/navigation';
@@ -26,11 +27,11 @@ const titleLines = t.hero.title.split('\n');
         <span class="dot"></span>{APP_COMING_SOON ? t.common.comingSoon : t.hero.badge}
       </span>
       <h1 class="hero-headline">
-        {titleLines[0]}<br />
-        <span class="accent">{titleLines[1]}</span><br />
-        {titleLines[2]}
+        <PhraseText text={titleLines[0]} /><br />
+        <span class="accent"><PhraseText text={titleLines[1]} /></span><br />
+        <PhraseText text={titleLines[2]} />
       </h1>
-      <p class="hero-lead">{t.hero.subtitle}</p>
+      <p class="hero-lead"><PhraseText text={t.hero.subtitle} /></p>
       <div class="hero-cta">
         {APP_COMING_SOON ? (
           <span class="btn btn-primary btn-lg" style="cursor:default; opacity:.6; pointer-events:none;">
@@ -56,7 +57,12 @@ const titleLines = t.hero.title.split('\n');
     <div class="hero-visual">
       <div class="hero-stack">
         <div class="hp hp-back">
+          <p class="mock-label">{locale === 'en' ? 'Example diagnosis' : '診断結果の表示例'}</p>
           <PhoneMock variant="result" size="md" tilt={-7} />
+        </div>
+        <div class="hp hp-mobile-result">
+          <p class="mock-label">{locale === 'en' ? 'Example diagnosis' : '診断結果の表示例'}</p>
+          <PhoneMock variant="result" size="lg" />
         </div>
         <div class="hp hp-front">
           <PhoneMock variant="home" size="lg" />
@@ -131,6 +137,8 @@ const titleLines = t.hero.title.split('\n');
 
   .hero-visual { position: relative; min-height: 36.25rem; min-width: 0; }
   .hero-stack { position: relative; display: grid; place-items: center; padding: 2rem 0; width: 100%; min-width: 0; }
+  .hp-mobile-result { display: none; }
+  .mock-label { text-align: center; font-size: .8rem; color: var(--ink-soft); margin-bottom: .5rem; }
   .hp-back { position: absolute; left: 8%; top: 12%; opacity: .9; }
   .hp-front { position: relative; z-index: 2; animation: floaty 7s ease-in-out infinite; width: min(20rem, 100%); }
 
@@ -139,7 +147,8 @@ const titleLines = t.hero.title.split('\n');
 
   @media (max-width: 980px) {
     .hero-visual { min-height: auto; }
-    .hp-back { display: none; }
+    .hp-back, .hp-front { display: none; }
+    .hp-mobile-result { display: block; width: min(20rem, 100%); }
     .float-card { display: none; }
   }
 </style>

@@ -22,7 +22,7 @@ export const en: Translations = {
     title: "Do you know\nyour dog's\nwalking style?",
     subtitle:
       "Just keep walking together. Your dog's unique walking personality will reveal itself naturally.",
-    cta: 'Start Free',
+    cta: 'Log Walks for Free',
     subCta: 'Sign up in 30 seconds',
     secondaryCta: 'See How It Works',
     badge: 'Now Available',
@@ -100,8 +100,9 @@ export const en: Translations = {
   },
   typeDiagnosis: {
     title: 'What Type is Your Dog?',
-    subtitle: 'Discover from 8 walking types',
-    cta: 'Start Diagnosis',
+    subtitle: 'Discover your dog’s type from 14 walking types. Here are a few examples.',
+    requirement: 'Diagnosis requires at least 7 completed walks and 5 saved rest spots.',
+    cta: 'Log Walks for Free',
   },
   featureHighlights: {
     title: 'Key Features',
@@ -164,7 +165,7 @@ export const en: Translations = {
     },
     basicType: {
       title: 'Basic Type Diagnosis',
-      description: "Discover your dog's personality from 8 walking types",
+      description: "Discover your dog's personality from 14 walking types",
     },
     community: {
       title: 'Community',
@@ -256,32 +257,32 @@ export const en: Translations = {
       description: 'Cautious type that seeks shade to avoid heat',
     },
     explorer: {
-      name: 'Explorer',
-      description: 'Loves pioneering new routes',
+      name: 'Super Sniffer',
+      description: 'Investigates interesting scents',
     },
     morningEnjoyer: {
-      name: 'Morning Enjoyer',
+      name: 'Sunrise Sprinter',
       description: 'Enjoys morning walks the most',
     },
     shortBurst: {
-      name: 'Short Burst',
-      description: 'Prefers concentrated short walks',
+      name: 'Infinite Stamina Monster',
+      description: 'Keeps walking with few breaks',
     },
     socialButterfly: {
-      name: 'Social Butterfly',
-      description: 'Loves interacting with other dogs',
+      name: 'Cuddle Collector',
+      description: 'Loves being petted',
     },
     steadyWalker: {
-      name: 'Steady Walker',
-      description: 'Comfortably walks the usual route',
+      name: 'Usual Spot Lover',
+      description: 'Feels at home in familiar places',
     },
     nightOwl: {
-      name: 'Night Owl',
-      description: 'Often walks in the evening or night',
+      name: 'Twilight Romanticist',
+      description: 'Enjoys a relaxed walk at dusk',
     },
     weatherFlexible: {
-      name: 'Weather Flexible',
-      description: 'Enjoys walks regardless of weather',
+      name: 'Slow Life Sage',
+      description: 'Enjoys walks at their own pace',
     },
   },
   faq: {
@@ -323,7 +324,7 @@ export const en: Translations = {
       whenDiagnosis: {
         question: 'When will my dog get a type?',
         answer:
-          'Once you\'ve logged 7 or more walks and saved 5 or more favourite spots, your dog\'s "Walking Type" will be revealed automatically. The more you walk together, the more accurate it gets.',
+          'Once you\'ve completed 7 or more walks and saved 5 or more rest spots, your dog\'s "Walking Type" will be revealed automatically. Your result may change as you add more records.',
       },
       typeChange: {
         question: 'Can the type change?',
@@ -372,24 +373,52 @@ export const en: Translations = {
   },
   roadmap: {
     title: 'Roadmap',
-    subtitle: "Tikareta's development roadmap",
+    subtitle: "See what's new in Tikareta",
     comingSoon: 'Coming Soon',
     plannedTitle: 'Planned Features',
     released: 'Released',
     plannedItems: [],
     versions: [
       {
-        version: 'v1.0.0',
-        date: 'March 2026 (Planned)',
-        title: 'Initial Release',
+        version: 'v1.2.1',
+        date: 'November 22, 2026',
+        title: "See how close you are to finding your dog's Walking Type",
         items: [
-          'Walk logging (GPS / manual input)',
-          'Favourite spot saving with photos',
-          'Auto weather & temperature logging',
-          '8 Walking Type diagnosis',
-          'Community (timeline & reactions)',
-          'Free / Monthly / Yearly plans',
+          'Check how many walks and rest spots you still need on the home screen or after a walk',
+          'Explore the refreshed home screen and save rest spots more easily',
+          'If you have a walk to resume, look for the prompt on the walk screen',
         ],
+      },
+      {
+        version: 'v1.2.0',
+        date: 'November 15, 2026',
+        title: 'Pick up where you left off on a walk',
+        items: [
+          'Keep your route and continue recording if you reload the page mid-walk',
+          'Try saving again if your walk does not save when you end it',
+          'See whether Tikareta can find your location while you walk',
+          'After your walk, review where you stopped and choose why you took a break more easily',
+        ],
+      },
+      {
+        version: 'v1.1.0',
+        date: 'September 12, 2026',
+        title: 'Keep the map facing the way you walk',
+        items: [
+          'Turn on navigation mode to keep the direction you are walking at the top of the map',
+        ],
+      },
+      {
+        version: 'v1.0.1',
+        date: 'August 16, 2026',
+        title: 'A smoother app experience',
+        items: ['Fixed display issues on some screens and made the app run more smoothly'],
+      },
+      {
+        version: 'v1.0.0',
+        date: 'July 1, 2026',
+        title: 'Tikareta is now available',
+        items: ['Start recording walks with your dog'],
       },
     ],
   },

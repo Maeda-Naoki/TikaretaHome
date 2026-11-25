@@ -1,4 +1,5 @@
 ---
+import PhraseText from '@components/common/PhraseText.astro';
 import Ic from '@components/common/Ic.astro';
 import type { IconName } from '@data/icons';
 import { APP_COMING_SOON, welcomeUrl } from '@data/navigation';
@@ -31,8 +32,9 @@ const dogTypes = typeKeys.map((key) => ({
   <div class="container-page">
     <div class="section-head reveal">
       <span class="eyebrow">Walking Types</span>
-      <h2>{t.typeDiagnosis.title}</h2>
-      <p>{t.typeDiagnosis.subtitle}</p>
+      <h2><PhraseText text={t.typeDiagnosis.title} /></h2>
+      <p><PhraseText text={t.typeDiagnosis.subtitle} /></p>
+      <p><PhraseText text={t.typeDiagnosis.requirement} /></p>
     </div>
 
     <div class="types-grid">
@@ -40,8 +42,8 @@ const dogTypes = typeKeys.map((key) => ({
         <article class="type-card reveal" style={`transition-delay:${i * 60}ms;`}>
           <span class="arrow"><Ic name="arrow-up-right" size={14} /></span>
           <div class="type-emoji"><Ic name={d.icon} size={24} /></div>
-          <h3 style="font-size:1rem; margin-bottom:.35rem;">{d.name}</h3>
-          <p style="font-size:.82rem; color:var(--ink-soft); line-height:1.55;">{d.body}</p>
+          <h3 style="font-size:1rem; margin-bottom:.35rem;"><PhraseText text={d.name} /></h3>
+          <p style="font-size:.82rem; color:var(--ink-soft); line-height:1.55;"><PhraseText text={d.body} /></p>
         </article>
       ))}
     </div>

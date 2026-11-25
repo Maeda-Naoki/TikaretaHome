@@ -1,5 +1,9 @@
 ---
 import Ic from './Ic.astro';
+import { useTranslations } from '@utils/i18n';
+const locale = Astro.currentLocale ?? 'ja';
+const t = useTranslations(locale);
+const isEn = locale === 'en';
 
 interface Props {
   variant?: 'home' | 'record' | 'result' | 'stats' | 'community';
@@ -113,7 +117,7 @@ const activeTab: Record<string, string> = {
               <span class="tk-type-emoji"><Ic name="thermometer" size={22} /></span>
               <span class="tk-type-mid">
                 <em>愛犬タイプ</em>
-                <strong>日陰ハンター型</strong>
+                <strong>{t.walkingTypes.shadeHunter.name}</strong>
               </span>
               <Ic name="chevron-right" size={16} />
             </button>
@@ -207,7 +211,7 @@ const activeTab: Record<string, string> = {
         <>
           <header class="tk-top">
             <span class="tk-iconbtn ghost"><Ic name="chevron-left" size={18} /></span>
-            <strong class="tk-top-title">愛犬タイプ診断</strong>
+            <strong class="tk-top-title">{isEn ? "Walking Type" : "愛犬タイプ診断"}</strong>
             <span class="tk-iconbtn ghost"><Ic name="share-2" size={16} /></span>
           </header>
 
@@ -215,16 +219,16 @@ const activeTab: Record<string, string> = {
             <div class="tk-diag-card">
               <span class="tk-diag-glow" aria-hidden="true"></span>
               <span class="tk-diag-emoji"><Ic name="thermometer" size={48} /></span>
-              <div class="tk-diag-title">日陰ハンター型</div>
-              <p class="tk-diag-desc">気温が高くなると休憩が増える、暑さに敏感なタイプです。木陰やベンチを好んで休憩します。</p>
+              <div class="tk-diag-title">{t.walkingTypes.shadeHunter.name}</div>
+              <p class="tk-diag-desc">{isEn ? "Seeks cool places and takes more breaks on hot days." : "暑い日は休憩が増え、涼しい場所を探します。"}</p>
             </div>
 
             <div class="tk-card tk-feat">
-              <p class="tk-feat-label">特徴</p>
+              <p class="tk-feat-label">{isEn ? "Traits" : "特徴"}</p>
               <ul>
-                <li><span>•</span>25℃以上で休憩率が2倍に増加</li>
-                <li><span>•</span>日陰のある場所を好んで休憩</li>
-                <li><span>•</span>朝の散歩では休憩が少ない傾向</li>
+                <li><span>•</span>{isEn ? "More breaks above 25°C" : "25℃以上で休憩率が約2倍に増加"}</li>
+                <li><span>•</span>{isEn ? "Seeks shade and cool breezes" : "日陰や風通しの良い場所を選ぶ"}</li>
+                <li><span>•</span>{isEn ? "More energetic in cooler hours" : "涼しい時間帯は比較的元気"}</li>
               </ul>
             </div>
           </div>

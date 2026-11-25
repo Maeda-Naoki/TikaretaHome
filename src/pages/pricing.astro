@@ -1,5 +1,6 @@
 ---
 import Breadcrumbs from '@components/common/Breadcrumbs.astro';
+import PhraseText from '@components/common/PhraseText.astro';
 import BillingToggle from '@components/pricing/BillingToggle.astro';
 import PlanComparisonTable from '@components/pricing/PlanComparisonTable.astro';
 import PricingCard from '@components/pricing/PricingCard.astro';
@@ -65,7 +66,7 @@ const jsonLd = [webPageJsonLd, breadcrumbJsonLd, ...planProducts];
       </h1>
       <div class="w-14 h-1 bg-primary-400 rounded-full mb-4 hero-slide-in-left"></div>
       <p class="text-lg text-warm-gray-600 max-w-2xl hero-slide-in-left">
-        {t.pages.pricing.description}
+        <PhraseText text={t.pages.pricing.description} />
       </p>
     </div>
 
@@ -102,7 +103,7 @@ const jsonLd = [webPageJsonLd, breadcrumbJsonLd, ...planProducts];
       <div class="space-y-3">
         <details class="group bg-white rounded-card border border-warm-gray-100 transition-all hover:shadow-soft">
           <summary class="cursor-pointer p-5 font-bold text-warm-gray-900 list-none flex items-center justify-between gap-4">
-            <span>{t.faq.pricing.freeFeatures.question}</span>
+            <PhraseText text={t.faq.pricing.freeFeatures.question} />
             <svg
               class="w-5 h-5 text-warm-gray-400 transform transition-transform group-open:rotate-180 flex-shrink-0"
               fill="none"
@@ -114,12 +115,12 @@ const jsonLd = [webPageJsonLd, breadcrumbJsonLd, ...planProducts];
             </svg>
           </summary>
           <div class="px-5 pb-5 text-warm-gray-600 border-t border-warm-gray-100 pt-4 mx-5">
-            <p>{t.faq.pricing.freeFeatures.answer}</p>
+            <p><PhraseText text={t.faq.pricing.freeFeatures.answer} /></p>
           </div>
         </details>
         <details class="group bg-white rounded-card border border-warm-gray-100 transition-all hover:shadow-soft">
           <summary class="cursor-pointer p-5 font-bold text-warm-gray-900 list-none flex items-center justify-between gap-4">
-            <span>{t.faq.pricing.cancelAnytime.question}</span>
+            <PhraseText text={t.faq.pricing.cancelAnytime.question} />
             <svg
               class="w-5 h-5 text-warm-gray-400 transform transition-transform group-open:rotate-180 flex-shrink-0"
               fill="none"
@@ -131,12 +132,12 @@ const jsonLd = [webPageJsonLd, breadcrumbJsonLd, ...planProducts];
             </svg>
           </summary>
           <div class="px-5 pb-5 text-warm-gray-600 border-t border-warm-gray-100 pt-4 mx-5">
-            <p>{t.faq.pricing.cancelAnytime.answer}</p>
+            <p><PhraseText text={t.faq.pricing.cancelAnytime.answer} /></p>
           </div>
         </details>
         <details class="group bg-white rounded-card border border-warm-gray-100 transition-all hover:shadow-soft">
           <summary class="cursor-pointer p-5 font-bold text-warm-gray-900 list-none flex items-center justify-between gap-4">
-            <span>{t.faq.pricing.paymentMethods.question}</span>
+            <PhraseText text={t.faq.pricing.paymentMethods.question} />
             <svg
               class="w-5 h-5 text-warm-gray-400 transform transition-transform group-open:rotate-180 flex-shrink-0"
               fill="none"
@@ -148,7 +149,7 @@ const jsonLd = [webPageJsonLd, breadcrumbJsonLd, ...planProducts];
             </svg>
           </summary>
           <div class="px-5 pb-5 text-warm-gray-600 border-t border-warm-gray-100 pt-4 mx-5">
-            <p>{t.faq.pricing.paymentMethods.answer}</p>
+            <p><PhraseText text={t.faq.pricing.paymentMethods.answer} /></p>
           </div>
         </details>
       </div>

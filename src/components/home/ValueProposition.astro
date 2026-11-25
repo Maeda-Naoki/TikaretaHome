@@ -1,4 +1,5 @@
 ---
+import PhraseText from '@components/common/PhraseText.astro';
 import Ic from '@components/common/Ic.astro';
 import type { IconName } from '@data/icons';
 import { useTranslations } from '@utils/i18n';
@@ -18,8 +19,8 @@ const items = t.valueProposition.items.map((item, i) => ({
   <div class="container-page">
     <div class="section-head reveal">
       <span class="eyebrow">Why Tikareta</span>
-      <h2>{t.valueProposition.title}</h2>
-      <p>{t.valueProposition.subtitle}</p>
+      <h2><PhraseText text={t.valueProposition.title} /></h2>
+      <p><PhraseText text={t.valueProposition.subtitle} /></p>
     </div>
 
     <div class="value-grid">
@@ -27,8 +28,8 @@ const items = t.valueProposition.items.map((item, i) => ({
         <article class="card-base reveal" style={`transition-delay:${i * 80}ms;`}>
           <span class="num-bg">{c.num}</span>
           <span class="icon-wrap"><Ic name={c.icon} size={22} /></span>
-          <h3 style="font-size:1.25rem; margin-bottom:.65rem;">{c.title}</h3>
-          <p style="color:var(--ink-soft); font-size:.92rem; line-height:1.7;">{c.description}</p>
+          <h3 style="font-size:1.25rem; margin-bottom:.65rem;"><PhraseText text={c.title} /></h3>
+          <p style="color:var(--ink-soft); font-size:.92rem; line-height:1.7;"><PhraseText text={c.description} /></p>
         </article>
       ))}
     </div>

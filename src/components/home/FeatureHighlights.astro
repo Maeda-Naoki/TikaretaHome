@@ -1,4 +1,5 @@
 ---
+import PhraseText from '@components/common/PhraseText.astro';
 import Ic from '@components/common/Ic.astro';
 import type { IconName } from '@data/icons';
 import { useTranslations } from '@utils/i18n';
@@ -29,8 +30,8 @@ const ITEMS: Array<{ key: FeatureKey; tier: FeatureTier; icon: IconName }> = [
   <div class="container-page">
     <div class="section-head reveal">
       <span class="eyebrow">Features</span>
-      <h2>{t.featureHighlights.title}</h2>
-      <p>{t.featureHighlights.subtitle}</p>
+      <h2><PhraseText text={t.featureHighlights.title} /></h2>
+      <p><PhraseText text={t.featureHighlights.subtitle} /></p>
     </div>
 
     <div class="feat-grid">
@@ -38,8 +39,8 @@ const ITEMS: Array<{ key: FeatureKey; tier: FeatureTier; icon: IconName }> = [
         <article class={`feat ${f.tier} reveal`} style={`transition-delay:${i * 60}ms;`}>
           <span class="tag">{tierLabel[f.tier]}</span>
           <div class="ico"><Ic name={f.icon} size={20} /></div>
-          <h3 style="font-size:1.05rem; margin-bottom:.35rem;">{t.features[f.key].title}</h3>
-          <p style="font-size:.9rem; color:var(--ink-soft); line-height:1.55;">{t.features[f.key].description}</p>
+          <h3 style="font-size:1.05rem; margin-bottom:.35rem;"><PhraseText text={t.features[f.key].title} /></h3>
+          <p style="font-size:.9rem; color:var(--ink-soft); line-height:1.55;"><PhraseText text={t.features[f.key].description} /></p>
         </article>
       ))}
     </div>

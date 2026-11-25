@@ -19,7 +19,7 @@ export const ja = {
   hero: {
     title: 'うちの子の\nおさんぽスタイル、\n知ってる？',
     subtitle: 'おさんぽを続けるだけ。愛犬のおさんぽの個性が、じわじわ見えてきます',
-    cta: '無料で始める',
+    cta: '無料で散歩を記録する',
     subCta: 'アカウント登録は30秒',
     secondaryCta: '使い方を見る',
     badge: '公開中',
@@ -96,8 +96,9 @@ export const ja = {
   },
   typeDiagnosis: {
     title: 'あなたの愛犬はどのタイプ？',
-    subtitle: '8つのおさんぽタイプから診断します',
-    cta: '診断を始める',
+    subtitle: '14種類のおさんぽタイプから診断します。以下はその一例です。',
+    requirement: '診断には完了した散歩7回以上と休憩スポット5件以上の登録が必要です。',
+    cta: '無料で散歩を記録する',
   },
   featureHighlights: {
     title: '主な機能',
@@ -161,7 +162,7 @@ export const ja = {
     },
     basicType: {
       title: '基本タイプ診断',
-      description: '8つのおさんぽタイプから愛犬の個性を診断',
+      description: '14種類のおさんぽタイプから愛犬の個性を診断',
     },
     community: {
       title: 'コミュニティ',
@@ -250,36 +251,36 @@ export const ja = {
   // おさんぽタイプ
   walkingTypes: {
     shadeHunter: {
-      name: '日陰ハンター型',
+      name: '日陰ハンター',
       description: '暑さを避けて木陰を求める慎重派',
     },
     explorer: {
-      name: '探検家型',
-      description: '新しい道を開拓するのが大好き',
+      name: 'お鼻の名探偵',
+      description: '気になる匂いをあちこち捜査',
     },
     morningEnjoyer: {
-      name: '朝型エンジョイ派',
+      name: '朝日ダッシャー',
       description: '朝の散歩を最も楽しむタイプ',
     },
     shortBurst: {
-      name: 'ショートバースト型',
-      description: '短時間で集中的に散歩するタイプ',
+      name: '無限スタミナモンスター',
+      description: '休憩が少なく元気に歩き続ける',
     },
     socialButterfly: {
-      name: 'ソーシャル型',
-      description: '他の犬との交流が大好き',
+      name: 'なでなでコレクター',
+      description: '人になでてもらうのが大好き',
     },
     steadyWalker: {
-      name: '定番ルート型',
-      description: 'いつものコースを安心して歩く',
+      name: 'いつメン愛好家',
+      description: 'いつもの場所で落ち着くタイプ',
     },
     nightOwl: {
-      name: '夜型散歩派',
-      description: '夕方〜夜の散歩が多いタイプ',
+      name: '黄昏ロマンチスト',
+      description: '夕暮れの散歩をゆっくり楽しむ',
     },
     weatherFlexible: {
-      name: '天候フレキシブル型',
-      description: '天気に左右されず散歩を楽しむ',
+      name: 'スローライフ賢者',
+      description: 'マイペースに散歩を味わう',
     },
   },
   // FAQ
@@ -322,7 +323,7 @@ export const ja = {
       whenDiagnosis: {
         question: 'タイプ診断はいつ結果が出る？',
         answer:
-          '散歩記録が7回以上、休憩スポット登録が5箇所以上になると、自動で「おさんぽタイプ」を診断します。データが増えるほど精度が向上します。',
+          '完了した散歩が7回以上、休憩スポット登録が5件以上になると、自動で「おさんぽタイプ」を診断します。記録が増えると結果が変わることがあります。',
       },
       typeChange: {
         question: 'タイプは変わる？',
@@ -371,24 +372,50 @@ export const ja = {
   // ロードマップ
   roadmap: {
     title: 'ロードマップ',
-    subtitle: 'Tikaretaの開発ロードマップ',
+    subtitle: 'Tikaretaの新機能と更新のお知らせ',
     comingSoon: 'Coming Soon',
     plannedTitle: '今後の予定',
     released: 'リリース済み',
     plannedItems: [],
     versions: [
       {
-        version: 'v1.0.0',
-        date: '2026年3月（予定）',
-        title: '初回リリース',
+        version: 'v1.2.1',
+        date: '2026年11月22日',
+        title: '愛犬のタイプ診断まで、あとどれくらい？',
         items: [
-          'おさんぽ記録（GPS / 手動入力）',
-          'お気に入りスポット登録・写真保存',
-          '天気・気温の自動記録',
-          '8つのおさんぽタイプ診断',
-          'コミュニティ（タイムライン・リアクション）',
-          '無料 / 月額 / 年額プラン対応',
+          'ホーム画面や散歩後の画面で、診断まであと何回の散歩と何件の休憩スポットが必要か確認できます',
+          'ホーム画面の見た目が変わり、休憩スポットも登録しやすくなりました',
+          '途中の散歩を再開する案内は、散歩画面に表示されます',
         ],
+      },
+      {
+        version: 'v1.2.0',
+        date: '2026年11月15日',
+        title: '散歩の記録を途中から続けられます',
+        items: [
+          '散歩中に画面を再読み込みしても、それまでのルートを引き継いで記録を続けられます',
+          '散歩を終えるときに保存できなかった場合は、もう一度試せます',
+          '散歩中に現在地を取得できているか確認できます',
+          '散歩後に立ち止まった場所を振り返り、休憩した理由を選びやすくなりました',
+        ],
+      },
+      {
+        version: 'v1.1.0',
+        date: '2026年9月12日',
+        title: '散歩中の地図を、進む方向に合わせられます',
+        items: ['ナビゲーションモードを使うと、進む方向がいつも地図の上になります'],
+      },
+      {
+        version: 'v1.0.1',
+        date: '2026年8月16日',
+        title: 'アプリの動きがよりスムーズに',
+        items: ['一部の画面の表示を直し、アプリの動作を軽くしました'],
+      },
+      {
+        version: 'v1.0.0',
+        date: '2026年7月1日',
+        title: 'Tikaretaを公開しました',
+        items: ['愛犬とのおさんぽを記録できます'],
       },
     ],
   },

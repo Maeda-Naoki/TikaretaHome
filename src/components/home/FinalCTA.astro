@@ -1,4 +1,5 @@
 ---
+import PhraseText from '@components/common/PhraseText.astro';
 import Ic from '@components/common/Ic.astro';
 import { APP_COMING_SOON, welcomeUrl } from '@data/navigation';
 import { useTranslations } from '@utils/i18n';
@@ -11,8 +12,8 @@ const t = useTranslations(locale);
     <div class="final-cta-card">
       <div class="deco-ring"></div>
       <div class="deco-ring r2"></div>
-      <h2>{t.finalCTA.title}</h2>
-      <p>{t.finalCTA.subtitle}</p>
+      <h2><PhraseText text={t.finalCTA.title} /></h2>
+      <p><PhraseText text={t.finalCTA.subtitle} /></p>
       <div style="display:flex; gap:.75rem; justify-content:center; flex-wrap:wrap;">
         {APP_COMING_SOON ? (
           <span class="btn btn-primary" style="cursor:default; opacity:.6; pointer-events:none;">
@@ -28,7 +29,7 @@ const t = useTranslations(locale);
         </a>
       </div>
       <p style="font-size:.82rem; color:rgba(255,255,255,.5); margin-top:1.5rem;">
-        {t.finalCTA.meta}
+        <PhraseText text={t.finalCTA.meta} />
       </p>
     </div>
   </div>
