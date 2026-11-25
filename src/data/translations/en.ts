@@ -400,6 +400,18 @@ export const en: Translations = {
         ],
       },
       {
+        version: 'v1.1.0',
+        date: 'September 12, 2026',
+        title: 'Navigation mode for walks',
+        items: ['In navigation mode, the map rotates to follow your direction of travel'],
+      },
+      {
+        version: 'v1.0.1',
+        date: 'August 16, 2026',
+        title: 'Display and performance improvements',
+        items: ['Fixed minor display issues', 'Improved performance'],
+      },
+      {
         version: 'v1.0.0',
         date: 'July 1, 2026',
         title: 'Initial release',
