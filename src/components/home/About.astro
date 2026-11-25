@@ -1,4 +1,5 @@
 ---
+import PhraseText from '@components/common/PhraseText.astro';
 import Ic from '@components/common/Ic.astro';
 import type { IconName } from '@data/icons';
 import { useTranslations } from '@utils/i18n';
@@ -16,16 +17,16 @@ const items = t.about.items.map((item, i) => ({
   <div class="container-narrow">
     <div class="about-card reveal">
       <span class="eyebrow">{t.about.eyebrow}</span>
-      <h2 id="about-title">{t.about.title}</h2>
-      <p class="about-lead">{t.about.lead}</p>
+      <h2 id="about-title"><PhraseText text={t.about.title} /></h2>
+      <p class="about-lead"><PhraseText text={t.about.lead} /></p>
 
       <ul class="about-list">
         {items.map((item) => (
           <li>
             <span class="about-ico"><Ic name={item.icon} size={20} /></span>
             <div>
-              <strong>{item.title}</strong>
-              <span>{item.description}</span>
+              <strong><PhraseText text={item.title} /></strong>
+              <span><PhraseText text={item.description} /></span>
             </div>
           </li>
         ))}
@@ -87,7 +88,7 @@ const items = t.about.items.map((item, i) => ({
     margin-bottom: 0.2rem;
     color: var(--ink);
   }
-  .about-list li div span {
+  .about-list li div > span {
     display: block;
     font-size: 0.86rem;
     color: var(--ink-soft);

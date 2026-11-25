@@ -1,5 +1,6 @@
 ---
 import Breadcrumbs from '@components/common/Breadcrumbs.astro';
+import PhraseText from '@components/common/PhraseText.astro';
 import Layout from '@layouts/Layout.astro';
 import { getAbsoluteLocaleUrl } from 'astro:i18n';
 import { Check, Circle } from '@lucide/astro';
@@ -43,7 +44,7 @@ const jsonLd = [webPageJsonLd, breadcrumbJsonLd];
       </h1>
       <div class="w-14 h-1 bg-primary-400 rounded-full mb-4 hero-slide-in-left"></div>
       <p class="text-lg text-warm-gray-600 max-w-2xl hero-slide-in-left">
-        {t.roadmap.subtitle}
+        <PhraseText text={t.roadmap.subtitle} />
       </p>
     </div>
 
@@ -57,7 +58,7 @@ const jsonLd = [webPageJsonLd, breadcrumbJsonLd];
           </span>
         </div>
         <h2 class="text-xl font-bold text-warm-gray-900 mt-4 mb-3">
-          {t.roadmap.plannedTitle}
+          <PhraseText text={t.roadmap.plannedTitle} />
         </h2>
         <ul class="space-y-2 text-warm-gray-600">
           {t.roadmap.plannedItems.map((item) => (
@@ -65,7 +66,7 @@ const jsonLd = [webPageJsonLd, breadcrumbJsonLd];
               <span class="mt-1 w-4 h-4 shrink-0 text-warm-gray-400">
                 <Circle size={16} />
               </span>
-              <span>{item}</span>
+              <PhraseText text={item} />
             </li>
           ))}
         </ul>
@@ -87,7 +88,7 @@ const jsonLd = [webPageJsonLd, breadcrumbJsonLd];
             <span class="ml-3 text-sm text-warm-gray-500">{version.date}</span>
           </div>
           <h2 class="text-xl font-bold text-warm-gray-900 mt-4">
-            {version.title}
+            <PhraseText text={version.title} />
           </h2>
           <ul class="mt-3 space-y-2 text-warm-gray-600">
             {version.items.map((item) => (
@@ -95,7 +96,7 @@ const jsonLd = [webPageJsonLd, breadcrumbJsonLd];
                 <span class="mt-1 w-4 h-4 shrink-0 text-secondary-500">
                   <Check size={16} />
                 </span>
-                <span>{item}</span>
+                <PhraseText text={item} />
               </li>
             ))}
           </ul>

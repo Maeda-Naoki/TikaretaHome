@@ -1,0 +1,22 @@
+---
+import { japanesePhrases } from '@utils/japanese-phrases';
+
+interface Props {
+  text: string;
+}
+
+const { text } = Astro.props;
+const isJapanese = (Astro.currentLocale ?? 'ja') === 'ja';
+const phrases = isJapanese ? japanesePhrases(text) : [text];
+---
+
+<span class:list={{ 'phrase-text': isJapanese }}>{phrases.map((phrase, index) => (
+  <>{index > 0 && <wbr />}{phrase}</>
+))}</span>
+
+<style>
+  .phrase-text {
+    word-break: keep-all;
+    overflow-wrap: anywhere;
+  }
+</style>

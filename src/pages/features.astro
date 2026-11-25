@@ -1,4 +1,5 @@
 ---
+import PhraseText from '@components/common/PhraseText.astro';
 import Breadcrumbs from '@components/common/Breadcrumbs.astro';
 import CTAButton from '@components/common/CTAButton.astro';
 import FeatureCard from '@components/features/FeatureCard.astro';
@@ -57,7 +58,7 @@ const jsonLd = [webPageJsonLd, breadcrumbJsonLd, featureListJsonLd];
       </h1>
       <div class="w-14 h-1 bg-primary-400 rounded-full mb-4 hero-slide-in-left"></div>
       <p class="text-lg text-warm-gray-600 max-w-2xl hero-slide-in-left">
-        {t.pages.features.description}
+        <PhraseText text={t.pages.features.description} />
       </p>
     </div>
 

@@ -1,4 +1,5 @@
 ---
+import PhraseText from '@components/common/PhraseText.astro';
 import Ic from '@components/common/Ic.astro';
 import BillingToggle from '@components/pricing/BillingToggle.astro';
 import { APP_COMING_SOON, welcomeUrl } from '@data/navigation';
@@ -12,8 +13,8 @@ const t = useTranslations(locale);
   <div class="container-page">
     <div class="section-head reveal">
       <span class="eyebrow">Pricing</span>
-      <h2>{t.pricingSummary.title}</h2>
-      <p>{t.pricingSummary.subtitle}</p>
+      <h2><PhraseText text={t.pricingSummary.title} /></h2>
+      <p><PhraseText text={t.pricingSummary.subtitle} /></p>
     </div>
 
     <BillingToggle />
@@ -31,7 +32,7 @@ const t = useTranslations(locale);
             {plan.featured && <span class="badge">{t.pricing.recommended}</span>}
             <div>
               <p class="plan-name">{planTexts.name}</p>
-              <p class="plan-tagline">{planTexts.tagline}</p>
+              <p class="plan-tagline"><PhraseText text={planTexts.tagline} /></p>
             </div>
             <div class="plan-price">
               {isFree ? (
@@ -60,7 +61,7 @@ const t = useTranslations(locale);
               {plan.featureKeys.map((f) => (
                 <li>
                   <Ic name="check" size={14} />
-                  <span style={f.emphasized ? 'font-weight:600; color:var(--ink);' : ''}>{planFeature(planTexts.features, f.key)}</span>
+                  <span style={f.emphasized ? 'font-weight:600; color:var(--ink);' : ''}><PhraseText text={planFeature(planTexts.features, f.key)} /></span>
                 </li>
               ))}
             </ul>
